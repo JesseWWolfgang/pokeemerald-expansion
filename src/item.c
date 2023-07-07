@@ -1015,6 +1015,7 @@ u32 GetItemStatus2Mask(u16 itemId)
 // Item Description Header
 bool8 GetSetItemObtained(u16 item, u8 caseId)
 {
+#ifndef FREE_FIRST_ITEM_OBTAIN
     u8 index;
     u8 bit;
     u8 mask;
@@ -1022,6 +1023,7 @@ bool8 GetSetItemObtained(u16 item, u8 caseId)
     index = item / 8;
     bit = item % 8;
     mask = 1 << bit;
+    
     switch (caseId)
     {
     case FLAG_GET_OBTAINED:
@@ -1030,7 +1032,8 @@ bool8 GetSetItemObtained(u16 item, u8 caseId)
         gSaveBlock2Ptr->itemFlags[index] |= mask;
         return TRUE;
     }
-
+#endif
+    // Return false (item not obtained) to show the description.
     return FALSE;
 }
 
