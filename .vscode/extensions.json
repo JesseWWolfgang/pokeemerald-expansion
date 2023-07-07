@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "alefragnani.bookmarks",
+        "karathan.poryscript",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cpptools-themes",
+        "ms-vscode.makefile-tools",
+        "spmeesseman.vscode-taskexplorer",
+        "jeff-hykin.better-cpp-syntax"
+    ]
+}

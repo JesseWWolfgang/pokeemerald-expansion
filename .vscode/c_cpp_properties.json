@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "name": "GBA",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/gflib",
+                "${workspaceFolder}/tools/agbcc/include"
+            ],
+            "forcedInclude": [
+                "${workspaceFolder}/include/constants/opponents.h",
+                "${workspaceFolder}/include/constants/trainers.h",
+                "${workspaceFolder}/include/constants/battle_ai.h",
+                "${workspaceFolder}/include/constants/items.h",
+                "${workspaceFolder}/include/gba/defines.h",
+                "${workspaceFolder}/include/global.h",
+                "${workspaceFolder}/include/data.h",
+                "${workspaceFolder}/include/battle_transition.h",
+                "${workspaceFolder}/src/data/trainer_parties.h"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "DEBUG",
+                "DINFO",
+                "_MSC_VER"
+            ],
+            "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc",
+            "cStandard": "c99",
+            "intelliSenseMode": "gcc-arm",
+            // https://stackoverflow.com/questions/45583473/include-errors-detected-in-vscode
+            "configurationProvider": "ms-vscode.cpptools"
+        }
+    ],
+    "version": 4
+}

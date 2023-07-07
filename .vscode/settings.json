@@ -1,0 +1,38 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "random": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
+    },
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
+    "editor.formatOnSave": false,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash",
+            "args": [
+                "-i"
+            ]
+        }
+    },
+    "C_Cpp.errorSquiggles": "enabled",
+    "languageServerPoryscript.commandIncludes": [
+        "asm/macros/event.inc",
+        "asm/macros/movement.inc"
+    ],
+    "bookmarks.saveBookmarksInProject": true,
+    "cmake.configureOnOpen": false,
+    "makefile.configureAfterCommand": false,
+    "makefile.configureOnEdit": false,
+    "makefile.configureOnOpen": false,
+    "makefile.buildBeforeLaunch": false
+}

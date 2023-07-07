@@ -1,0 +1,89 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "modern",
+                "DINFO=1",
+                "-j$(nproc)"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}",
+                "env": {
+                    "DEVKITPRO": "/opt/devkitpro",
+                    "DEVKITARM": "/opt/devkitpro/devkitARM",
+                    "DEVKITPPC": "/opt/devkitpro/devkitPPC"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Test",
+            "type": "shell",
+            //"dependsOn": "Build Test Binary",
+            "command": "make",
+            "args": [
+                "check",
+                "-j$(nproc)"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}",
+                "env": {
+                    "DEVKITPRO": "/opt/devkitpro",
+                    "DEVKITARM": "/opt/devkitpro/devkitARM",
+                    "DEVKITPPC": "/opt/devkitpro/devkitPPC",
+                    // Dont specify TESTS env to test everything
+                    // Single test:
+                    "TESTS": "Transform fails lol"
+                    // Multiple specific tests:
+                    //"TESTS": "\"Transform fails lol\" \"Transform other test\""
+                }
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Start Porymap",
+            "type": "shell",
+            "command": "./start-porymap.sh",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+        },
+        {
+            "label": "Clear Sound Cache",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-r",
+                "${workspaceRoot}/build/modern/sound"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}",
+            }
+        },
+        {
+            "label": "Clear Build Output",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-r",
+                "${workspaceRoot}/build"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}",
+            }
+        },
+    ]
+}
