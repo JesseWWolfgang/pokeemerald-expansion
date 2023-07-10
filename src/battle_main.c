@@ -3692,7 +3692,10 @@ static void DoBattleIntro(void)
         break;
     case 15: // wait for wild battle message
         if (!IsBattlerMarkedForControllerExec(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        {            
+            gTextPrinterRequiresBPress = FALSE;
             (*state)++;
+        }
         break;
     case 16: // print player sends out
         if (!(gBattleTypeFlags & BATTLE_TYPE_SAFARI))

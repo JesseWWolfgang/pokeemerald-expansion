@@ -399,9 +399,14 @@ static const u8 sText_ThrewPokeblockAtPkmn[] = _("{B_PLAYER_NAME} threw a {POKEB
 static const u8 sText_OutOfSafariBalls[] = _("{PLAY_SE SE_DING_DONG}ANNOUNCER: You're out of\nSAFARI BALLS! Game over!\p");
 static const u8 sText_OpponentMon1Appeared[] = _("{B_OPPONENT_MON1_NAME} appeared!\p");
 static const u8 sText_WildPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\p");
-static const u8 sText_LegendaryPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!\p");
+static const u8 sText_WildPkmnShinyAppeared[] = _("Shiny {B_OPPONENT_MON1_NAME} appeared!\nPress B to send out a POKéMON!\p");
+static const u8 sText_LegendaryPkmnAppeared[] = _("{B_OPPONENT_MON1_NAME} approaches!\p");
+static const u8 sText_LegendaryPkmnShinyAppeared[] = _("Shiny {B_OPPONENT_MON1_NAME} approaches!\nPress B to send out a POKéMON!\p");
 static const u8 sText_WildPkmnAppearedPause[] = _("Wild {B_OPPONENT_MON1_NAME} appeared!{PAUSE 127}");
 static const u8 sText_TwoWildPkmnAppeared[] = _("Wild {B_OPPONENT_MON1_NAME} and\n{B_OPPONENT_MON2_NAME} appeared!\p");
+static const u8 sText_TwoWildPkmnShinyMon1Appeared[] = _("Shiny {B_OPPONENT_MON1_NAME} and\n{B_OPPONENT_MON2_NAME} appeared!\pPress B to send out a POKéMON!\p");
+static const u8 sText_TwoWildPkmnShinyMon2Appeared[] = _("{B_OPPONENT_MON1_NAME} and\nShiny {B_OPPONENT_MON2_NAME} appeared!\pPress B to send out a POKéMON!\p");
+static const u8 sText_TwoWildPkmnShinyMons1And2Appeared[] = _("Shiny {B_OPPONENT_MON1_NAME} and\nShiny {B_OPPONENT_MON2_NAME} appeared!\pPress B to send out a POKéMON!\p");
 static const u8 sText_Trainer1WantsToBattle[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\nwould like to battle!\p");
 static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nwants to battle!");
 static const u8 sText_TwoLinkTrainersWantToBattle[] = _("{B_LINK_OPPONENT1_NAME} and {B_LINK_OPPONENT2_NAME}\nwant to battle!");
@@ -2627,6 +2632,8 @@ void BufferStringBattle(u16 stringID)
 {
     s32 i;
     const u8 *stringPtr = NULL;
+    bool8 mon1Shiny = FALSE;
+    bool8 mon2Shiny = FALSE;
 
     gBattleMsgDataPtr = (struct BattleMsgData *)(&gBattleResources->bufferA[gActiveBattler][4]);
     gLastUsedItem = gBattleMsgDataPtr->lastItem;
@@ -2691,13 +2698,54 @@ void BufferStringBattle(u16 stringID)
         else
         {
             if (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY)
-                stringPtr = sText_LegendaryPkmnAppeared;
+            {
+                if (IsMonShiny(&gEnemyParty[gActiveBattler]))
+                {
+                    gTextPrinterRequiresBPress = TRUE;
+                    stringPtr = sText_LegendaryPkmnShinyAppeared;
+                }
+                else
+                {
+                    stringPtr = sText_LegendaryPkmnAppeared;
+                }
+            }
             else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && IsValidForBattle(&gEnemyParty[gBattlerPartyIndexes[BATTLE_PARTNER(gActiveBattler)]])) // interesting, looks like they had something planned for wild double battles
+            { 
+                mon1Shiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[gActiveBattler]]);
+                mon2Shiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[BATTLE_PARTNER(gActiveBattler)]]);
+                if (mon1Shiny && mon2Shiny)
+                {
+                    gTextPrinterRequiresBPress = TRUE;
+                    stringPtr = sText_TwoWildPkmnShinyMons1And2Appeared;
+                }
+                else if (mon1Shiny)
+                {
+                    gTextPrinterRequiresBPress = TRUE;
+                    stringPtr = sText_TwoWildPkmnShinyMon1Appeared;
+                }
+                else if (mon2Shiny)
+                {
+                    gTextPrinterRequiresBPress = TRUE;
+                    stringPtr = sText_TwoWildPkmnShinyMon2Appeared;
+                }
                 stringPtr = sText_TwoWildPkmnAppeared;
+            }
             else if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
+            {
                 stringPtr = sText_WildPkmnAppearedPause;
+            }
             else
-                stringPtr = sText_WildPkmnAppeared;
+            {
+                if (IsMonShiny(&gEnemyParty[gActiveBattler]))
+                {
+                    gTextPrinterRequiresBPress = TRUE;
+                    stringPtr = sText_WildPkmnShinyAppeared;
+                }
+                else
+                {
+                    stringPtr = sText_WildPkmnAppeared;
+                }
+            }
         }
         break;
     case STRINGID_INTROSENDOUT: // poke first send-out
