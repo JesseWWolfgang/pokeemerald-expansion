@@ -1409,11 +1409,10 @@ bool32 IsMegaTriggerSpriteActive(void)
 
 void HideMegaTriggerSprite(void)
 {
-    if (gBattleStruct->mega.triggerSpriteId != 0xFF)
-    {
-        ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, 0);
-        gSprites[gBattleStruct->mega.triggerSpriteId].tHide = TRUE;
-    }
+    if (gBattleStruct->mega.triggerSpriteId >= MAX_SPRITES)
+        return;
+    ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, 0);
+    gSprites[gBattleStruct->mega.triggerSpriteId].tHide = TRUE;
 }
 
 void HideTriggerSprites(void)
@@ -2096,7 +2095,7 @@ static void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
     gender = GetMonGender(mon);
     species = GetMonData(mon, MON_DATA_SPECIES);
 
-    if ((species == SPECIES_NIDORAN_F || species == SPECIES_NIDORAN_M) && StringCompare(nickname, gSpeciesNames[species]) == 0)
+    if ((species == SPECIES_NIDORAN_F || species == SPECIES_NIDORAN_M) && StringCompare(nickname, GetSpeciesName(species)) == 0)
         gender = 100;
 
     // AddTextPrinterAndCreateWindowOnHealthbox's arguments are the same in all 3 cases.
@@ -3188,8 +3187,8 @@ void DestroyAbilityPopUp(u8 battlerId)
     {
         gSprites[gBattleStruct->abilityPopUpSpriteIds[battlerId][0]].tFrames = 0;
         gSprites[gBattleStruct->abilityPopUpSpriteIds[battlerId][1]].tFrames = 0;
-        gBattleScripting.fixedPopup = FALSE;
     }
+    gBattleScripting.fixedPopup = FALSE;
 }
 
 static void Task_FreeAbilityPopUpGfx(u8 taskId)
