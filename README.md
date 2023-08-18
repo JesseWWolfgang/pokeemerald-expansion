@@ -1,3 +1,16 @@
+# Poison Challenge
+
+- Every step -1 HP to all party pokemon
+    - No poison effect
+    - Pokemon still faint at zero
+    - Whites out when all at 0
+    - dmg every 1 step, not 4
+- Cant buy anything from pokemart
+- Start with potion
+- Whiteout doesnt lose money
+
+
+
 # pokeemerald Expansion
 
 ## What is the pokeemerald Expansion?

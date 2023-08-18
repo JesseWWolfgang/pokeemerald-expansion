@@ -18,6 +18,9 @@
 #include "constants/form_change_types.h"
 #include "constants/party_menu.h"
 
+static u8 sWalkFainted = 0;
+static bool8 sWalkFainted2[PARTY_SIZE];
+
 static bool32 IsMonValidSpecies(struct Pokemon *pokemon)
 {
     u16 species = GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG);
@@ -44,6 +47,8 @@ static void FaintFromFieldPoison(u8 partyIdx)
 {
     struct Pokemon *pokemon = &gPlayerParty[partyIdx];
     u32 status = STATUS1_NONE;
+    sWalkFainted &= ~(1 << partyIdx);
+    sWalkFainted2[partyIdx] = FALSE;
 
 #if OW_POISON_DAMAGE < GEN_4
     AdjustFriendship(pokemon, FRIENDSHIP_EVENT_FAINT_FIELD_PSN);
@@ -57,7 +62,9 @@ static bool32 MonFaintedFromPoison(u8 partyIdx)
 {
     struct Pokemon *pokemon = &gPlayerParty[partyIdx];
 #if OW_POISON_DAMAGE < GEN_4
-    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+    //if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+    //if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && (sWalkFainted & (1 << partyIdx) > 0))
+    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && sWalkFainted2[partyIdx])
 #else
     if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 1 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
 #endif
@@ -127,26 +134,42 @@ s32 DoPoisonFieldEffect(void)
     struct Pokemon *pokemon = gPlayerParty;
     u32 numPoisoned = 0;
     u32 numFainted = 0;
+    u32 numDmgd = 0;
+    u32 numWalkDmgd = 0;
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+        hp = GetMonData(pokemon, MON_DATA_HP);
+        if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && hp > 0)
         {
-            // Apply poison damage
-            hp = GetMonData(pokemon, MON_DATA_HP);
-        #if OW_POISON_DAMAGE < GEN_4
-            if (hp == 0 || --hp == 0)
-            {
-                TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_FAINT);
-                numFainted++;
-            }
-        #else
-            if (hp == 1 || --hp == 1)
-                numFainted++;
-        #endif
+            // Apply on-step dmg
+            if (hp > 0)
+                hp--;
+            numWalkDmgd++;
 
-            SetMonData(pokemon, MON_DATA_HP, &hp);
-            numPoisoned++;
+
+            // Apply regular poison
+            if (GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+            {
+                if (hp > 0)
+                    hp--;
+                numPoisoned++;
+            }
+
+            // Apply damage
+            #if OW_POISON_DAMAGE < GEN_4
+                if (hp == 0)
+                {
+                    sWalkFainted |= (1 << i);
+                    sWalkFainted2[i] = TRUE;
+                    TryFormChange(i, B_SIDE_PLAYER, FORM_CHANGE_FAINT);
+                    numFainted++;
+                }
+            #else
+                if (hp == 1 || --hp == 1)
+                    numFainted++;
+            #endif
+                SetMonData(pokemon, MON_DATA_HP, &hp);
         }
         pokemon++;
     }
@@ -160,6 +183,9 @@ s32 DoPoisonFieldEffect(void)
 
     if (numPoisoned != 0)
         return FLDPSN_PSN;
+
+    if (numWalkDmgd != 0)
+        return FLDPSN_WALK;
 
     return FLDPSN_NONE;
 }

@@ -204,6 +204,8 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+
+    AddBagItem(ITEM_POTION, 1);
 }
 
 static void ResetMiniGamesRecords(void)

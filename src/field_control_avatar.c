@@ -662,16 +662,18 @@ static bool8 UpdatePoisonStepCounter(void)
 
     if (gMapHeader.mapType != MAP_TYPE_SECRET_BASE)
     {
-        ptr = GetVarPointer(VAR_POISON_STEP_COUNTER);
-        (*ptr)++;
-        (*ptr) %= 4;
-        if (*ptr == 0)
+        // ptr = GetVarPointer(VAR_POISON_STEP_COUNTER);
+        // (*ptr)++;
+        // (*ptr) %= 4;
+        // if (*ptr == 0)
         {
             switch (DoPoisonFieldEffect())
             {
             case FLDPSN_NONE:
                 return FALSE;
             case FLDPSN_PSN:
+                return FALSE;
+            case FLDPSN_WALK:
                 return FALSE;
             case FLDPSN_FNT:
                 return TRUE;
