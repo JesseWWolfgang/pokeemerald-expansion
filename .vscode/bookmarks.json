@@ -39,12 +39,12 @@
 			"path": "src/main_menu.c",
 			"bookmarks": [
 				{
-					"line": 1064,
+					"line": 1058,
 					"column": 26,
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1776,
+					"line": 1774,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -154,7 +154,7 @@
 			"path": "src/start_menu.c",
 			"bookmarks": [
 				{
-					"line": 1056,
+					"line": 1058,
 					"column": 13,
 					"label": "Hide save confirmation"
 				}
