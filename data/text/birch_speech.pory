@@ -1,0 +1,49 @@
+text gText_Birch_Welcome {
+	format("G'day fuckhead.\p" 
+	"I'm Professor Birch, and I'll be subjecting you to the most grueling and painful playthrough of Pokémon Emerald.\p"
+	"'The Poison Challenge'\p"
+	"Your goal is to beat the Pokemon League Champion and enter the Hall of Fame."
+	"Whiting out does not end the challenge. Simply reaching the end counts as a win. White-outs don't matter.\p"
+	"So feel free to pass out as much as you like?\p")
+}
+
+//text gText_Birch_Pokemon {
+text gText_ThisIsAPokemon {
+	format("Here's the rules:{PAUSE 96}\p")
+}
+
+text gText_Birch_MainSpeech {
+	format("1. Your entire party loses 1 HP every single step."
+	"This is non-negotiable. Your Pokémon will faint when they hit 0 HP.\p"
+	"When all of your Pokémon faint, you will white out and return to the last visited Pokémon Center.\p"
+	"2. You may only heal at Pokémon Centers and from moves and items you find on your journey.\p"
+	"Purchasing healing items from Pokémarts is entirely forbidden.\nGet good scrub.\p"
+	"3. Don't be a fuckin' bitch. Use your knowledge of Pokémon to figure it out lol."
+	"Also, just note that this challenge uses the battle mechanics from Generation 8.\p")
+}
+
+text gText_Birch_AndYouAre {
+	format("Anyway, you look funny. Who are ya?\p")
+}
+
+text gText_Birch_BoyOrGirl {
+	format("Are you a boy, a girl or another secret third thing?\p")
+}
+
+text gText_Birch_WhatsYourName {
+	format("I personally would like to keep calling you 'Fuckhead', but I should probably ask what your name is.")
+}
+
+text gText_Birch_SoItsPlayer {
+	format("Did I hear that right?? {PLAYER}{KUN}?\p")
+}
+
+text gText_Birch_YourePlayer {
+	format("Yeah, sick. You're {PLAYER}{KUN}, the funnycunt who decided to try the Poison Challenge.\p")
+}
+
+text gText_Birch_AreYouReady {
+	format("Alright I suppose you should be on your way then.\p"
+	"Remember, every step counts."
+	"Good luck out there. I'll be waiting in my lab.{PAUSE 96}")
+}

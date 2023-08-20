@@ -337,7 +337,7 @@ static const u8 sShopBuyMenuTextColors[][3] =
     [COLORID_GRAY_CURSOR] = {0, 3, 2},
 };
 
-static bool8 IsForbiddenItem(const u16 itemId)
+static bool8 IsForbiddenShopItem(const u16 itemId)
 {
     switch (itemId)
     {
