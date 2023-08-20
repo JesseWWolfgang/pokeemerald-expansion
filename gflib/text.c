@@ -45,6 +45,7 @@ static u16 sLastTextShadowColor;
 
 const struct FontInfo *gFonts;
 bool8 gDisableTextPrinters;
+bool8 gTextPrinterRequiresBPress;
 struct TextGlyph gCurGlyph;
 TextFlags gTextFlags;
 
@@ -873,10 +874,21 @@ bool16 TextPrinterWaitWithDownArrow(struct TextPrinter *textPrinter)
     else
     {
         TextPrinterDrawDownArrow(textPrinter);
-        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        if (gTextPrinterRequiresBPress)
         {
-            result = TRUE;
-            PlaySE(SE_SELECT);
+            if (JOY_NEW(B_BUTTON))
+            {
+                result = TRUE;
+                PlaySE(SE_SELECT);
+            }
+        }
+        else
+        {
+            if (JOY_NEW(A_BUTTON | B_BUTTON))
+            {
+                result = TRUE;
+                PlaySE(SE_SELECT);
+            }
         }
     }
     return result;

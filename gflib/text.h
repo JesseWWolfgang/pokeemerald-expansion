@@ -133,6 +133,7 @@ struct TextGlyph
 extern TextFlags gTextFlags;
 
 extern u8 gDisableTextPrinters;
+extern bool8 gTextPrinterRequiresBPress;
 extern struct TextGlyph gCurGlyph;
 
 void DeactivateAllTextPrinters(void);
