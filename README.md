@@ -9,6 +9,7 @@ since they might not be ideal for all ROM Hacks.
 Contains:
 - base/bare-minimum
 - feature/shiny-wild-special-handling
+- merge/item-desc-header
 
 # base/bare-minimum
 

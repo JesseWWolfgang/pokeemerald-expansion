@@ -204,6 +204,10 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    
+#ifndef FREE_FIRST_ITEM_OBTAIN
+    memset(&gSaveBlock2Ptr->itemFlags, 0, sizeof(gSaveBlock2Ptr->itemFlags));
+#endif
 }
 
 static void ResetMiniGamesRecords(void)

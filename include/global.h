@@ -16,6 +16,15 @@
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
+#include "constants/items.h"
+
+// Whether to forego saving first obtain of an item in save
+// from ghoulslash's item_desc_headers branch
+#define FREE_FIRST_ITEM_OBTAIN
+
+#ifndef FREE_FIRST_ITEM_OBTAIN
+#define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
+#endif
 
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
@@ -478,6 +487,9 @@ struct RankingHall2P
     //u8 padding;
 };
 
+#include "constants/items.h"
+#define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
+
 struct SaveBlock2
 {
     /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -512,6 +524,9 @@ struct SaveBlock2
     /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
+    #ifndef FREE_FIRST_ITEM_OBTAIN
+    /*0xF2C*/ u8 itemFlags[ITEM_FLAGS_COUNT];
+    #endif
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
