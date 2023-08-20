@@ -1,3 +1,18 @@
+# base/bare-minimum
+
+The bare minimum code required to make effective and instant development with pokeemerald.
+
+Contains:
+- Updated Makefile
+- Porymap and Poryscript support
+- Helper scripts for running Porymap and mGBA.
+- VSCode files for
+    - C/C++ configuration
+    - Launch and Task files for debugging with mGBA
+    - Bookmarks for useful code locations.
+    - Extensions that are very useful for pokeemerald development.
+    - Standard settings
+
 # pokeemerald Expansion
 
 ## What is the pokeemerald Expansion?
