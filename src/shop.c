@@ -337,9 +337,33 @@ static const u8 sShopBuyMenuTextColors[][3] =
     [COLORID_GRAY_CURSOR] = {0, 3, 2},
 };
 
-static bool8 IsForbiddenShopItem(const u16 itemId)
+static bool8 IsForbiddenItem(const u16 itemId)
 {
-    return FALSE;
+    switch (itemId)
+    {
+        case ITEM_POTION:
+        case ITEM_SUPER_POTION:
+        case ITEM_HYPER_POTION:
+        case ITEM_MAX_POTION:
+        case ITEM_FRESH_WATER:
+        case ITEM_LEMONADE:
+        case ITEM_SODA_POP:
+        case ITEM_FULL_RESTORE:
+        case ITEM_MOOMOO_MILK:
+        case ITEM_ENERGY_POWDER:
+        case ITEM_ENERGY_ROOT:
+        case ITEM_REVIVAL_HERB:
+        case ITEM_REVIVE:
+        case ITEM_MAX_REVIVE:
+        case ITEM_ORAN_BERRY:
+        case ITEM_SITRUS_BERRY:
+        case ITEM_BERRY_JUICE:
+        case ITEM_SWEET_HEART:
+        case ITEM_RAGE_CANDY_BAR:
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }
 
 static u8 CreateShopMenu(u8 martType)
