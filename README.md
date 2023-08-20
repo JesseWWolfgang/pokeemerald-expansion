@@ -1,3 +1,14 @@
+# base/main
+
+A branch that contains all the bare-minimum additions plus many extra features
+and merged branches to make development or gameplay easier and better.
+
+This wont contain huge style changes such as the HGSS Pokedex or the DPPt Summary Screen
+since they might not be ideal for all ROM Hacks.
+
+Contains:
+- base/bare-minimum
+
 # base/bare-minimum
 
 The bare minimum code required to make effective and instant development with pokeemerald.
