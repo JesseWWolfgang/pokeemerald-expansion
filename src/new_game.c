@@ -204,8 +204,6 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
-
-    AddBagItem(ITEM_POTION, 1);
     
 #ifndef FREE_FIRST_ITEM_OBTAIN
     memset(&gSaveBlock2Ptr->itemFlags, 0, sizeof(gSaveBlock2Ptr->itemFlags));

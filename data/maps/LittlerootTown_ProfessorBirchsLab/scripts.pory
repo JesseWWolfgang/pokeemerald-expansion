@@ -1,3 +1,33 @@
+script LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival {
+	msgbox(LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou, MSGBOX_DEFAULT)
+	msgbox(LittlerootTown_ProfessorBirchsLab_Text_ISenseYouAreCursed, MSGBOX_DEFAULT)
+	closemessage()
+	delay(30)
+	additem(ITEM_POTION, 1)
+	msgbox(LittlerootTown_ProfessorBirchsLab_Text_YouFeelAPotion, MSGBOX_SIGN)
+	playfanfare(MUS_EVOLUTION_INTRO)
+	msgbox(LittlerootTown_ProfessorBirchsLab_Text_PoisonChallengeBegin, MSGBOX_SIGN)
+	waitfanfare
+	clearflag(FLAG_HIDE_ROUTE_101_BOY)
+	setvar(VAR_BIRCH_LAB_STATE, 3)
+	releaseall
+	end
+}
+
+text LittlerootTown_ProfessorBirchsLab_Text_ISenseYouAreCursed {
+	format("...\p.........\p...............\p.....................\p...\p"
+	"You know {PLAYER}, I sense something off about you.\p"
+	"Are you...\ncursed...?")
+}
+
+text LittlerootTown_ProfessorBirchsLab_Text_YouFeelAPotion {
+	format("You feel a single potion in the bottom of your bag.")
+}
+
+text LittlerootTown_ProfessorBirchsLab_Text_PoisonChallengeBegin {
+	format("The Poison Challenge starts now.")
+}
+
 raw `
 .set LOCALID_AIDE, 1
 .set LOCALID_BIRCH, 2
@@ -134,13 +164,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GoSeeRival::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_MightBeGoodIdeaToGoSeeRival, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival::
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou, MSGBOX_DEFAULT
-	clearflag FLAG_HIDE_ROUTE_101_BOY
-	setvar VAR_BIRCH_LAB_STATE, 3
-	releaseall
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival::

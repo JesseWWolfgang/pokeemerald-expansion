@@ -1,3 +1,19 @@
+LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou, MSGBOX_DEFAULT
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_ISenseYouAreCursed, MSGBOX_DEFAULT
+	closemessage
+	delay 30
+	additem ITEM_POTION, 1
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_YouFeelAPotion, MSGBOX_SIGN
+	playfanfare MUS_EVOLUTION_INTRO
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PoisonChallengeBegin, MSGBOX_SIGN
+	waitfanfare
+	clearflag FLAG_HIDE_ROUTE_101_BOY
+	setvar VAR_BIRCH_LAB_STATE, 3
+	releaseall
+	end
+
+
 .set LOCALID_AIDE, 1
 .set LOCALID_BIRCH, 2
 .set LOCALID_RIVAL, 3
@@ -133,13 +149,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GoSeeRival::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_MightBeGoodIdeaToGoSeeRival, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival
-	end
-
-LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival::
-	msgbox LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou, MSGBOX_DEFAULT
-	clearflag FLAG_HIDE_ROUTE_101_BOY
-	setvar VAR_BIRCH_LAB_STATE, 3
-	releaseall
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival::
@@ -999,3 +1008,21 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_ISenseYouAreCursed::
+	.string "...\p"
+	.string ".........\p"
+	.string "...............\p"
+	.string ".....................\p"
+	.string "...\p"
+	.string "You know {PLAYER}, I sense something\n"
+	.string "off about you.\p"
+	.string "Are you...\n"
+	.string "cursed...?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_YouFeelAPotion::
+	.string "You feel a single potion in the bottom\n"
+	.string "of your bag.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PoisonChallengeBegin::
+	.string "The Poison Challenge starts now.$"

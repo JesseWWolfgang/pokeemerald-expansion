@@ -39,12 +39,12 @@
 			"path": "src/main_menu.c",
 			"bookmarks": [
 				{
-					"line": 1058,
+					"line": 1046,
 					"column": 26,
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1774,
+					"line": 1762,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -144,7 +144,7 @@
 			"path": "src/script_pokemon_util.c",
 			"bookmarks": [
 				{
-					"line": 60,
+					"line": 100,
 					"column": 11,
 					"label": "Give Party to Player"
 				}
