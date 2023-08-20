@@ -39,7 +39,7 @@
 #include "mystery_gift_menu.h"
 
 #define BIRCH_SPECIES_ID     SPECIES_LOTAD
-#define BIRCH_SPECIES_SHINY  TRUE
+#define BIRCH_SPECIES_SHINY  FALSE
 
 /*
  * Main menu state machine
@@ -1878,7 +1878,7 @@ static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *sprite)
 
 static u8 NewGameBirchSpeech_CreateLotadSprite(u8 x, u8 y)
 {
-#ifdef BIRCH_SPECIES_SHINY
+#if BIRCH_SPECIES_SHINY
     return CreateMonPicSprite_Affine(BIRCH_SPECIES_ID, 0, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
 #else
     return CreateMonPicSprite_Affine(BIRCH_SPECIES_ID, SHINY_ODDS, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
