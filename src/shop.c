@@ -154,6 +154,7 @@ static void Task_HandleShopMenuBuy(u8 taskId);
 static void Task_HandleShopMenuSell(u8 taskId);
 static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, struct ListMenu *list);
 static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y);
+static bool8 IsForbiddenShopItem(u16 itemId);
 
 static const struct YesNoFuncTable sShopPurchaseYesNoFuncs =
 {
@@ -336,6 +337,11 @@ static const u8 sShopBuyMenuTextColors[][3] =
     [COLORID_GRAY_CURSOR] = {0, 3, 2},
 };
 
+static bool8 IsForbiddenShopItem(const u16 itemId)
+{
+    return FALSE;
+}
+
 static u8 CreateShopMenu(u8 martType)
 {
     int numMenuItems;
@@ -384,7 +390,11 @@ static void SetShopItemsForSale(const u16 *items)
     // Read items until ITEM_NONE / DECOR_NONE is reached
     while (sMartInfo.itemList[i])
     {
-        sMartInfo.itemCount++;
+        // Skip forbidden items. Don't count them.
+        if (!IsForbiddenShopItem(sMartInfo.itemList[i]))
+        {
+            sMartInfo.itemCount++;
+        }
         i++;
     }
 }
@@ -554,12 +564,21 @@ static void BuyMenuFreeMemory(void)
 
 static void BuyMenuBuildListMenuTemplate(void)
 {
-    u16 i;
+    u16 i, j;
 
     sListMenuItems = Alloc((sMartInfo.itemCount + 1) * sizeof(*sListMenuItems));
     sItemNames = Alloc((sMartInfo.itemCount + 1) * sizeof(*sItemNames));
-    // for (i = 0; i < sMartInfo.itemCount; i++)
-    //     BuyMenuSetListEntry(&sListMenuItems[i], sMartInfo.itemList[i], sItemNames[i]);
+
+    while (sMartInfo.itemList[j])
+    {
+        // Skip forbidden items. Don't count them.
+        if (!IsForbiddenShopItem(sMartInfo.itemList[j]))
+        {
+            BuyMenuSetListEntry(&sListMenuItems[i], sMartInfo.itemList[j], sItemNames[i]);
+            i++;
+        }
+        j++;
+    }
 
     StringCopy(sItemNames[i], gText_Cancel2);
     sListMenuItems[i].name = sItemNames[i];
@@ -567,7 +586,7 @@ static void BuyMenuBuildListMenuTemplate(void)
 
     gMultiuseListMenuTemplate = sShopBuyMenuListTemplate;
     gMultiuseListMenuTemplate.items = sListMenuItems;
-    gMultiuseListMenuTemplate.totalItems = sMartInfo.itemCount + 1;
+    gMultiuseListMenuTemplate.totalItems = i + 1;
     if (gMultiuseListMenuTemplate.totalItems > MAX_ITEMS_SHOWN)
         gMultiuseListMenuTemplate.maxShowed = MAX_ITEMS_SHOWN;
     else
