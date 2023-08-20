@@ -48,6 +48,8 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
+#define SKIP_SAVE_CONFIRMATION  TRUE
+
 // Menu actions
 enum
 {
@@ -1063,7 +1065,11 @@ static u8 SaveFileExistsCallback(void)
     }
     else
     {
-        ShowSaveMessage(gText_AlreadySavedFile, SaveConfirmOverwriteCallback);
+        #if SKIP_SAVE_CONFIRMATION
+            sSaveDialogCallback = SaveSavingMessageCallback;
+        #else
+            ShowSaveMessage(gText_AlreadySavedFile, SaveConfirmOverwriteCallback);
+        #endif
     }
 
     return SAVE_IN_PROGRESS;
