@@ -1,58 +1,29 @@
-# base/bare-minimum
+# Pokémon Emerald
+### Feature Branch: Name Box
 
-The bare minimum code required to make effective and instant development with pokeemerald.
+This feature branch implements a name box in the style of the one in my [Trick-or-Treat House](https://www.pokecommunity.com/showthread.php?p=10566982) hack.
 
-Contains:
-- Updated Makefile
-- Porymap and Poryscript support
-- Helper scripts for running Porymap and mGBA.
-- VSCode files for
-    - C/C++ configuration
-    - Launch and Task files for debugging with mGBA
-    - Bookmarks for useful code locations.
-    - Extensions that are very useful for pokeemerald development.
-    - Standard settings
+Features: 
+- Implementation of a name plate attached to the dialog box.
+- New command `speakername [textPoionter]` to set the name of the speaker to display in the box.
+	- Setting the speaker name to `NULL` hides the name plate.
+	- Speaker name is automatically set to `NULL` in the `closemessage` command.
+- All trainers capable of trainer sight battles automatically have their trainer name as the speaker name when talking to them or being seen by them.
 
-# pokeemerald Expansion
+Notes:
+- The message box palette is unchanged. Please change it, as the default colors for the name plate are *not* good.
 
-## What is the pokeemerald Expansion?
+![](example-0.png)
+![](example-1.png)
+![](example-2.png)
 
-The Pokeemerald Expansion is a collection of feature branches that can be integrated into existing [pokeemerald](https://github.com/pret/pokeemerald) projects.
+----
 
-## What features are included?
-- Upgraded battle engine.
-    - Fairy Type.
-    - Physical/Special/Status Category Split.
-    - New moves and abilities up to SwSh.
-    - Options to change behaviors and data by generation.
-    - Mega Evolution and Primal Reversion
-    - Z-Moves
-- Pokémon Species from newer Generations (with the option to disable them if needed).
-    - Updates Hoenn's Regional Dex to match ORAS'.
-    - Updates National Dex incorporating all the new species.
-    - Option to change base stats by generation.
-    - New evolution methods.
-    - Hidden Abilities data (How to make them available is up to the user).
-- Items from newer Generations and updated item effects for battle and field use.
+To use this feature branch, [click here](https://github.com/tustin2121/pokeemerald/tree/pick-feature/namebox), then click on the latest commit and manually recreate the changes in your project.
 
-Certain mechanics, moves, abilities and species sprites are missing. For more information, see [the project's milestones](https://github.com/rh-hideout/pokeemerald-expansion/milestones).
+Alternatively, run the following commands to cherry-pick the commit into your repo:
 
-### [Documentation on features can be found here](https://github.com/rh-hideout/pokeemerald-expansion/wiki)
-
-## Who maintains the project?
-
-The project was originally started by DizzyEgg alongside other contributors.
-
-The project has now gotten larger and DizzyEgg is now maintaining the project as part of the ROM Hacking Hideout community. Some members of this community are taking on larger roles to help maintain the project.
-
-### Please consider crediting the entire [list of contributors](https://github.com/rh-hideout/pokeemerald-expansion/wiki/Credits) in your project, as they have all worked hard to develop this project :)
-
-## Can I contribute even if I'm not a member of ROM Hacking Hideout?
-
-Yes! Contributions are welcome via Pull Requests and they will be reviewed by maintainers. Don't feel discouraged if we take a bit to review your PR, we'll get to it.
-
-## What is ROM Hacking Hideout?
-
-A Discord-based ROM hacking community that has many members who hack using the disassembly and decompilation projects for Pokémon. Quite a few contributors to the original feature branches by DizzyEgg were members of ROM Hacking Hideout. You can call it RHH for short!
-
-[Click here to join the RHH Discord Server!](https://discord.gg/6CzjAG6GZk)
+```shell
+git fetch https://github.com/tustin2121/pokeemerald.git pick-feature/namebox --no-tags
+git cherry-pick FETCH_HEAD
+```
