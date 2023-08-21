@@ -25,7 +25,8 @@
                 "_UNICODE",
                 "DEBUG",
                 "DINFO",
-                "_MSC_VER"
+                "_MSC_VER",
+                "MODERN"
             ],
             "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc",
             "cStandard": "c99",
