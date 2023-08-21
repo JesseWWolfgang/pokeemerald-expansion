@@ -5,7 +5,49 @@ extern const u8 gCgb3Vol[];
 
 #define BSS_CODE __attribute__((section(".bss.code")))
 
-BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0x800] = {0};
+// https://github.com/pret/pokeemerald/wiki/Implementing-ipatix's-High-Quality-Audio-Mixer
+// Here, [size] is the length of one frame of audio, which varies by the sample rate you use. Here is a list of the possible sample rates and their corresponding frame sizes:
+// 5734Hz: 0x60
+// 7884Hz: 0x84 (This mode is not aligned to the buffer length and is not supported by the mixer)
+// 10512Hz: 0xB0
+// 13379Hz: 0xE0 (This is the default engine rate; without any modifications, this is what the GBA Pokemon games use)
+// 15768Hz: 0x108
+// 18157Hz: 0x130
+// 21024Hz: 0x160
+// 26758Hz: 0x1C0 (What the music expansion wants)
+// 31536Hz: 0x210
+// 36314Hz: 0x260
+// 40137Hz: 0x2A0
+// 42048Hz: 0x2C0
+// Find the sample rate you are using and use its corresponding frame size as the size of the array. 
+// For example, for the default sample rate, the size of the array is 0xE0.
+// (note that the size of the array actually needs to be the frame size x 4; this is why this array is of type u32 rather than char or u8).
+#define HQ_BUFFER_SIZE 0xE0
+
+// For reverb:
+// 5734Hz: 672
+// 7884Hz: 924 (This mode is not aligned to the buffer length and is not supported by the mixer)
+// 10512Hz: 1232
+// 13379Hz: 1568 (As mentioned, the actual value used by the default mixer adds 16 to this)
+// 15768Hz: 1848
+// 18157Hz: 2128
+// 21024Hz: 2464
+// 26758Hz: 3136
+// 31536Hz: 3696
+// 36314Hz: 4256
+// 40137Hz: 4704
+// 42048Hz: 4928
+// In constants/m4a_constants.inc, PCM_DMA_BUF_SIZE is set on line 3; change it there.
+// In include/gba/m4a_internal.h, PCM_DMA_BUF_SIZE is set on line 169; change it there.
+
+// To enable higher polyphony, dont forget to change
+// this line from 0x350 to 0x410 in m4a_1.s
+// .equ VAR_PCM_BUFFER, 0x410
+
+#define MAX_CHN_SHIFT_COUNT 15
+
+BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0xB40] = {0};
+BSS_CODE ALIGNED(4) u32 hq_buffer_ptr[HQ_BUFFER_SIZE] = {0};
 
 struct SoundInfo gSoundInfo;
 struct PokemonCrySong gPokemonCrySongs[MAX_POKEMON_CRIES];
@@ -78,7 +120,7 @@ void m4aSoundInit(void)
     m4aSoundMode(SOUND_MODE_DA_BIT_8
                | SOUND_MODE_FREQ_13379
                | (12 << SOUND_MODE_MASVOL_SHIFT)
-               | (5 << SOUND_MODE_MAXCHN_SHIFT));
+               | (MAX_CHN_SHIFT_COUNT << SOUND_MODE_MAXCHN_SHIFT));
 
     for (i = 0; i < NUM_MUSIC_PLAYERS; i++)
     {
