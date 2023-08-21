@@ -1,0 +1,31 @@
+mapscripts LilycoveCity_LilycoveMuseum_Exterior_MapScripts {
+
+}
+
+script MysteryGiftGirl_GiveItems {
+    msgbox(format("............\p"
+    "I'm from a distant land."
+    "I have travelled to countless places and seen many things.\p"
+    "But this spot right where I'm standing..."
+    "It is where I truly feel I belong...\p"), MSGBOX_SIGN)
+    msgbox(format("Do you smell the breeze?"), MSGBOX_NPC)
+    closemessage()
+    playse(SE_M_RAZOR_WIND)
+    waitse()
+    msgbox(format("Pleasant isn't it?"
+    "Thank you for listening to me.\p"
+    "In my travels, I came across some curious items that you would perhaps like. Want to take a look?"), MSGBOX_NPC)
+    setflag(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND)
+    setflag(FLAG_ENABLE_SHIP_BIRTH_ISLAND)
+    setflag(FLAG_ENABLE_SHIP_NAVEL_ROCK)
+    setflag(FLAG_ENABLE_SHIP_FARAWAY_ISLAND)
+    pokemart(MysteryGiftGirl_Items)
+}
+
+mart MysteryGiftGirl_Items {
+    ITEM_EON_TICKET
+    ITEM_AURORA_TICKET
+    ITEM_MYSTIC_TICKET
+    ITEM_OLD_SEA_MAP
+    ITEM_ENIGMA_BERRY
+}

@@ -1,20 +1,6 @@
-.set LOCALID_ATTENDANT, 1
-.set LOCALID_SS_TIDAL, 2
-.set LOCALID_FERRY_SAILOR, 4
-.set LOCALID_BRINEY, 5
-
-LilycoveCity_Harbor_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_Harbor_OnTransition
-	.byte 0
-
-LilycoveCity_Harbor_OnTransition:
-	setescapewarp MAP_LILYCOVE_CITY, 12, 33
-	end
-
 LilycoveCity_Harbor_EventScript_FerryAttendant::
 	lock
 	faceplayer
-	goto_if_unset FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_EventScript_FerryUnavailable
 	call LilycoveCity_Harbor_EventScript_GetEonTicketState
 	call LilycoveCity_Harbor_EventScript_GetAuroraTicketState
 	call LilycoveCity_Harbor_EventScript_GetOldSeaMapState
@@ -27,7 +13,22 @@ LilycoveCity_Harbor_EventScript_FerryAttendant::
 	goto_if_eq VAR_TEMP_B, 4, LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
 	goto_if_eq VAR_TEMP_B, 8, LilycoveCity_Harbor_EventScript_MysticTicketFirstTime
 	goto_if_ne VAR_TEMP_B, 0, LilycoveCity_Harbor_EventScript_MultipleEventTicketsFirstTime
+	goto_if_unset FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_EventScript_FerryUnavailable
 	goto LilycoveCity_Harbor_EventScript_NoFirstTimeEventTickets
+	end
+
+
+.set LOCALID_ATTENDANT, 1
+.set LOCALID_SS_TIDAL, 2
+.set LOCALID_FERRY_SAILOR, 4
+.set LOCALID_BRINEY, 5
+
+LilycoveCity_Harbor_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_Harbor_OnTransition
+	.byte 0
+
+LilycoveCity_Harbor_OnTransition:
+	setescapewarp MAP_LILYCOVE_CITY, 12, 33
 	end
 
 @ First goto_if_eq is unnecessary; identical scripts
