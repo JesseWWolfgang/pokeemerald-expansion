@@ -1,5 +1,5 @@
 # OPTIMIZE := -O2
-OPTIMIZE := -O3
+OPTIMIZE := -O2
 # USE_ANALYSER := -fanalyzer
 USE_ANALYSER :=
 

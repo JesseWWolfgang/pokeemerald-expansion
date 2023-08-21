@@ -1015,14 +1015,14 @@ LittlerootTown_ProfessorBirchsLab_Text_ISenseYouAreCursed::
 	.string "...............\p"
 	.string ".....................\p"
 	.string "...\p"
-	.string "You know {PLAYER}, I sense something\n"
-	.string "off about you.\p"
-	.string "Are you...\n"
+	.string "Hey {PLAYER}...?\p"
+	.string "I just got a feeling.\p"
+	.string "Are you perhaps...{PAUSE 40}\n"
 	.string "cursed...?$"
 
 LittlerootTown_ProfessorBirchsLab_Text_YouFeelAPotion::
-	.string "You feel a single potion in the bottom\n"
-	.string "of your bag.$"
+	.string "You feel a single potion weighing in the\n"
+	.string "bottom of your bag.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PoisonChallengeBegin::
 	.string "The Poison Challenge starts now.$"

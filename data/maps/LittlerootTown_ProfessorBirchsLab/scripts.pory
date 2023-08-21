@@ -16,12 +16,13 @@ script LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival {
 
 text LittlerootTown_ProfessorBirchsLab_Text_ISenseYouAreCursed {
 	format("...\p.........\p...............\p.....................\p...\p"
-	"You know {PLAYER}, I sense something off about you.\p"
-	"Are you...\ncursed...?")
+	"Hey {PLAYER}...?\p"
+	"I just got a feeling.\p"
+	"Are you perhaps...{PAUSE 40}\ncursed...?")
 }
 
 text LittlerootTown_ProfessorBirchsLab_Text_YouFeelAPotion {
-	format("You feel a single potion in the bottom of your bag.")
+	format("You feel a single potion weighing in the bottom of your bag.")
 }
 
 text LittlerootTown_ProfessorBirchsLab_Text_PoisonChallengeBegin {

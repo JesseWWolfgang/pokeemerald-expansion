@@ -1,3 +1,40 @@
+const LOCALID_WIERDKID = 7
+
+script Route101_WierdKidMentionsStepCount {
+	msgbox(format("'pant pant'... Holy shit.\p"
+	"I was turning around on the spot in the tall grass, a Pokémon just lunged at me from behind!"
+	"Scared the shit out of me...\p"
+	"But hey, at least I conserved my energy by not taking a step.\p"
+	"Anyway bruh, I'm outta here!"), MSGBOX_NPC)
+	lock
+	turnobject(OBJ_EVENT_ID_PLAYER, DIR_SOUTH)
+	switch (var(VAR_FACING)) {
+		case DIR_SOUTH:
+		case DIR_WEST:
+		case DIR_NORTH:
+			applymovement(LOCALID_WIERDKID, WierdKidRunAway_NotEast)
+		case DIR_EAST:
+			applymovement(LOCALID_WIERDKID, WierdKidRunAway_East)
+	}
+	waitmovement(0)
+	removeobject(LOCALID_WIERDKID)
+	release
+}
+
+movement WierdKidRunAway_NotEast {
+	walk_fast_left
+	walk_fast_down
+	jump_2_down
+	walk_fast_down * 6
+}
+
+movement WierdKidRunAway_East {
+	walk_fast_down
+	walk_fast_left
+	jump_2_down
+	walk_fast_down * 5
+}
+
 raw `
 .set LOCALID_BIRCH, 2
 .set LOCALID_ZIGZAGOON, 4

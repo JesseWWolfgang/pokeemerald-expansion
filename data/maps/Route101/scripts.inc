@@ -1,3 +1,50 @@
+Route101_WierdKidMentionsStepCount::
+	msgbox Route101_WierdKidMentionsStepCount_Text_0, MSGBOX_NPC
+	lock
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_SOUTH
+	switch VAR_FACING
+	case DIR_SOUTH, Route101_WierdKidMentionsStepCount_3
+	case DIR_WEST, Route101_WierdKidMentionsStepCount_3
+	case DIR_NORTH, Route101_WierdKidMentionsStepCount_3
+	case DIR_EAST, Route101_WierdKidMentionsStepCount_4
+Route101_WierdKidMentionsStepCount_1:
+	waitmovement 0
+	removeobject 7
+	release
+	return
+
+Route101_WierdKidMentionsStepCount_3:
+	applymovement 7, WierdKidRunAway_NotEast
+	goto Route101_WierdKidMentionsStepCount_1
+
+Route101_WierdKidMentionsStepCount_4:
+	applymovement 7, WierdKidRunAway_East
+	goto Route101_WierdKidMentionsStepCount_1
+
+
+WierdKidRunAway_NotEast:
+	walk_fast_left
+	walk_fast_down
+	jump_2_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+WierdKidRunAway_East:
+	walk_fast_down
+	walk_fast_left
+	jump_2_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
 .set LOCALID_BIRCH, 2
 .set LOCALID_ZIGZAGOON, 4
 
@@ -299,3 +346,13 @@ Route101_Text_WildPokemonInTallGrass:
 Route101_Text_RouteSign:
 	.string "ROUTE 101\n"
 	.string "{UP_ARROW} OLDALE TOWN$"
+
+Route101_WierdKidMentionsStepCount_Text_0:
+	.string "'pant pant'... Holy shit.\p"
+	.string "I was turning around on the spot in the\n"
+	.string "tall grass, a Pokémon just lunged at me\l"
+	.string "from behind! Scared the shit out of\l"
+	.string "me...\p"
+	.string "But hey, at least I conserved my energy\n"
+	.string "by not taking a step.\p"
+	.string "Anyway bruh, I'm outta here!$"
