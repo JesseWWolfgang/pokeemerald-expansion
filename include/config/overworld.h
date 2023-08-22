@@ -14,4 +14,8 @@
 #define OW_FLAG_NO_TRAINER_SEE      FLAG_NO_TRAINER_SEE  // If this flag is set, trainers will not battle the player unless they're talked to.
 #define OW_FLAG_NO_COLLISION        FLAG_NO_COLLISION  // If this flag is set, the player will be able to walk over tiles with collision. Mainly intended for debugging purposes.
 
+// Whether the hidden door leading to the mystery gift area in the Lilycove museum can be unlocked
+// from the start of the game. If FALSE, it can only be unlocked after beating the game.
+#define OW_LILYCOVE_MYSTERYGIFT_ACCESSIBLE_FROM_START   TRUE
+
 #endif // GUARD_CONFIG_OVERWORLD_H

@@ -1,0 +1,44 @@
+mapscripts LilycoveCity_LilycoveMuseum_Exterior_MapScripts {
+
+}
+
+script MysteryGiftGirl_GiveItems {
+    lock
+    setflag(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND)
+    setflag(FLAG_ENABLE_SHIP_BIRTH_ISLAND)
+    setflag(FLAG_ENABLE_SHIP_NAVEL_ROCK)
+    setflag(FLAG_ENABLE_SHIP_FARAWAY_ISLAND)
+    if (!flag(FLAG_LILYCOVE_MYSTERYGIFT_GIRL_SPOKEN)) {
+        setflag(FLAG_LILYCOVE_MYSTERYGIFT_GIRL_SPOKEN)
+        msgbox(format("............\p"
+        "You know... I come from a very distant land.\p"
+        "I have travelled to wonderous places and seen many beautiful things.\p"
+        "But this spot right where I'm standing..."
+        "I just can't help but feel this is where I really belong..."), MSGBOX_SIGN)
+        closemessage
+        playse(SE_M_ICY_WIND)
+        waitse
+        msgbox(format("Do you feel that breeze?{PAUSE 60}\n"
+        "Pleasant isn't it?\p"
+        "Thank you for listening to me.\p"
+        "In my travels, I came across a couple of curiosities that perhaps you would find interesting. Want to take a look?"), MSGBOX_NPC)
+    }
+    else {
+        msgbox(format("Oh hello again. Interested in my curious items?"), MSGBOX_NPC)
+    }
+    waitmessage
+    pokemart(MysteryGiftGirl_Items)
+    release
+}
+
+mart MysteryGiftGirl_Items {
+    ITEM_MYSTIC_TICKET
+    ITEM_EON_TICKET
+    ITEM_AURORA_TICKET
+    ITEM_OLD_SEA_MAP
+    ITEM_ENIGMA_BERRY
+}
+
+script LilycoveLookout_Sign {
+    msgbox(format("{UP_ARROW} LILYCOVE LOOKOUT"), MSGBOX_SIGN)
+}

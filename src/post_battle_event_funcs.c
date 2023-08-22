@@ -81,6 +81,8 @@ int GameClear(void)
         }
     }
 
+    FlagSet(FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE);
+
     SetMainCallback2(CB2_DoHallOfFameScreen);
     return 0;
 }

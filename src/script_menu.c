@@ -516,7 +516,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         {
             sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_SOUTHERN_ISLAND;
             selectionCount++;
-            FlagSet(FLAG_SHOWN_EON_TICKET);
+            //FlagSet(FLAG_SHOWN_EON_TICKET);
         }
     }
 
@@ -532,7 +532,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         {
             sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_NAVEL_ROCK;
             selectionCount++;
-            FlagSet(FLAG_SHOWN_MYSTIC_TICKET);
+            //FlagSet(FLAG_SHOWN_MYSTIC_TICKET);
         }
     }
 
@@ -548,7 +548,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         {
             sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_BIRTH_ISLAND;
             selectionCount++;
-            FlagSet(FLAG_SHOWN_AURORA_TICKET);
+            //FlagSet(FLAG_SHOWN_AURORA_TICKET);
         }
     }
 
@@ -564,7 +564,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         {
             sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_FARAWAY_ISLAND;
             selectionCount++;
-            FlagSet(FLAG_SHOWN_OLD_SEA_MAP);
+            //FlagSet(FLAG_SHOWN_OLD_SEA_MAP);
         }
     }
 
