@@ -283,6 +283,10 @@
 #define METATILE_LilycoveMuseum_Painting3_Right  0x261
 #define METATILE_LilycoveMuseum_Painting4_Left   0x262
 #define METATILE_LilycoveMuseum_Painting4_Right  0x263
+#define METATILE_LilycoveMuseum_MysteryGiftWall_Top     0x20B
+#define METATILE_LilycoveMuseum_MysteryGiftWall_Bottom  0x213
+#define METATILE_LilycoveMuseum_MysteryGiftDoor_Top     0x287
+#define METATILE_LilycoveMuseum_MysteryGiftDoor_Bottom  0x273
 
 // gTileset_Lilycove
 #define METATILE_Lilycove_Door             0x246

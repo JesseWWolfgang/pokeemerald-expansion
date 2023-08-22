@@ -9511,7 +9511,7 @@ const struct Item gItems[] =
     {
         .name = _("Eon Ticket"),
         .itemId = ITEM_EON_TICKET,
-        .price = 20000,
+        .price = 50000,
         .description = sEonTicketDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
@@ -9524,7 +9524,7 @@ const struct Item gItems[] =
     {
         .name = _("Mystic Ticket"),
         .itemId = ITEM_MYSTIC_TICKET,
-        .price = 50000,
+        .price = 65000,
         .description = sMysticTicketDesc,
         .importance = 1,
         .registrability = TRUE,
