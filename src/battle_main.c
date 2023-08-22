@@ -3990,6 +3990,16 @@ u8 IsRunningFromBattleImpossible(void)
 
     gPotentialItemEffectBattler = gActiveBattler;
 
+    // Prevent special battlers from running, using Teleport, etc (lookin at you Deoxys)
+    if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT) 
+    {
+        if (FlagGet(FLAG_BATTLE_SHOULD_AI_ESACAPE_FAIL) || (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY && !(gBattleTypeFlags & BATTLE_TYPE_ROAMER)))
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CANT_ESCAPE;
+            return BATTLE_RUN_FORBIDDEN;
+        }
+    }
+
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) // Cannot ever run from saving Birch's battle.
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DONT_LEAVE_BIRCH;

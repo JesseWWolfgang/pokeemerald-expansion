@@ -1,9 +1,65 @@
+const FLAG_OPENED_HIDDEN_DOOR = FLAG_TEMP_1
+
+mapscripts LilycoveCity_LilycoveMuseum_1F_MapScripts {
+	MAP_SCRIPT_ON_LOAD: LilycoveCity_LilycoveMuseum_1F_OnLoad
+}
+
+script LilycoveCity_LilycoveMuseum_1F_OnLoad {
+	getplayerxy(VAR_TEMP_2, VAR_TEMP_3)
+	if (flag(FLAG_OPENED_HIDDEN_DOOR) || (var(VAR_TEMP_2 )== 0 && var(VAR_TEMP_3) == 1)) {
+		// If door is already opened, or we enter the map at XY:0,1 then ensure the door is open.
+		setflag(FLAG_OPENED_HIDDEN_DOOR)
+		call(OpenMysteryGiftTunnelDoor)
+	}
+	else {
+		// Door is hidden by default.
+		setmetatile(0, 0, METATILE_LilycoveMuseum_MysteryGiftWall_Top, TRUE)
+		setmetatile(0, 1, METATILE_LilycoveMuseum_MysteryGiftWall_Bottom, TRUE)
+	}
+}
+
+script LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor {
+	if (flag(FLAG_OPENED_HIDDEN_DOOR)) {
+		if (!flag(FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE)) {
+			msgbox(format("Nothing happened!"), MSGBOX_SIGN)
+		}
+		else {
+			msgbox(format("A hidden door!"), MSGBOX_SIGN)
+		}
+		end
+	}
+
+	lock
+	msgbox(format("......!\p"
+	"There is a button hidden in the corner."
+	"Press it?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		if (!flag(FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE)) {
+			msgbox(format("......................\p"
+			"Nothing happened!"), MSGBOX_SIGN)
+		}
+		else {
+			closemessage
+			call(OpenMysteryGiftTunnelDoor)
+			playse(SE_BANG)
+			waitse
+			msgbox(format("A hidden door!"), MSGBOX_SIGN)
+		}
+		setflag(FLAG_OPENED_HIDDEN_DOOR)
+	}
+	release
+	end
+}
+
+script OpenMysteryGiftTunnelDoor {
+	setmetatile(0, 0, METATILE_LilycoveMuseum_MysteryGiftDoor_Top, TRUE)
+	setmetatile(0, 1, METATILE_LilycoveMuseum_MysteryGiftDoor_Bottom, FALSE)
+	special(DrawWholeMapView)
+}
+
 raw `
 .set LOCALID_CURATOR, 2
 .set LOCALID_ARTIST_2, 8
-
-LilycoveCity_LilycoveMuseum_1F_MapScripts::
-	.byte 0
 
 LilycoveCity_LilycoveMuseum_1F_EventScript_Greeter::
 	msgbox LilycoveCity_LilycoveMuseum_1F_Text_WelcomeToLilycoveMuseum, MSGBOX_SIGN

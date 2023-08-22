@@ -1,8 +1,74 @@
+LilycoveCity_LilycoveMuseum_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, LilycoveCity_LilycoveMuseum_1F_OnLoad
+	.byte 0
+
+
+LilycoveCity_LilycoveMuseum_1F_OnLoad::
+	getplayerxy VAR_TEMP_2, VAR_TEMP_3
+	goto_if_set FLAG_TEMP_1, LilycoveCity_LilycoveMuseum_1F_OnLoad_1
+	compare VAR_TEMP_2, 0
+	goto_if_eq LilycoveCity_LilycoveMuseum_1F_OnLoad_5
+LilycoveCity_LilycoveMuseum_1F_OnLoad_2:
+	setmetatile 0, 0, METATILE_LilycoveMuseum_MysteryGiftWall_Top, TRUE
+	setmetatile 0, 1, METATILE_LilycoveMuseum_MysteryGiftWall_Bottom, TRUE
+	return
+
+LilycoveCity_LilycoveMuseum_1F_OnLoad_1:
+	setflag FLAG_TEMP_1
+	call OpenMysteryGiftTunnelDoor
+	return
+
+LilycoveCity_LilycoveMuseum_1F_OnLoad_5:
+	compare VAR_TEMP_3, 1
+	goto_if_eq LilycoveCity_LilycoveMuseum_1F_OnLoad_1
+	goto LilycoveCity_LilycoveMuseum_1F_OnLoad_2
+
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor::
+	goto_if_set FLAG_TEMP_1, LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_2
+	lock
+	msgbox LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_2, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_5
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_4:
+	release
+	end
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_2:
+	goto_if_unset FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE, LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_8
+	msgbox LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_1, MSGBOX_SIGN
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_7:
+	end
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_5:
+	goto_if_unset FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE, LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_12
+	closemessage
+	call OpenMysteryGiftTunnelDoor
+	playse SE_BANG
+	waitse
+	msgbox LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_1, MSGBOX_SIGN
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_11:
+	setflag FLAG_TEMP_1
+	goto LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_4
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_8:
+	msgbox LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_0, MSGBOX_SIGN
+	goto LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_7
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_12:
+	msgbox LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_3, MSGBOX_SIGN
+	goto LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_11
+
+
+OpenMysteryGiftTunnelDoor::
+	setmetatile 0, 0, METATILE_LilycoveMuseum_MysteryGiftDoor_Top, TRUE
+	setmetatile 0, 1, METATILE_LilycoveMuseum_MysteryGiftDoor_Bottom, FALSE
+	special DrawWholeMapView
+	return
+
+
 .set LOCALID_CURATOR, 2
 .set LOCALID_ARTIST_2, 8
-
-LilycoveCity_LilycoveMuseum_1F_MapScripts::
-	.byte 0
 
 LilycoveCity_LilycoveMuseum_1F_EventScript_Greeter::
 	msgbox LilycoveCity_LilycoveMuseum_1F_Text_WelcomeToLilycoveMuseum, MSGBOX_SIGN
@@ -291,3 +357,18 @@ LilycoveCity_LilycoveMuseum_1F_Text_MuseumTouristDestination:
 	.string "No, great for the HOENN region!\p"
 	.string "This is what I've heard--a lone TRAINER\n"
 	.string "procured all the paintings upstairs.$"
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_0:
+	.string "Nothing happened!$"
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_1:
+	.string "A hidden door!$"
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_2:
+	.string "......!\p"
+	.string "There is a button hidden in the corner.\n"
+	.string "Press it?$"
+
+LilycoveCity_LilycoveMuseum_1F_FindHiddenDoor_Text_3:
+	.string "......................\p"
+	.string "Nothing happened!$"
