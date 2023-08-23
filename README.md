@@ -1,6 +1,6 @@
-# feature/ipatix-mixer
+# merge/music-expansion
 
-This branch implements ipatix's high quality audio mixer.
+This branch implements CyanSMP64's music expansion branch:
+https://github.com/CyanSMP64/pokeemerald/tree/music_expansion_dev
 
-It is configured to use the standard sample rate and buffer sizes.
-Maximum track limit is 15, maximum directsound polyphony is also 15.
+This merge is based on feature/ipatix-mixer.

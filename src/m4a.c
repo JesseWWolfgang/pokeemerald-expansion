@@ -45,9 +45,10 @@ extern const u8 gCgb3Vol[];
 // .equ VAR_PCM_BUFFER, 0x410
 
 #define MAX_CHN_SHIFT_COUNT 15
+#define SOUND_MODE_FREQ_SELECTED SOUND_MODE_FREQ_13379 // Music expansion wants SOUND_MODE_FREQ_18157 
 
 BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0xB40] = {0};
-BSS_CODE ALIGNED(4) u32 hq_buffer_ptr[HQ_BUFFER_SIZE] = {0};
+BSS_CODE ALIGNED(4) u32 hq_buffer_ptr[HQ_BUFFER_SIZE] = {0}; // Music expansion wants 0x130?
 
 struct SoundInfo gSoundInfo;
 struct PokemonCrySong gPokemonCrySongs[MAX_POKEMON_CRIES];
@@ -118,7 +119,7 @@ void m4aSoundInit(void)
     SoundInit(&gSoundInfo);
     MPlayExtender(gCgbChans);
     m4aSoundMode(SOUND_MODE_DA_BIT_8
-               | SOUND_MODE_FREQ_13379
+               | SOUND_MODE_FREQ_SELECTED
                | (12 << SOUND_MODE_MASVOL_SHIFT)
                | (MAX_CHN_SHIFT_COUNT << SOUND_MODE_MAXCHN_SHIFT));
 
