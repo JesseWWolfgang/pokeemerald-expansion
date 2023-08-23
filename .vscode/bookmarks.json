@@ -24,12 +24,12 @@
 					"label": "Set default options"
 				},
 				{
-					"line": 128,
+					"line": 124,
 					"column": 17,
 					"label": "Game Start Position"
 				},
 				{
-					"line": 149,
+					"line": 145,
 					"column": 8,
 					"label": "New game init data"
 				}
@@ -39,12 +39,12 @@
 			"path": "src/main_menu.c",
 			"bookmarks": [
 				{
-					"line": 1058,
+					"line": 1046,
 					"column": 26,
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1774,
+					"line": 1762,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -64,7 +64,7 @@
 			"path": "src/pokemon.c",
 			"bookmarks": [
 				{
-					"line": 7428,
+					"line": 7571,
 					"column": 7,
 					"label": "Get Battle BGM"
 				}
@@ -144,7 +144,7 @@
 			"path": "src/script_pokemon_util.c",
 			"bookmarks": [
 				{
-					"line": 60,
+					"line": 100,
 					"column": 11,
 					"label": "Give Party to Player"
 				}

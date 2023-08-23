@@ -12,9 +12,9 @@ extern const u8 gCgb3Vol[];
 // 10512Hz: 0xB0
 // 13379Hz: 0xE0 (This is the default engine rate; without any modifications, this is what the GBA Pokemon games use)
 // 15768Hz: 0x108
-// 18157Hz: 0x130
+// 18157Hz: 0x130 (What the music expansion wants)
 // 21024Hz: 0x160
-// 26758Hz: 0x1C0 (What the music expansion wants)
+// 26758Hz: 0x1C0 
 // 31536Hz: 0x210
 // 36314Hz: 0x260
 // 40137Hz: 0x2A0
@@ -22,7 +22,7 @@ extern const u8 gCgb3Vol[];
 // Find the sample rate you are using and use its corresponding frame size as the size of the array. 
 // For example, for the default sample rate, the size of the array is 0xE0.
 // (note that the size of the array actually needs to be the frame size x 4; this is why this array is of type u32 rather than char or u8).
-#define HQ_BUFFER_SIZE 0xE0
+#define HQ_BUFFER_SIZE 0x130 // Default 0xE0, Music expansion wants 0x130.
 
 // For reverb:
 // 5734Hz: 672
@@ -45,10 +45,10 @@ extern const u8 gCgb3Vol[];
 // .equ VAR_PCM_BUFFER, 0x410
 
 #define MAX_CHN_SHIFT_COUNT 15
-#define SOUND_MODE_FREQ_SELECTED SOUND_MODE_FREQ_13379 // Music expansion wants SOUND_MODE_FREQ_18157 
+#define SOUND_MODE_FREQ_SELECTED SOUND_MODE_FREQ_18157 // Default is 13379, Music expansion wants 18157.
 
 BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0xB40] = {0};
-BSS_CODE ALIGNED(4) u32 hq_buffer_ptr[HQ_BUFFER_SIZE] = {0}; // Music expansion wants 0x130?
+BSS_CODE ALIGNED(4) u32 hq_buffer_ptr[HQ_BUFFER_SIZE] = {0}; 
 
 struct SoundInfo gSoundInfo;
 struct PokemonCrySong gPokemonCrySongs[MAX_POKEMON_CRIES];
