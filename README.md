@@ -15,9 +15,9 @@ Features:
 Notes:
 - The message box palette is unchanged. Please change it, as the default colors for the name plate are *not* good.
 
-![](example-0.png)
-![](example-1.png)
-![](example-2.png)
+![](docs/images/namebox-mom.png)
+![](docs/images/namebox-interviewer.png)
+![](docs/images/namebox-calvin.png)
 
 ----
 
