@@ -7,3 +7,5 @@ Adds quality of life improvements for wild shiny Pokemon handling.
     - > "Shiny Pikachu appeared!"
     - This message *requires* a B button press instead of the usual A to prevent typical grinding behaviour such as
       emulator speed-up + autofire-A from annihilating the shiny Pokemon before the player can react.
+
+![](docs/images/shiny-wild-special-handling.png)
