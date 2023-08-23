@@ -1,58 +1,36 @@
-# base/bare-minimum
+# feature/available-mystery-gifts
 
-The bare minimum code required to make effective and instant development with pokeemerald.
+This feature introduces a way to activate the locked mystery gift events through normal gameplay. 
 
-Contains:
-- Updated Makefile
-- Porymap and Poryscript support
-- Helper scripts for running Porymap and mGBA.
-- VSCode files for
-    - C/C++ configuration
-    - Launch and Task files for debugging with mGBA
-    - Bookmarks for useful code locations.
-    - Extensions that are very useful for pokeemerald development.
-    - Standard settings
+By default it is enabled from the very start of the game, but can be configured to only be permitted after the player beats the game.
 
-# pokeemerald Expansion
+## Mystery Gifts
 
-## What is the pokeemerald Expansion?
+The following mystery gift items are available for purchase at the given prices:
 
-The Pokeemerald Expansion is a collection of feature branches that can be integrated into existing [pokeemerald](https://github.com/pret/pokeemerald) projects.
+| Item               | Price  |
+|--------------------|--------|
+| ITEM_MYSTIC_TICKET | $65000 |
+| ITEM_EON_TICKET    | $50000 |
+| ITEM_AURORA_TICKET | $50000 |
+| ITEM_OLD_SEA_MAP   | $50000 |
+| ITEM_ENIGMA_BERRY  | $3000  |
 
-## What features are included?
-- Upgraded battle engine.
-    - Fairy Type.
-    - Physical/Special/Status Category Split.
-    - New moves and abilities up to SwSh.
-    - Options to change behaviors and data by generation.
-    - Mega Evolution and Primal Reversion
-    - Z-Moves
-- Pokémon Species from newer Generations (with the option to disable them if needed).
-    - Updates Hoenn's Regional Dex to match ORAS'.
-    - Updates National Dex incorporating all the new species.
-    - Option to change base stats by generation.
-    - New evolution methods.
-    - Hidden Abilities data (How to make them available is up to the user).
-- Items from newer Generations and updated item effects for battle and field use.
+Additionally, the corresponding flags to allow accessing the mystery gifts are all set.
 
-Certain mechanics, moves, abilities and species sprites are missing. For more information, see [the project's milestones](https://github.com/rh-hideout/pokeemerald-expansion/milestones).
+## Location and Mechanics
 
-### [Documentation on features can be found here](https://github.com/rh-hideout/pokeemerald-expansion/wiki)
+All mystery gift items are sold to the player from a girl at *Lilycove Lookout* - a new location that
+is accessible at the back of Lilycove Museum 1F. 
 
-## Who maintains the project?
+![](docs/images/available-mystery-gifts_hidden-door.png)
+![](docs/images/available-mystery-gifts_mystery-girl.png)
 
-The project was originally started by DizzyEgg alongside other contributors.
+Interacting with the wall at the back corner of the floor reveals a button that can be pressed.
+If `FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE` is set, pressing the button opens a hidden door that leads to Lilycove Lookout. 
+If this flag is not set, then the button will simply state that 'Nothing happened!'. 
 
-The project has now gotten larger and DizzyEgg is now maintaining the project as part of the ROM Hacking Hideout community. Some members of this community are taking on larger roles to help maintain the project.
-
-### Please consider crediting the entire [list of contributors](https://github.com/rh-hideout/pokeemerald-expansion/wiki/Credits) in your project, as they have all worked hard to develop this project :)
-
-## Can I contribute even if I'm not a member of ROM Hacking Hideout?
-
-Yes! Contributions are welcome via Pull Requests and they will be reviewed by maintainers. Don't feel discouraged if we take a bit to review your PR, we'll get to it.
-
-## What is ROM Hacking Hideout?
-
-A Discord-based ROM hacking community that has many members who hack using the disassembly and decompilation projects for Pokémon. Quite a few contributors to the original feature branches by DizzyEgg were members of ROM Hacking Hideout. You can call it RHH for short!
-
-[Click here to join the RHH Discord Server!](https://discord.gg/6CzjAG6GZk)
+If the `OW_LILYCOVE_MYSTERYGIFT_ACCESSIBLE_FROM_START` define in `include/config/overworldh` is set to `TRUE`, 
+then the flag will start the game as TRUE and will allow players to travel to these locations by the time they reach Lilycove City. 
+If the define is changed to `FALSE`, then the flag will only be set when the
+player beats the game.
