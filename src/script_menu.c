@@ -1003,6 +1003,53 @@ void GetLilycoveSSTidalSelection(void)
     }
 }
 
+void UpdateFlag(u16 flag, bool8 val)
+{
+    if (val)
+        FlagSet(flag);
+    else
+        FlagClear(flag);
+}
+
+struct EventDetails {
+    u8 viableCount;
+    u8 shownCount;
+};
+
+bool8 IsEventViable(u16 isEnabledFlag, u16 item)
+{
+    if (isEnabledFlag != 0 && !FlagGet(isEnabledFlag))
+        return FALSE;
+
+    if (item == ITEM_NONE)
+        return TRUE;
+
+    return CheckBagHasItem(item, 1);
+}
+
+bool8 UpdateEventList(struct EventDetails* ev, u16 tempFlag, u16 isEnabledFlag, u16 item, u16 shownFlag)
+{
+    bool8 viable = IsEventViable(isEnabledFlag, item);
+    UpdateFlag(tempFlag, viable);
+
+    if (viable)
+        ev->viableCount++;
+        
+    if (shownFlag != 0 && FlagGet(shownFlag))
+        ev->shownCount++;
+}
+
+void PopulateLilycoveShipOptions(void)
+{
+    struct EventDetails eventDetails = {0, 0};
+    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_MYSTIC_TICKET,     FLAG_ENABLE_SHIP_NAVEL_ROCK,        ITEM_MYSTIC_TICKET,     FLAG_SHOWN_MYSTIC_TICKET);
+    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_EON_TICKET,        FLAG_ENABLE_SHIP_SOUTHERN_ISLAND,   ITEM_EON_TICKET,        FLAG_SHOWN_EON_TICKET);
+    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_AURORA_TICKET,     FLAG_ENABLE_SHIP_BIRTH_ISLAND,      ITEM_AURORA_TICKET,     FLAG_SHOWN_AURORA_TICKET);
+    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP,       FLAG_ENABLE_SHIP_FARAWAY_ISLAND,    ITEM_OLD_SEA_MAP,       FLAG_SHOWN_OLD_SEA_MAP);
+
+    VarSet(VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT, eventDetails.viableCount);
+}
+
 #define tState       data[0]
 #define tMonSpecies  data[1]
 #define tMonSpriteId data[2]

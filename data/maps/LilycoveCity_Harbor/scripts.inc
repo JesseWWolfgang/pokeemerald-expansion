@@ -1,26 +1,240 @@
-LilycoveCity_Harbor_EventScript_FerryAttendant::
-	lock
-	faceplayer
-	call LilycoveCity_Harbor_EventScript_GetEonTicketState
-	call LilycoveCity_Harbor_EventScript_GetAuroraTicketState
-	call LilycoveCity_Harbor_EventScript_GetOldSeaMapState
-	call LilycoveCity_Harbor_EventScript_GetMysticTicketState
-	call LilycoveCity_Harbor_EventScript_GetFirstTimeShowingTicket
-	call LilycoveCity_Harbor_EventScript_GetHasTicketsState
-	goto_if_eq VAR_TEMP_B, 1, LilycoveCity_Harbor_EventScript_EonTicketFirstTime
-	goto_if_eq VAR_TEMP_B, 2, LilycoveCity_Harbor_EventScript_AuroraTicketFirstTime
-	goto_if_eq VAR_TEMP_B, 4, LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
-	goto_if_eq VAR_TEMP_B, 8, LilycoveCity_Harbor_EventScript_MysticTicketFirstTime
-	goto_if_ne VAR_TEMP_B, 0, LilycoveCity_Harbor_EventScript_MultipleEventTicketsFirstTime
-	goto_if_unset FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_EventScript_FerryUnavailable
-	goto LilycoveCity_Harbor_EventScript_NoFirstTimeEventTickets
-	end
-
-
 .set LOCALID_ATTENDANT, 1
 .set LOCALID_SS_TIDAL, 2
 .set LOCALID_FERRY_SAILOR, 4
 .set LOCALID_BRINEY, 5
+
+LilycoveCity_Harbor_FerryAttendant_Dynamic::
+	lock
+	faceplayer
+	special PopulateLilycoveShipOptions
+	goto_if_set FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_FerryAttendant_Dynamic_2
+	compare VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT, 0
+	goto_if_gt LilycoveCity_Harbor_FerryAttendant_Dynamic_5
+	msgbox LilycoveCity_Harbor_Text_FerryUnavailable, MSGBOX_NPC
+LilycoveCity_Harbor_FerryAttendant_Dynamic_1:
+	release
+	end
+
+LilycoveCity_Harbor_FerryAttendant_Dynamic_2:
+	call PushDynTickets
+	msgbox LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_NPC
+	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
+	call CheckTicketPresented
+	goto LilycoveCity_Harbor_FerryAttendant_Dynamic_1
+
+LilycoveCity_Harbor_FerryAttendant_Dynamic_5:
+	call PushDynTickets
+	msgbox LilycoveCity_Harbor_FerryAttendant_Dynamic_Text_0
+	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
+	call CheckTicketPresented
+	goto LilycoveCity_Harbor_FerryAttendant_Dynamic_1
+
+
+PushDynTickets::
+	goto_if_set FLAG_SYS_GAME_CLEAR, PushDynTickets_2
+PushDynTickets_1:
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_MYSTIC_TICKET, PushDynTickets_5
+PushDynTickets_4:
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_EON_TICKET, PushDynTickets_8
+PushDynTickets_7:
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_AURORA_TICKET, PushDynTickets_11
+PushDynTickets_10:
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP, PushDynTickets_13
+	return
+
+PushDynTickets_2:
+	bufferitemname STR_VAR_1, ITEM_SS_TICKET
+	dynmultipush PushDynTickets_Text_0, ITEM_SS_TICKET
+	goto PushDynTickets_1
+
+PushDynTickets_5:
+	bufferitemname STR_VAR_1, ITEM_MYSTIC_TICKET
+	dynmultipush PushDynTickets_Text_0, ITEM_MYSTIC_TICKET
+	goto PushDynTickets_4
+
+PushDynTickets_8:
+	bufferitemname STR_VAR_1, ITEM_EON_TICKET
+	dynmultipush PushDynTickets_Text_0, ITEM_EON_TICKET
+	goto PushDynTickets_7
+
+PushDynTickets_11:
+	bufferitemname STR_VAR_1, ITEM_AURORA_TICKET
+	dynmultipush PushDynTickets_Text_0, ITEM_AURORA_TICKET
+	goto PushDynTickets_10
+
+PushDynTickets_13:
+	bufferitemname STR_VAR_1, ITEM_OLD_SEA_MAP
+	dynmultipush PushDynTickets_Text_0, ITEM_OLD_SEA_MAP
+	return
+
+
+CheckTicketPresented::
+	switch VAR_RESULT
+	case ITEM_SS_TICKET, CheckTicketPresented_2
+	case ITEM_MYSTIC_TICKET, CheckTicketPresented_3
+	case ITEM_EON_TICKET, CheckTicketPresented_4
+	case ITEM_AURORA_TICKET, CheckTicketPresented_5
+	case ITEM_OLD_SEA_MAP, CheckTicketPresented_6
+	return
+
+CheckTicketPresented_2:
+	call SelectedSSTicket
+	return
+
+CheckTicketPresented_3:
+	call SelectedMysticTicket
+	return
+
+CheckTicketPresented_4:
+	call SelectedEonTicket
+	return
+
+CheckTicketPresented_5:
+	call SelectedAuroraTicket
+	return
+
+CheckTicketPresented_6:
+	call SelectedOldSeaMap
+	return
+
+
+SelectedSSTicket::
+	msgbox LilycoveCity_Harbor_Text_FlashTicketWhereTo, MSGBOX_NPC
+	dynmultichoice 1, 1, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, SelectedSSTicket_Text_0, SelectedSSTicket_Text_1
+	switch VAR_RESULT
+	case 0, SelectedSSTicket_3
+	case 1, SelectedSSTicket_4
+SelectedSSTicket_1:
+	release
+	return
+
+SelectedSSTicket_3:
+	call LilycoveCity_Harbor_EventScript_GoToSlateport
+	goto SelectedSSTicket_1
+
+SelectedSSTicket_4:
+	call LilycoveCity_Harbor_EventScript_GoToBattleFrontier
+	goto SelectedSSTicket_1
+
+
+SelectedMysticTicket::
+	call LadyFetchesSailor
+	goto_if_unset FLAG_SHOWN_MYSTIC_TICKET, SelectedMysticTicket_2
+	msgbox SelectedMysticTicket_Text_0, MSGBOX_NPC
+SelectedMysticTicket_1:
+	closemessage
+	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
+	warp MAP_NAVEL_ROCK_HARBOR, 8, 4
+	waitstate
+	release
+	return
+
+SelectedMysticTicket_2:
+	setflag FLAG_SHOWN_MYSTIC_TICKET
+	msgbox EventTicket_Text_OddTicketGetOnBoard, MSGBOX_NPC
+	goto SelectedMysticTicket_1
+
+
+SelectedEonTicket::
+	call LadyFetchesSailor
+	goto_if_unset FLAG_SHOWN_EON_TICKET, SelectedEonTicket_2
+	msgbox SelectedEonTicket_Text_0, MSGBOX_NPC
+SelectedEonTicket_1:
+	closemessage
+	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
+	warp MAP_SOUTHERN_ISLAND_EXTERIOR, 13, 22
+	waitstate
+	release
+	return
+
+SelectedEonTicket_2:
+	setflag FLAG_SHOWN_EON_TICKET
+	msgbox EventTicket_Text_ShowEonTicket, MSGBOX_NPC
+	goto SelectedEonTicket_1
+
+
+SelectedAuroraTicket::
+	call LadyFetchesSailor
+	goto_if_unset FLAG_SHOWN_AURORA_TICKET, SelectedAuroraTicket_2
+	msgbox SelectedAuroraTicket_Text_0, MSGBOX_NPC
+SelectedAuroraTicket_1:
+	closemessage
+	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
+	warp MAP_BIRTH_ISLAND_HARBOR, 8, 4
+	waitstate
+	release
+	return
+
+SelectedAuroraTicket_2:
+	setflag FLAG_SHOWN_AURORA_TICKET
+	msgbox EventTicket_Text_OddTicketGetOnBoard, MSGBOX_NPC
+	goto SelectedAuroraTicket_1
+
+
+SelectedOldSeaMap::
+	call LadyFetchesSailor
+	goto_if_unset FLAG_SHOWN_OLD_SEA_MAP, SelectedOldSeaMap_2
+	msgbox SelectedOldSeaMap_Text_0, MSGBOX_NPC
+	closemessage
+	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
+SelectedOldSeaMap_1:
+	warp MAP_FARAWAY_ISLAND_ENTRANCE, 13, 38
+	waitstate
+	release
+	return
+
+SelectedOldSeaMap_2:
+	setflag FLAG_SHOWN_OLD_SEA_MAP
+	call OldSeaMapFirstTime
+	goto SelectedOldSeaMap_1
+
+
+OldSeaMapFirstTime::
+	msgbox EventTicket_Text_OldSeaMapTooFar, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	playse SE_PIN
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_Delay48
+	waitmovement 0
+	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_MoveSailorOutOfWayNorth
+	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_MoveSailorOutOfWayEast
+	addobject LOCALID_BRINEY
+	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_BrineyFaceSailorNorth
+	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BrineyFaceSailorEast
+	msgbox EventTicket_Text_BrineyHoldOnASecond, MSGBOX_DEFAULT
+	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_BrineyFacePlayerNorth
+	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BrineyFacePlayerEast
+	msgbox EventTicket_Text_BrineyLetsSail, MSGBOX_DEFAULT
+	closemessage
+	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorNorth
+	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorEast
+	setvar VAR_0x8004, LOCALID_SS_TIDAL
+	call Common_EventScript_FerryDepart
+	return
+
+
+LadyFetchesSailor::
+	msgbox LadyFetchesSailor_Text_0
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 30
+	hideobjectat VAR_LAST_TALKED, MAP_LILYCOVE_CITY_HARBOR
+	delay 60
+	addobject LOCALID_FERRY_SAILOR
+	delay 30
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer
+	waitmovement 0
+	return
+
+
+LilycoveCity_Harbor_EventScript_FerryAttendant::
+	call LilycoveCity_Harbor_FerryAttendant_Dynamic
+	return
+
 
 LilycoveCity_Harbor_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_Harbor_OnTransition
@@ -590,3 +804,33 @@ LilycoveCity_Harbor_Text_SailorFerryAvailable:
 	.string "The folks at the SHIPYARD in SLATEPORT\n"
 	.string "must've worked extra hard.\p"
 	.string "Well, it's my turn to get busy now!$"
+
+LilycoveCity_Harbor_FerryAttendant_Dynamic_Text_0:
+	.string "The ferry to SLATEPORT is…\p"
+	.string "Oh? That PASS…$"
+
+PushDynTickets_Text_0:
+	.string "{STR_VAR_1}$"
+
+SelectedSSTicket_Text_0:
+	.string "Slateport$"
+
+SelectedSSTicket_Text_1:
+	.string "Battle Frontier$"
+
+SelectedMysticTicket_Text_0:
+	.string "We're setting sail for Navel Rock!$"
+
+SelectedEonTicket_Text_0:
+	.string "We're setting sail for the Southern\n"
+	.string "Island!$"
+
+SelectedAuroraTicket_Text_0:
+	.string "We're setting sail for Birth Island!$"
+
+SelectedOldSeaMap_Text_0:
+	.string "We're setting sail for Faraway Island!$"
+
+LadyFetchesSailor_Text_0:
+	.string "Hold on, let me find someone who can\n"
+	.string "help you better.$"
