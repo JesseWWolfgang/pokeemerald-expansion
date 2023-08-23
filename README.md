@@ -4,6 +4,8 @@ This feature introduces a way to activate the locked mystery gift events through
 
 By default it is enabled from the very start of the game, but can be configured to only be permitted after the player beats the game.
 
+This uses merge/dynmulti to improve the Lilycove Harbour ticket selection.
+
 ## Mystery Gifts
 
 The following mystery gift items are available for purchase at the given prices:
