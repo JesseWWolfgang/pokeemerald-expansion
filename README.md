@@ -1,7 +1,9 @@
 # merge/dynmulti
 
-Implements SBird's feature/dynmulti branch from:
+Manually Implements SBird's feature/dynmulti branch from:
 https://github.com/SBird1337/pokeemerald/tree/feature/dynmulti
+
+Manually merged due to this being based on RHH Expansion.
 
 Thread with description can be found here:
 https://www.pokecommunity.com/showthread.php?t=489984
