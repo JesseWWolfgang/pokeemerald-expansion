@@ -1,5 +1,7 @@
-# Pokémon Emerald
-### Feature Branch: Name Box
+# merge/namebox
+
+The implementation of tustin2121's namebox branch:
+https://github.com/tustin2121/pokeemerald/tree/feature/namebox
 
 This feature branch implements a name box in the style of the one in my [Trick-or-Treat House](https://www.pokecommunity.com/showthread.php?p=10566982) hack.
 
