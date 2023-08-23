@@ -11,6 +11,7 @@ Contains:
 - feature/shiny-wild-special-handling
 - feature/forbidden-shop-items
 - feature/ipatix-mixer
+- feature/available-mystery-gifts
 - merge/item-desc-header
 - merge/namebox
 
