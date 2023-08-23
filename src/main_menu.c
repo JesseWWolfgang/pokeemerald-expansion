@@ -38,6 +38,10 @@
 #include "window.h"
 #include "mystery_gift_menu.h"
 
+#define SKIP_BIRCH_INTRO     FALSE
+#define BIRCH_SPECIES_ID     SPECIES_LOTAD
+#define BIRCH_SPECIES_SHINY  FALSE
+
 /*
  * Main menu state machine
  * -----------------------
@@ -1058,7 +1062,11 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
             default:
                 gPlttBufferUnfaded[0] = RGB_BLACK;
                 gPlttBufferFaded[0] = RGB_BLACK;
+#if SKIP_BIRCH_INTRO
+                gTasks[taskId].func = Task_NewGameBirchSpeech_Cleanup;
+#else
                 gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+#endif
                 break;
             case ACTION_CONTINUE:
                 gPlttBufferUnfaded[0] = RGB_BLACK;
@@ -1373,7 +1381,7 @@ static void Task_NewGameBirchSpeechSub_InitPokeBall(u8 taskId)
     gSprites[spriteId].invisible = FALSE;
     gSprites[spriteId].data[0] = 0;
 
-    CreatePokeballSpriteToReleaseMon(spriteId, gSprites[spriteId].oam.paletteNum, 112, 58, 0, 0, 32, PALETTES_BG, SPECIES_LOTAD);
+    CreatePokeballSpriteToReleaseMon(spriteId, gSprites[spriteId].oam.paletteNum, 112, 58, 0, 0, 32, PALETTES_BG, BIRCH_SPECIES_ID);
     gTasks[taskId].func = Task_NewGameBirchSpeechSub_WaitForLotad;
     gTasks[sBirchSpeechMainTaskId].tTimer = 0;
 }
@@ -1774,6 +1782,14 @@ static void Task_NewGameBirchSpeech_FadePlayerToWhite(u8 taskId)
 
 static void Task_NewGameBirchSpeech_Cleanup(u8 taskId)
 {
+#if SKIP_BIRCH_INTRO
+    // Set name to BRENDAN by default.
+    int i;
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+        gSaveBlock2Ptr->playerName[i] = gText_ExpandedPlaceholder_Brendan[i];
+    gSaveBlock2Ptr->playerName[PLAYER_NAME_LENGTH] = EOS;
+#endif
+
     if (!gPaletteFade.active)
     {
         FreeAllWindowBuffers();
@@ -1875,7 +1891,11 @@ static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *sprite)
 
 static u8 NewGameBirchSpeech_CreateLotadSprite(u8 x, u8 y)
 {
-    return CreateMonPicSprite_Affine(SPECIES_LOTAD, SHINY_ODDS, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
+#if BIRCH_SPECIES_SHINY
+    return CreateMonPicSprite_Affine(BIRCH_SPECIES_ID, 0, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
+#else
+    return CreateMonPicSprite_Affine(BIRCH_SPECIES_ID, SHINY_ODDS, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
+#endif
 }
 
 static void AddBirchSpeechObjects(u8 taskId)
