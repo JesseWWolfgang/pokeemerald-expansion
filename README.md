@@ -14,6 +14,7 @@ Contains:
 - feature/available-mystery-gifts
 - merge/item-desc-header
 - merge/namebox
+- merge/dynmulti
 
 **Keep in mind**: Always double check `data/script_cmd_table.inc` and `asm/macros/event.inc` to ensure the byte value of instructions are correct after merging other features into this branch. E.g. ensure `0xe5` does not overlap between `ScrCmd_setspeaker` and `ScrCmd_showitemdesc`.
 

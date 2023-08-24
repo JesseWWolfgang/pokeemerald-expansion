@@ -1,3 +1,73 @@
+BattleFrontier_OutsideWest_EventScript_FerryAttendant::
+	call BattleFrontier_FerryAttendantDynamic
+	return
+
+
+BattleFrontier_FerryAttendantDynamic::
+	lock
+	faceplayer
+	special PopulateFerryOptions
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_SS_TICKET, BattleFrontier_FerryAttendantDynamic_2
+	msgbox BattleFrontier_FerryAttendantDynamic_Text_0, MSGBOX_NPC
+BattleFrontier_FerryAttendantDynamic_1:
+	release
+	end
+
+BattleFrontier_FerryAttendantDynamic_2:
+	call BattleFrontier_PushDynTickets
+	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
+	call BattleFrontier_CheckTicketPresented
+	goto BattleFrontier_FerryAttendantDynamic_1
+
+
+BattleFrontier_PushDynTickets::
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_SS_TICKET, BattleFrontier_PushDynTickets_1
+	return
+
+BattleFrontier_PushDynTickets_1:
+	bufferitemname STR_VAR_1, ITEM_SS_TICKET
+	dynmultipush BattleFrontier_PushDynTickets_Text_0, ITEM_SS_TICKET
+	return
+
+
+BattleFrontier_CheckTicketPresented::
+	switch VAR_RESULT
+	case ITEM_SS_TICKET, BattleFrontier_CheckTicketPresented_2
+	return
+
+BattleFrontier_CheckTicketPresented_2:
+	call BattleFrontier_SelectedSSTicket
+	return
+
+
+BattleFrontier_SelectedSSTicket::
+	msgbox BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo, MSGBOX_DEFAULT
+	dynmultipush BattleFrontier_SelectedSSTicket_Text_0, 0
+	dynmultipush BattleFrontier_SelectedSSTicket_Text_1, 1
+	dynmultistack 1, 1, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case 0, BattleFrontier_SelectedSSTicket_3
+	case 1, BattleFrontier_SelectedSSTicket_4
+BattleFrontier_SelectedSSTicket_1:
+	release
+	return
+
+BattleFrontier_SelectedSSTicket_3:
+	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_NPC
+	call BattleFrontier_OutsideWest_EventScript_BoardFerry
+	warp MAP_SLATEPORT_CITY_HARBOR, 8, 11
+	waitstate
+	goto BattleFrontier_SelectedSSTicket_1
+
+BattleFrontier_SelectedSSTicket_4:
+	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_NPC
+	call BattleFrontier_OutsideWest_EventScript_BoardFerry
+	warp MAP_LILYCOVE_CITY_HARBOR, 8, 11
+	waitstate
+	goto BattleFrontier_SelectedSSTicket_1
+
+
 .set LOCALID_SS_TIDAL, 2
 .set LOCALID_FERRY_ATTENDANT, 3
 .set LOCALID_MANIAC_1, 9
@@ -16,16 +86,16 @@ BattleFrontier_OutsideWest_OnTransition:
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 	end
 
-BattleFrontier_OutsideWest_EventScript_FerryAttendant::
-	lock
-	faceplayer
-	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
-	checkitem ITEM_SS_TICKET
-	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_NoSSTicket
-	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
-	waitmessage
-	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
-	end
+@ BattleFrontier_OutsideWest_EventScript_FerryAttendant::
+@ 	lock
+@ 	faceplayer
+@ 	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+@ 	checkitem ITEM_SS_TICKET
+@ 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_NoSSTicket
+@ 	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
+@ 	waitmessage
+@ 	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
+@ 	end
 
 BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination::
 	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 2, FALSE
@@ -523,3 +593,18 @@ BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier:
 	.string "It must be adorable. I'm sure of it…\p"
 	.string "Oh, challenges can wait. I feel driven\n"
 	.string "to find the delightful creature!$"
+
+BattleFrontier_FerryAttendantDynamic_Text_0:
+	.string "I'm sorry, the ferry service isn't\n"
+	.string "available at the moment due to\l"
+	.string "maintenance.\p"
+	.string "Sorry for the inconvenience.$"
+
+BattleFrontier_PushDynTickets_Text_0:
+	.string "{STR_VAR_1}$"
+
+BattleFrontier_SelectedSSTicket_Text_0:
+	.string "Slateport$"
+
+BattleFrontier_SelectedSSTicket_Text_1:
+	.string "Lilycove$"
