@@ -17,7 +17,7 @@ script LilycoveHarbor_FerryAttendantDynamic {
 	if (flag(FLAG_TEMP_SSTIDAL_HAS_SS_TICKET)) {
 		// Player has beaten the game and has the SS Ticket.
 		call(LilycoveHarbor_PushDynTickets)
-		msgbox(LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_NPC)
+		msgbox(LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT)
 		dynmultistack(1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM)
 		call(LilycoveHarbor_CheckTicketPresented)
 	}
@@ -38,7 +38,7 @@ script LilycoveHarbor_FerryAttendantDynamic {
 		else {
 			// Show a message with a different excuse since the ferry is visible.
 			msgbox(format("I'm sorry, the ferry service isn't available at the moment due to maintenance.\p"
-			"Sorry for any inconvenience."), MSGBOX_NPC)
+			"Sorry for the inconvenience."), MSGBOX_NPC)
 		}
 	}
 	release
@@ -87,8 +87,12 @@ script LilycoveHarbor_CheckTicketPresented {
 }
 
 script LilycoveHarbor_SelectedSSTicket {
-	msgbox(LilycoveCity_Harbor_Text_FlashTicketWhereTo, MSGBOX_NPC)
-	dynmultichoice(1, 1, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Slateport", "Battle Frontier")
+	msgbox(LilycoveCity_Harbor_Text_FlashTicketWhereTo, MSGBOX_DEFAULT)
+	dynmultipush("Slateport City", 0)
+	if (flag(FLAG_MET_SCOTT_ON_SS_TIDAL)) {
+		dynmultipush("Battle Frontier", 1)
+	}
+	dynmultistack(1, 1, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
 	switch(var(VAR_RESULT)) {
 		case 0:
 			setvar(VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE)

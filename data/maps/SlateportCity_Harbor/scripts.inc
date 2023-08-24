@@ -21,7 +21,7 @@ SlateportHarbor_FerryAttendantDynamic_1:
 
 SlateportHarbor_FerryAttendantDynamic_2:
 	call SlateportHarbor_PushDynTickets
-	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_NPC
+	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
 	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
 	call SlateportHarbor_CheckTicketPresented
 	goto SlateportHarbor_FerryAttendantDynamic_1
@@ -48,7 +48,7 @@ SlateportHarbor_CheckTicketPresented_2:
 
 
 SlateportHarbor_SelectedSSTicket::
-	msgbox SlateportCity_Harbor_Text_FlashedTicketWhereTo, MSGBOX_NPC
+	msgbox SlateportCity_Harbor_Text_FlashedTicketWhereTo, MSGBOX_DEFAULT
 	dynmultipush SlateportHarbor_SelectedSSTicket_Text_0, 0
 	goto_if_set FLAG_MET_SCOTT_ON_SS_TIDAL, SlateportHarbor_SelectedSSTicket_2
 SlateportHarbor_SelectedSSTicket_1:

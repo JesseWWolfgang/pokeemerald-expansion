@@ -23,7 +23,7 @@ LilycoveHarbor_FerryAttendantDynamic_1:
 
 LilycoveHarbor_FerryAttendantDynamic_2:
 	call LilycoveHarbor_PushDynTickets
-	msgbox LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_NPC
+	msgbox LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
 	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
 	call LilycoveHarbor_CheckTicketPresented
 	goto LilycoveHarbor_FerryAttendantDynamic_1
@@ -109,27 +109,34 @@ LilycoveHarbor_CheckTicketPresented_6:
 
 
 LilycoveHarbor_SelectedSSTicket::
-	msgbox LilycoveCity_Harbor_Text_FlashTicketWhereTo, MSGBOX_NPC
-	dynmultichoice 1, 1, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, LilycoveHarbor_SelectedSSTicket_Text_0, LilycoveHarbor_SelectedSSTicket_Text_1
-	switch VAR_RESULT
-	case 0, LilycoveHarbor_SelectedSSTicket_3
-	case 1, LilycoveHarbor_SelectedSSTicket_4
+	msgbox LilycoveCity_Harbor_Text_FlashTicketWhereTo, MSGBOX_DEFAULT
+	dynmultipush LilycoveHarbor_SelectedSSTicket_Text_0, 0
+	goto_if_set FLAG_MET_SCOTT_ON_SS_TIDAL, LilycoveHarbor_SelectedSSTicket_2
 LilycoveHarbor_SelectedSSTicket_1:
+	dynmultistack 1, 1, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case 0, LilycoveHarbor_SelectedSSTicket_6
+	case 1, LilycoveHarbor_SelectedSSTicket_7
+LilycoveHarbor_SelectedSSTicket_4:
 	release
 	return
 
-LilycoveHarbor_SelectedSSTicket_3:
+LilycoveHarbor_SelectedSSTicket_2:
+	dynmultipush LilycoveHarbor_SelectedSSTicket_Text_1, 1
+	goto LilycoveHarbor_SelectedSSTicket_1
+
+LilycoveHarbor_SelectedSSTicket_6:
 	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE
 	call LilycoveCity_Harbor_EventScript_BoardFerry
 	warp MAP_SS_TIDAL_CORRIDOR, 1, 10
 	waitstate
-	goto LilycoveHarbor_SelectedSSTicket_1
+	goto LilycoveHarbor_SelectedSSTicket_4
 
-LilycoveHarbor_SelectedSSTicket_4:
+LilycoveHarbor_SelectedSSTicket_7:
 	call LilycoveCity_Harbor_EventScript_BoardFerry
 	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
 	waitstate
-	goto LilycoveHarbor_SelectedSSTicket_1
+	goto LilycoveHarbor_SelectedSSTicket_4
 
 
 LilycoveHarbor_SelectedMysticTicket::
@@ -823,7 +830,7 @@ LilycoveHarbor_FerryAttendantDynamic_Text_1:
 	.string "I'm sorry, the ferry service isn't\n"
 	.string "available at the moment due to\l"
 	.string "maintenance.\p"
-	.string "Sorry for any inconvenience.$"
+	.string "Sorry for the inconvenience.$"
 
 LilycoveHarbor_PushDynTickets_Text_0:
 	.string "{STR_VAR_1}$"
