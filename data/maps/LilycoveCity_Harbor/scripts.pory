@@ -5,40 +5,49 @@ raw `
 .set LOCALID_BRINEY, 5
 `
 
-script LilycoveCity_Harbor_FerryAttendant_Dynamic {
+script LilycoveCity_Harbor_EventScript_FerryAttendant {
+	call(LilycoveHarbor_FerryAttendantDynamic)
+}
+
+script LilycoveHarbor_FerryAttendantDynamic {
 	lock
 	faceplayer
-	special(PopulateLilycoveShipOptions)
+	special(PopulateFerryOptions)
 	
-	if (flag(FLAG_SYS_GAME_CLEAR)) {
-		// Player should have at least the SS Ticket since game is cleared.
-		call(PushDynTickets)
+	if (flag(FLAG_TEMP_SSTIDAL_HAS_SS_TICKET)) {
+		// Player has beaten the game and has the SS Ticket.
+		call(LilycoveHarbor_PushDynTickets)
 		msgbox(LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_NPC)
 		dynmultistack(1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM)
-		call(CheckTicketPresented)
+		call(LilycoveHarbor_CheckTicketPresented)
+	}
+	elif (var(VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT) > 0){
+		// Not clear but has event tickets
+		call(LilycoveHarbor_PushDynTickets)
+		msgbox(format("The ferry to SLATEPORT is…\p"
+		"Oh?"
+		"That PASS…$"), MSGBOX_NPC)
+		dynmultistack(1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM)
+		call(LilycoveHarbor_CheckTicketPresented)
 	}
 	else {
-		if (var(VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT) > 0) {
-			// Not clear but has event tickets
-			call(PushDynTickets)
-			msgbox(format("The ferry to SLATEPORT is…\p"
-			"Oh?"
-			"That PASS…$"))
-			dynmultistack(1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM)
-			call(CheckTicketPresented)
+		// Not clear and no event tickets
+		if (flag(FLAG_HIDE_LILYCOVE_HARBOR_SSTIDAL)) {
+			msgbox(LilycoveCity_Harbor_Text_FerryUnavailable, MSGBOX_NPC)
 		}
 		else {
-			// Not clear and no event tickets
-			msgbox(LilycoveCity_Harbor_Text_FerryUnavailable, MSGBOX_NPC)
+			// Show a message with a different excuse since the ferry is visible.
+			msgbox(format("I'm sorry, the ferry service isn't available at the moment due to maintenance.\p"
+			"Sorry for any inconvenience."), MSGBOX_NPC)
 		}
 	}
 	release
 	end
 }
 
-script PushDynTickets {
+script LilycoveHarbor_PushDynTickets {
 	// Default ticket
-	if (flag(FLAG_SYS_GAME_CLEAR)) {
+	if (flag(FLAG_TEMP_SSTIDAL_HAS_SS_TICKET)) {
 		bufferitemname(STR_VAR_1, ITEM_SS_TICKET)
 		dynmultipush("{STR_VAR_1}", ITEM_SS_TICKET)
 	}
@@ -62,35 +71,40 @@ script PushDynTickets {
 	}
 }
 
-script CheckTicketPresented {
+script LilycoveHarbor_CheckTicketPresented {
 	switch(var(VAR_RESULT)) {
 		case ITEM_SS_TICKET:
-			call(SelectedSSTicket)
+			call(LilycoveHarbor_SelectedSSTicket)
 		case ITEM_MYSTIC_TICKET:
-			call(SelectedMysticTicket)
+			call(LilycoveHarbor_SelectedMysticTicket)
 		case ITEM_EON_TICKET:
-			call(SelectedEonTicket)
+			call(LilycoveHarbor_SelectedEonTicket)
 		case ITEM_AURORA_TICKET:
-			call(SelectedAuroraTicket)
+			call(LilycoveHarbor_SelectedAuroraTicket)
 		case ITEM_OLD_SEA_MAP:
-			call(SelectedOldSeaMap)
+			call(LilycoveHarbor_SelectedOldSeaMap)
 	}
 }
 
-script SelectedSSTicket {
+script LilycoveHarbor_SelectedSSTicket {
 	msgbox(LilycoveCity_Harbor_Text_FlashTicketWhereTo, MSGBOX_NPC)
 	dynmultichoice(1, 1, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Slateport", "Battle Frontier")
 	switch(var(VAR_RESULT)) {
 		case 0:
-			call(LilycoveCity_Harbor_EventScript_GoToSlateport)
+			setvar(VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE)
+			call(LilycoveCity_Harbor_EventScript_BoardFerry)
+			warp(MAP_SS_TIDAL_CORRIDOR, 1, 10)
+			waitstate
 		case 1:
-			call(LilycoveCity_Harbor_EventScript_GoToBattleFrontier)
+			call(LilycoveCity_Harbor_EventScript_BoardFerry)
+			warp(MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67)
+			waitstate
 	}
 	release
 }
 
-script SelectedMysticTicket {
-	call(LadyFetchesSailor)
+script LilycoveHarbor_SelectedMysticTicket {
+	call(LilycoveHarbor_LadyFetchesSailor)
 	if (!flag(FLAG_SHOWN_MYSTIC_TICKET)) {
 		setflag(FLAG_SHOWN_MYSTIC_TICKET)
 		msgbox(EventTicket_Text_OddTicketGetOnBoard, MSGBOX_NPC)
@@ -105,8 +119,8 @@ script SelectedMysticTicket {
 	release
 }
 
-script SelectedEonTicket {
-	call(LadyFetchesSailor)
+script LilycoveHarbor_SelectedEonTicket {
+	call(LilycoveHarbor_LadyFetchesSailor)
 	if (!flag(FLAG_SHOWN_EON_TICKET)) {
 		setflag(FLAG_SHOWN_EON_TICKET)
 		msgbox(EventTicket_Text_ShowEonTicket, MSGBOX_NPC)
@@ -122,8 +136,8 @@ script SelectedEonTicket {
 }
 
 
-script SelectedAuroraTicket {
-	call(LadyFetchesSailor)
+script LilycoveHarbor_SelectedAuroraTicket {
+	call(LilycoveHarbor_LadyFetchesSailor)
 	if (!flag(FLAG_SHOWN_AURORA_TICKET)) {
 		setflag(FLAG_SHOWN_AURORA_TICKET)
 		msgbox(EventTicket_Text_OddTicketGetOnBoard, MSGBOX_NPC)
@@ -138,11 +152,11 @@ script SelectedAuroraTicket {
 	release
 }
 
-script SelectedOldSeaMap {
-	call(LadyFetchesSailor)
+script LilycoveHarbor_SelectedOldSeaMap {
+	call(LilycoveHarbor_LadyFetchesSailor)
 	if (!flag(FLAG_SHOWN_OLD_SEA_MAP)) {
 		setflag(FLAG_SHOWN_OLD_SEA_MAP)
-		call(OldSeaMapFirstTime)
+		call(LilycoveHarbor_OldSeaMapFirstTime)
 	} 
 	else {
 		msgbox(format("We're setting sail for Faraway Island!"), MSGBOX_NPC)
@@ -154,7 +168,7 @@ script SelectedOldSeaMap {
 	release
 }
 
-script OldSeaMapFirstTime {
+script LilycoveHarbor_OldSeaMapFirstTime {
 	msgbox(EventTicket_Text_OldSeaMapTooFar, MSGBOX_DEFAULT)
 	closemessage
 	applymovement(LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp)
@@ -180,7 +194,7 @@ script OldSeaMapFirstTime {
 	call(Common_EventScript_FerryDepart)
 }
 
-script LadyFetchesSailor {
+script LilycoveHarbor_LadyFetchesSailor {
 	msgbox(format("Hold on, let me find someone who can help you better."))
 	closemessage
 	applymovement(VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp)
@@ -193,10 +207,6 @@ script LadyFetchesSailor {
 	applymovement(LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer)
 	waitmovement(0)
 	return
-}
-
-script LilycoveCity_Harbor_EventScript_FerryAttendant {
-	call(LilycoveCity_Harbor_FerryAttendant_Dynamic)
 }
 
 raw `

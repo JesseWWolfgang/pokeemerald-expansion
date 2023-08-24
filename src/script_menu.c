@@ -1011,14 +1011,14 @@ void UpdateFlag(u16 flag, bool8 val)
         FlagClear(flag);
 }
 
-struct EventDetails {
-    u8 viableCount;
-    u8 shownCount;
+struct FerryDetails {
+    u8 totalViableCount;
+    u8 overrideUnavailableServiceViableCount;
 };
 
-bool8 IsEventViable(u16 isEnabledFlag, u16 item)
+bool8 IsFerryTicketViable(u16 destEnabledFlag, u16 item)
 {
-    if (isEnabledFlag != 0 && !FlagGet(isEnabledFlag))
+    if (destEnabledFlag != 0 && !FlagGet(destEnabledFlag))
         return FALSE;
 
     if (item == ITEM_NONE)
@@ -1027,27 +1027,38 @@ bool8 IsEventViable(u16 isEnabledFlag, u16 item)
     return CheckBagHasItem(item, 1);
 }
 
-bool8 UpdateEventList(struct EventDetails* ev, u16 tempFlag, u16 isEnabledFlag, u16 item, u16 shownFlag)
+/**
+ * Toggles a temporary flag indicating that the player can use a given ticket item to travel on the ferry. (By default, only from Lilycove)
+ * 
+ * @param ferry Ferry details struct
+ * @param overridesUnavailableService Whether the item will prompt the ticket list despite not having beaten the game.
+ * @param tempFlag The temporary flag that is set when the item is viable.
+ * @param destEnabledFlag Flag that determines whether the player can travel to the destination at all.
+ * @param item The item the player must carry to enable the flag.
+ */
+void UpdateFerryCanTravelWithTicket(struct FerryDetails* ferry, bool8 overridesUnavailableService, u16 tempFlag, u16 destEnabledFlag, u16 item)
 {
-    bool8 viable = IsEventViable(isEnabledFlag, item);
+    bool8 viable = IsFerryTicketViable(destEnabledFlag, item);
     UpdateFlag(tempFlag, viable);
 
-    if (viable)
-        ev->viableCount++;
-        
-    if (shownFlag != 0 && FlagGet(shownFlag))
-        ev->shownCount++;
+    if (viable) 
+    {
+        if (overridesUnavailableService)
+            ferry->overrideUnavailableServiceViableCount++;
+        ferry->totalViableCount++;
+    }
 }
 
-void PopulateLilycoveShipOptions(void)
+void PopulateFerryOptions(void)
 {
-    struct EventDetails eventDetails = {0, 0};
-    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_MYSTIC_TICKET,     FLAG_ENABLE_SHIP_NAVEL_ROCK,        ITEM_MYSTIC_TICKET,     FLAG_SHOWN_MYSTIC_TICKET);
-    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_EON_TICKET,        FLAG_ENABLE_SHIP_SOUTHERN_ISLAND,   ITEM_EON_TICKET,        FLAG_SHOWN_EON_TICKET);
-    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_AURORA_TICKET,     FLAG_ENABLE_SHIP_BIRTH_ISLAND,      ITEM_AURORA_TICKET,     FLAG_SHOWN_AURORA_TICKET);
-    UpdateEventList(&eventDetails, FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP,       FLAG_ENABLE_SHIP_FARAWAY_ISLAND,    ITEM_OLD_SEA_MAP,       FLAG_SHOWN_OLD_SEA_MAP);
+    struct FerryDetails ferryDetails = {0, 0};
+    UpdateFerryCanTravelWithTicket(&ferryDetails, FALSE, FLAG_TEMP_SSTIDAL_HAS_SS_TICKET,         FLAG_SYS_GAME_CLEAR,                ITEM_SS_TICKET);
+    UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_MYSTIC_TICKET,     FLAG_ENABLE_SHIP_NAVEL_ROCK,        ITEM_MYSTIC_TICKET);
+    UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_EON_TICKET,        FLAG_ENABLE_SHIP_SOUTHERN_ISLAND,   ITEM_EON_TICKET);
+    UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_AURORA_TICKET,     FLAG_ENABLE_SHIP_BIRTH_ISLAND,      ITEM_AURORA_TICKET);
+    UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP,       FLAG_ENABLE_SHIP_FARAWAY_ISLAND,    ITEM_OLD_SEA_MAP);
 
-    VarSet(VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT, eventDetails.viableCount);
+    VarSet(VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT, ferryDetails.overrideUnavailableServiceViableCount);
 }
 
 #define tState       data[0]

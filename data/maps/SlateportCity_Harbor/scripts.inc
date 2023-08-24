@@ -4,6 +4,80 @@
 .set LOCALID_ARCHIE, 7
 .set LOCALID_SUBMARINE, 8
 
+SlateportCity_Harbor_EventScript_FerryAttendant::
+	call SlateportHarbor_FerryAttendantDynamic
+	return
+
+
+SlateportHarbor_FerryAttendantDynamic::
+	lock
+	faceplayer
+	special PopulateFerryOptions
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_SS_TICKET, SlateportHarbor_FerryAttendantDynamic_2
+	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_NPC
+SlateportHarbor_FerryAttendantDynamic_1:
+	release
+	end
+
+SlateportHarbor_FerryAttendantDynamic_2:
+	call SlateportHarbor_PushDynTickets
+	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_NPC
+	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
+	call SlateportHarbor_CheckTicketPresented
+	goto SlateportHarbor_FerryAttendantDynamic_1
+
+
+SlateportHarbor_PushDynTickets::
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_SS_TICKET, SlateportHarbor_PushDynTickets_1
+	return
+
+SlateportHarbor_PushDynTickets_1:
+	bufferitemname STR_VAR_1, ITEM_SS_TICKET
+	dynmultipush SlateportHarbor_PushDynTickets_Text_0, ITEM_SS_TICKET
+	return
+
+
+SlateportHarbor_CheckTicketPresented::
+	switch VAR_RESULT
+	case ITEM_SS_TICKET, SlateportHarbor_CheckTicketPresented_2
+	return
+
+SlateportHarbor_CheckTicketPresented_2:
+	call SlateportHarbor_SelectedSSTicket
+	return
+
+
+SlateportHarbor_SelectedSSTicket::
+	msgbox SlateportCity_Harbor_Text_FlashedTicketWhereTo, MSGBOX_NPC
+	dynmultipush SlateportHarbor_SelectedSSTicket_Text_0, 0
+	goto_if_set FLAG_MET_SCOTT_ON_SS_TIDAL, SlateportHarbor_SelectedSSTicket_2
+SlateportHarbor_SelectedSSTicket_1:
+	dynmultistack 1, 1, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case 0, SlateportHarbor_SelectedSSTicket_6
+	case 1, SlateportHarbor_SelectedSSTicket_7
+SlateportHarbor_SelectedSSTicket_4:
+	release
+	return
+
+SlateportHarbor_SelectedSSTicket_2:
+	dynmultipush SlateportHarbor_SelectedSSTicket_Text_1, 1
+	goto SlateportHarbor_SelectedSSTicket_1
+
+SlateportHarbor_SelectedSSTicket_6:
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_SLATEPORT
+	call SlateportCity_Harbor_EventScript_BoardFerry
+	warp MAP_SS_TIDAL_CORRIDOR, 1, 10
+	waitstate
+	goto SlateportHarbor_SelectedSSTicket_4
+
+SlateportHarbor_SelectedSSTicket_7:
+	call SlateportCity_Harbor_EventScript_BoardFerry
+	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
+	waitstate
+	goto SlateportHarbor_SelectedSSTicket_4
+
+
 SlateportCity_Harbor_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SlateportCity_Harbor_OnTransition
 	.byte 0
@@ -160,13 +234,13 @@ SlateportCity_Harbor_Movement_PlayerWalkUp:
 	walk_up
 	step_end
 
-SlateportCity_Harbor_EventScript_FerryAttendant::
-	lock
-	faceplayer
-	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_AskForTicket
-	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_DEFAULT
-	release
-	end
+@ SlateportCity_Harbor_EventScript_FerryAttendant::
+@ 	lock
+@ 	faceplayer
+@ 	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_AskForTicket
+@ 	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_DEFAULT
+@ 	release
+@ 	end
 
 SlateportCity_Harbor_EventScript_AskForTicket::
 	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
@@ -544,3 +618,12 @@ SlateportCity_Harbor_Text_HandedScannerToStern:
 SlateportCity_Harbor_Text_ThisWillHelpResearch:
 	.string "CAPT. STERN: Thanks, {PLAYER}{KUN}!\n"
 	.string "This will help our research a lot!$"
+
+SlateportHarbor_PushDynTickets_Text_0:
+	.string "{STR_VAR_1}$"
+
+SlateportHarbor_SelectedSSTicket_Text_0:
+	.string "Lilycove$"
+
+SlateportHarbor_SelectedSSTicket_Text_1:
+	.string "Battle Frontier$"
