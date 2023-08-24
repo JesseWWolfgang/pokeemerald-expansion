@@ -9037,6 +9037,10 @@ extern const u32 gItemIconPalette_LustrousGlobe[];
 extern const u32 gItemIcon_BerserkGene[];
 extern const u32 gItemIconPalette_BerserkGene[];
 
+// Extended Mystery Gift Items
+extern const u32 gItemIcon_LibertyPass[];
+extern const u32 gItemIconPalette_LibertyPass[];
+
 extern const u32 gItemIcon_ReturnToFieldArrow[];
 extern const u32 gItemIconPalette_ReturnToFieldArrow[];
 

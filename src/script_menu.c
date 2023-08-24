@@ -1057,6 +1057,7 @@ void PopulateFerryOptions(void)
     UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_EON_TICKET,        FLAG_ENABLE_SHIP_SOUTHERN_ISLAND,   ITEM_EON_TICKET);
     UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_AURORA_TICKET,     FLAG_ENABLE_SHIP_BIRTH_ISLAND,      ITEM_AURORA_TICKET);
     UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP,       FLAG_ENABLE_SHIP_FARAWAY_ISLAND,    ITEM_OLD_SEA_MAP);
+    UpdateFerryCanTravelWithTicket(&ferryDetails, TRUE,  FLAG_TEMP_SSTIDAL_HAS_LIBERTY_PASS,      FLAG_ENABLE_SHIP_LIBERTY_GARDEN,    ITEM_LIBERTY_PASS);
 
     VarSet(VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT, ferryDetails.overrideUnavailableServiceViableCount);
 }

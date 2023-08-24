@@ -10356,4 +10356,17 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 10,
     },
+
+    [ITEM_LIBERTY_PASS] =
+    {
+        .name = _("Liberty Pass"),
+        .itemId = ITEM_LIBERTY_PASS,
+        .price = 50000,
+        .description = sLibertyPassDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
 };

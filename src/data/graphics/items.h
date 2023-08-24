@@ -2001,3 +2001,8 @@ const u32 gItemIconPalette_LustrousGlobe[] = INCBIN_U32("graphics/items/icon_pal
 
 const u32 gItemIcon_BerserkGene[] = INCBIN_U32("graphics/items/icons/berserk_gene.4bpp.lz");
 const u32 gItemIconPalette_BerserkGene[] = INCBIN_U32("graphics/items/icon_palettes/berserk_gene.gbapal.lz");
+
+// Extended Mystery Gift Items
+
+const u32 gItemIcon_LibertyPass[] = INCBIN_U32("graphics/items/icons/liberty_pass.4bpp.lz");
+const u32 gItemIconPalette_LibertyPass[] = INCBIN_U32("graphics/items/icon_palettes/liberty_pass.gbapal.lz");

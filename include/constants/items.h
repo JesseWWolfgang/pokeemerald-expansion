@@ -974,7 +974,12 @@
 #define ITEM_PEAT_BLOCK 797
 #define ITEM_BERSERK_GENE 798
 
-#define ITEMS_COUNT 799
+// Extended Mystery Gift Items
+#define ITEM_EXTENDED_MYSTERY_GIFT_START (ITEM_BERSERK_GENE + 1)
+#define ITEM_LIBERTY_PASS       (ITEM_EXTENDED_MYSTERY_GIFT_START + 0)
+#define ITEM_EXTENDED_MYSTERY_GIFT_END  (ITEM_LIBERTY_PASS)
+
+#define ITEMS_COUNT     (ITEM_EXTENDED_MYSTERY_GIFT_END + 1)
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

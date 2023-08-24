@@ -69,6 +69,10 @@ script LilycoveHarbor_PushDynTickets {
 		bufferitemname(STR_VAR_1, ITEM_OLD_SEA_MAP)
 		dynmultipush("{STR_VAR_1}", ITEM_OLD_SEA_MAP)
 	}
+	if (flag(FLAG_TEMP_SSTIDAL_HAS_LIBERTY_PASS)) {
+		bufferitemname(STR_VAR_1, ITEM_LIBERTY_PASS)
+		dynmultipush("{STR_VAR_1}", ITEM_LIBERTY_PASS)
+	}
 }
 
 script LilycoveHarbor_CheckTicketPresented {
@@ -83,6 +87,8 @@ script LilycoveHarbor_CheckTicketPresented {
 			call(LilycoveHarbor_SelectedAuroraTicket)
 		case ITEM_OLD_SEA_MAP:
 			call(LilycoveHarbor_SelectedOldSeaMap)
+		case ITEM_LIBERTY_PASS:
+			call(LilycoveHarbor_SelectedLibertyPass)
 	}
 }
 
@@ -138,7 +144,6 @@ script LilycoveHarbor_SelectedEonTicket {
 	waitstate
 	release
 }
-
 
 script LilycoveHarbor_SelectedAuroraTicket {
 	call(LilycoveHarbor_LadyFetchesSailor)
@@ -196,6 +201,91 @@ script LilycoveHarbor_OldSeaMapFirstTime {
 	call_if_eq(VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorEast)
 	setvar(VAR_0x8004, LOCALID_SS_TIDAL)
 	call(Common_EventScript_FerryDepart)
+}
+
+script LilycoveHarbor_SelectedLibertyPass {
+	call(LilycoveHarbor_LadyFetchesSailor)
+	if (!flag(FLAG_SHOWN_LIBERTY_PASS)) {
+		setflag(FLAG_SHOWN_LIBERTY_PASS)
+		msgbox(format("Is it you who brought that odd ticket?\p"
+		"Ahh... I recognise this place.\p"
+		"It's for an island known as Liberty Garden,"
+		"not far west of Castelia City in the Unova region."), MSGBOX_NPC)
+		applymovement(LOCALID_FERRY_SAILOR, Common_Movement_ExclamationMark)
+		waitmovement(0)
+		delay(20)
+		msgbox(format("You do realise, this ticket is from Unova right?!"
+		"The Hoenn ferry service doesn't provide passage there."), MSGBOX_NPC)
+		delay(10)
+		applymovement(LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp)
+		waitmovement(0)
+		delay(20)
+		msgbox(format("Hmmmmm...\p"
+		"Unova is VERY far away from here...\p"
+		"It would probably take at least 3 days of sailing there, 3 days back, minimum..."
+		"likely some rougher currents..."
+		"a bottle of whiskey or two..."), MSGBOX_DEFAULT)
+		applymovement(LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer)
+		msgbox(format("You know what?\p"
+		"I think we can make the journey."
+		"I really need to strech my sea legs out after all this time anyway. Yarrr!\p"
+		"This won't be a free trip however.\p"
+		"Given the time and distance, this voyage will come at a hefty cost of ¥10000.\p"
+		"Pretty standard for sea travel of this sort."), MSGBOX_DEFAULT)	
+	}
+	showmoneybox(1, 1)
+	msgbox(format("So what do you say? ¥10000 for a trip to Liberty Garden?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		checkmoney(10000)
+		if (var(VAR_RESULT) == TRUE) {
+			removemoney(10000)
+			updatemoneybox
+			playse(SE_SHOP)
+			waitse
+			hidemoneybox
+			msgbox(format("We're setting sail for the Libery Garden in Unova. All aboard!"), MSGBOX_NPC)
+			closemessage
+			call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
+			warp(MAP_BIRTH_ISLAND_HARBOR, 8, 4)
+			waitstate
+		}
+		else {
+			msgbox(format("You might want to check your cash first before you think about travelling abroad...\p"), MSGBOX_NPC)
+			hidemoneybox
+			call(LilycoveHarbor_SailorComeBackIfYouChangeYourMind)
+		}
+	}
+	else {
+		msgbox(format("I understand, voyages of this kind do not come cheap."), MSGBOX_NPC)
+		hidemoneybox
+		call(LilycoveHarbor_SailorComeBackIfYouChangeYourMind)
+	}
+	release
+}
+
+script LilycoveHarbor_SailorComeBackIfYouChangeYourMind {
+	checkplayergender
+	if (var(VAR_RESULT) == MALE) {
+		msgbox(format("Come back and talk to me again if you change your mind lad."), MSGBOX_NPC)
+	}
+	else {
+		msgbox(format("Come back and talk to me again if you change your mind lass."), MSGBOX_NPC)
+	}
+	call(LilycoveHarbor_SailorReturns)
+}
+
+script LilycoveHarbor_SailorReturns {
+	closemessage
+	applymovement(LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp)
+	waitmovement(0)
+	delay(30)
+	removeobject(LOCALID_FERRY_SAILOR, MAP_LILYCOVE_CITY_HARBOR)
+	delay(60)
+	showobjectat(LOCALID_ATTENDANT, MAP_LILYCOVE_CITY_HARBOR)
+	delay(30)
+	applymovement(LOCALID_ATTENDANT, Common_Movement_FacePlayer)
+	waitmovement(0)
+	msgbox(format("Please come back again."), MSGBOX_NPC)
 }
 
 script LilycoveHarbor_LadyFetchesSailor {

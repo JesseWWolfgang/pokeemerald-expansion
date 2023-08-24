@@ -49,7 +49,9 @@ LilycoveHarbor_PushDynTickets_4:
 LilycoveHarbor_PushDynTickets_7:
 	goto_if_set FLAG_TEMP_SSTIDAL_HAS_AURORA_TICKET, LilycoveHarbor_PushDynTickets_11
 LilycoveHarbor_PushDynTickets_10:
-	goto_if_set FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP, LilycoveHarbor_PushDynTickets_13
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_OLD_SEA_MAP, LilycoveHarbor_PushDynTickets_14
+LilycoveHarbor_PushDynTickets_13:
+	goto_if_set FLAG_TEMP_SSTIDAL_HAS_LIBERTY_PASS, LilycoveHarbor_PushDynTickets_16
 	return
 
 LilycoveHarbor_PushDynTickets_2:
@@ -72,9 +74,14 @@ LilycoveHarbor_PushDynTickets_11:
 	dynmultipush LilycoveHarbor_PushDynTickets_Text_0, ITEM_AURORA_TICKET
 	goto LilycoveHarbor_PushDynTickets_10
 
-LilycoveHarbor_PushDynTickets_13:
+LilycoveHarbor_PushDynTickets_14:
 	bufferitemname STR_VAR_1, ITEM_OLD_SEA_MAP
 	dynmultipush LilycoveHarbor_PushDynTickets_Text_0, ITEM_OLD_SEA_MAP
+	goto LilycoveHarbor_PushDynTickets_13
+
+LilycoveHarbor_PushDynTickets_16:
+	bufferitemname STR_VAR_1, ITEM_LIBERTY_PASS
+	dynmultipush LilycoveHarbor_PushDynTickets_Text_0, ITEM_LIBERTY_PASS
 	return
 
 
@@ -85,6 +92,7 @@ LilycoveHarbor_CheckTicketPresented::
 	case ITEM_EON_TICKET, LilycoveHarbor_CheckTicketPresented_4
 	case ITEM_AURORA_TICKET, LilycoveHarbor_CheckTicketPresented_5
 	case ITEM_OLD_SEA_MAP, LilycoveHarbor_CheckTicketPresented_6
+	case ITEM_LIBERTY_PASS, LilycoveHarbor_CheckTicketPresented_7
 	return
 
 LilycoveHarbor_CheckTicketPresented_2:
@@ -105,6 +113,10 @@ LilycoveHarbor_CheckTicketPresented_5:
 
 LilycoveHarbor_CheckTicketPresented_6:
 	call LilycoveHarbor_SelectedOldSeaMap
+	return
+
+LilycoveHarbor_CheckTicketPresented_7:
+	call LilycoveHarbor_SelectedLibertyPass
 	return
 
 
@@ -235,6 +247,89 @@ LilycoveHarbor_OldSeaMapFirstTime::
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorEast
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepart
+	return
+
+
+LilycoveHarbor_SelectedLibertyPass::
+	call LilycoveHarbor_LadyFetchesSailor
+	goto_if_unset FLAG_SHOWN_LIBERTY_PASS, LilycoveHarbor_SelectedLibertyPass_2
+LilycoveHarbor_SelectedLibertyPass_1:
+	showmoneybox 1, 1
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_4, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LilycoveHarbor_SelectedLibertyPass_5
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_7, MSGBOX_NPC
+	hidemoneybox
+	call LilycoveHarbor_SailorComeBackIfYouChangeYourMind
+LilycoveHarbor_SelectedLibertyPass_4:
+	release
+	return
+
+LilycoveHarbor_SelectedLibertyPass_2:
+	setflag FLAG_SHOWN_LIBERTY_PASS
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_0, MSGBOX_NPC
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_ExclamationMark
+	waitmovement 0
+	delay 20
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_1, MSGBOX_NPC
+	delay 10
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 20
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_2, MSGBOX_DEFAULT
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_3, MSGBOX_DEFAULT
+	goto LilycoveHarbor_SelectedLibertyPass_1
+
+LilycoveHarbor_SelectedLibertyPass_5:
+	checkmoney 10000
+	compare VAR_RESULT, TRUE
+	goto_if_eq LilycoveHarbor_SelectedLibertyPass_8
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_6, MSGBOX_NPC
+	hidemoneybox
+	call LilycoveHarbor_SailorComeBackIfYouChangeYourMind
+	goto LilycoveHarbor_SelectedLibertyPass_4
+
+LilycoveHarbor_SelectedLibertyPass_8:
+	removemoney 10000
+	updatemoneybox
+	playse SE_SHOP
+	waitse
+	hidemoneybox
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_5, MSGBOX_NPC
+	closemessage
+	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
+	warp MAP_BIRTH_ISLAND_HARBOR, 8, 4
+	waitstate
+	goto LilycoveHarbor_SelectedLibertyPass_4
+
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind::
+	checkplayergender
+	compare VAR_RESULT, MALE
+	goto_if_eq LilycoveHarbor_SailorComeBackIfYouChangeYourMind_2
+	msgbox LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_1, MSGBOX_NPC
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_1:
+	call LilycoveHarbor_SailorReturns
+	return
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_2:
+	msgbox LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_0, MSGBOX_NPC
+	goto LilycoveHarbor_SailorComeBackIfYouChangeYourMind_1
+
+
+LilycoveHarbor_SailorReturns::
+	closemessage
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 30
+	removeobject LOCALID_FERRY_SAILOR, MAP_LILYCOVE_CITY_HARBOR
+	delay 60
+	showobjectat LOCALID_ATTENDANT, MAP_LILYCOVE_CITY_HARBOR
+	delay 30
+	applymovement LOCALID_ATTENDANT, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox LilycoveHarbor_SailorReturns_Text_0, MSGBOX_NPC
 	return
 
 
@@ -836,7 +931,7 @@ LilycoveHarbor_PushDynTickets_Text_0:
 	.string "{STR_VAR_1}$"
 
 LilycoveHarbor_SelectedSSTicket_Text_0:
-	.string "Slateport$"
+	.string "Slateport City$"
 
 LilycoveHarbor_SelectedSSTicket_Text_1:
 	.string "Battle Frontier$"
@@ -853,6 +948,67 @@ LilycoveHarbor_SelectedAuroraTicket_Text_0:
 
 LilycoveHarbor_SelectedOldSeaMap_Text_0:
 	.string "We're setting sail for Faraway Island!$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_0:
+	.string "Is it you who brought that odd ticket?\p"
+	.string "Ahh... I recognise this place.\p"
+	.string "It's for an island known as Liberty\n"
+	.string "Garden, not far west of Castelia City\l"
+	.string "in the Unova region.$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_1:
+	.string "You do realise, this ticket is from\n"
+	.string "Unova right?! The Hoenn ferry service\l"
+	.string "doesn't provide passage there.$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_2:
+	.string "Hmmmmm...\p"
+	.string "Unova is VERY far away from here...\p"
+	.string "It would probably take at least 3 days\n"
+	.string "of sailing there, 3 days back, minimum...\l"
+	.string "likely some rougher currents... a bottle\l"
+	.string "of whiskey or two...$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_3:
+	.string "You know what?\p"
+	.string "I think we can make the journey. I\n"
+	.string "really need to strech my sea legs out\l"
+	.string "after all this time anyway. Yarrr!\p"
+	.string "This won't be a free trip however.\p"
+	.string "Given the time and distance, this\n"
+	.string "voyage will come at a hefty cost of\l"
+	.string "¥10000.\p"
+	.string "Pretty standard for sea travel of this\n"
+	.string "sort.$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_4:
+	.string "So what do you say? ¥10000 for a trip\n"
+	.string "to Liberty Garden?$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_5:
+	.string "We're setting sail for the Libery Garden\n"
+	.string "in Unova. All aboard!$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_6:
+	.string "You might want to check your cash first\n"
+	.string "before you think about travelling\l"
+	.string "abroad...\p"
+	.string "$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_7:
+	.string "I understand, voyages of this kind do\n"
+	.string "not come cheap.$"
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_0:
+	.string "Come back and talk to me again if you\n"
+	.string "change your mind lad.$"
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_1:
+	.string "Come back and talk to me again if you\n"
+	.string "change your mind lass.$"
+
+LilycoveHarbor_SailorReturns_Text_0:
+	.string "Please come back again.$"
 
 LilycoveHarbor_LadyFetchesSailor_Text_0:
 	.string "Hold on, let me find someone who can\n"

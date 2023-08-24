@@ -8,6 +8,7 @@ script MysteryGiftGirl_GiveItems {
     setflag(FLAG_ENABLE_SHIP_BIRTH_ISLAND)
     setflag(FLAG_ENABLE_SHIP_NAVEL_ROCK)
     setflag(FLAG_ENABLE_SHIP_FARAWAY_ISLAND)
+    setflag(FLAG_ENABLE_SHIP_LIBERTY_GARDEN)
     if (!flag(FLAG_LILYCOVE_MYSTERYGIFT_GIRL_SPOKEN)) {
         setflag(FLAG_LILYCOVE_MYSTERYGIFT_GIRL_SPOKEN)
         msgbox(format("............\p"
@@ -36,6 +37,7 @@ mart MysteryGiftGirl_Items {
     ITEM_EON_TICKET
     ITEM_AURORA_TICKET
     ITEM_OLD_SEA_MAP
+    ITEM_LIBERTY_PASS
     ITEM_ENIGMA_BERRY
 }
 

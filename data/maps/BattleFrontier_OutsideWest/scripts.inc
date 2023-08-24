@@ -86,16 +86,6 @@ BattleFrontier_OutsideWest_OnTransition:
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 	end
 
-@ BattleFrontier_OutsideWest_EventScript_FerryAttendant::
-@ 	lock
-@ 	faceplayer
-@ 	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
-@ 	checkitem ITEM_SS_TICKET
-@ 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_NoSSTicket
-@ 	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
-@ 	waitmessage
-@ 	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
-@ 	end
 
 BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination::
 	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 2, FALSE
@@ -604,7 +594,7 @@ BattleFrontier_PushDynTickets_Text_0:
 	.string "{STR_VAR_1}$"
 
 BattleFrontier_SelectedSSTicket_Text_0:
-	.string "Slateport$"
+	.string "Slateport City$"
 
 BattleFrontier_SelectedSSTicket_Text_1:
-	.string "Lilycove$"
+	.string "Lilycove City$"

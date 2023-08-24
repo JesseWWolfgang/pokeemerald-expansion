@@ -8,6 +8,7 @@ MysteryGiftGirl_GiveItems::
 	setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
 	setflag FLAG_ENABLE_SHIP_NAVEL_ROCK
 	setflag FLAG_ENABLE_SHIP_FARAWAY_ISLAND
+	setflag FLAG_ENABLE_SHIP_LIBERTY_GARDEN
 	goto_if_unset FLAG_LILYCOVE_MYSTERYGIFT_GIRL_SPOKEN, MysteryGiftGirl_GiveItems_2
 	msgbox MysteryGiftGirl_GiveItems_Text_2, MSGBOX_NPC
 MysteryGiftGirl_GiveItems_1:
@@ -28,10 +29,11 @@ MysteryGiftGirl_GiveItems_2:
 
 	.align 2
 MysteryGiftGirl_Items:
+	.2byte ITEM_OLD_SEA_MAP
 	.2byte ITEM_MYSTIC_TICKET
 	.2byte ITEM_EON_TICKET
 	.2byte ITEM_AURORA_TICKET
-	.2byte ITEM_OLD_SEA_MAP
+	.2byte ITEM_LIBERTY_PASS
 	.2byte ITEM_ENIGMA_BERRY
 	.2byte ITEM_NONE
 
