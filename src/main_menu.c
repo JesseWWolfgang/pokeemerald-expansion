@@ -38,7 +38,7 @@
 #include "window.h"
 #include "mystery_gift_menu.h"
 
-#define SKIP_BIRCH_INTRO     TRUE
+#define SKIP_BIRCH_INTRO     FALSE
 #define BIRCH_SPECIES_ID     SPECIES_LOTAD
 #define BIRCH_SPECIES_SHINY  FALSE
 
