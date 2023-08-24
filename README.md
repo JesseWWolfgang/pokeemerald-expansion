@@ -4,6 +4,8 @@ This feature introduces locations and encounters to mimic the corresponding even
 
 It is based on the feature/available-mystery-gifts
 
+This uses merge/dynmulti to improve the Lilycove Harbour ticket selection.
+
 ## Mystery Gifts
 
 ### In Progress
