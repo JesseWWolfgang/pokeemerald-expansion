@@ -26,7 +26,7 @@ script LilycoveHarbor_FerryAttendantDynamic {
 		call(LilycoveHarbor_PushDynTickets)
 		msgbox(format("The ferry to SLATEPORT is…\p"
 		"Oh?"
-		"That PASS…$"), MSGBOX_NPC)
+		"That PASS…$"), MSGBOX_DEFAULT)
 		dynmultistack(1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM)
 		call(LilycoveHarbor_CheckTicketPresented)
 	}

@@ -29,10 +29,10 @@ MysteryGiftGirl_GiveItems_2:
 
 	.align 2
 MysteryGiftGirl_Items:
-	.2byte ITEM_OLD_SEA_MAP
 	.2byte ITEM_MYSTIC_TICKET
 	.2byte ITEM_EON_TICKET
 	.2byte ITEM_AURORA_TICKET
+	.2byte ITEM_OLD_SEA_MAP
 	.2byte ITEM_LIBERTY_PASS
 	.2byte ITEM_ENIGMA_BERRY
 	.2byte ITEM_NONE
