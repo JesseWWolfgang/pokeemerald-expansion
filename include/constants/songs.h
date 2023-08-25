@@ -548,4 +548,10 @@
 
 #define MUS_NONE                    0xFFFF
 
+#ifdef MUS_BW_ROUTE6_SUMMER
+#define MUS_LIBERTY_GARDEN  MUS_BW_ROUTE6_SUMMER
+#else
+#define MUS_LIBERTY_GARDEN  MUS_ABANDONED_SHIP
+#endif
+
 #endif  // GUARD_CONSTANTS_SONGS_H

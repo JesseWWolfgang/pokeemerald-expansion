@@ -216,6 +216,11 @@
 #define MAPSEC_TRAINER_HILL                 0xD4
 #define MAPSEC_NONE                         0xD5
 
+// Extended Mystery Gift
+#define EXTENDED_MYSTERYGIFT_MAPSEC_START   (MAPSEC_NONE + 1)
+#define MAPSEC_LIBERTY_GARDEN               (EXTENDED_MYSTERYGIFT_MAPSEC_START + 0)
+#define EXTENDED_MYSTERYGIFT_MAPSEC_END     MAPSEC_LIBERTY_GARDEN  
+
 #define METLOC_SPECIAL_EGG                  0xFD
 #define METLOC_IN_GAME_TRADE                0xFE
 #define METLOC_FATEFUL_ENCOUNTER            0xFF

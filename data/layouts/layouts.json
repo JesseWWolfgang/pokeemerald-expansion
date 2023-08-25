@@ -4430,6 +4430,16 @@
       "secondary_tileset": "gTileset_Facility",
       "border_filepath": "data/layouts/LilycoveCity_LilycoveMuseum_Tunnel/border.bin",
       "blockdata_filepath": "data/layouts/LilycoveCity_LilycoveMuseum_Tunnel/map.bin"
+    },
+    {
+      "id": "LAYOUT_LIBERTY_GARDEN_EXTERIOR",
+      "name": "LibertyGarden_Exterior_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Lilycove",
+      "border_filepath": "data/layouts/LibertyGarden_Exterior/border.bin",
+      "blockdata_filepath": "data/layouts/LibertyGarden_Exterior/map.bin"
     }
   ]
 }

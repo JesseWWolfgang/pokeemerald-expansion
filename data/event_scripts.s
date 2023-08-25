@@ -1063,3 +1063,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/LilycoveCity_LilycoveMuseum_Exterior/scripts.inc"
 
 	.include "data/maps/LilycoveCity_LilycoveMuseum_Tunnel/scripts.inc"
+
+	.include "data/maps/LibertyGarden_Exterior/scripts.inc"
