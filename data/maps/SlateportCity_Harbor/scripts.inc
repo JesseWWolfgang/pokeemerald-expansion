@@ -234,14 +234,6 @@ SlateportCity_Harbor_Movement_PlayerWalkUp:
 	walk_up
 	step_end
 
-@ SlateportCity_Harbor_EventScript_FerryAttendant::
-@ 	lock
-@ 	faceplayer
-@ 	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_AskForTicket
-@ 	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_DEFAULT
-@ 	release
-@ 	end
-
 SlateportCity_Harbor_EventScript_AskForTicket::
 	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
 	message SlateportCity_Harbor_Text_FlashedTicketWhereTo
@@ -623,7 +615,7 @@ SlateportHarbor_PushDynTickets_Text_0:
 	.string "{STR_VAR_1}$"
 
 SlateportHarbor_SelectedSSTicket_Text_0:
-	.string "Lilycove$"
+	.string "Lilycove City$"
 
 SlateportHarbor_SelectedSSTicket_Text_1:
 	.string "Battle Frontier$"

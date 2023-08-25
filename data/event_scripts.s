@@ -750,6 +750,7 @@ Common_EventScript_StopBrineysBoatMusic::
 @ Below could be split as ferry.inc aside from the Rusturf tunnel script
 Common_EventScript_FerryDepart::
 	delay 60
+	playse SE_SHIP
 	applymovement VAR_0x8004, Movement_FerryDepart
 	waitmovement 0
 	return
@@ -1065,3 +1066,7 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/LilycoveCity_LilycoveMuseum_Tunnel/scripts.inc"
 
 	.include "data/maps/LibertyGarden_Exterior/scripts.inc"
+
+	.include "data/maps/LibertyGarden_1F/scripts.inc"
+
+	.include "data/maps/LibertyGarden_2F/scripts.inc"

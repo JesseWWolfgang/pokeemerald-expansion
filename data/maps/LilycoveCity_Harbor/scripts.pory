@@ -246,7 +246,7 @@ script LilycoveHarbor_SelectedLibertyPass {
 			msgbox(format("We're setting sail for the Libery Garden in Unova. All aboard!"), MSGBOX_NPC)
 			closemessage
 			call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
-			warp(MAP_BIRTH_ISLAND_HARBOR, 8, 4)
+			warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
 			waitstate
 		}
 		else {

@@ -625,6 +625,8 @@
     "Route124_DivingTreasureHuntersHouse"
   ],
   "gMapGroup_ExtendedMysteryGift": [
-    "LibertyGarden_Exterior"
+    "LibertyGarden_Exterior",
+    "LibertyGarden_1F",
+    "LibertyGarden_2F"
   ]
 }

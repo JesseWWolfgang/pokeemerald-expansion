@@ -1,0 +1,138 @@
+{
+  "id": "MAP_LIBERTY_GARDEN_1F",
+  "name": "LibertyGarden_1F",
+  "layout": "LAYOUT_LIBERTY_GARDEN_1F",
+  "music": "MUS_LIBERTY_GARDEN_INTERIOR",
+  "region_map_section": "MAPSEC_LIBERTY_GARDEN",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 4,
+      "y": 3,
+      "elevation": 0,
+      "dest_map": "MAP_LIBERTY_GARDEN_1F",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 3,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_LIBERTY_GARDEN_EXTERIOR",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 4,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_LIBERTY_GARDEN_EXTERIOR",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 5,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_LIBERTY_GARDEN_EXTERIOR",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+    {
+      "type": "weather",
+      "x": 4,
+      "y": 11,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
+    },
+    {
+      "type": "weather",
+      "x": 6,
+      "y": 11,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
+    },
+    {
+      "type": "weather",
+      "x": 5,
+      "y": 11,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
+    },
+    {
+      "type": "weather",
+      "x": 2,
+      "y": 11,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
+    },
+    {
+      "type": "weather",
+      "x": 3,
+      "y": 11,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
+    },
+    {
+      "type": "weather",
+      "x": 1,
+      "y": 11,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SHADE"
+    },
+    {
+      "type": "weather",
+      "x": 4,
+      "y": 12,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    },
+    {
+      "type": "weather",
+      "x": 3,
+      "y": 12,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    },
+    {
+      "type": "weather",
+      "x": 5,
+      "y": 12,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    },
+    {
+      "type": "weather",
+      "x": 6,
+      "y": 12,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    },
+    {
+      "type": "weather",
+      "x": 2,
+      "y": 12,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    },
+    {
+      "type": "weather",
+      "x": 1,
+      "y": 12,
+      "elevation": 0,
+      "weather": "COORD_EVENT_WEATHER_SUNNY"
+    }
+  ],
+  "bg_events": [
+
+  ]
+}

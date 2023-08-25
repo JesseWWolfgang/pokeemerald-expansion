@@ -30,7 +30,7 @@ LilycoveHarbor_FerryAttendantDynamic_2:
 
 LilycoveHarbor_FerryAttendantDynamic_3:
 	call LilycoveHarbor_PushDynTickets
-	msgbox LilycoveHarbor_FerryAttendantDynamic_Text_0, MSGBOX_NPC
+	msgbox LilycoveHarbor_FerryAttendantDynamic_Text_0, MSGBOX_DEFAULT
 	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
 	call LilycoveHarbor_CheckTicketPresented
 	goto LilycoveHarbor_FerryAttendantDynamic_1
@@ -299,7 +299,7 @@ LilycoveHarbor_SelectedLibertyPass_8:
 	msgbox LilycoveHarbor_SelectedLibertyPass_Text_5, MSGBOX_NPC
 	closemessage
 	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
-	warp MAP_BIRTH_ISLAND_HARBOR, 8, 4
+	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
 	waitstate
 	goto LilycoveHarbor_SelectedLibertyPass_4
 

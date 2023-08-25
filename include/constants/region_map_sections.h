@@ -214,12 +214,13 @@
 #define MAPSEC_ALTERING_CAVE                0xD2
 #define MAPSEC_NAVEL_ROCK                   0xD3
 #define MAPSEC_TRAINER_HILL                 0xD4
-#define MAPSEC_NONE                         0xD5
 
 // Extended Mystery Gift
-#define EXTENDED_MYSTERYGIFT_MAPSEC_START   (MAPSEC_NONE + 1)
+#define EXTENDED_MYSTERYGIFT_MAPSEC_START   (MAPSEC_TRAINER_HILL + 1)
 #define MAPSEC_LIBERTY_GARDEN               (EXTENDED_MYSTERYGIFT_MAPSEC_START + 0)
 #define EXTENDED_MYSTERYGIFT_MAPSEC_END     MAPSEC_LIBERTY_GARDEN  
+
+#define MAPSEC_NONE                         (EXTENDED_MYSTERYGIFT_MAPSEC_END + 1)
 
 #define METLOC_SPECIAL_EGG                  0xFD
 #define METLOC_IN_GAME_TRADE                0xFE

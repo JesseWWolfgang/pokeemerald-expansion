@@ -1,1 +1,102 @@
-mapscripts LibertyGarden_Exterior_MapScripts {}
+// Youtube Video with in depth text from Pokemon Black and White 2:
+// https://www.youtube.com/watch?v=FesC1ryKvqM
+
+const OBJECT_SSTIDAL = 1
+const OBJECT_SAILOR = 2
+
+mapscripts LibertyGarden_Exterior_MapScripts {
+    
+}
+
+script LibertyGarden_LighthouseSign {
+    msgbox(format("This lighthouse shines with the light of freedom.\l"
+    "Only authorized personnel may enter."), MSGBOX_SIGN)
+}
+
+script LibertyGarden_DockWestSign {
+    msgbox(format("Two hundred years ago, an ultra-rich family bought this island.\l"
+    "They named it Liberty Garden.\p"
+    "It's a place where people and Pokémon can live freely."), MSGBOX_SIGN)
+}
+
+script LibertyGarden_DockEastSign {
+    msgbox(format("Dock 2"
+    "To board the tour boat, go to Dock 1."), MSGBOX_SIGN)
+}
+
+script LibertyGarden_SailorInteract {
+    lock
+    faceplayer
+    msgbox(format("Quite the journey wouldn't you say kid?\p"
+    "How is the lighthouse? As grand as you expected?\p"
+    "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
+    dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
+    switch (var(VAR_RESULT)) {
+        case 0:
+            call(LibertyGarden_AskHomeOrCasteliaCity)
+    }
+    release
+}
+
+script LibertyGarden_AskHomeOrCasteliaCity {
+    checkplayergender
+    if (var(VAR_RESULT) == MALE) {
+        msgbox(format("We are a long way from home laddy."), MSGBOX_DEFAULT)
+    }
+    else {
+        msgbox(format("We are a long way from home lassy."), MSGBOX_DEFAULT)
+    }
+    msgbox(format("Do you want to go to the docks at Castelia City for a refresher?\p"
+    "If not, the ship is fuelled up and ready to take us back to Lilycove City in Hoenn.\p"
+    "What do you say kid?"), MSGBOX_DEFAULT)
+    dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Castelia City", "Lilycove City")
+    switch (var(VAR_RESULT)) {
+        case 0:
+            msgbox(format("A short trip to Castelia City it is then! Jump on the ship and lets get going."), MSGBOX_NPC)
+            call(LibertyGarden_DepartWithSailor)
+            warp(MAP_SOUTHERN_ISLAND_EXTERIOR, 13, 22)
+	        waitstate
+        case 1:
+            msgbox(format("We've got a long voyage back to Lilycove City! All aboard!"), MSGBOX_NPC)
+            call(LibertyGarden_DepartWithSailor)
+            warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+	        waitstate
+    }
+}
+
+script LibertyGarden_DepartWithSailor {
+    applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    delay(30)
+    hideobjectat(OBJECT_SAILOR, 0)
+    switch (var(VAR_FACING)) {
+        case DIR_NORTH:
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        case DIR_EAST:
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
+        case DIR_WEST:
+            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+    }
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    delay(30)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, 0)
+	call(LibertyGarden_FerryDepart)
+}
+
+script LibertyGarden_FerryDepart {
+    delay(60)
+    playse(SE_SHIP)
+    applymovement(OBJECT_SSTIDAL, LibertyGarden_FerryMovement)
+    waitmovement(0)
+}
+
+movement LibertyGarden_FerryMovement {
+    walk_slow_left
+	walk_slow_left
+	walk_slow_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+}
