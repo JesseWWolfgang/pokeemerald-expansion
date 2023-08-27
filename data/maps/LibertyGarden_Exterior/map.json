@@ -46,8 +46,8 @@
       "x": 20,
       "y": 21,
       "elevation": 0,
-      "dest_map": "MAP_LILYCOVE_CITY_HARBOR",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_LIBERTY_GARDEN_1F",
+      "dest_warp_id": "2"
     }
   ],
   "coord_events": [
