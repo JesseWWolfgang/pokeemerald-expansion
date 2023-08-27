@@ -4,7 +4,11 @@ This feature introduces locations and encounters to mimic the corresponding even
 
 It is based on the feature/available-mystery-gifts
 
-This uses merge/dynmulti to improve the Lilycove Harbour ticket selection.
+This feature uses:
+- merge/dynmulti: improve the Lilycove Harbour ticket selection.
+- merge/overworld-expansion: Use 16 bit sprite gfx ids
+- merge/overworld-pokemon: Sprite gfx for the extra overworld pokemon.
+- merge/dynamic-ow-pals: Better loading of palettes for sprites.
 
 ## Mystery Gifts
 
