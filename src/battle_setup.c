@@ -832,6 +832,12 @@ u8 GetWildBattleTransition(void)
     u8 enemyLevel = GetMonData(&gEnemyParty[0], MON_DATA_LEVEL);
     u8 playerLevel = GetSumOfPlayerPartyLevel(1);
 
+    if (FlagGet(FLAG_CUSTOM_TRANSITION))
+    {
+        FlagClear(FLAG_CUSTOM_TRANSITION);
+        transitionType = VarGet(VAR_TEMP_CUSTOM_TRANSITION);
+    }
+
     if (enemyLevel < playerLevel)
     {
         if (InBattlePyramid())
@@ -892,6 +898,12 @@ u8 GetTrainerBattleTransition(void)
     transitionType = GetBattleTransitionTypeByMap();
     enemyLevel = GetSumOfEnemyPartyLevel(gTrainerBattleOpponent_A, minPartyCount);
     playerLevel = GetSumOfPlayerPartyLevel(minPartyCount);
+
+    if (FlagGet(FLAG_CUSTOM_TRANSITION))
+    {
+        FlagClear(FLAG_CUSTOM_TRANSITION);
+        transitionType = VarGet(VAR_TEMP_CUSTOM_TRANSITION);
+    }
 
     if (enemyLevel < playerLevel)
         return sBattleTransitionTable_Trainer[transitionType][0];

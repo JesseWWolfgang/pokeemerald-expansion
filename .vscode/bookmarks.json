@@ -174,12 +174,12 @@
 			"path": "src/battle_setup.c",
 			"bookmarks": [
 				{
-					"line": 843,
+					"line": 849,
 					"column": 11,
 					"label": "Get trainer transition"
 				},
 				{
-					"line": 956,
+					"line": 968,
 					"column": 22,
 					"label": "Give starter pokemon"
 				}

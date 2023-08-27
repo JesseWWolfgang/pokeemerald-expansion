@@ -310,4 +310,7 @@
 // cutscenes nor call a wait command. Used for weather effects in vanilla.
 #define TRIGGER_RUN_IMMEDIATELY   0
 
+#define VAR_TEMP_CUSTOM_BATTLE_MUSIC        VAR_TEMP_0
+#define VAR_TEMP_CUSTOM_TRANSITION          VAR_TEMP_1
+
 #endif // GUARD_CONSTANTS_VARS_H
