@@ -7570,6 +7570,12 @@ bool32 IsSpeciesInHoennDex(u16 species)
 
 u16 GetBattleBGM(void)
 {
+    if (FlagGet(FLAG_CUSTOM_BATTLE_MUSIC))
+    {
+        FlagClear(FLAG_CUSTOM_BATTLE_MUSIC);
+        return VarGet(VAR_TEMP_CUSTOM_BATTLE_MUSIC);
+    }
+
     if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE_GROUDON)
         return MUS_VS_KYOGRE_GROUDON;
     else if (gBattleTypeFlags & BATTLE_TYPE_REGI)

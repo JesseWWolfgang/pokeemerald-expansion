@@ -9,6 +9,7 @@ This feature uses:
 - merge/overworld-expansion: Use 16 bit sprite gfx ids
 - merge/overworld-pokemon: Sprite gfx for the extra overworld pokemon.
 - merge/dynamic-ow-pals: Better loading of palettes for sprites.
+- feature/custom-transitions-battlemusic: Customise transitions from scripting.
 
 ## Mystery Gifts
 
