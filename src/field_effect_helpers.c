@@ -1705,7 +1705,7 @@ static void LoadFieldEffectPalette_(u8 fieldEffect, bool8 updateGammaType)
     {
         LoadObjectEventPalette(spriteTemplate->paletteTag);
         if (updateGammaType)
-            UpdatePaletteColorMapType(IndexOfSpritePaletteTag(spriteTemplate->paletteTag), COLOR_MAP_CONTRAST);
+            UpdatePaletteColorMapType(IndexOfSpritePaletteTag(spriteTemplate->paletteTag), COLOR_MAP_DARK_CONTRAST);
     }
 }
 
