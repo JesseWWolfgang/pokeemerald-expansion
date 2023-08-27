@@ -5,6 +5,10 @@ script LibertyGarden_Victini {
     faceplayer
     waitse
     playmoncry(SPECIES_VICTINI, CRY_MODE_ENCOUNTER)
+    msgbox(format("Ta-ta-ta-tah!"), MSGBOX_NPC)
+    delay(20)
+    waitmoncry
+    setwildbattle(SPECIES_VICTINI, 15)
 }
 
 // AncientTomb_EventScript_Registeel::
