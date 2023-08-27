@@ -36,6 +36,11 @@
             "file": "data/specials.inc"
         },
         {
+            "expression": "^\\s*#define\\s+(SPECIES_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/species.h"
+        },
+        {
             "expression": "^\\s*(\\w+):", // Match newline then any num of spaces(eg. tabs), then capture any number of letters before the colon
             "type": "define",
             "file": "data/scripts/movement.inc"
@@ -104,6 +109,16 @@
             "expression": "^\\s*#define\\s+(SPECIES_\\w+)\\s+(.+)",
             "type": "define",
             "file": "include/constants/species.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(B_OUTCOME_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/battle.h"
+        },
+        {
+            "expression": "^\\s*(B_TRANSITION_\\w+),",
+            "type": "define",
+            "file": "include/battle_transition.h"
         },
     ],
     "bookmarks.saveBookmarksInProject": true,

@@ -1,4 +1,20 @@
-mapscripts LibertyGarden_2F_MapScripts {}
+const OBJECT_ID_VICTINI = 1
+
+mapscripts LibertyGarden_2F_MapScripts {
+    // MAP_SCRIPT_ON_LOAD {
+    //     if (flag(FLAG_DEFEATED_VICTINI) == FALSE) {
+    //         showobjectat(OBJECT_ID_VICTINI, 0)
+    //     }
+    // }
+    // MAP_SCRIPT_ON_RESUME {
+    //     if (flag(FLAG_SYS_CTRL_OBJ_DELETE)) {
+    //         specialvar(VAR_RESULT, GetBattleOutcome)
+    //         if (var(VAR_RESULT) != B_OUTCOME_CAUGHT) {
+    //             removeobject(VAR_LAST_TALKED)
+    //         }
+    //     }
+    // } 
+}
 
 script LibertyGarden_Victini {
     lock
@@ -9,35 +25,23 @@ script LibertyGarden_Victini {
     delay(20)
     waitmoncry
     setwildbattle(SPECIES_VICTINI, 15)
+    setflag(FLAG_SYS_CTRL_OBJ_DELETE)
+    special(BattleSetup_StartLegendaryBattle)
+    waitstate
+    clearflag(FLAG_SYS_CTRL_OBJ_DELETE)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    switch (var(VAR_RESULT)) {
+        case B_OUTCOME_CAUGHT:
+            setflag(FLAG_DEFEATED_VICTINI)
+            call(Common_EventScript_RemoveStaticPokemon)
+        case B_OUTCOME_RAN:
+            msgbox(format("Victini is watching carefully."), MSGBOX_DEFAULT)
+        default:
+            fadescreenswapbuffers(FADE_TO_BLACK)
+            hideobjectat(OBJECT_ID_VICTINI, 0)
+            fadescreenswapbuffers(FADE_FROM_BLACK)
+            msgbox(format("Victini fled behind the furniture..."), MSGBOX_DEFAULT)
+    }
+    release
+    end
 }
-
-// AncientTomb_EventScript_Registeel::
-// 	lock
-// 	faceplayer
-// 	waitse
-// 	playmoncry SPECIES_REGISTEEL, CRY_MODE_ENCOUNTER
-// 	delay 40
-// 	waitmoncry
-// 	setwildbattle SPECIES_REGISTEEL, 40
-// 	setflag FLAG_SYS_CTRL_OBJ_DELETE
-// 	special StartRegiBattle
-// 	waitstate
-// 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
-// 	specialvar VAR_RESULT, GetBattleOutcome
-// 	goto_if_eq VAR_RESULT, B_OUTCOME_WON, AncientTomb_EventScript_DefeatedRegisteel
-// 	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, AncientTomb_EventScript_RanFromRegisteel
-// 	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, AncientTomb_EventScript_RanFromRegisteel
-// 	setflag FLAG_DEFEATED_REGISTEEL
-// 	release
-// 	end
-
-// AncientTomb_EventScript_DefeatedRegisteel::
-// 	setflag FLAG_DEFEATED_REGISTEEL
-// 	goto Common_EventScript_RemoveStaticPokemon
-// 	end
-
-// AncientTomb_EventScript_RanFromRegisteel::
-// 	setvar VAR_0x8004, SPECIES_REGISTEEL
-// 	goto Common_EventScript_LegendaryFlewAway
-// 	end
-
