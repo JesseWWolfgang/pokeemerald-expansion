@@ -7628,7 +7628,17 @@ u16 GetBattleBGM(void)
         }
     }
     else
+    {
+        #ifndef MUSIC_EXPANSION
+            switch (GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL))
+            {
+                case SPECIES_VICTINI:
+                    return MUS_RG_VS_LEGEND;
+            }
+        #endif
+        
         return MUS_VS_WILD;
+    }
 }
 
 void PlayBattleBGM(void)
