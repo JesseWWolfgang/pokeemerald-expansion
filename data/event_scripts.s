@@ -1070,3 +1070,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/LibertyGarden_1F/scripts.inc"
 
 	.include "data/maps/LibertyGarden_2F/scripts.inc"
+
+	.include "data/maps/CasteliaCity_LibertyPier/scripts.inc"

@@ -1,0 +1,78 @@
+const OBJECT_SSTIDAL = 1
+const OBJECT_SAILOR = 2
+
+mapscripts CasteliaCity_LibertyPier_MapScripts {}
+
+// script CasteliaCity_SailorInteract {
+//     lock
+//     faceplayer
+//     msgbox(format(""
+//     "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
+//     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
+//     switch (var(VAR_RESULT)) {
+//         case 0:
+//             call(CasteliaCity_AskHomeOrCasteliaCity)
+//     }
+//     release
+// }
+
+// script CasteliaCity_AskHomeOrCasteliaCity {
+//     checkplayergender
+//     if (var(VAR_RESULT) == MALE) {
+//         msgbox(format("We are a long way from home laddy."), MSGBOX_DEFAULT)
+//     }
+//     else {
+//         msgbox(format("We are a long way from home lassy."), MSGBOX_DEFAULT)
+//     }
+//     msgbox(format("Do you want to go to the docks at Castelia City for a refresher?\p"
+//     "If not, the ship is fuelled up and ready to take us back to Lilycove City in Hoenn.\p"
+//     "What do you say kid?"), MSGBOX_DEFAULT)
+//     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Castelia City", "Lilycove City")
+//     switch (var(VAR_RESULT)) {
+//         case 0:
+//             msgbox(format("A short trip to Castelia City it is then! Jump on the ship and lets get going."), MSGBOX_NPC)
+//             call(CasteliaCity_DepartWithSailor)
+//             warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28)
+// 	        waitstate
+//         case 1:
+//             msgbox(format("We've got a long voyage back to Lilycove City! All aboard!"), MSGBOX_NPC)
+//             call(CasteliaCity_DepartWithSailor)
+//             warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+// 	        waitstate
+//     }
+// }
+
+// script CasteliaCity_DepartWithSailor {
+//     applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterUp)
+//     waitmovement(0)
+//     delay(30)
+//     hideobjectat(OBJECT_SAILOR, MAP_LIBERTY_GARDEN_EXTERIOR)
+//     switch (var(VAR_FACING)) {
+//         case DIR_NORTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+//         case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
+//         case DIR_WEST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+//     }
+//     waitmovement(0)
+//     applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+//     waitmovement(0)
+//     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LIBERTY_GARDEN_EXTERIOR)
+//     delay(30)
+// 	call(CasteliaCity_FerryDepart)
+// }
+
+// script CasteliaCity_FerryDepart {
+//     delay(60)
+//     playse(SE_RG_SS_ANNE_HORN)
+//     applymovement(OBJECT_SSTIDAL, CasteliaCity_FerryMovement)
+//     waitmovement(0)
+// }
+
+// movement CasteliaCity_FerryMovement {
+//     walk_slow_left
+// 	walk_slow_left
+// 	walk_slow_left
+// 	walk_left
+// 	walk_left
+// 	walk_left
+// 	walk_left
+// }

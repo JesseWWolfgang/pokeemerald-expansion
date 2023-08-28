@@ -53,7 +53,7 @@ LibertyGarden_AskHomeOrCasteliaCity_2:
 LibertyGarden_AskHomeOrCasteliaCity_6:
 	msgbox LibertyGarden_AskHomeOrCasteliaCity_Text_5, MSGBOX_NPC
 	call LibertyGarden_DepartWithSailor
-	warp MAP_SOUTHERN_ISLAND_EXTERIOR, 13, 22
+	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28
 	waitstate
 	return
 
@@ -95,21 +95,6 @@ LibertyGarden_DepartWithSailor_5:
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft
 	goto LibertyGarden_DepartWithSailor_1
 
-
-LibertyGarden_GetOnFerryNorth:
-	walk_up
-	walk_up
-	step_end
-
-LibertyGarden_GetOnFerryEast:
-	walk_right
-	walk_up
-	step_end
-
-LibertyGarden_GetOnFerryWest:
-	walk_left
-	walk_up
-	step_end
 
 LibertyGarden_FerryDepart::
 	delay 60

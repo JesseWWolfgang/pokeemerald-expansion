@@ -279,6 +279,7 @@ static const u8 sMapSecIdsOffMap[] =
     MAPSEC_FARAWAY_ISLAND,
     MAPSEC_NAVEL_ROCK,
     MAPSEC_LIBERTY_GARDEN,
+    MAPSEC_CASTELIA_CITY,
 };
 
 static const u16 sRegionMapFramePal[] = INCBIN_U16("graphics/pokenav/region_map/frame.gbapal");
