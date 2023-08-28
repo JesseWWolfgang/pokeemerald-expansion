@@ -5,6 +5,8 @@
 
 // IF MERGING WITH POKEEMERALD-EXPANSION, ACCEPT ALL INCOMING CHANGES //
 
+#define MUSIC_EXPANSION
+
 #define START_SE                            0
 
 #define MUS_DUMMY                           0 // MUS_DUMMY
