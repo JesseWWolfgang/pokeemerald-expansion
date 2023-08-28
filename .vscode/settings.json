@@ -116,6 +116,11 @@
             "file": "include/constants/battle.h"
         },
         {
+            "expression": "^\\s*#define\\s+(WEATHER_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/weather.h"
+        },
+        {
             "expression": "^\\s*(B_TRANSITION_\\w+),",
             "type": "define",
             "file": "include/battle_transition.h"

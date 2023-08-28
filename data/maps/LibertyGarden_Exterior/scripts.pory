@@ -68,25 +68,23 @@ script LibertyGarden_DepartWithSailor {
     applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterUp)
     waitmovement(0)
     delay(30)
-    hideobjectat(OBJECT_SAILOR, 0)
+    hideobjectat(OBJECT_SAILOR, MAP_LIBERTY_GARDEN_EXTERIOR)
     switch (var(VAR_FACING)) {
-        case DIR_NORTH:
-            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
-        case DIR_EAST:
-            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
-        case DIR_WEST:
-            applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+        case DIR_NORTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
+        case DIR_WEST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
     }
-    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
     waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+    waitmovement(0)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LIBERTY_GARDEN_EXTERIOR)
     delay(30)
-    hideobjectat(OBJ_EVENT_ID_PLAYER, 0)
 	call(LibertyGarden_FerryDepart)
 }
 
 script LibertyGarden_FerryDepart {
     delay(60)
-    playse(SE_SHIP)
+    playse(SE_RG_SS_ANNE_HORN)
     applymovement(OBJECT_SSTIDAL, LibertyGarden_FerryMovement)
     waitmovement(0)
 }

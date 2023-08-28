@@ -750,7 +750,7 @@ Common_EventScript_StopBrineysBoatMusic::
 @ Below could be split as ferry.inc aside from the Rusturf tunnel script
 Common_EventScript_FerryDepart::
 	delay 60
-	playse SE_SHIP
+	playse SE_RG_SS_ANNE_HORN
 	applymovement VAR_0x8004, Movement_FerryDepart
 	waitmovement 0
 	return

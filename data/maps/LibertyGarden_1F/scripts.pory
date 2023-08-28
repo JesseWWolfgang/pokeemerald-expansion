@@ -1,1 +1,8 @@
-mapscripts LibertyGarden_1F_MapScripts {}
+mapscripts LibertyGarden_1F_MapScripts {
+    MAP_SCRIPT_ON_LOAD {
+        getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+        if (var(VAR_TEMP_1) <= 11) {
+            setweather(WEATHER_SHADE)
+        }
+    }
+}

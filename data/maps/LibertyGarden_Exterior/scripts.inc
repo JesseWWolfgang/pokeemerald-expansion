@@ -69,16 +69,17 @@ LibertyGarden_DepartWithSailor::
 	applymovement 2, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	delay 30
-	removeobject 2
+	hideobjectat 2, MAP_LIBERTY_GARDEN_EXTERIOR
 	switch VAR_FACING
 	case DIR_NORTH, LibertyGarden_DepartWithSailor_3
 	case DIR_EAST, LibertyGarden_DepartWithSailor_4
 	case DIR_WEST, LibertyGarden_DepartWithSailor_5
 LibertyGarden_DepartWithSailor_1:
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
+	waitmovement 0
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_LIBERTY_GARDEN_EXTERIOR
 	delay 30
-	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	call LibertyGarden_FerryDepart
 	return
 
@@ -95,9 +96,24 @@ LibertyGarden_DepartWithSailor_5:
 	goto LibertyGarden_DepartWithSailor_1
 
 
+LibertyGarden_GetOnFerryNorth:
+	walk_up
+	walk_up
+	step_end
+
+LibertyGarden_GetOnFerryEast:
+	walk_right
+	walk_up
+	step_end
+
+LibertyGarden_GetOnFerryWest:
+	walk_left
+	walk_up
+	step_end
+
 LibertyGarden_FerryDepart::
 	delay 60
-	playse SE_SHIP
+	playse SE_RG_SS_ANNE_HORN
 	applymovement 1, LibertyGarden_FerryMovement
 	waitmovement 0
 	return
