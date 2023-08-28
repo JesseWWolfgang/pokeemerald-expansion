@@ -1,19 +1,14 @@
 const OBJECT_ID_VICTINI = 1
 
 mapscripts LibertyGarden_2F_MapScripts {
-    // MAP_SCRIPT_ON_LOAD {
-    //     if (flag(FLAG_DEFEATED_VICTINI) == FALSE) {
-    //         showobjectat(OBJECT_ID_VICTINI, 0)
-    //     }
-    // }
-    // MAP_SCRIPT_ON_RESUME {
-    //     if (flag(FLAG_SYS_CTRL_OBJ_DELETE)) {
-    //         specialvar(VAR_RESULT, GetBattleOutcome)
-    //         if (var(VAR_RESULT) != B_OUTCOME_CAUGHT) {
-    //             removeobject(VAR_LAST_TALKED)
-    //         }
-    //     }
-    // } 
+    MAP_SCRIPT_ON_TRANSITION {
+        if (flag(FLAG_CAPTURED_VICTINI)) {
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+        else {
+            clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+    }
 }
 
 script LibertyGarden_Victini {
@@ -25,20 +20,19 @@ script LibertyGarden_Victini {
     delay(20)
     waitmoncry
     setwildbattle(SPECIES_VICTINI, 15)
-    setflag(FLAG_SYS_CTRL_OBJ_DELETE)
     special(BattleSetup_StartLegendaryBattle)
     waitstate
-    clearflag(FLAG_SYS_CTRL_OBJ_DELETE)
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            setflag(FLAG_DEFEATED_VICTINI)
+            setflag(FLAG_CAPTURED_VICTINI)
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             call(Common_EventScript_RemoveStaticPokemon)
         case B_OUTCOME_RAN:
             msgbox(format("Victini is watching carefully."), MSGBOX_DEFAULT)
         default:
             fadescreenswapbuffers(FADE_TO_BLACK)
-            hideobjectat(OBJECT_ID_VICTINI, 0)
+            removeobject(OBJECT_ID_VICTINI)
             fadescreenswapbuffers(FADE_FROM_BLACK)
             msgbox(format("Victini fled behind the furniture..."), MSGBOX_DEFAULT)
     }

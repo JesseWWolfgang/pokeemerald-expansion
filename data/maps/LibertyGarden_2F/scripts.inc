@@ -1,5 +1,15 @@
 LibertyGarden_2F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION
 	.byte 0
+
+LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION:
+	goto_if_set FLAG_CAPTURED_VICTINI, LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	return
+
+LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
+	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	return
 
 
 LibertyGarden_Victini::
@@ -11,16 +21,14 @@ LibertyGarden_Victini::
 	delay 20
 	waitmoncry
 	setwildbattle SPECIES_VICTINI, 15
-	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	special BattleSetup_StartLegendaryBattle
 	waitstate
-	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
 	switch VAR_RESULT
 	case B_OUTCOME_CAUGHT, LibertyGarden_Victini_3
 	case B_OUTCOME_RAN, LibertyGarden_Victini_4
 	fadescreenswapbuffers FADE_TO_BLACK
-	hideobjectat 1, 0
+	removeobject 1
 	fadescreenswapbuffers FADE_FROM_BLACK
 	msgbox LibertyGarden_Victini_Text_2, MSGBOX_DEFAULT
 LibertyGarden_Victini_1:
@@ -28,7 +36,8 @@ LibertyGarden_Victini_1:
 	end
 
 LibertyGarden_Victini_3:
-	setflag FLAG_DEFEATED_VICTINI
+	setflag FLAG_CAPTURED_VICTINI
+	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	call Common_EventScript_RemoveStaticPokemon
 	goto LibertyGarden_Victini_1
 
