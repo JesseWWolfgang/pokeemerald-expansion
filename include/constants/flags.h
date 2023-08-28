@@ -49,8 +49,8 @@
 #define FLAG_FORCE_DOUBLE_WILD              0x25
 #define FLAG_NO_BAG_USE                     0x26
 #define FLAG_NO_CATCHING                    0x27
-#define FLAG_HIDE_SPECIAL_POKEMON_ON_MAP    0x28
-#define FLAG_CAPTURED_VICTINI               0x29
+#define FLAG_HIDE_SPECIAL_POKEMON_ON_MAP    0x28 // The event flag for custom static Pokemon. Should be cleared or set on map transition based on defeated flag.
+#define FLAG_UNUSED_0x029    0x29 // Unused Flag
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
@@ -655,7 +655,7 @@
 #define FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE    0x265
 #define FLAG_ENABLE_SHIP_LIBERTY_GARDEN                 0x266
 #define FLAG_SHOWN_LIBERTY_PASS                         0x267
-#define FLAG_UNUSED_0x268  0x268 // Unused Flag
+#define FLAG_CAPTURED_VICTINI                           0x268
 #define FLAG_UNUSED_0x269  0x269 // Unused Flag
 #define FLAG_UNUSED_0x26A  0x26A // Unused Flag
 #define FLAG_UNUSED_0x26B  0x26B // Unused Flag
