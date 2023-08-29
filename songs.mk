@@ -1710,9 +1710,6 @@ $(MID_SUBDIR)/mus_dp_credits.s: %.s: %.mid
 $(MID_SUBDIR)/mus_dp_slots_unused.s: %.s: %.mid
 	$(MID) $< $@ -E -R0 -G191 -V112
 
-$(MID_SUBDIR)/mus_pl_fight_area_day.s: %.s: %.mid
-	$(MID) $< $@ -E -R0 -G191 -V080
-
 $(MID_SUBDIR)/mus_pl_tv_broadcast.s: %.s: %.mid
 	$(MID) $< $@ -E -R0 -G191 -V096
 
