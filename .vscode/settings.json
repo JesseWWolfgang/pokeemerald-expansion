@@ -93,7 +93,7 @@
         {
             "expression": "^\\s*#define\\s+(FANFARE_\\w+)\\s+(.+)",
             "type": "define",
-            "file": "include/constants/songs.h"
+            "file": "include/constants/sound.h"
         },
         {
             "expression": "^\\s*#define\\s+(MAP_SCRIPT_\\w+)\\s+(.+)",
@@ -119,6 +119,11 @@
             "expression": "^\\s*#define\\s+(WEATHER_\\w+)\\s+(.+)",
             "type": "define",
             "file": "include/constants/weather.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(FADE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/field_weather.h"
         },
         {
             "expression": "^\\s*(B_TRANSITION_\\w+),",

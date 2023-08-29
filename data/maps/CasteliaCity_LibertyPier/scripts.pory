@@ -3,76 +3,157 @@ const OBJECT_SAILOR = 2
 
 mapscripts CasteliaCity_LibertyPier_MapScripts {}
 
-// script CasteliaCity_SailorInteract {
-//     lock
-//     faceplayer
-//     msgbox(format(""
-//     "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
-//     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
-//     switch (var(VAR_RESULT)) {
-//         case 0:
-//             call(CasteliaCity_AskHomeOrCasteliaCity)
-//     }
-//     release
-// }
+script CasteliaCity_SailorInteract {
+    lock
+    faceplayer
+    msgbox(format(""
+    "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
+    dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
+    switch (var(VAR_RESULT)) {
+        case 0:
+            call(CasteliaCity_AskHomeOrCasteliaCity)
+    }
+    release
+}
 
-// script CasteliaCity_AskHomeOrCasteliaCity {
-//     checkplayergender
-//     if (var(VAR_RESULT) == MALE) {
-//         msgbox(format("We are a long way from home laddy."), MSGBOX_DEFAULT)
-//     }
-//     else {
-//         msgbox(format("We are a long way from home lassy."), MSGBOX_DEFAULT)
-//     }
-//     msgbox(format("Do you want to go to the docks at Castelia City for a refresher?\p"
-//     "If not, the ship is fuelled up and ready to take us back to Lilycove City in Hoenn.\p"
-//     "What do you say kid?"), MSGBOX_DEFAULT)
-//     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Castelia City", "Lilycove City")
-//     switch (var(VAR_RESULT)) {
-//         case 0:
-//             msgbox(format("A short trip to Castelia City it is then! Jump on the ship and lets get going."), MSGBOX_NPC)
-//             call(CasteliaCity_DepartWithSailor)
-//             warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28)
-// 	        waitstate
-//         case 1:
-//             msgbox(format("We've got a long voyage back to Lilycove City! All aboard!"), MSGBOX_NPC)
-//             call(CasteliaCity_DepartWithSailor)
-//             warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
-// 	        waitstate
-//     }
-// }
+script CasteliaCity_AskHomeOrCasteliaCity {
+    msgbox(format("Do you want to go to Liberty Garden not far west of here?\p"
+    "Or do you want to head back to Lilycove City in Hoenn.\p"
+    "What do you reckon?"), MSGBOX_DEFAULT)
+    dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Liberty Garden", "Lilycove City")
+    switch (var(VAR_RESULT)) {
+        case 0:
+            msgbox(format("Alright, off to Liberty Garden. We're setting sail!"), MSGBOX_NPC)
+            call(CasteliaCity_DepartWithSailor)
+            warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
+	        waitstate
+        case 1:
+            msgbox(format("We've a few days travel ahead of us! All aboard for the Hoenn region!"), MSGBOX_NPC)
+            call(CasteliaCity_DepartWithSailor)
+            warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+	        waitstate
+    }
+}
 
-// script CasteliaCity_DepartWithSailor {
-//     applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterUp)
-//     waitmovement(0)
-//     delay(30)
-//     hideobjectat(OBJECT_SAILOR, MAP_LIBERTY_GARDEN_EXTERIOR)
-//     switch (var(VAR_FACING)) {
-//         case DIR_NORTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
-//         case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
-//         case DIR_WEST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
-//     }
-//     waitmovement(0)
-//     applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
-//     waitmovement(0)
-//     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LIBERTY_GARDEN_EXTERIOR)
-//     delay(30)
-// 	call(CasteliaCity_FerryDepart)
-// }
+script CasteliaCity_DepartWithSailor {
+    applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterLeft)
+    waitmovement(0)
+    delay(30)
+    hideobjectat(OBJECT_SAILOR, MAP_CASTELIA_CITY_LIBERTY_PIER)
+    switch (var(VAR_FACING)) {
+        case DIR_NORTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+        case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
+        case DIR_SOUTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
+    }
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+    waitmovement(0)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_CASTELIA_CITY_LIBERTY_PIER)
+    delay(30)
+	call(CasteliaCity_FerryDepart)
+}
 
-// script CasteliaCity_FerryDepart {
-//     delay(60)
-//     playse(SE_RG_SS_ANNE_HORN)
-//     applymovement(OBJECT_SSTIDAL, CasteliaCity_FerryMovement)
-//     waitmovement(0)
-// }
+script CasteliaCity_FerryDepart {
+    delay(60)
+    playse(SE_RG_SS_ANNE_HORN)
+    applymovement(OBJECT_SSTIDAL, CasteliaCity_FerryMovement)
+    waitmovement(0)
+}
 
-// movement CasteliaCity_FerryMovement {
-//     walk_slow_left
-// 	walk_slow_left
-// 	walk_slow_left
-// 	walk_left
-// 	walk_left
-// 	walk_left
-// 	walk_left
-// }
+movement CasteliaCity_FerryMovement {
+    walk_slow_left
+	walk_slow_left
+	walk_slow_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+}
+
+script CasteliaCity_LibertyPierSign {
+    msgbox(format("Liberty Pier"), MSGBOX_SIGN)
+}
+
+script CasteliaCity_FleaMarketsSign {
+    msgbox(format("Castelia City's Flea Markets!\n"
+    "Permanently set up for all your second-hand shopping needs!"), MSGBOX_SIGN)
+}
+
+script CasteliaCity_MarketMan1 { 
+    lock
+    if (flag(FLAG_GIVEN_CASTELIA_MARKET_MAN_RAGE_CANDY_BAR)) {
+        msgbox(format("...om nom, nom..."), MSGBOX_NPC)
+    }
+    else {
+        msgbox(format("I wonder if anyone here sells Rage Candy Bars?\pOh man I could use one right about now."), MSGBOX_NPC) 
+        checkitem(ITEM_RAGE_CANDY_BAR, 1)
+        if (var(VAR_RESULT)) {
+            msgbox(format("No way, do I spot one poking out of your bag right there?\p"
+            "Here, I've got this weird colourful rock. You can have it in return for that delicious candy bar?"), MSGBOX_YESNO) 
+            if (var(VAR_RESULT) == YES) {
+                setflag(FLAG_GIVEN_CASTELIA_MARKET_MAN_RAGE_CANDY_BAR)
+                msgbox(format("AH YES! What a tasty Rage Candy Bar! Thank you. Here is the nice rock."), MSGBOX_NPC)
+                removeitem(ITEM_RAGE_CANDY_BAR, 1)
+                giveitem(ITEM_SALAMENCITE, 1)
+            }
+            else {
+                msgbox(format("Aww man, thats such a bummer..."), MSGBOX_NPC)
+            }
+        }
+    }
+    release
+}
+
+script CasteliaCity_Nurse {
+    lock
+    faceplayer
+    msgbox(format("Hello, I'm the Pokémon nurse for the Liberty Pier flea markets.\n"
+    "Do you wish to heal your Pokémon?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT)) {
+        msgbox(format("Let me take your Pokémon for a moment..."), MSGBOX_DEFAULT)
+        fadescreen(FADE_TO_BLACK)
+        playfanfare(FANFARE_HEAL)
+        waitfanfare
+        special(HealPlayerParty)
+        fadescreen(FADE_FROM_BLACK)
+        delay(30)
+        msgbox(format("Thank you for waiting. Your Pokémon have been fully healed.\pPlease come again."), MSGBOX_DEFAULT)
+    }
+    else {
+        msgbox(format("Please come again."), MSGBOX_DEFAULT)
+    }
+    release
+}
+
+script CasteliaCity_MarketSaleslady {
+    lock
+    faceplayer
+    pokemart(CasteliaCity_FleaMarketMart)
+    release
+}
+
+mart CasteliaCity_FleaMarketMart {
+    ITEM_POKE_BALL
+    ITEM_GREAT_BALL
+    ITEM_ULTRA_BALL
+    ITEM_CASTELIACONE
+    ITEM_RAGE_CANDY_BAR
+    ITEM_SWEET_HEART
+    ITEM_ROCKY_HELMET
+    ITEM_PP_MAX
+    ITEM_PROTECTIVE_PADS
+    ITEM_ASSAULT_VEST
+}
+
+script CasteliaCity_PierMan { msgbox(format("My goodness, this sure is a magnificent view. Its one of Castelia City's finest."), MSGBOX_NPC) }
+script CasteliaCity_PierBoy { msgbox(format("Hey man, check out all of those sick boats aye. That's heaps good, yeah."), MSGBOX_NPC) }
+script CasteliaCity_MarketLittleGirl { msgbox(format("Wow, there are so many things! Look at all the baloons!"), MSGBOX_NPC) }
+script CasteliaCity_MarketGirl { msgbox(format("I could really do with an extra pair of shoes...\pOh, but maybe I would be better off with this nice scented candle for my apartment..."), MSGBOX_NPC) }
+script CasteliaCity_MarketMan2 { msgbox(format("This area of Castelia City was famous for its seasonal flea markets.\p"
+"Perhaps it was due to the beautiful view, or the refreshing sea breeze. Most likely both.\p"
+"Eventually, it just became so popular that Castelia's Gym Leader Burgh made it a year round attraction for the City.\p"
+"He is, after all, an avid attendee of course."), MSGBOX_NPC) }
+script CasteliaCity_MarketPikachu {
+    playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL) 
+    msgbox(format("Pika... pikaaaa!")) 
+}

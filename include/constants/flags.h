@@ -657,7 +657,7 @@
 #define FLAG_SHOWN_LIBERTY_PASS                         0x267
 #define FLAG_CAPTURED_VICTINI                           0x268
 #define FLAG_HIDDEN_ITEM_LIBERTY_GARDEN_ULTRA_BALL      0x269
-#define FLAG_UNUSED_0x26A  0x26A // Unused Flag
+#define FLAG_GIVEN_CASTELIA_MARKET_MAN_RAGE_CANDY_BAR   0x26A
 #define FLAG_UNUSED_0x26B  0x26B // Unused Flag
 #define FLAG_UNUSED_0x26C  0x26C // Unused Flag
 #define FLAG_UNUSED_0x26D  0x26D // Unused Flag

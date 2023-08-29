@@ -20,7 +20,7 @@ script LibertyGarden_DockWestSign {
 }
 
 script LibertyGarden_DockEastSign {
-    msgbox(format("Dock 2"
+    msgbox(format("Dock 2\n"
     "To board the tour boat, go to Dock 1."), MSGBOX_SIGN)
 }
 

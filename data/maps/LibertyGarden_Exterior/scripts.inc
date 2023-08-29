@@ -127,8 +127,8 @@ LibertyGarden_DockWestSign_Text_0:
 	.string "can live freely.$"
 
 LibertyGarden_DockEastSign_Text_0:
-	.string "Dock 2 To board the tour boat, go to\n"
-	.string "Dock 1.$"
+	.string "Dock 2\n"
+	.string "To board the tour boat, go to Dock 1.$"
 
 LibertyGarden_SailorInteract_Text_0:
 	.string "Quite the journey wouldn't you say kid?\p"
