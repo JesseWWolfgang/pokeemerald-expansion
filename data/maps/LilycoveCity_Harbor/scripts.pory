@@ -211,6 +211,7 @@ script LilycoveHarbor_SelectedLibertyPass {
 		"Ahh... I recognise this place.\p"
 		"It's for an island known as Liberty Garden,"
 		"not far west of Castelia City in the Unova region."), MSGBOX_NPC)
+		playse(SE_PIN)
 		applymovement(LOCALID_FERRY_SAILOR, Common_Movement_ExclamationMark)
 		waitmovement(0)
 		delay(20)
@@ -228,13 +229,13 @@ script LilycoveHarbor_SelectedLibertyPass {
 		applymovement(LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer)
 		msgbox(format("You know what?\p"
 		"I think we can make the journey."
-		"I really need to strech my sea legs out after all this time anyway. Yarrr!\p"
+		"I really need to stretch my sea legs out after all this time anyway. Yarrr!\p"
 		"This won't be a free trip however.\p"
 		"Given the time and distance, this voyage will come at a hefty cost of ¥10000.\p"
 		"Pretty standard for sea travel of this sort."), MSGBOX_DEFAULT)	
 	}
 	showmoneybox(1, 1)
-	msgbox(format("So what do you say? ¥10000 for a trip to Liberty Garden?"), MSGBOX_YESNO)
+	msgbox(format("So what do you say? ¥10000 for a trip to Unova?"), MSGBOX_YESNO)
 	if (var(VAR_RESULT) == YES) {
 		checkmoney(10000)
 		if (var(VAR_RESULT) == TRUE) {
@@ -243,10 +244,20 @@ script LilycoveHarbor_SelectedLibertyPass {
 			playse(SE_SHOP)
 			waitse
 			hidemoneybox
-			msgbox(format("We're setting sail for the Libery Garden in Unova. All aboard!"), MSGBOX_NPC)
-			closemessage
-			call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
-			warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
+			msgbox(format("We can sail directly for Liberty Garden, or we can head to Castelia City for a rest before I take you to Liberty Garden. What do you think?"), MSGBOX_DEFAULT)
+			dynmultichoice(1, 1, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Liberty Garden", "Castelia City")
+			switch (var(VAR_RESULT)) {
+				case 0:
+					msgbox(format("We're setting sail for the Libery Garden in Unova. All aboard!"), MSGBOX_NPC)
+					closemessage
+					call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
+					warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
+				case 1:
+					msgbox(format("We're setting sail for Castelia City in Unova. All aboard!"), MSGBOX_NPC)
+					closemessage
+					call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
+					warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28)
+			}
 			waitstate
 		}
 		else {

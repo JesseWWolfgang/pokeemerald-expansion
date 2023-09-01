@@ -144,7 +144,7 @@ CasteliaCity_Nurse_1:
 CasteliaCity_Nurse_2:
 	msgbox CasteliaCity_Nurse_Text_1, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
-	playfanfare FANFARE_HEAL
+	playfanfare MUS_HEAL
 	waitfanfare
 	special HealPlayerParty
 	fadescreen FADE_FROM_BLACK
@@ -156,13 +156,23 @@ CasteliaCity_Nurse_2:
 CasteliaCity_MarketSaleslady::
 	lock
 	faceplayer
-	pokemart CasteliaCity_FleaMarketMart
+	msgbox CasteliaCity_MarketSaleslady_Text_0, MSGBOX_DEFAULT
+	pokemart CasteliaCity_FleaMarketLadyMart
+	release
+	return
+
+
+CasteliaCity_FleaMarketGirl::
+	lock
+	faceplayer
+	msgbox CasteliaCity_FleaMarketGirl_Text_0, MSGBOX_DEFAULT
+	pokemart CasteliaCity_FleaMarketGirlMart
 	release
 	return
 
 
 	.align 2
-CasteliaCity_FleaMarketMart:
+CasteliaCity_FleaMarketLadyMart:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
 	.2byte ITEM_ULTRA_BALL
@@ -173,6 +183,33 @@ CasteliaCity_FleaMarketMart:
 	.2byte ITEM_PP_MAX
 	.2byte ITEM_PROTECTIVE_PADS
 	.2byte ITEM_ASSAULT_VEST
+	.2byte ITEM_BLUNDER_POLICY
+	.2byte ITEM_EJECT_BUTTON
+	.2byte ITEM_EJECT_PACK
+	.2byte ITEM_RED_CARD
+	.2byte ITEM_NONE
+
+	.align 2
+CasteliaCity_FleaMarketGirlMart:
+	.2byte ITEM_MEGA_RING
+	.2byte ITEM_SCEPTILITE
+	.2byte ITEM_SWAMPERTITE
+	.2byte ITEM_BLAZIKENITE
+	.2byte ITEM_GARDEVOIRITE
+	.2byte ITEM_GALLADITE
+	.2byte ITEM_AGGRONITE
+	.2byte ITEM_MEDICHAMITE
+	.2byte ITEM_MAWILITE
+	.2byte ITEM_GLALITITE
+	.2byte ITEM_MANECTITE
+	.2byte ITEM_BANETTITE
+	.2byte ITEM_ABSOLITE
+	.2byte ITEM_LATIASITE
+	.2byte ITEM_LATIOSITE
+	.2byte ITEM_SHARPEDONITE
+	.2byte ITEM_CAMERUPTITE
+	.2byte ITEM_ALTARIANITE
+	.2byte ITEM_METAGROSSITE
 	.2byte ITEM_NONE
 
 CasteliaCity_PierMan::
@@ -202,7 +239,7 @@ CasteliaCity_MarketMan2::
 
 CasteliaCity_MarketPikachu::
 	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
-	msgbox CasteliaCity_MarketPikachu_Text_0
+	msgbox CasteliaCity_MarketPikachu_Text_0, MSGBOX_NPC
 	return
 
 
@@ -238,6 +275,7 @@ CasteliaCity_AskHomeOrCasteliaCity_Text_4:
 	.string "aboard for the Hoenn region!$"
 
 CasteliaCity_LibertyPierSign_Text_0:
+	.string "Castelia City\n"
 	.string "Liberty Pier$"
 
 CasteliaCity_FleaMarketsSign_Text_0:
@@ -250,7 +288,7 @@ CasteliaCity_MarketMan1_Text_0:
 
 CasteliaCity_MarketMan1_Text_1:
 	.string "I wonder if anyone here sells Rage\n"
-	.string "Candy Bars?\n"
+	.string "Candy Bars?\p"
 	.string "Oh man I could use one right about now.$"
 
 CasteliaCity_MarketMan1_Text_2:
@@ -269,19 +307,27 @@ CasteliaCity_MarketMan1_Text_4:
 
 CasteliaCity_Nurse_Text_0:
 	.string "Hello, I'm the Pokémon nurse for the\n"
-	.string "Liberty Pier flea markets.\n"
-	.string "Do you wish to heal your Pokémon?$"
+	.string "Liberty Pier flea markets. Would you\l"
+	.string "like me to heal your Pokémon?$"
 
 CasteliaCity_Nurse_Text_1:
 	.string "Let me take your Pokémon for a moment...$"
 
 CasteliaCity_Nurse_Text_2:
 	.string "Thank you for waiting. Your Pokémon\n"
-	.string "have been fully healed.\p"
+	.string "have been fully healed.\l"
 	.string "Please come again.$"
 
 CasteliaCity_Nurse_Text_3:
 	.string "Please come again.$"
+
+CasteliaCity_MarketSaleslady_Text_0:
+	.string "Hello hello! Please take a look at my\n"
+	.string "fine items.$"
+
+CasteliaCity_FleaMarketGirl_Text_0:
+	.string "Hi there, please have a look around and\n"
+	.string "enjoy yourself!$"
 
 CasteliaCity_PierMan_Text_0:
 	.string "My goodness, this sure is a magnificent\n"

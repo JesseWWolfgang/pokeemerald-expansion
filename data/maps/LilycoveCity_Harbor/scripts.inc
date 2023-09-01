@@ -258,7 +258,7 @@ LilycoveHarbor_SelectedLibertyPass_1:
 	msgbox LilycoveHarbor_SelectedLibertyPass_Text_4, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq LilycoveHarbor_SelectedLibertyPass_5
-	msgbox LilycoveHarbor_SelectedLibertyPass_Text_7, MSGBOX_NPC
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_11, MSGBOX_NPC
 	hidemoneybox
 	call LilycoveHarbor_SailorComeBackIfYouChangeYourMind
 LilycoveHarbor_SelectedLibertyPass_4:
@@ -268,6 +268,7 @@ LilycoveHarbor_SelectedLibertyPass_4:
 LilycoveHarbor_SelectedLibertyPass_2:
 	setflag FLAG_SHOWN_LIBERTY_PASS
 	msgbox LilycoveHarbor_SelectedLibertyPass_Text_0, MSGBOX_NPC
+	playse SE_PIN
 	applymovement LOCALID_FERRY_SAILOR, Common_Movement_ExclamationMark
 	waitmovement 0
 	delay 20
@@ -285,7 +286,7 @@ LilycoveHarbor_SelectedLibertyPass_5:
 	checkmoney 10000
 	compare VAR_RESULT, TRUE
 	goto_if_eq LilycoveHarbor_SelectedLibertyPass_8
-	msgbox LilycoveHarbor_SelectedLibertyPass_Text_6, MSGBOX_NPC
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_10, MSGBOX_NPC
 	hidemoneybox
 	call LilycoveHarbor_SailorComeBackIfYouChangeYourMind
 	goto LilycoveHarbor_SelectedLibertyPass_4
@@ -297,11 +298,27 @@ LilycoveHarbor_SelectedLibertyPass_8:
 	waitse
 	hidemoneybox
 	msgbox LilycoveHarbor_SelectedLibertyPass_Text_5, MSGBOX_NPC
+	dynmultichoice 1, 1, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveHarbor_SelectedLibertyPass_Text_6, LilycoveHarbor_SelectedLibertyPass_Text_7
+	switch VAR_RESULT
+	case 0, LilycoveHarbor_SelectedLibertyPass_13
+	case 1, LilycoveHarbor_SelectedLibertyPass_14
+LilycoveHarbor_SelectedLibertyPass_11:
+	waitstate
+	goto LilycoveHarbor_SelectedLibertyPass_4
+
+LilycoveHarbor_SelectedLibertyPass_13:
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_8, MSGBOX_NPC
 	closemessage
 	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
 	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
-	waitstate
-	goto LilycoveHarbor_SelectedLibertyPass_4
+	goto LilycoveHarbor_SelectedLibertyPass_11
+
+LilycoveHarbor_SelectedLibertyPass_14:
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_9, MSGBOX_NPC
+	closemessage
+	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
+	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28
+	goto LilycoveHarbor_SelectedLibertyPass_11
 
 
 LilycoveHarbor_SailorComeBackIfYouChangeYourMind::
@@ -972,7 +989,7 @@ LilycoveHarbor_SelectedLibertyPass_Text_2:
 LilycoveHarbor_SelectedLibertyPass_Text_3:
 	.string "You know what?\p"
 	.string "I think we can make the journey. I\n"
-	.string "really need to strech my sea legs out\l"
+	.string "really need to stretch my sea legs out\l"
 	.string "after all this time anyway. Yarrr!\p"
 	.string "This won't be a free trip however.\p"
 	.string "Given the time and distance, this\n"
@@ -986,16 +1003,32 @@ LilycoveHarbor_SelectedLibertyPass_Text_4:
 	.string "to Liberty Garden?$"
 
 LilycoveHarbor_SelectedLibertyPass_Text_5:
+	.string "We can sail directly for Liberty Garden,\n"
+	.string "or we can head to Castelia City for a\l"
+	.string "rest before I take you to Liberty\l"
+	.string "Garden. What do you think?$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_6:
+	.string "Liberty Garden$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_7:
+	.string "Castelia City$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_8:
 	.string "We're setting sail for the Libery Garden\n"
 	.string "in Unova. All aboard!$"
 
-LilycoveHarbor_SelectedLibertyPass_Text_6:
+LilycoveHarbor_SelectedLibertyPass_Text_9:
+	.string "We're setting sail for Castelia City in\n"
+	.string "Unova. All aboard!$"
+
+LilycoveHarbor_SelectedLibertyPass_Text_10:
 	.string "You might want to check your cash first\n"
 	.string "before you think about travelling\l"
 	.string "abroad...\p"
 	.string "$"
 
-LilycoveHarbor_SelectedLibertyPass_Text_7:
+LilycoveHarbor_SelectedLibertyPass_Text_11:
 	.string "I understand, voyages of this kind do\n"
 	.string "not come cheap.$"
 

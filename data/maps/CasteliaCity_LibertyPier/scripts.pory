@@ -71,12 +71,11 @@ movement CasteliaCity_FerryMovement {
 }
 
 script CasteliaCity_LibertyPierSign {
-    msgbox(format("Liberty Pier"), MSGBOX_SIGN)
+    msgbox(format("Castelia City\nLiberty Pier"), MSGBOX_SIGN)
 }
 
 script CasteliaCity_FleaMarketsSign {
-    msgbox(format("Castelia City's Flea Markets!\n"
-    "Permanently set up for all your second-hand shopping needs!"), MSGBOX_SIGN)
+    msgbox(format("Castelia City's Flea Markets!\nPermanently set up for all your second-hand shopping needs!"), MSGBOX_SIGN)
 }
 
 script CasteliaCity_MarketMan1 { 
@@ -107,17 +106,16 @@ script CasteliaCity_MarketMan1 {
 script CasteliaCity_Nurse {
     lock
     faceplayer
-    msgbox(format("Hello, I'm the Pokémon nurse for the Liberty Pier flea markets.\n"
-    "Do you wish to heal your Pokémon?"), MSGBOX_YESNO)
+    msgbox(format("Hello, I'm the Pokémon nurse for the Liberty Pier flea markets. Would you like me to heal your Pokémon?"), MSGBOX_YESNO)
     if (var(VAR_RESULT)) {
         msgbox(format("Let me take your Pokémon for a moment..."), MSGBOX_DEFAULT)
         fadescreen(FADE_TO_BLACK)
-        playfanfare(FANFARE_HEAL)
+        playfanfare(MUS_HEAL)
         waitfanfare
         special(HealPlayerParty)
         fadescreen(FADE_FROM_BLACK)
         delay(30)
-        msgbox(format("Thank you for waiting. Your Pokémon have been fully healed.\pPlease come again."), MSGBOX_DEFAULT)
+        msgbox(format("Thank you for waiting. Your Pokémon have been fully healed.\lPlease come again."), MSGBOX_DEFAULT)
     }
     else {
         msgbox(format("Please come again."), MSGBOX_DEFAULT)
@@ -128,11 +126,21 @@ script CasteliaCity_Nurse {
 script CasteliaCity_MarketSaleslady {
     lock
     faceplayer
-    pokemart(CasteliaCity_FleaMarketMart)
+    msgbox(format("Hello hello! Please take a look at my fine items."), MSGBOX_DEFAULT)
+    pokemart(CasteliaCity_FleaMarketLadyMart)
     release
 }
 
-mart CasteliaCity_FleaMarketMart {
+script CasteliaCity_FleaMarketGirl {
+    lock
+    faceplayer
+    msgbox(format("Hi there, please have a look around and enjoy yourself!"), MSGBOX_DEFAULT)
+    pokemart(CasteliaCity_FleaMarketGirlMart)
+    release
+}
+
+
+mart CasteliaCity_FleaMarketLadyMart {
     ITEM_POKE_BALL
     ITEM_GREAT_BALL
     ITEM_ULTRA_BALL
@@ -143,6 +151,32 @@ mart CasteliaCity_FleaMarketMart {
     ITEM_PP_MAX
     ITEM_PROTECTIVE_PADS
     ITEM_ASSAULT_VEST
+    ITEM_BLUNDER_POLICY
+    ITEM_EJECT_BUTTON
+    ITEM_EJECT_PACK
+    ITEM_RED_CARD
+}
+
+mart CasteliaCity_FleaMarketGirlMart {
+    ITEM_MEGA_RING
+    ITEM_SCEPTILITE
+    ITEM_SWAMPERTITE
+    ITEM_BLAZIKENITE
+    ITEM_GARDEVOIRITE
+    ITEM_GALLADITE
+    ITEM_AGGRONITE
+    ITEM_MEDICHAMITE
+    ITEM_MAWILITE
+    ITEM_GLALITITE
+    ITEM_MANECTITE
+    ITEM_BANETTITE
+    ITEM_ABSOLITE
+    ITEM_LATIASITE
+    ITEM_LATIOSITE
+    ITEM_SHARPEDONITE
+    ITEM_CAMERUPTITE
+    ITEM_ALTARIANITE
+    ITEM_METAGROSSITE
 }
 
 script CasteliaCity_PierMan { msgbox(format("My goodness, this sure is a magnificent view. Its one of Castelia City's finest."), MSGBOX_NPC) }
@@ -155,5 +189,5 @@ script CasteliaCity_MarketMan2 { msgbox(format("This area of Castelia City was f
 "He is, after all, an avid attendee of course."), MSGBOX_NPC) }
 script CasteliaCity_MarketPikachu {
     playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL) 
-    msgbox(format("Pika... pikaaaa!")) 
+    msgbox(format("Pika... pikaaaa!"), MSGBOX_NPC) 
 }
