@@ -249,7 +249,7 @@ endif
 
 AUTO_GEN_TARGETS :=
 
-all: rom
+all: porytilesall rom
 
 tools: $(TOOLDIRS)
 
