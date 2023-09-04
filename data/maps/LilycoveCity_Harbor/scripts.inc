@@ -30,7 +30,7 @@ LilycoveHarbor_FerryAttendantDynamic_2:
 
 LilycoveHarbor_FerryAttendantDynamic_3:
 	call LilycoveHarbor_PushDynTickets
-	msgbox LilycoveHarbor_FerryAttendantDynamic_Text_0, MSGBOX_NPC
+	msgbox LilycoveHarbor_FerryAttendantDynamic_Text_0, MSGBOX_DEFAULT
 	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_SS_TICKET, DYN_MULTICHOICE_CB_SHOW_ITEM
 	call LilycoveHarbor_CheckTicketPresented
 	goto LilycoveHarbor_FerryAttendantDynamic_1
@@ -235,6 +235,35 @@ LilycoveHarbor_OldSeaMapFirstTime::
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_BoardFerryWithBrineyAndSailorEast
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepart
+	return
+
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind::
+	checkplayergender
+	compare VAR_RESULT, MALE
+	goto_if_eq LilycoveHarbor_SailorComeBackIfYouChangeYourMind_2
+	msgbox LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_1, MSGBOX_NPC
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_1:
+	call LilycoveHarbor_SailorReturns
+	return
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_2:
+	msgbox LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_0, MSGBOX_NPC
+	goto LilycoveHarbor_SailorComeBackIfYouChangeYourMind_1
+
+
+LilycoveHarbor_SailorReturns::
+	closemessage
+	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 30
+	removeobject LOCALID_FERRY_SAILOR, MAP_LILYCOVE_CITY_HARBOR
+	delay 60
+	showobjectat LOCALID_ATTENDANT, MAP_LILYCOVE_CITY_HARBOR
+	delay 30
+	applymovement LOCALID_ATTENDANT, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox LilycoveHarbor_SailorReturns_Text_0, MSGBOX_NPC
 	return
 
 
@@ -836,7 +865,7 @@ LilycoveHarbor_PushDynTickets_Text_0:
 	.string "{STR_VAR_1}$"
 
 LilycoveHarbor_SelectedSSTicket_Text_0:
-	.string "Slateport$"
+	.string "Slateport City$"
 
 LilycoveHarbor_SelectedSSTicket_Text_1:
 	.string "Battle Frontier$"
@@ -853,6 +882,17 @@ LilycoveHarbor_SelectedAuroraTicket_Text_0:
 
 LilycoveHarbor_SelectedOldSeaMap_Text_0:
 	.string "We're setting sail for Faraway Island!$"
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_0:
+	.string "Come back and talk to me again if you\n"
+	.string "change your mind lad.$"
+
+LilycoveHarbor_SailorComeBackIfYouChangeYourMind_Text_1:
+	.string "Come back and talk to me again if you\n"
+	.string "change your mind lass.$"
+
+LilycoveHarbor_SailorReturns_Text_0:
+	.string "Please come back again.$"
 
 LilycoveHarbor_LadyFetchesSailor_Text_0:
 	.string "Hold on, let me find someone who can\n"

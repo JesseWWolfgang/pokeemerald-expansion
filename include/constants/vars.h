@@ -311,9 +311,6 @@
 // cutscenes nor call a wait command. Used for weather effects in vanilla.
 #define TRIGGER_RUN_IMMEDIATELY   0
 
-// Mystery gift tickets
-#define VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT     VAR_TEMP_0
-
 // Temp var aliases
 #define VAR_TEMP_CHALLENGE_STATUS  VAR_TEMP_0
 
@@ -326,5 +323,8 @@
 #define VAR_TEMP_FRONTIER_TUTOR_ID         VAR_TEMP_E
 
 #define VAR_TEMP_TRANSFERRED_SPECIES  VAR_TEMP_1
+
+// Mystery gift tickets
+#define VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT     VAR_TEMP_0
 
 #endif // GUARD_CONSTANTS_VARS_H
