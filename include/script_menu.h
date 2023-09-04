@@ -1,6 +1,7 @@
 #ifndef GUARD_SCRIPT_MENU_H
 #define GUARD_SCRIPT_MENU_H
 
+#include "constants/script_menu.h"
 #include "list_menu.h"
 
 // The default size the stack for dynamic multichoice is initialized to
