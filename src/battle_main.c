@@ -3983,9 +3983,9 @@ u8 IsRunningFromBattleImpossible(u32 battler)
     gPotentialItemEffectBattler = battler;
 
     // Prevent special battlers from running, using Teleport, etc (lookin at you Deoxys)
-    if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT) 
+    if (GetBattlerSide(battler) == B_SIDE_OPPONENT) 
     {
-        if (FlagGet(FLAG_BATTLE_SHOULD_AI_ESACAPE_FAIL) || (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY && !(gBattleTypeFlags & BATTLE_TYPE_ROAMER)))
+        if (FlagGet(FLAG_BATTLE_SHOULD_AI_ESCAPE_FAIL) || (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY && !(gBattleTypeFlags & BATTLE_TYPE_ROAMER)))
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CANT_ESCAPE;
             return BATTLE_RUN_FORBIDDEN;
