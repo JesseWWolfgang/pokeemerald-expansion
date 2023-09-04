@@ -10450,7 +10450,6 @@ const struct Item gItems[] =
         .price = 50000,
         .description = sLibertyPassDesc,
         .importance = 1,
-        .registrability = TRUE,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
