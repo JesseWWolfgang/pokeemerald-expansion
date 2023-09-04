@@ -2714,7 +2714,7 @@ void BufferStringBattle(u16 stringID, u32 battler)
         {
             if (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY)
             {
-                if (IsMonShiny(&gEnemyParty[gActiveBattler]))
+                if (IsMonShiny(&gEnemyParty[battler]))
                 {
                     gTextPrinterRequiresBPress = TRUE;
                     stringPtr = sText_LegendaryPkmnShinyAppeared;
@@ -2726,8 +2726,8 @@ void BufferStringBattle(u16 stringID, u32 battler)
             }
             else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && IsValidForBattle(&gEnemyParty[gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)]])) // interesting, looks like they had something planned for wild double battles
             { 
-                mon1Shiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[gActiveBattler]]);
-                mon2Shiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[BATTLE_PARTNER(gActiveBattler)]]);
+                mon1Shiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[battler]]);
+                mon2Shiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[BATTLE_PARTNER(battler)]]);
                 if (mon1Shiny && mon2Shiny)
                 {
                     gTextPrinterRequiresBPress = TRUE;
@@ -2751,7 +2751,7 @@ void BufferStringBattle(u16 stringID, u32 battler)
             }
             else
             {
-                if (IsMonShiny(&gEnemyParty[gActiveBattler]))
+                if (IsMonShiny(&gEnemyParty[battler]))
                 {
                     gTextPrinterRequiresBPress = TRUE;
                     stringPtr = sText_WildPkmnShinyAppeared;
