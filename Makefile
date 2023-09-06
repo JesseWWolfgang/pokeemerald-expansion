@@ -3,6 +3,8 @@ OPTIMIZE := -O2
 # USE_ANALYSER := -fanalyzer
 USE_ANALYSER :=
 
+include porytiles_rules.mk
+
 TOOLCHAIN := $(DEVKITARM)
 COMPARE ?= 0
 
@@ -251,7 +253,7 @@ endif
 
 AUTO_GEN_TARGETS :=
 
-all: rom
+all: porytilesall rom
 
 tools: $(TOOLDIRS)
 
