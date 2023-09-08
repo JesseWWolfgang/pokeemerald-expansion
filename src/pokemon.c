@@ -7555,6 +7555,16 @@ bool32 IsSpeciesInHoennDex(u16 species)
         return TRUE;
 }
 
+u16 GetTrainerBattleMusicForLocation(u8 mapSec)
+{
+    return MUS_VS_TRAINER;
+}
+
+u16 GetWildBattleMusicForLocation(u8 mapSec)
+{
+    return MUS_VS_WILD;
+}
+
 u16 GetBattleBGM(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE_GROUDON)
@@ -7605,11 +7615,13 @@ u16 GetBattleBGM(void)
         case TRAINER_CLASS_PYRAMID_KING:
             return MUS_VS_FRONTIER_BRAIN;
         default:
-            return MUS_VS_TRAINER;
+            return GetTrainerBattleMusicForLocation(gMapHeader.regionMapSectionId);
         }
     }
     else
-        return MUS_VS_WILD;
+    {
+        return GetWildBattleMusicForLocation(gMapHeader.regionMapSectionId);
+    }
 }
 
 void PlayBattleBGM(void)
