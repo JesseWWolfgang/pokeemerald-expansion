@@ -836,3 +836,14 @@ const struct Tileset gTileset_PorytilesTest =
     .metatileAttributes = gMetatileAttributes_PorytilesTest,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_LibertyGarden =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_liberty_garden,
+    .palettes = gTilesetPalettes_liberty_garden,
+    .metatiles = gMetatiles_liberty_garden,
+    .metatileAttributes = gMetatileAttributes_liberty_garden,
+    .callback = NULL,
+};

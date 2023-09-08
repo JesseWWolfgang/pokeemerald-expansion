@@ -210,3 +210,6 @@ const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/
 
 const u16 gMetatiles_PorytilesTest[] = INCBIN_U16("data/tilesets/primary/porytiles_test/metatiles.bin");
 const u16 gMetatileAttributes_PorytilesTest[] = INCBIN_U16("data/tilesets/primary/porytiles_test/metatile_attributes.bin");
+
+const u16 gMetatiles_liberty_garden[] = INCBIN_U16("data/tilesets/secondary/liberty_garden/metatiles.bin");
+const u16 gMetatileAttributes_liberty_garden[] = INCBIN_U16("data/tilesets/secondary/liberty_garden/metatile_attributes.bin");
