@@ -1398,7 +1398,6 @@ SECTIONS {
         sound/songs/midi/mus_dp_slots_jackpot.o(.rodata);
         sound/songs/midi/mus_dp_credits.o(.rodata);
         sound/songs/midi/mus_dp_slots_unused.o(.rodata);
-        sound/songs/midi/mus_pl_fight_area_day.o(.rodata);
         sound/songs/midi/mus_pl_tv_broadcast.o(.rodata);
         sound/songs/midi/mus_pl_tv_end.o(.rodata);
         sound/songs/midi/mus_pl_intro.o(.rodata);

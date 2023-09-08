@@ -1382,7 +1382,6 @@ static void DestroyWindow(u8 windowId) // sub_080E9750
     X(MUS_DP_SLOTS_JACKPOT) \
     X(MUS_DP_CREDITS) \
     X(MUS_DP_SLOTS_UNUSED) \
-    X(MUS_PL_FIGHT_AREA_DAY) \
     X(MUS_PL_TV_BROADCAST) \
     X(MUS_PL_TV_END) \
     X(MUS_PL_INTRO) \
@@ -2180,7 +2179,6 @@ static void DestroyWindow(u8 windowId) // sub_080E9750
     X(SE_PIKE_CURTAIN_CLOSE) \
     X(SE_PIKE_CURTAIN_OPEN) \
     X(SE_SUDOWOODO_SHAKE) \
-    X(MUS_DUMMY) \
     X(PH_TRAP_BLEND) \
     X(PH_TRAP_HELD) \
     X(PH_TRAP_SOLO) \

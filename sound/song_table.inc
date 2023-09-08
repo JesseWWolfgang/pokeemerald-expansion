@@ -271,7 +271,6 @@ gSongTable::
 	song se_pike_curtain_close, 1, 1
 	song se_pike_curtain_open, 1, 1
 	song se_sudowoodo_shake, 1, 1
-	song mus_dummy, 0, 0
 	song ph_trap_blend, 2, 2
 	song ph_trap_held, 2, 2
 	song ph_trap_solo, 2, 2
@@ -690,7 +689,6 @@ gSongTable::
 	song mus_dp_slots_jackpot, 0, 0
 	song mus_dp_credits, 0, 0
 	song mus_dp_slots_unused, 0, 0
-	song mus_pl_fight_area_day, 0, 0
 	song mus_pl_tv_broadcast, 0, 0
 	song mus_pl_tv_end, 2, 2
 	song mus_pl_intro, 0, 0
