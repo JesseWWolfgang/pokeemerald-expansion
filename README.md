@@ -10,6 +10,7 @@ This feature uses:
 - merge/overworld-pokemon: Sprite gfx for the extra overworld pokemon.
 - merge/dynamic-ow-pals: Better loading of palettes for sprites.
 - feature/custom-transitions-battlemusic: Customise transitions from scripting.
+- feature/location-battle-music: Customise battle music for other regions.
 
 ## Mystery Gifts
 
