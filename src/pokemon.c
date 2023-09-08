@@ -7562,6 +7562,11 @@ u16 GetTrainerBattleMusicForLocation(u8 mapSec)
 
 u16 GetWildBattleMusicForLocation(u8 mapSec)
 {
+    switch (mapSec)
+    {
+        case MAPSEC_LIBERTY_GARDEN:
+            return MUS_UNOVA_WILD;
+    }
     return MUS_VS_WILD;
 }
 
