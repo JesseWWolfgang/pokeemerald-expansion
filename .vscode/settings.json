@@ -29,6 +29,83 @@
         "asm/macros/event.inc",
         "asm/macros/movement.inc"
     ],
+    "languageServerPoryscript.symbolIncludes": [
+        {
+            "expression": "^\\s*def_special\\s+(\\w+)",
+            "type": "special",
+            "file": "data/specials.inc"
+        },
+        {
+            "expression": "^\\s*(\\w+):", // Match newline then any num of spaces(eg. tabs), then capture any number of letters before the colon
+            "type": "define",
+            "file": "data/scripts/movement.inc"
+        },
+        {
+            "expression": "^\\s*#define\\s+(\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/global.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(OBJ_EVENT_ID_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/event_objects.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(MAP_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/map_groups.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(FLAG_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/flags.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(VAR_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/vars.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(ITEM_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/items.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(SE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/songs.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(MUS_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/songs.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(CRY_MODE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/sound.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(FANFARE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/songs.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(MAP_SCRIPT_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/map_scripts.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(DYN_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/script_menu.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(SPECIES_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/species.h"
+        },
+    ],
     "bookmarks.saveBookmarksInProject": true,
     "cmake.configureOnOpen": false,
     "makefile.configureAfterCommand": false,
