@@ -1621,49 +1621,49 @@ $(MID_SUBDIR)/mus_dp_cycling.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V115
 
 $(MID_SUBDIR)/mus_dp_lets_go_together.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V106 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V106 -P5
 
 $(MID_SUBDIR)/mus_dp_tv_end.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V090 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V090 -P5
 
 $(MID_SUBDIR)/mus_dp_level_up.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V125 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V125 -P5
 
 $(MID_SUBDIR)/mus_dp_evolved.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V094 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V094 -P5
 
 $(MID_SUBDIR)/mus_dp_obtain_key_item.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V094 -p5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V094 -p5
 
 $(MID_SUBDIR)/mus_dp_obtain_item.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_caught_intro.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_dex_rating.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V094 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V094 -P5
 
 $(MID_SUBDIR)/mus_dp_obtain_badge.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_poketch.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_obtain_tmhm.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_obtain_accessory.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V088 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V088 -P5
 
 $(MID_SUBDIR)/mus_dp_move_deleted.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V127 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V127 -P5
 
 $(MID_SUBDIR)/mus_dp_heal.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_obtain_berry.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -P5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -P5
 
 $(MID_SUBDIR)/mus_dp_contest_dress_up.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V110
@@ -1798,16 +1798,16 @@ $(MID_SUBDIR)/mus_pl_twinleaf_music_box.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100
 
 $(MID_SUBDIR)/mus_pl_obtain_arcade_points.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V120 -p5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V120 -p5
 
 $(MID_SUBDIR)/mus_pl_obtain_castle_points.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V105 -p5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V105 -p5
 
 $(MID_SUBDIR)/mus_pl_obtain_b_points.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V127 -p5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V127 -p5
 
 $(MID_SUBDIR)/mus_pl_win_minigame.s: %.s: %.mid
-	$(MID) $< $@ -E -G191 -V100 -p5
+	$(MID) $< $@ -E -R$(STD_REVERB) -G191 -V100 -p5
 
 $(MID_SUBDIR)/mus_hg_intro.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G229 -V122
