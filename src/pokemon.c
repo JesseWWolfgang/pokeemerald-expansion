@@ -38,6 +38,7 @@
 #include "text.h"
 #include "trainer_hill.h"
 #include "util.h"
+#include "location_music.h"
 #include "constants/abilities.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_move_effects.h"
@@ -7555,16 +7556,6 @@ bool32 IsSpeciesInHoennDex(u16 species)
         return TRUE;
 }
 
-u16 GetTrainerBattleMusicForLocation(u8 mapSec)
-{
-    return MUS_VS_TRAINER;
-}
-
-u16 GetWildBattleMusicForLocation(u8 mapSec)
-{
-    return MUS_VS_WILD;
-}
-
 u16 GetBattleBGM(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE_GROUDON)
@@ -7615,12 +7606,12 @@ u16 GetBattleBGM(void)
         case TRAINER_CLASS_PYRAMID_KING:
             return MUS_VS_FRONTIER_BRAIN;
         default:
-            return GetTrainerBattleMusicForLocation(gMapHeader.regionMapSectionId);
+            return GetLocationMusicTrainerBattle(gMapHeader.regionMapSectionId);
         }
     }
     else
     {
-        return GetWildBattleMusicForLocation(gMapHeader.regionMapSectionId);
+        return GetLocationMusicWildBattle(gMapHeader.regionMapSectionId);
     }
 }
 

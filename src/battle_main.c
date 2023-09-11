@@ -28,6 +28,7 @@
 #include "link.h"
 #include "link_rfu.h"
 #include "load_save.h"
+#include "location_music.h"
 #include "main.h"
 #include "malloc.h"
 #include "m4a.h"
@@ -5245,7 +5246,7 @@ static void HandleEndTurn_BattleWon(void)
             PlayBGM(MUS_VICTORY_GYM_LEADER);
             break;
         default:
-            PlayBGM(MUS_VICTORY_TRAINER);
+            PlayBGM(GetLocationMusicTrainerVictory(gMapHeader.regionMapSectionId));
             break;
         }
     }

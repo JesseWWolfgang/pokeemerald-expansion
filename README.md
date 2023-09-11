@@ -1,7 +1,12 @@
 # feature/location-battle-music
 
-Adds a simple function header to determine a custom music for trainer battles and wild battles based on the current MAPSEC.
+Adds a collection of simple functions to control custom music for the following types of music based on the current MAPSEC:
 
-Functions are:
+- trainer battles
+- wild battles
+- trainer victory
+- wild victory
 
-`GetTrainerBattleMusicForLocation` and `GetWildBattleMusicForLocation`.
+Functions are defined in :
+
+`location_music.h` and `location_music.c`.
