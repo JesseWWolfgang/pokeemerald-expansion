@@ -1,1 +1,41 @@
-mapscripts CasteliaCity_CafeSonata_MapScripts {}
+const OBJECT_ID_MELOETTA = 2
+
+mapscripts CasteliaCity_CafeSonata_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        if (flag(FLAG_CAPTURED_VICTINI)) {
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+        else {
+            clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+    }
+}
+
+script CafeSonata_Meloetta {
+    lock
+    faceplayer
+    waitse
+    playmoncry(SPECIES_MELOETTA, CRY_MODE_ENCOUNTER)
+    msgbox(format("Ta-ta-ta-tah!"), MSGBOX_NPC)
+    delay(20)
+    waitmoncry
+    setwildbattle(SPECIES_MELOETTA, 40)
+    special(BattleSetup_StartLegendaryBattle)
+    waitstate
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    switch (var(VAR_RESULT)) {
+        case B_OUTCOME_CAUGHT:
+            setflag(FLAG_CAPTURED_VICTINI)
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+            call(Common_EventScript_RemoveStaticPokemon)
+        case B_OUTCOME_RAN:
+            msgbox(format("Meloetta is watching carefully."), MSGBOX_DEFAULT)
+        default:
+            fadescreenswapbuffers(FADE_TO_BLACK)
+            removeobject(OBJECT_ID_MELOETTA)
+            fadescreenswapbuffers(FADE_FROM_BLACK)
+            msgbox(format("Meloetta fled behind the furniture..."), MSGBOX_DEFAULT)
+    }
+    release
+    end
+}

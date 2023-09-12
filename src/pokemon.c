@@ -7621,6 +7621,7 @@ u16 GetBattleBGM(void)
             switch (GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL))
             {
                 case SPECIES_VICTINI:
+                case SPECIES_MELOETTA:
                     return MUS_RG_VS_LEGEND;
             }
         #endif

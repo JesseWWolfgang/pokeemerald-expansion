@@ -139,6 +139,25 @@ script CasteliaCity_FleaMarketGirl {
     release
 }
 
+script CasteliaCity_CafeSonataLady {
+    lock
+    msgbox(format("Ahhh...\p"
+    "What a delightful cup of coffee..."), MSGBOX_DEFAULT)
+    faceplayer
+    msgbox(format("Oh hello there youngster. Wondering where I got this coffee from?\p"
+    "Its from a nearby café that I visit often. Would you like me to show you where?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(format("Follow me!"), MSGBOX_DEFAULT)
+        warp(MAP_CASTELIA_CITY_CAFE_SONATA, 4, 11)
+	    waitstate
+    }
+    else {
+        msgbox(format("Let me know if you change your mind."), MSGBOX_NPC)
+        applymovement(VAR_LAST_TALKED, Common_Movement_FaceDown)
+    }
+    release
+}
+
 
 mart CasteliaCity_FleaMarketLadyMart {
     ITEM_POKE_BALL
