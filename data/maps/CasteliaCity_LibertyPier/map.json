@@ -293,7 +293,7 @@
       "x": 20,
       "y": 14,
       "elevation": 0,
-      "dest_map": "",
+      "dest_map": "MAP_DYNAMIC",
       "dest_warp_id": "0"
     }
   ],

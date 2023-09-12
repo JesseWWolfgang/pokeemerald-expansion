@@ -3,7 +3,7 @@
   "name": "CasteliaCity_CafeSonata",
   "layout": "LAYOUT_CASTELIA_CITY_CAFE_SONATA",
   "music": "MUS_CASTELIA_CITY_LIBERTY_PIER",
-  "region_map_section": "MAPSEC_CASTELIA_CITY",
+  "region_map_section": "MAPSEC_CAFE_SONATA",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
@@ -11,7 +11,7 @@
   "allow_escaping": false,
   "allow_running": true,
   "show_map_name": true,
-  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "battle_scene": "MAP_BATTLE_SCENE_PHOEBE",
   "connections": 0,
   "object_events": [
     {

@@ -171,6 +171,26 @@ CasteliaCity_FleaMarketGirl::
 	return
 
 
+CasteliaCity_CafeSonataLady::
+	lock
+	msgbox CasteliaCity_CafeSonataLady_Text_0, MSGBOX_DEFAULT
+	faceplayer
+	msgbox CasteliaCity_CafeSonataLady_Text_1, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq CasteliaCity_CafeSonataLady_2
+	msgbox CasteliaCity_CafeSonataLady_Text_3, MSGBOX_NPC
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceDown
+CasteliaCity_CafeSonataLady_1:
+	release
+	return
+
+CasteliaCity_CafeSonataLady_2:
+	msgbox CasteliaCity_CafeSonataLady_Text_2, MSGBOX_DEFAULT
+	warp MAP_CASTELIA_CITY_CAFE_SONATA, 4, 11
+	waitstate
+	goto CasteliaCity_CafeSonataLady_1
+
+
 	.align 2
 CasteliaCity_FleaMarketLadyMart:
 	.2byte ITEM_POKE_BALL
@@ -328,6 +348,23 @@ CasteliaCity_MarketSaleslady_Text_0:
 CasteliaCity_FleaMarketGirl_Text_0:
 	.string "Hi there, please have a look around and\n"
 	.string "enjoy yourself!$"
+
+CasteliaCity_CafeSonataLady_Text_0:
+	.string "Ahhh...\p"
+	.string "What a delightful cup of coffee...$"
+
+CasteliaCity_CafeSonataLady_Text_1:
+	.string "Oh hello there youngster. Wondering\n"
+	.string "where I got this coffee from?\p"
+	.string "Its from a nearby café that I visit\n"
+	.string "often. Would you like me to show you\l"
+	.string "where?$"
+
+CasteliaCity_CafeSonataLady_Text_2:
+	.string "Follow me!$"
+
+CasteliaCity_CafeSonataLady_Text_3:
+	.string "Let me know if you change your mind.$"
 
 CasteliaCity_PierMan_Text_0:
 	.string "My goodness, this sure is a magnificent\n"
