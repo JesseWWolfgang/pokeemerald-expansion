@@ -598,6 +598,7 @@
 #define MAP_LIBERTY_GARDEN_1F          (1 | (34 << 8))
 #define MAP_LIBERTY_GARDEN_2F          (2 | (34 << 8))
 #define MAP_CASTELIA_CITY_LIBERTY_PIER (3 | (34 << 8))
+#define MAP_CASTELIA_CITY_CAFE_SONATA  (4 | (34 << 8))
 
 #define MAP_GROUPS_COUNT 35
 
