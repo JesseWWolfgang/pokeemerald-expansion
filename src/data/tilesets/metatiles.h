@@ -213,3 +213,6 @@ const u16 gMetatileAttributes_PorytilesTest[] = INCBIN_U16("data/tilesets/primar
 
 const u16 gMetatiles_liberty_garden[] = INCBIN_U16("data/tilesets/secondary/liberty_garden/metatiles.bin");
 const u16 gMetatileAttributes_liberty_garden[] = INCBIN_U16("data/tilesets/secondary/liberty_garden/metatile_attributes.bin");
+
+const u16 gMetatiles_CafeSonata[] = INCBIN_U16("data/tilesets/secondary/cafe_sonata/metatiles.bin");
+const u16 gMetatileAttributes_CafeSonata[] = INCBIN_U16("data/tilesets/secondary/cafe_sonata/metatile_attributes.bin");
