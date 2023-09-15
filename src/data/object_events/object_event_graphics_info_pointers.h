@@ -886,7 +886,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Spe
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_645;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_646;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_647;
-// extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_648;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_648;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_649;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_650;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_651;
@@ -1985,7 +1985,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     // [OBJ_EVENT_GFX_POKEMON_645] = 	&gObjectEventGraphicsInfo_Pokemon_Species_645,
     // [OBJ_EVENT_GFX_POKEMON_646] = 	&gObjectEventGraphicsInfo_Pokemon_Species_646,
     // [OBJ_EVENT_GFX_POKEMON_647] = 	&gObjectEventGraphicsInfo_Pokemon_Species_647,
-    // [OBJ_EVENT_GFX_POKEMON_648] = 	&gObjectEventGraphicsInfo_Pokemon_Species_648,
+    [OBJ_EVENT_GFX_POKEMON_648] = 	&gObjectEventGraphicsInfo_Pokemon_Species_648,
     // [OBJ_EVENT_GFX_POKEMON_649] = 	&gObjectEventGraphicsInfo_Pokemon_Species_649,
     // [OBJ_EVENT_GFX_POKEMON_650] = 	&gObjectEventGraphicsInfo_Pokemon_Species_650,
     // [OBJ_EVENT_GFX_POKEMON_651] = 	&gObjectEventGraphicsInfo_Pokemon_Species_651,

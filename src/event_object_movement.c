@@ -1994,7 +1994,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
 	// {gObjectEventPalette_Pokemon_Species_645, OBJ_EVENT_PAL_TAG_POKEMON_645},
 	// {gObjectEventPalette_Pokemon_Species_646, OBJ_EVENT_PAL_TAG_POKEMON_646},
 	// {gObjectEventPalette_Pokemon_Species_647, OBJ_EVENT_PAL_TAG_POKEMON_647},
-	// {gObjectEventPalette_Pokemon_Species_648, OBJ_EVENT_PAL_TAG_POKEMON_648},
+	{gObjectEventPalette_Pokemon_Species_648, OBJ_EVENT_PAL_TAG_POKEMON_648},
 	// {gObjectEventPalette_Pokemon_Species_649, OBJ_EVENT_PAL_TAG_POKEMON_649},
 	// {gObjectEventPalette_Pokemon_Species_650, OBJ_EVENT_PAL_TAG_POKEMON_650},
 	// {gObjectEventPalette_Pokemon_Species_651, OBJ_EVENT_PAL_TAG_POKEMON_651},
