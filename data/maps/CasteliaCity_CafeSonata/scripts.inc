@@ -209,99 +209,131 @@ CafeSonata_Song_MeloettaDance_1:
 	delay_16
 	delay_16
 	delay_16
-	force_face_up
-	force_face_right
-	force_face_down
 	force_face_left
 	walk_slow_diag_northeast
+	force_face_up
 	walk_slow_diag_southeast
+	force_face_right
 	walk_slow_diag_southwest
+	force_face_down
 	walk_slow_left
+	force_face_left
 	walk_slow_left
+	force_face_up
 	walk_slow_diag_northwest
+	force_face_right
 	walk_slow_up
+	force_face_down
 	walk_diag_northeast
 	walk_right
+	force_face_left
 	walk_right
 	walk_right
+	force_face_up
 	walk_diag_southeast
 	walk_down
+	force_face_right
 	walk_diag_southwest
 	walk_diag_southwest
+	force_face_down
 	walk_left
 	walk_left
+	force_face_left
 	walk_diag_northwest
 	walk_diag_northwest
+	force_face_up
 	walk_up
 	walk_diag_northeast
+	force_face_right
 	walk_diag_northeast
 	walk_fast_right
+	force_face_down
 	walk_fast_right
 	walk_diag_southeast
+	force_face_left
 	walk_diag_southeast
 	walk_down
+	force_face_up
 	walk_down
 	walk_diag_southwest
+	force_face_right
 	walk_diag_southwest
 	walk_fast_left
+	force_face_down
 	walk_fast_left
 	walk_diag_northwest
+	force_face_left
 	walk_diag_northwest
 	walk_up
+	force_face_up
 	walk_up
 	walk_diag_northeast
+	force_face_right
 	unlock_facing_direction
 	stop_levitate
 	step_end
 
 CafeSonata_Song_MeloettaDance_2:
 	lock_facing_direction
+	force_face_down
+	walk_right
 	walk_fast_right
-	walk_fast_right
+	force_face_left
 	walk_fast_right
 	walk_right
+	force_face_up
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_down
+	walk_down
 	walk_fast_diag_southwest
+	force_face_right
 	walk_fast_down
 	walk_down
+	force_face_down
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_diag_northwest
+	walk_diag_northwest
 	walk_fast_up
+	force_face_left
 	walk_diag_northwest
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_left
+	walk_left
+	force_face_up
 	walk_fast_left
 	walk_diag_southwest
+	force_face_right
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_diag_southeast
+	walk_diag_southeast
 	walk_fast_right
+	force_face_down
 	walk_right
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_diag_northeast
+	walk_diag_northeast
 	walk_fast_right
+	force_face_left
 	walk_diag_northeast
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_diag_southwest
+	walk_diag_southwest
+	force_face_up
 	walk_fast_down
 	walk_down
+	force_face_right
 	levitate
 	delay_16
 	stop_levitate
-	walk_fast_diag_northwest
+	walk_diag_northwest
 	walk_fast_left
+	force_face_down
 	walk_diag_northwest
 	levitate
 	delay_16
@@ -312,38 +344,55 @@ CafeSonata_Song_MeloettaDance_2:
 CafeSonata_Song_MeloettaDance_3:
 	levitate
 	lock_facing_direction
-	walk_fast_up
+	force_face_down
+	walk_up
 	walk_fast_diag_northeast
+	force_face_left
 	walk_fast_right
 	walk_fast_right
+	force_face_up
 	walk_fast_right
 	walk_fast_diag_southeast
-	walk_fast_down
-	walk_fast_diag_southwest
+	force_face_right
+	walk_down
+	walk_diag_southwest
+	force_face_down
 	walk_fast_diag_southwest
 	walk_fast_left
+	force_face_left
 	walk_fast_left
 	walk_fast_diag_northwest
-	walk_fast_diag_northwest
-	walk_fast_up
+	force_face_up
+	walk_diag_northwest
+	walk_up
+	force_face_right
+	walk_diag_northeast
 	walk_fast_diag_northeast
-	walk_fast_diag_northeast
+	force_face_down
 	walk_fast_right
 	walk_fast_right
+	force_face_left
 	walk_fast_diag_southeast
-	walk_fast_diag_southeast
-	walk_fast_down
-	walk_fast_down
+	walk_diag_southeast
+	force_face_up
+	walk_down
+	walk_down
+	force_face_right
+	walk_diag_southwest
 	walk_fast_diag_southwest
-	walk_fast_diag_southwest
+	force_face_down
 	walk_fast_left
 	walk_fast_left
+	force_face_left
 	walk_fast_diag_northwest
 	walk_fast_diag_northwest
-	walk_fast_up
-	walk_fast_up
+	force_face_up
+	walk_up
+	walk_up
+	force_face_right
 	walk_diag_northeast
 	walk_right
+	force_face_down
 	walk_slow_diag_southeast
 	walk_slow_down
 	unlock_facing_direction
