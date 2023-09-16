@@ -11,6 +11,7 @@ This feature uses:
 - merge/dynamic-ow-pals: Better loading of palettes for sprites.
 - feature/custom-transitions-battlemusic: Customise transitions from scripting.
 - feature/location-battle-music: Customise battle music for other regions.
+- feature/lock-elevation: Lock Meloetta elevation so she appears over all tiles during her dance.
 
 ## Mystery Gifts
 
