@@ -261,6 +261,10 @@ u8 MovementAction_FlyUp_Step1(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_Fly_Finish(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FlyDown_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FlyDown_Step1(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_ForceFaceDown_Step0(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_ForceFaceUp_Step0(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_ForceFaceLeft_Step0(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_ForceFaceRight_Step0(struct ObjectEvent *, struct Sprite *);
 
 u8 (*const gMovementActionFuncs_FaceDown[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FaceUp[])(struct ObjectEvent *, struct Sprite *);
