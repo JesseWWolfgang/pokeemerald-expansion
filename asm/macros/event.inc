@@ -2057,3 +2057,16 @@
 	callnative CreateTrainerPartyForPlayer
 	trainerbattle_no_intro \trainer2, NULL
 	.endm
+
+	@ Locks the elevation of the specified (localId) object to the given elevation.
+	.macro lockelevation localId:req, elevation:req
+		.byte 0xe5
+		.2byte \localId
+		.2byte \elevation
+	.endm
+
+	@ Resets the elevation of the specified (localId) object to what it was before lockelevation was called.
+	.macro resetelevation localId:req
+		.byte 0xe6
+		.2byte \localId
+	.endm

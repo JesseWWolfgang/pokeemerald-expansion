@@ -7766,6 +7766,9 @@ void ObjectEventUpdateElevation(struct ObjectEvent *objEvent)
     if (curElevation == 15 || prevElevation == 15)
         return;
 
+    if (objEvent->lockElevation)
+        return;
+
     objEvent->currentElevation = curElevation;
 
     if (curElevation != 0 && curElevation != 15)
@@ -8971,4 +8974,32 @@ u8 MovementAction_FlyDown_Step1(struct ObjectEvent *objectEvent, struct Sprite *
 u8 MovementAction_Fly_Finish(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     return TRUE;
+}
+
+void LockObjectElevation(u8 localId, u8 mapNum, u8 mapGroup, u8 elevation)
+{
+    u8 objectEventId;
+    struct ObjectEvent* objectEvent;
+
+    if (!TryGetObjectEventIdByLocalIdAndMap(localId, mapNum, mapGroup, &objectEventId))
+    {
+        objectEvent = &gObjectEvents[objectEventId];
+        objectEvent->lockElevation = TRUE;
+        objectEvent->previousElevation = elevation;
+        objectEvent->currentElevation = elevation;
+        UpdateObjectEventElevationAndPriority(objectEvent, &gSprites[objectEvent->spriteId]);
+    }
+}
+
+void ResetObjectElevation(u8 localId, u8 mapNum, u8 mapGroup)
+{
+    u8 objectEventId;
+    struct ObjectEvent* objectEvent;
+
+    if (!TryGetObjectEventIdByLocalIdAndMap(localId, mapNum, mapGroup, &objectEventId))
+    {
+        objectEvent = &gObjectEvents[objectEventId];
+        objectEvent->lockElevation = FALSE;
+        UpdateObjectEventElevationAndPriority(objectEvent, &gSprites[objectEvent->spriteId]);
+    }
 }

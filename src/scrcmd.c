@@ -2423,3 +2423,21 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
     ResetInitialPlayerAvatarState();
     return TRUE;
 }
+
+
+bool8 ScrCmd_lockelevation(struct ScriptContext *ctx)
+{
+    u16 localId = VarGet(ScriptReadHalfword(ctx));
+    u8 elevation = ScriptReadByte(ctx);
+
+    LockObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, elevation);
+    return FALSE;
+}
+
+bool8 ScrCmd_resetelevation(struct ScriptContext *ctx)
+{
+    u16 localId = VarGet(ScriptReadHalfword(ctx));
+
+    ResetObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+    return FALSE;
+}
