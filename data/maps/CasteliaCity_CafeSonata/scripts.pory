@@ -1,4 +1,5 @@
 const OBJECT_ID_MELOETTA = 2
+const OBJECT_ID_BARD = 1
 
 mapscripts CasteliaCity_CafeSonata_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
@@ -9,6 +10,83 @@ mapscripts CasteliaCity_CafeSonata_MapScripts {
             clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
     }
+}
+
+script CafeSonata_Bard {
+    lock
+    faceplayer
+    msgbox(format("The scent you brought me reminded me of a long-ago melody from the fringes of my sepia-toned memories.\p"
+    "It was a song my mother loved...\nIt makes me feel so nostalgic.\p"
+    "Would you like to hear the melody?"), MSGBOX_NPC)
+    special(Script_FadeOutMapMusic)
+    switch (var(VAR_FACING)) {
+        case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingEast)
+        case DIR_WEST: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingWest)
+        default: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingNorth)
+    }
+    waitmovement(0)
+    delay(30)
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraUp)
+    waitmovement(0)
+    delay(20)
+
+    // Play song
+    call(CafeSonata_PlaySong)
+    // End song
+
+    applymovement(OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraDown)
+    waitmovement(0)
+    delay(20)
+    special(RemoveCameraObject)
+    special(Overworld_PlaySpecialMapMusic)
+    release
+}
+
+script CafeSonata_PlaySong {
+    playbgm(MUS_CAFE_SONATA_RELIC_SONG, FALSE)
+    applymovement(OBJECT_ID_BARD, CafeSonata_Song_Bard)
+    applymovement(OBJECT_ID_MELOETTA, CafeSonata_Song_MeloettaLevitate)
+    delay(120)
+}
+
+movement CafeSonata_WalkToSong_FacingEast {
+    walk_down
+    walk_right
+    walk_down * 4
+    face_up
+}
+
+movement CafeSonata_WalkToSong_FacingNorth {
+    walk_down * 4
+    face_up
+}
+
+movement CafeSonata_WalkToSong_FacingWest {
+    walk_down
+    walk_left
+    walk_down * 4
+    face_up
+}
+
+movement CafeSonata_Song_CameraUp {
+    walk_slow_up * 4
+}
+
+movement CafeSonata_Song_CameraDown {
+    walk_slow_down * 4
+}
+
+movement CafeSonata_Song_Bard {
+    walk_in_place_slow_down
+}
+
+movement CafeSonata_Song_MeloettaLevitate {
+    levitate
+}
+
+script CafeSonata_MeloettaSong {
+
 }
 
 script CafeSonata_Meloetta {
