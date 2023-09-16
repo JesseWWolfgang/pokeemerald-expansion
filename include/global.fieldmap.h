@@ -197,8 +197,7 @@ struct ObjectEvent
              u32 hideReflection:1;
              u32 lockElevation:1;
              //u32 padding:3;
-    /*0x04*/ u8 spriteId;
-    /*0x05*/ u8 graphicsId;
+    /*0x05*/ u16 graphicsId;
     /*0x06*/ u8 movementType;
     /*0x07*/ u8 trainerType;
     /*0x08*/ u8 localId;
@@ -222,7 +221,7 @@ struct ObjectEvent
     /*0x20*/ u8 previousMovementDirection;
     /*0x21*/ u8 directionSequenceIndex;
     /*0x22*/ u8 playerCopyableMovement; // COPY_MOVE_*
-    /*0x23*/ //u8 padding2;
+    /*0x23*/ u8 spriteId;
     /*size = 0x24*/
 };
 
