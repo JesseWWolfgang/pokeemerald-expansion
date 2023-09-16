@@ -188,7 +188,7 @@ movement CafeSonata_Song_MeloettaDance_1 {
     force_face_right
     walk_diag_northeast
     
-    // 3rd large clockwise circle at same speed
+    // 3rd large clockwise circle even faster
     walk_fast_right
     force_face_down
     walk_fast_right
@@ -220,6 +220,7 @@ movement CafeSonata_Song_MeloettaDance_1 {
 movement CafeSonata_Song_MeloettaDance_2 {
     lock_facing_direction
 
+    // Jump around to a number of points on the floor
     force_face_down
     walk_right
     walk_fast_right
