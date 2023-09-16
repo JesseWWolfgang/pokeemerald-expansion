@@ -54,12 +54,14 @@ script CafeSonata_PlaySong {
     addobject(OBJECT_ID_MELOETTA)
     showobjectat(OBJECT_ID_MELOETTA, MAP_CASTELIA_CITY_CAFE_SONATA)
     setobjectxy(OBJECT_ID_MELOETTA, 4, 1)
+    lockelevation(OBJECT_ID_MELOETTA, 4)
         
     playbgm(MUS_CAFE_SONATA_RELIC_SONG, FALSE)
 
     applymovement(OBJECT_ID_BARD, CafeSonata_Song_Bard)
     applymovement(OBJECT_ID_MELOETTA, CafeSonata_Song_MeloettaDance_1)
     waitmovement(OBJECT_ID_MELOETTA)
+    resetelevation(OBJECT_ID_MELOETTA)
 
     delay(120)
 }

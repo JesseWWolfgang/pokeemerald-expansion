@@ -58,10 +58,12 @@ CafeSonata_PlaySong::
 	addobject 2
 	showobjectat 2, MAP_CASTELIA_CITY_CAFE_SONATA
 	setobjectxy 2, 4, 1
+	lockelevation 2, 4
 	playbgm MUS_CAFE_SONATA_RELIC_SONG, FALSE
 	applymovement 1, CafeSonata_Song_Bard
 	applymovement 2, CafeSonata_Song_MeloettaDance_1
 	waitmovement 2
+	resetelevation 2
 	delay 120
 	return
 
