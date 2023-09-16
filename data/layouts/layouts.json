@@ -4475,7 +4475,7 @@
       "id": "LAYOUT_CASTELIA_CITY_CAFE_SONATA",
       "name": "CasteliaCity_CafeSonata_Layout",
       "width": 9,
-      "height": 12,
+      "height": 15,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_CafeSonata",
       "border_filepath": "data/layouts/CasteliaCity_CafeSonata/border.bin",

@@ -17,7 +17,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_BARD",
       "x": 4,
-      "y": 5,
+      "y": 8,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -30,20 +30,20 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_POKEMON_648",
       "x": 4,
-      "y": 7,
-      "elevation": 0,
+      "y": 10,
+      "elevation": 4,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "CafeSonata_Meloetta",
-      "flag": "0"
+      "flag": "FLAG_HIDE_SPECIAL_POKEMON_ON_MAP"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
       "x": 2,
-      "y": 3,
+      "y": 6,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -56,7 +56,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_4",
       "x": 1,
-      "y": 9,
+      "y": 12,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 0,
@@ -69,7 +69,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
       "x": 7,
-      "y": 5,
+      "y": 8,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_UP_AND_LEFT",
       "movement_range_x": 0,
@@ -83,7 +83,7 @@
   "warp_events": [
     {
       "x": 4,
-      "y": 11,
+      "y": 14,
       "elevation": 0,
       "dest_map": "MAP_CASTELIA_CITY_LIBERTY_PIER",
       "dest_warp_id": "0"

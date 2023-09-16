@@ -3,7 +3,7 @@ const OBJECT_ID_BARD = 1
 
 mapscripts CasteliaCity_CafeSonata_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
-        if (flag(FLAG_CAPTURED_VICTINI)) {
+        if (flag(FLAG_CAPTURED_MELOETTA) || !flag(FLAG_RELIC_SONG_PLAYED)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
         else {
@@ -15,6 +15,11 @@ mapscripts CasteliaCity_CafeSonata_MapScripts {
 script CafeSonata_Bard {
     lock
     faceplayer
+    if (flag(FLAG_RELIC_SONG_PLAYED)) {
+        release
+        return
+    }
+
     msgbox(format("The scent you brought me reminded me of a long-ago melody from the fringes of my sepia-toned memories.\p"
     "It was a song my mother loved...\nIt makes me feel so nostalgic.\p"
     "Would you like to hear the melody?"), MSGBOX_NPC)
@@ -44,9 +49,18 @@ script CafeSonata_Bard {
 }
 
 script CafeSonata_PlaySong {
+    setflag(FLAG_RELIC_SONG_PLAYED)
+    clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+    addobject(OBJECT_ID_MELOETTA)
+    showobjectat(OBJECT_ID_MELOETTA, MAP_CASTELIA_CITY_CAFE_SONATA)
+    setobjectxy(OBJECT_ID_MELOETTA, 4, 1)
+        
     playbgm(MUS_CAFE_SONATA_RELIC_SONG, FALSE)
+
     applymovement(OBJECT_ID_BARD, CafeSonata_Song_Bard)
-    applymovement(OBJECT_ID_MELOETTA, CafeSonata_Song_MeloettaLevitate)
+    applymovement(OBJECT_ID_MELOETTA, CafeSonata_Song_MeloettaDance_1)
+    waitmovement(OBJECT_ID_MELOETTA)
+
     delay(120)
 }
 
@@ -78,15 +92,19 @@ movement CafeSonata_Song_CameraDown {
 }
 
 movement CafeSonata_Song_Bard {
-    walk_in_place_slow_down
+    walk_in_place_slow_down * 50
 }
 
-movement CafeSonata_Song_MeloettaLevitate {
+movement CafeSonata_Song_MeloettaDance_1 {
     levitate
-}
-
-script CafeSonata_MeloettaSong {
-
+    walk_slow_down * 6
+    delay_16 * 2
+    walk_right * 3
+    walk_left * 6
+    walk_right * 3
+    walk_down * 3
+    delay_16
+    stop_levitate
 }
 
 script CafeSonata_Meloetta {

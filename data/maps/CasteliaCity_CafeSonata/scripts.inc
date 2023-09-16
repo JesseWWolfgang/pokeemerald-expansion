@@ -3,7 +3,8 @@ CasteliaCity_CafeSonata_MapScripts::
 	.byte 0
 
 CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION:
-	goto_if_set FLAG_CAPTURED_VICTINI, CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	goto_if_set FLAG_CAPTURED_MELOETTA, CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	goto_if_unset FLAG_RELIC_SONG_PLAYED, CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
 
@@ -15,13 +16,14 @@ CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 CafeSonata_Bard::
 	lock
 	faceplayer
+	goto_if_set FLAG_RELIC_SONG_PLAYED, CafeSonata_Bard_2
 	msgbox CafeSonata_Bard_Text_0, MSGBOX_NPC
 	special Script_FadeOutMapMusic
 	switch VAR_FACING
-	case DIR_EAST, CafeSonata_Bard_3
-	case DIR_WEST, CafeSonata_Bard_4
+	case DIR_EAST, CafeSonata_Bard_6
+	case DIR_WEST, CafeSonata_Bard_7
 	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingNorth
-CafeSonata_Bard_1:
+CafeSonata_Bard_4:
 	waitmovement 0
 	delay 30
 	special SpawnCameraObject
@@ -37,19 +39,29 @@ CafeSonata_Bard_1:
 	release
 	return
 
-CafeSonata_Bard_3:
-	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingEast
-	goto CafeSonata_Bard_1
+CafeSonata_Bard_2:
+	release
+	return
 
-CafeSonata_Bard_4:
+CafeSonata_Bard_6:
+	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingEast
+	goto CafeSonata_Bard_4
+
+CafeSonata_Bard_7:
 	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingWest
-	goto CafeSonata_Bard_1
+	goto CafeSonata_Bard_4
 
 
 CafeSonata_PlaySong::
+	setflag FLAG_RELIC_SONG_PLAYED
+	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	addobject 2
+	showobjectat 2, MAP_CASTELIA_CITY_CAFE_SONATA
+	setobjectxy 2, 4, 1
 	playbgm MUS_CAFE_SONATA_RELIC_SONG, FALSE
 	applymovement 1, CafeSonata_Song_Bard
-	applymovement 2, CafeSonata_Song_MeloettaLevitate
+	applymovement 2, CafeSonata_Song_MeloettaDance_1
+	waitmovement 2
 	delay 120
 	return
 
@@ -98,15 +110,85 @@ CafeSonata_Song_CameraDown:
 
 CafeSonata_Song_Bard:
 	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
+	walk_in_place_slow_down
 	step_end
 
-CafeSonata_Song_MeloettaLevitate:
+CafeSonata_Song_MeloettaDance_1:
 	levitate
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	delay_16
+	delay_16
+	walk_right
+	walk_right
+	walk_right
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	delay_16
+	stop_levitate
 	step_end
-
-CafeSonata_MeloettaSong::
-	return
-
 
 CafeSonata_Meloetta::
 	lock
