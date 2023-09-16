@@ -436,3 +436,21 @@ u8 (*const gMovementTypeFuncs_Invisible[])(struct ObjectEvent *, struct Sprite *
     MovementType_Invisible_Step1,
     MovementType_Invisible_Step2,
 };
+
+u8 (*const gMovementTypeFuncs_ForceRotateCounterclockwise[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementType_ForceRotateCounterclockwise_Step0,
+    MovementType_ForceRotateCounterclockwise_Step1,
+    MovementType_ForceRotateCounterclockwise_Step2,
+    MovementType_ForceRotateCounterclockwise_Step3,
+};
+
+const u8 gForceCounterclockwiseDirections[] = {DIR_SOUTH, DIR_EAST, DIR_WEST, DIR_SOUTH, DIR_NORTH};
+
+u8 (*const gMovementTypeFuncs_ForceRotateClockwise[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementType_ForceRotateClockwise_Step0,
+    MovementType_ForceRotateClockwise_Step1,
+    MovementType_ForceRotateClockwise_Step2,
+    MovementType_ForceRotateClockwise_Step3,
+};
+
+const u8 gForceClockwiseDirections[] = {DIR_SOUTH, DIR_WEST, DIR_EAST, DIR_NORTH, DIR_SOUTH};
