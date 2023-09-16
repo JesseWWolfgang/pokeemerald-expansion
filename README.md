@@ -30,6 +30,11 @@ the event object that is set with the `lock_facing_direction` and `unlock_facing
 - `force_face_left`
 - `force_face_right`
 
+Additionally adds 2 movement types that use these forced facing movements:
+
+- `MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE`
+- `MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE`
+
 # Fast Diagonal Walk
 
 Adds fast variants for each of the diagonal movement types.

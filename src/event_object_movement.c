@@ -286,6 +286,8 @@ static void (*const sMovementTypeCallbacks[])(struct Sprite *) =
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_UP] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_LEFT] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = MovementType_WalkSlowlyInPlace,
+    [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = MovementType_ForceRotateCounterclockwise,
+    [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = MovementType_ForceRotateClockwise,
 };
 
 static const bool8 sMovementTypeHasRange[NUM_MOVEMENT_TYPES] = {
@@ -906,6 +908,13 @@ const u8 gFaceDirectionMovementActions[] = {
     MOVEMENT_ACTION_FACE_UP,
     MOVEMENT_ACTION_FACE_LEFT,
     MOVEMENT_ACTION_FACE_RIGHT,
+};
+const u8 gForceFaceDirectionMovementActions[] = {
+    MOVEMENT_ACTION_FORCE_FACE_DOWN,
+    MOVEMENT_ACTION_FORCE_FACE_DOWN,
+    MOVEMENT_ACTION_FORCE_FACE_UP,
+    MOVEMENT_ACTION_FORCE_FACE_LEFT,
+    MOVEMENT_ACTION_FORCE_FACE_RIGHT,
 };
 const u8 gWalkSlowMovementActions[] = {
     MOVEMENT_ACTION_WALK_SLOW_DOWN,
@@ -4967,6 +4976,7 @@ u8 name(u32 idx)\
 }
 
 dirn_to_anim(GetFaceDirectionMovementAction, gFaceDirectionMovementActions);
+dirn_to_anim(GetForceFaceDirectionMovementAction, gForceFaceDirectionMovementActions);
 dirn_to_anim(GetWalkSlowMovementAction, gWalkSlowMovementActions);
 dirn_to_anim(GetWalkNormalMovementAction, gWalkNormalMovementActions);
 dirn_to_anim(GetWalkFastMovementAction, gWalkFastMovementActions);
@@ -9110,4 +9120,84 @@ bool8 MovementAction_WalkFastDiagonalDownRight_Step1(struct ObjectEvent *objectE
         return TRUE;
     }
     return FALSE;
+}
+
+movement_type_def(MovementType_ForceRotateCounterclockwise, gMovementTypeFuncs_ForceRotateCounterclockwise)
+
+bool8 MovementType_ForceRotateCounterclockwise_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ClearObjectEventMovement(objectEvent, sprite);
+    ObjectEventSetSingleMovement(objectEvent, sprite, GetForceFaceDirectionMovementAction(objectEvent->facingDirection));
+    sprite->sTypeFuncId = 1;
+    return TRUE;
+}
+
+bool8 MovementType_ForceRotateCounterclockwise_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (ObjectEventExecSingleMovementAction(objectEvent, sprite))
+    {
+        SetMovementDelay(sprite, 48);
+        sprite->sTypeFuncId = 2;
+    }
+    return FALSE;
+}
+
+bool8 MovementType_ForceRotateCounterclockwise_Step2(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (WaitForMovementDelay(sprite) || ObjectEventIsTrainerAndCloseToPlayer(objectEvent))
+        sprite->sTypeFuncId = 3;
+    return FALSE;
+}
+
+bool8 MovementType_ForceRotateCounterclockwise_Step3(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 direction;
+    u8 directions[5];
+    memcpy(directions, gForceCounterclockwiseDirections, sizeof gForceCounterclockwiseDirections);
+    direction = TryGetTrainerEncounterDirection(objectEvent, RUNFOLLOW_ANY);
+    if (direction == DIR_NONE)
+        direction = directions[objectEvent->facingDirection];
+    SetObjectEventDirection(objectEvent, direction);
+    sprite->sTypeFuncId = 0;
+    return TRUE;
+}
+
+movement_type_def(MovementType_ForceRotateClockwise, gMovementTypeFuncs_ForceRotateClockwise)
+
+bool8 MovementType_ForceRotateClockwise_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ClearObjectEventMovement(objectEvent, sprite);
+    ObjectEventSetSingleMovement(objectEvent, sprite, GetForceFaceDirectionMovementAction(objectEvent->facingDirection));
+    sprite->sTypeFuncId = 1;
+    return TRUE;
+}
+
+bool8 MovementType_ForceRotateClockwise_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (ObjectEventExecSingleMovementAction(objectEvent, sprite))
+    {
+        SetMovementDelay(sprite, 48);
+        sprite->sTypeFuncId = 2;
+    }
+    return FALSE;
+}
+
+bool8 MovementType_ForceRotateClockwise_Step2(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (WaitForMovementDelay(sprite) || ObjectEventIsTrainerAndCloseToPlayer(objectEvent))
+        sprite->sTypeFuncId = 3;
+    return FALSE;
+}
+
+bool8 MovementType_ForceRotateClockwise_Step3(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 direction;
+    u8 directions[5];
+    memcpy(directions, gForceClockwiseDirections, sizeof gForceClockwiseDirections);
+    direction = TryGetTrainerEncounterDirection(objectEvent, RUNFOLLOW_ANY);
+    if (direction == DIR_NONE)
+        direction = directions[objectEvent->facingDirection];
+    SetObjectEventDirection(objectEvent, direction);
+    sprite->sTypeFuncId = 0;
+    return TRUE;
 }
