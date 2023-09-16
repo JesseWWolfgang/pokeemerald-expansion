@@ -29,3 +29,7 @@ the event object that is set with the `lock_facing_direction` and `unlock_facing
 - `force_face_up`
 - `force_face_left`
 - `force_face_right`
+
+# Fast Diagonal Walk
+
+Adds fast variants for each of the diagonal movement types.
