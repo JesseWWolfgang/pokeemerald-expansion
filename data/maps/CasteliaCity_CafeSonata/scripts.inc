@@ -62,7 +62,7 @@ CafeSonata_PlaySong::
 	lockelevation 2, 4
 	playbgm MUS_CAFE_SONATA_RELIC_SONG, FALSE
 	applymovement 1, CafeSonata_Song_Bard
-	delay 180
+	delay 80
 	applymovement 2, CafeSonata_Song_MeloettaDance_1
 	waitmovement 2
 	fadescreen FADE_TO_WHITE
@@ -209,9 +209,6 @@ CafeSonata_Song_MeloettaDance_1:
 	delay_16
 	delay_16
 	delay_16
-	delay_16
-	delay_16
-	delay_16
 	force_face_up
 	force_face_right
 	force_face_down
@@ -238,16 +235,16 @@ CafeSonata_Song_MeloettaDance_1:
 	walk_up
 	walk_diag_northeast
 	walk_diag_northeast
-	walk_right
-	walk_right
+	walk_fast_right
+	walk_fast_right
 	walk_diag_southeast
 	walk_diag_southeast
 	walk_down
 	walk_down
 	walk_diag_southwest
 	walk_diag_southwest
-	walk_left
-	walk_left
+	walk_fast_left
+	walk_fast_left
 	walk_diag_northwest
 	walk_diag_northwest
 	walk_up
@@ -259,51 +256,51 @@ CafeSonata_Song_MeloettaDance_1:
 
 CafeSonata_Song_MeloettaDance_2:
 	lock_facing_direction
-	walk_right
+	walk_fast_right
 	walk_fast_right
 	walk_fast_right
 	walk_right
 	levitate
 	delay_16
 	stop_levitate
-	walk_down
-	walk_diag_southwest
+	walk_fast_down
+	walk_fast_diag_southwest
 	walk_fast_down
 	walk_down
 	levitate
 	delay_16
 	stop_levitate
-	walk_diag_northwest
+	walk_fast_diag_northwest
 	walk_fast_up
 	walk_diag_northwest
 	levitate
 	delay_16
 	stop_levitate
-	walk_left
+	walk_fast_left
 	walk_fast_left
 	walk_diag_southwest
 	levitate
 	delay_16
 	stop_levitate
-	walk_diag_southeast
+	walk_fast_diag_southeast
 	walk_fast_right
 	walk_right
 	levitate
 	delay_16
 	stop_levitate
-	walk_diag_northeast
+	walk_fast_diag_northeast
 	walk_fast_right
 	walk_diag_northeast
 	levitate
 	delay_16
 	stop_levitate
-	walk_diag_southwest
+	walk_fast_diag_southwest
 	walk_fast_down
 	walk_down
 	levitate
 	delay_16
 	stop_levitate
-	walk_diag_northwest
+	walk_fast_diag_northwest
 	walk_fast_left
 	walk_diag_northwest
 	levitate
@@ -315,38 +312,46 @@ CafeSonata_Song_MeloettaDance_2:
 CafeSonata_Song_MeloettaDance_3:
 	levitate
 	lock_facing_direction
-	walk_up
+	walk_fast_up
+	walk_fast_diag_northeast
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_diag_southeast
+	walk_fast_down
+	walk_fast_diag_southwest
+	walk_fast_diag_southwest
+	walk_fast_left
+	walk_fast_left
+	walk_fast_diag_northwest
+	walk_fast_diag_northwest
+	walk_fast_up
+	walk_fast_diag_northeast
+	walk_fast_diag_northeast
+	walk_fast_right
+	walk_fast_right
+	walk_fast_diag_southeast
+	walk_fast_diag_southeast
+	walk_fast_down
+	walk_fast_down
+	walk_fast_diag_southwest
+	walk_fast_diag_southwest
+	walk_fast_left
+	walk_fast_left
+	walk_fast_diag_northwest
+	walk_fast_diag_northwest
+	walk_fast_up
+	walk_fast_up
 	walk_diag_northeast
 	walk_right
-	walk_right
-	walk_right
-	walk_diag_southeast
-	walk_down
-	walk_diag_southwest
-	walk_diag_southwest
-	walk_left
-	walk_left
-	walk_diag_northwest
-	walk_diag_northwest
-	walk_up
-	walk_diag_northeast
-	walk_diag_northeast
-	walk_right
-	walk_right
-	walk_diag_southeast
-	walk_diag_southeast
-	walk_down
-	walk_down
-	walk_diag_southwest
-	walk_diag_southwest
-	walk_left
-	walk_left
-	walk_diag_northwest
-	walk_diag_northwest
-	walk_up
-	walk_up
-	walk_diag_northeast
+	walk_slow_diag_southeast
+	walk_slow_down
 	unlock_facing_direction
+	face_down
+	delay_16
+	delay_16
+	delay_16
+	delay_16
 	stop_levitate
 	step_end
 
