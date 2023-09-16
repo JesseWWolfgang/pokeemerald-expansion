@@ -3817,6 +3817,16 @@ void SetObjectEventDirection(struct ObjectEvent *objectEvent, u8 direction)
     objectEvent->movementDirection = direction;
 }
 
+// The same as SetObjectEventDirection but bypasses the facingDirectionLocked bitflag.
+void ForceSetObjectEventDirection(struct ObjectEvent *objectEvent, u8 direction)
+{
+    s8 d2;
+    objectEvent->previousMovementDirection = objectEvent->facingDirection;
+    d2 = direction;
+    objectEvent->facingDirection = d2;
+    objectEvent->movementDirection = direction;
+}
+
 static const u8 *GetObjectEventScriptPointerByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup)
 {
     return GetObjectEventTemplateByLocalIdAndMap(localId, mapNum, mapGroup)->script;
@@ -6473,6 +6483,16 @@ static void ObjectEventSetSingleMovement(struct ObjectEvent *objectEvent, struct
 static void FaceDirection(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction)
 {
     SetObjectEventDirection(objectEvent, direction);
+    ShiftStillObjectEventCoords(objectEvent);
+    SetStepAnim(objectEvent, sprite, GetMoveDirectionAnimNum(objectEvent->facingDirection));
+    sprite->animPaused = TRUE;
+    sprite->sActionFuncId = 1;
+}
+
+// Same as FaceDirection but instead calls ForceSetObjectEventDirection.
+static void ForceFaceDirection(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction)
+{
+    ForceSetObjectEventDirection(objectEvent, direction);
     ShiftStillObjectEventCoords(objectEvent);
     SetStepAnim(objectEvent, sprite, GetMoveDirectionAnimNum(objectEvent->facingDirection));
     sprite->animPaused = TRUE;
@@ -10425,4 +10445,28 @@ void ResetObjectElevation(u8 localId, u8 mapNum, u8 mapGroup)
         objectEvent->lockElevation = FALSE;
         UpdateObjectEventElevationAndPriority(objectEvent, &gSprites[objectEvent->spriteId]);
     }
+}
+
+bool8 MovementAction_ForceFaceDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ForceFaceDirection(objectEvent, sprite, DIR_SOUTH);
+    return TRUE;
+}
+
+bool8 MovementAction_ForceFaceUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ForceFaceDirection(objectEvent, sprite, DIR_NORTH);
+    return TRUE;
+}
+
+bool8 MovementAction_ForceFaceLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ForceFaceDirection(objectEvent, sprite, DIR_WEST);
+    return TRUE;
+}
+
+bool8 MovementAction_ForceFaceRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ForceFaceDirection(objectEvent, sprite, DIR_EAST);
+    return TRUE;
 }
