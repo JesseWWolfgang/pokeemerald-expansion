@@ -9,13 +9,6 @@ Adds 2 script commands for locking the elevation of event objects to the desired
 They can be used as such using 4 as the desired elevation to lock at:
 
 ```
-lockelevation GFX_ID_XYZ 4
-resetelevation GFX_ID_XYZ
-```
-
-or in Poryscript:
-
-```
 lockelevation(GFX_ID_XYZ, 4)
 resetelevation(GFX_ID_XYZ)
 ```
@@ -35,6 +28,24 @@ Additionally adds 2 movement types that use these forced facing movements:
 - `MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE`
 - `MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE`
 
-# Fast Diagonal Walk
+## Fast Diagonal Walk
 
 Adds fast variants for each of the diagonal movement types.
+
+## Movement based on player facing direction
+
+Adds a script macro to apply a given movement to an event object based on the facing direction of the player.
+
+```
+applymovementplayerfacing(GFX_ID_XYZ, north, south, east, west)
+```
+
+Can also be used like this when the names of movements are quite large:
+
+```
+applymovementplayerfacing(GFX_ID_XYZ, 
+    north, 
+    south, 
+    east, 
+    west)
+```
