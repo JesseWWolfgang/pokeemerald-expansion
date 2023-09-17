@@ -2070,3 +2070,24 @@
 		.byte 0xe6
 		.2byte \localId
 	.endm
+
+	@ Applies movements to the specified (localId) object depending on facing direction of the player.
+	.macro applymovementplayerfacing localId:req, north:req, south:req, east:req, west:req
+		goto_if_eq VAR_FACING, DIR_NORTH, .mN\@
+		goto_if_eq VAR_FACING, DIR_SOUTH, .mS\@
+		goto_if_eq VAR_FACING, DIR_EAST, .mE\@
+		goto_if_eq VAR_FACING, DIR_WEST, .mW\@
+		.mN\@:
+			applymovement \localId, \north
+			goto .e\@
+		.mS\@:
+			applymovement \localId, \south
+			goto .e\@
+		.mE\@:
+			applymovement \localId, \east
+			goto .e\@
+		.mW\@:
+			applymovement \localId, \west
+			goto .e\@
+		.e\@:
+	.endm
