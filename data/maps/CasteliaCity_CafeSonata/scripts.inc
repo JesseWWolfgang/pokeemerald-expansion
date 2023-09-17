@@ -530,7 +530,7 @@ CafeSonata_Meloetta_Text_2:
 	.string "Meloetta is watching carefully.$"
 
 CafeSonata_Meloetta_Text_3:
-	.string "Meloetta fled the Cafe...$"
+	.string "Meloetta fled the café...$"
 
 CafeSonata_Bard_RememberedMelody::
 	.string "When you came through the door, I\n"

@@ -426,25 +426,14 @@ script CafeSonata_Meloetta {
             fadescreenswapbuffers(FADE_TO_BLACK)
             removeobject(OBJECT_ID_MELOETTA)
             fadescreenswapbuffers(FADE_FROM_BLACK)
-            msgbox(format("Meloetta fled the Cafe..."), MSGBOX_DEFAULT)
+            msgbox(format("Meloetta fled the café..."), MSGBOX_DEFAULT)
     }
     release
     end
 }
 
-movement CafeSonata_Song_WalkToBard_FacingNorth {
-    walk_up 
-    walk_up
-}
-movement CafeSonata_Song_WalkToBard_FacingSouth {
-    face_up
-}
-movement CafeSonata_Song_WalkToBard_FacingEast {
-    walk_right 
-    walk_up
-}
-movement CafeSonata_Song_WalkToBard_FacingWest {
-    walk_left 
-    walk_up
-}
+movement CafeSonata_Song_WalkToBard_FacingNorth {walk_up walk_up}
+movement CafeSonata_Song_WalkToBard_FacingSouth {face_up}
+movement CafeSonata_Song_WalkToBard_FacingEast {walk_right walk_up}
+movement CafeSonata_Song_WalkToBard_FacingWest {walk_left walk_up}
 
