@@ -25294,6 +25294,7 @@ static const u16 sMeloettaTeachableLearnset[] = {
     MOVE_SWAGGER,
     MOVE_THUNDER_PUNCH,
     MOVE_THUNDER_WAVE,
+    MOVE_RELIC_SONG,
     MOVE_UNAVAILABLE,
 };
 
