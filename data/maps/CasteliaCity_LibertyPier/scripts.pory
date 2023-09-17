@@ -148,7 +148,7 @@ script CasteliaCity_CafeSonataLady {
     "Its from a nearby café that I visit often. Would you like me to show you where?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         msgbox(format("Follow me!"), MSGBOX_DEFAULT)
-        warp(MAP_CASTELIA_CITY_CAFE_SONATA, 4, 11)
+        warp(MAP_CASTELIA_CITY_CAFE_SONATA, 4, 14)
 	    waitstate
     }
     else {

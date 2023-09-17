@@ -186,7 +186,7 @@ CasteliaCity_CafeSonataLady_1:
 
 CasteliaCity_CafeSonataLady_2:
 	msgbox CasteliaCity_CafeSonataLady_Text_2, MSGBOX_DEFAULT
-	warp MAP_CASTELIA_CITY_CAFE_SONATA, 4, 11
+	warp MAP_CASTELIA_CITY_CAFE_SONATA, 4, 14
 	waitstate
 	goto CasteliaCity_CafeSonataLady_1
 

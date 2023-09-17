@@ -17,11 +17,35 @@ mapscripts CasteliaCity_CafeSonata_MapScripts {
 script CafeSonata_Bard {
     lock
     faceplayer
-    if (flag(FLAG_RELIC_SONG_PLAYED)) {
-        release
-        return
+    if (flag(FLAG_CAPTURED_MELOETTA)) {
+        call(CafeSonata_Bard_CaughtMeloetta)
     }
+    elif (flag(FLAG_RELIC_SONG_PLAYED)) {
+        msgbox(CafeSonata_Bard_RememberedMelody, MSGBOX_NPC)
+    }
+    else {
+        call(CafeSonata_Bard_NotCaughtMeloetta)
+    }
+    release
+}
 
+text CafeSonata_Bard_RememberedMelody {
+    format("When you came through the door, I remembered the melody!\p"
+    "And the Pokémon that had forgotten how to dance began to step lightly once more!\p"
+    "You are the inspiration.\nYou are a mysterious child...")
+}
+
+script CafeSonata_Bard_CaughtMeloetta {
+    msgbox(format("Let it sing the Relic Song.\p"
+    "Aria Forme will become Pirouette Forme and vice versa.\p"
+    "Want me to teach the Relic Song?"), MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES) {
+        setvar(VAR_0x8005, MOVE_RELIC_SONG)
+        call(MoveTutor_EventScript_OpenPartyMenu)
+    }
+}
+
+script CafeSonata_Bard_NotCaughtMeloetta {
     msgbox(format("The scent you brought me reminded me of a long-ago melody from the fringes of my sepia-toned memories.\p"
     "It was a song my mother loved...\nIt makes me feel so nostalgic.\p"
     "Would you like to hear the melody?"), MSGBOX_NPC)
@@ -42,12 +66,17 @@ script CafeSonata_Bard {
     call(CafeSonata_PlaySong)
     // End song
 
-    applymovement(OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraDown)
+    fadeoutbgm(0)
+    applymovement(OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraFocusBard)
     waitmovement(0)
     delay(20)
+    msgbox(CafeSonata_Bard_RememberedMelody, MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraDown)
+    waitmovement(0)
     special(RemoveCameraObject)
     special(Overworld_PlaySpecialMapMusic)
-    release
+    delay(30)
 }
 
 script CafeSonata_PlaySong {
@@ -127,8 +156,12 @@ movement CafeSonata_Song_CameraUp {
     walk_slow_up * 4
 }
 
+movement CafeSonata_Song_CameraFocusBard {
+    walk_slow_up
+}
+
 movement CafeSonata_Song_CameraDown {
-    walk_slow_down * 4
+    walk_slow_down * 5
 }
 
 movement CafeSonata_Song_Bard {
@@ -192,7 +225,7 @@ movement CafeSonata_Song_MeloettaDance_1 {
     walk_fast_right
     force_face_down
     walk_fast_right
-    walk_diag_southeast
+    walk_fast_diag_southeast
     force_face_left
     walk_diag_southeast
     walk_down
@@ -200,11 +233,11 @@ movement CafeSonata_Song_MeloettaDance_1 {
     walk_down
     walk_diag_southwest
     force_face_right
-    walk_diag_southwest
+    walk_fast_diag_southwest
     walk_fast_left
     force_face_down
     walk_fast_left
-    walk_diag_northwest
+    walk_fast_diag_northwest
     force_face_left
     walk_diag_northwest
     walk_up
@@ -360,26 +393,45 @@ script CafeSonata_Meloetta {
     faceplayer
     waitse
     playmoncry(SPECIES_MELOETTA, CRY_MODE_ENCOUNTER)
-    msgbox(format("Ta-ta-ta-tah!"), MSGBOX_NPC)
+    msgbox(format("Aouueoeaa-{EMOJI_NOTE}"), MSGBOX_NPC)
     delay(20)
     waitmoncry
-    setwildbattle(SPECIES_MELOETTA, 40)
+    setwildbattle(SPECIES_MELOETTA, 50)
     special(BattleSetup_StartLegendaryBattle)
     waitstate
+    applymovement(OBJECT_ID_BARD, Common_Movement_FacePlayer)
+    waitmovement(0)
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            setflag(FLAG_CAPTURED_VICTINI)
+            setflag(FLAG_CAPTURED_MELOETTA)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             call(Common_EventScript_RemoveStaticPokemon)
+            delay(20)
+            switch(var(VAR_FACING)) {
+                case DIR_NORTH: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_Song_WalkToBard_FacingNorth)
+                case DIR_SOUTH: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_Song_WalkToBard_FacingSouth)
+                case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_Song_WalkToBard_FacingEast)
+                case DIR_WEST: applymovement(OBJ_EVENT_ID_PLAYER, CafeSonata_Song_WalkToBard_FacingWest)
+            }
+            msgbox(format("My mother once told me of a Pokémon that played a melody and danced so"
+            "lightly that it filled people's hearts with joy.\p"
+            "Then sorrow darkened the entire world, and the Pokémon lost the melody...\p"
+            "Also, at that time, some red shoes were lost somewhere..."), MSGBOX_NPC)
         case B_OUTCOME_RAN:
             msgbox(format("Meloetta is watching carefully."), MSGBOX_DEFAULT)
         default:
             fadescreenswapbuffers(FADE_TO_BLACK)
             removeobject(OBJECT_ID_MELOETTA)
             fadescreenswapbuffers(FADE_FROM_BLACK)
-            msgbox(format("Meloetta fled behind the furniture..."), MSGBOX_DEFAULT)
+            msgbox(format("Meloetta fled the Cafe..."), MSGBOX_DEFAULT)
     }
     release
     end
 }
+
+movement CafeSonata_Song_WalkToBard_FacingNorth {walk_up walk_up}
+movement CafeSonata_Song_WalkToBard_FacingSouth {face_up}
+movement CafeSonata_Song_WalkToBard_FacingEast {walk_right walk_up}
+movement CafeSonata_Song_WalkToBard_FacingWest {walk_left walk_up}
+

@@ -17,14 +17,42 @@ CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 CafeSonata_Bard::
 	lock
 	faceplayer
-	goto_if_set FLAG_RELIC_SONG_PLAYED, CafeSonata_Bard_2
-	msgbox CafeSonata_Bard_Text_0, MSGBOX_NPC
+	goto_if_set FLAG_CAPTURED_MELOETTA, CafeSonata_Bard_2
+	goto_if_set FLAG_RELIC_SONG_PLAYED, CafeSonata_Bard_3
+	call CafeSonata_Bard_NotCaughtMeloetta
+CafeSonata_Bard_1:
+	release
+	return
+
+CafeSonata_Bard_2:
+	call CafeSonata_Bard_CaughtMeloetta
+	goto CafeSonata_Bard_1
+
+CafeSonata_Bard_3:
+	msgbox CafeSonata_Bard_RememberedMelody, MSGBOX_NPC
+	goto CafeSonata_Bard_1
+
+
+CafeSonata_Bard_CaughtMeloetta::
+	msgbox CafeSonata_Bard_CaughtMeloetta_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq CafeSonata_Bard_CaughtMeloetta_1
+	return
+
+CafeSonata_Bard_CaughtMeloetta_1:
+	setvar VAR_0x8005, MOVE_RELIC_SONG
+	call MoveTutor_EventScript_OpenPartyMenu
+	return
+
+
+CafeSonata_Bard_NotCaughtMeloetta::
+	msgbox CafeSonata_Bard_NotCaughtMeloetta_Text_0, MSGBOX_NPC
 	special Script_FadeOutMapMusic
 	switch VAR_FACING
-	case DIR_EAST, CafeSonata_Bard_6
-	case DIR_WEST, CafeSonata_Bard_7
+	case DIR_EAST, CafeSonata_Bard_NotCaughtMeloetta_3
+	case DIR_WEST, CafeSonata_Bard_NotCaughtMeloetta_4
 	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingNorth
-CafeSonata_Bard_4:
+CafeSonata_Bard_NotCaughtMeloetta_1:
 	waitmovement 0
 	delay 30
 	special SpawnCameraObject
@@ -32,25 +60,26 @@ CafeSonata_Bard_4:
 	waitmovement 0
 	delay 20
 	call CafeSonata_PlaySong
-	applymovement OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraDown
+	fadeoutbgm 0
+	applymovement OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraFocusBard
 	waitmovement 0
 	delay 20
+	msgbox CafeSonata_Bard_RememberedMelody, MSGBOX_DEFAULT
+	closemessage
+	applymovement OBJ_EVENT_ID_CAMERA, CafeSonata_Song_CameraDown
+	waitmovement 0
 	special RemoveCameraObject
 	special Overworld_PlaySpecialMapMusic
-	release
+	delay 30
 	return
 
-CafeSonata_Bard_2:
-	release
-	return
-
-CafeSonata_Bard_6:
+CafeSonata_Bard_NotCaughtMeloetta_3:
 	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingEast
-	goto CafeSonata_Bard_4
+	goto CafeSonata_Bard_NotCaughtMeloetta_1
 
-CafeSonata_Bard_7:
+CafeSonata_Bard_NotCaughtMeloetta_4:
 	applymovement OBJ_EVENT_ID_PLAYER, CafeSonata_WalkToSong_FacingWest
-	goto CafeSonata_Bard_4
+	goto CafeSonata_Bard_NotCaughtMeloetta_1
 
 
 CafeSonata_PlaySong::
@@ -132,7 +161,12 @@ CafeSonata_Song_CameraUp:
 	walk_slow_up
 	step_end
 
+CafeSonata_Song_CameraFocusBard:
+	walk_slow_up
+	step_end
+
 CafeSonata_Song_CameraDown:
+	walk_slow_down
 	walk_slow_down
 	walk_slow_down
 	walk_slow_down
@@ -249,7 +283,7 @@ CafeSonata_Song_MeloettaDance_1:
 	walk_fast_right
 	force_face_down
 	walk_fast_right
-	walk_diag_southeast
+	walk_fast_diag_southeast
 	force_face_left
 	walk_diag_southeast
 	walk_down
@@ -257,11 +291,11 @@ CafeSonata_Song_MeloettaDance_1:
 	walk_down
 	walk_diag_southwest
 	force_face_right
-	walk_diag_southwest
+	walk_fast_diag_southwest
 	walk_fast_left
 	force_face_down
 	walk_fast_left
-	walk_diag_northwest
+	walk_fast_diag_northwest
 	force_face_left
 	walk_diag_northwest
 	walk_up
@@ -412,7 +446,7 @@ CafeSonata_Meloetta::
 	msgbox CafeSonata_Meloetta_Text_0, MSGBOX_NPC
 	delay 20
 	waitmoncry
-	setwildbattle SPECIES_MELOETTA, 40
+	setwildbattle SPECIES_MELOETTA, 50
 	special BattleSetup_StartLegendaryBattle
 	waitstate
 	specialvar VAR_RESULT, GetBattleOutcome
@@ -422,23 +456,34 @@ CafeSonata_Meloetta::
 	fadescreenswapbuffers FADE_TO_BLACK
 	removeobject 2
 	fadescreenswapbuffers FADE_FROM_BLACK
-	msgbox CafeSonata_Meloetta_Text_2, MSGBOX_DEFAULT
+	msgbox CafeSonata_Meloetta_Text_3, MSGBOX_DEFAULT
 CafeSonata_Meloetta_1:
 	release
 	end
 
 CafeSonata_Meloetta_3:
-	setflag FLAG_CAPTURED_VICTINI
+	setflag FLAG_CAPTURED_MELOETTA
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	applymovement 1, Common_Movement_FacePlayer
 	call Common_EventScript_RemoveStaticPokemon
+	delay 20
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
+	msgbox CafeSonata_Meloetta_Text_1, MSGBOX_NPC
 	goto CafeSonata_Meloetta_1
 
 CafeSonata_Meloetta_4:
-	msgbox CafeSonata_Meloetta_Text_1, MSGBOX_DEFAULT
+	msgbox CafeSonata_Meloetta_Text_2, MSGBOX_DEFAULT
 	goto CafeSonata_Meloetta_1
 
 
-CafeSonata_Bard_Text_0:
+CafeSonata_Bard_CaughtMeloetta_Text_0:
+	.string "Let it sing the Relic Song.\p"
+	.string "Aria Forme will become Pirouette Forme\n"
+	.string "and vice versa.\p"
+	.string "Want me to teach the Relic Song?$"
+
+CafeSonata_Bard_NotCaughtMeloetta_Text_0:
 	.string "The scent you brought me reminded me\n"
 	.string "of a long-ago melody from the fringes\l"
 	.string "of my sepia-toned memories.\p"
@@ -447,10 +492,29 @@ CafeSonata_Bard_Text_0:
 	.string "Would you like to hear the melody?$"
 
 CafeSonata_Meloetta_Text_0:
-	.string "Ta-ta-ta-tah!$"
+	.string "Aouueoeaa-{EMOJI_NOTE}$"
 
 CafeSonata_Meloetta_Text_1:
-	.string "Meloetta is watching carefully.$"
+	.string "My mother once told me of a Pokémon\n"
+	.string "that played a melody and danced so\l"
+	.string "lightly that it filled people's hearts\l"
+	.string "with joy.\p"
+	.string "Then sorrow darkened the entire world,\n"
+	.string "and the Pokémon lost the melody...\p"
+	.string "Also, at that time, some red shoes were\n"
+	.string "lost somewhere...$"
 
 CafeSonata_Meloetta_Text_2:
-	.string "Meloetta fled behind the furniture...$"
+	.string "Meloetta is watching carefully.$"
+
+CafeSonata_Meloetta_Text_3:
+	.string "Meloetta fled the Cafe...$"
+
+CafeSonata_Bard_RememberedMelody::
+	.string "When you came through the door, I\n"
+	.string "remembered the melody!\p"
+	.string "And the Pokémon that had forgotten\n"
+	.string "how to dance began to step lightly\l"
+	.string "once more!\p"
+	.string "You are the inspiration.\n"
+	.string "You are a mysterious child...$"
