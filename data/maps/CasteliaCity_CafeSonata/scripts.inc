@@ -464,11 +464,14 @@ CafeSonata_Meloetta_1:
 CafeSonata_Meloetta_3:
 	setflag FLAG_CAPTURED_MELOETTA
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
-	applymovement 1, Common_Movement_FacePlayer
-	call Common_EventScript_RemoveStaticPokemon
+	fadescreenswapbuffers FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	applymovement 1, Common_Movement_FaceDown
+	waitmovement 0
+	fadescreenswapbuffers FADE_FROM_BLACK
 	delay 20
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
+	applymovementplayerfacing OBJ_EVENT_ID_PLAYER, CafeSonata_Song_WalkToBard_FacingNorth, CafeSonata_Song_WalkToBard_FacingSouth, CafeSonata_Song_WalkToBard_FacingEast, CafeSonata_Song_WalkToBard_FacingWest
+	waitmovement 0
 	msgbox CafeSonata_Meloetta_Text_1, MSGBOX_NPC
 	goto CafeSonata_Meloetta_1
 
@@ -476,6 +479,25 @@ CafeSonata_Meloetta_4:
 	msgbox CafeSonata_Meloetta_Text_2, MSGBOX_DEFAULT
 	goto CafeSonata_Meloetta_1
 
+
+CafeSonata_Song_WalkToBard_FacingNorth:
+	walk_up
+	walk_up
+	step_end
+
+CafeSonata_Song_WalkToBard_FacingSouth:
+	face_up
+	step_end
+
+CafeSonata_Song_WalkToBard_FacingEast:
+	walk_right
+	walk_up
+	step_end
+
+CafeSonata_Song_WalkToBard_FacingWest:
+	walk_left
+	walk_up
+	step_end
 
 CafeSonata_Bard_CaughtMeloetta_Text_0:
 	.string "Let it sing the Relic Song.\p"
