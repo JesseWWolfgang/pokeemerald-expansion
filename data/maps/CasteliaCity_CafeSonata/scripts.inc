@@ -499,6 +499,55 @@ CafeSonata_Song_WalkToBard_FacingWest:
 	walk_up
 	step_end
 
+CafeSonata_ManAtBar::
+	msgbox CafeSonata_ManAtBar_Text_0, MSGBOX_NPC
+	return
+
+
+CafeSonata_TableMan::
+	msgbox CafeSonata_TableMan_Text_0, MSGBOX_NPC
+	return
+
+
+CafeSonata_Barista::
+	lock
+	faceplayer
+	msgbox CafeSonata_Barista_Text_0, MSGBOX_DEFAULT
+	pokemart CafeSonata_Mart
+	release
+	return
+
+
+	.align 2
+CafeSonata_Mart:
+	.2byte ITEM_LEMONADE
+	.2byte ITEM_SODA_POP
+	.2byte ITEM_FRESH_WATER
+	.2byte ITEM_BERRY_JUICE
+	.2byte ITEM_BIG_MALASADA
+	.2byte ITEM_LONELY_MINT
+	.2byte ITEM_ADAMANT_MINT
+	.2byte ITEM_NAUGHTY_MINT
+	.2byte ITEM_BRAVE_MINT
+	.2byte ITEM_BOLD_MINT
+	.2byte ITEM_IMPISH_MINT
+	.2byte ITEM_LAX_MINT
+	.2byte ITEM_RELAXED_MINT
+	.2byte ITEM_MODEST_MINT
+	.2byte ITEM_MILD_MINT
+	.2byte ITEM_RASH_MINT
+	.2byte ITEM_QUIET_MINT
+	.2byte ITEM_CALM_MINT
+	.2byte ITEM_GENTLE_MINT
+	.2byte ITEM_CAREFUL_MINT
+	.2byte ITEM_SASSY_MINT
+	.2byte ITEM_TIMID_MINT
+	.2byte ITEM_HASTY_MINT
+	.2byte ITEM_JOLLY_MINT
+	.2byte ITEM_NAIVE_MINT
+	.2byte ITEM_SERIOUS_MINT
+	.2byte ITEM_NONE
+
 CafeSonata_Bard_CaughtMeloetta_Text_0:
 	.string "Let it sing the Relic Song.\p"
 	.string "Aria Forme will become Pirouette Forme\n"
@@ -531,6 +580,20 @@ CafeSonata_Meloetta_Text_2:
 
 CafeSonata_Meloetta_Text_3:
 	.string "Meloetta fled the café...$"
+
+CafeSonata_ManAtBar_Text_0:
+	.string "When I listen to his guitar, it reminds\n"
+	.string "me of leaving home for the first time,\l"
+	.string "and the tears of farewell my mother\l"
+	.string "cried...$"
+
+CafeSonata_TableMan_Text_0:
+	.string "After a tiring day of work, this café is\n"
+	.string "a perfect spot to let your mind relax.$"
+
+CafeSonata_Barista_Text_0:
+	.string "You came all the way here.\n"
+	.string "Enjoy...$"
 
 CafeSonata_Bard_RememberedMelody::
 	.string "When you came through the door, I\n"

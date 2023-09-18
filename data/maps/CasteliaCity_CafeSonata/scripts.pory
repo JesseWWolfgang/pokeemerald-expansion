@@ -437,3 +437,32 @@ movement CafeSonata_Song_WalkToBard_FacingSouth {face_up}
 movement CafeSonata_Song_WalkToBard_FacingEast {walk_right walk_up}
 movement CafeSonata_Song_WalkToBard_FacingWest {walk_left walk_up}
 
+script CafeSonata_ManAtBar { msgbox(format("When I listen to his guitar, it reminds me of leaving home for the first time, and the tears of farewell my mother cried..."), MSGBOX_NPC) }
+script CafeSonata_TableMan { msgbox(format("After a tiring day of work, this café is a perfect spot to let your mind relax."), MSGBOX_NPC) }
+script CafeSonata_Barista { 
+    lock
+    faceplayer
+    msgbox(format("You came all the way here.\nEnjoy..."), MSGBOX_DEFAULT) 
+    pokemart(CafeSonata_Mart)
+    release
+}
+
+mart CafeSonata_Mart {
+    ITEM_LEMONADE
+    ITEM_SODA_POP
+    ITEM_FRESH_WATER
+    ITEM_BERRY_JUICE
+    ITEM_BIG_MALASADA
+    ITEM_PP_MAX
+    ITEM_EXP_CANDY_XS
+    ITEM_EXP_CANDY_S 
+    ITEM_EXP_CANDY_M 
+    ITEM_EXP_CANDY_L 
+    ITEM_EXP_CANDY_XL
+    ITEM_MICLE_BERRY
+    ITEM_CUSTAP_BERRY
+    ITEM_JABOCA_BERRY
+    ITEM_ROWAP_BERRY
+    ITEM_KEE_BERRY
+    ITEM_MARANGA_BERRY
+}
