@@ -4480,6 +4480,16 @@
       "secondary_tileset": "gTileset_CafeSonata",
       "border_filepath": "data/layouts/CasteliaCity_CafeSonata/border.bin",
       "blockdata_filepath": "data/layouts/CasteliaCity_CafeSonata/map.bin"
+    },
+    {
+      "id": "LAYOUT_CASTELIA_CITY_CAFE_SONATA_ALLEY",
+      "name": "CasteliaCity_CafeSonataAlley_Layout",
+      "width": 32,
+      "height": 18,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/CasteliaCity_CafeSonataAlley/border.bin",
+      "blockdata_filepath": "data/layouts/CasteliaCity_CafeSonataAlley/map.bin"
     }
   ]
 }

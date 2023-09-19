@@ -594,11 +594,12 @@
 #define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (33 << 8))
 
 // gMapGroup_ExtendedMysteryGift
-#define MAP_LIBERTY_GARDEN_EXTERIOR    (0 | (34 << 8))
-#define MAP_LIBERTY_GARDEN_1F          (1 | (34 << 8))
-#define MAP_LIBERTY_GARDEN_2F          (2 | (34 << 8))
-#define MAP_CASTELIA_CITY_LIBERTY_PIER (3 | (34 << 8))
-#define MAP_CASTELIA_CITY_CAFE_SONATA  (4 | (34 << 8))
+#define MAP_LIBERTY_GARDEN_EXTERIOR         (0 | (34 << 8))
+#define MAP_LIBERTY_GARDEN_1F               (1 | (34 << 8))
+#define MAP_LIBERTY_GARDEN_2F               (2 | (34 << 8))
+#define MAP_CASTELIA_CITY_LIBERTY_PIER      (3 | (34 << 8))
+#define MAP_CASTELIA_CITY_CAFE_SONATA       (4 | (34 << 8))
+#define MAP_CASTELIA_CITY_CAFE_SONATA_ALLEY (5 | (34 << 8))
 
 #define MAP_GROUPS_COUNT 35
 
