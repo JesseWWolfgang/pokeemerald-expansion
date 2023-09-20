@@ -139,25 +139,9 @@ script CasteliaCity_FleaMarketGirl {
     release
 }
 
-script CasteliaCity_CafeSonataLady {
-    lock
-    msgbox(format("Ahhh...\p"
-    "What a delightful cup of coffee..."), MSGBOX_DEFAULT)
-    faceplayer
-    msgbox(format("Oh hello there youngster. Wondering where I got this coffee from?\p"
-    "Its from a nearby café that I visit often. Would you like me to show you where?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == YES) {
-        msgbox(format("Follow me!"), MSGBOX_DEFAULT)
-        warp(MAP_CASTELIA_CITY_CAFE_SONATA, 4, 14)
-	    waitstate
-    }
-    else {
-        msgbox(format("Let me know if you change your mind."), MSGBOX_NPC)
-        applymovement(VAR_LAST_TALKED, Common_Movement_FaceDown)
-    }
-    release
+script CasteliaCity_CafeSonataLady { msgbox(format("Oh hello there youngster. Wondering where I got this coffee from?\p"
+    "A café that I visit often, just down the road here and up a narrow street, it's easy to miss."), MSGBOX_NPC) 
 }
-
 
 mart CasteliaCity_FleaMarketLadyMart {
     ITEM_POKE_BALL
@@ -209,4 +193,20 @@ script CasteliaCity_MarketMan2 { msgbox(format("This area of Castelia City was f
 script CasteliaCity_MarketPikachu {
     playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL) 
     msgbox(format("Pika... pikaaaa!"), MSGBOX_NPC) 
+}
+script CasteliaCity_InterviewerF { 
+    lock
+    faceplayer
+    msgbox(format("Can you tell us more about what diners can expect at your legendary restaurant?\pI hear the legendary boeuf bourguignon is simply divine..."), MSGBOX_DEFAULT) 
+    release
+}
+script CasteliaCity_InterviewerM { msgbox(format("Get out of the way kid.\lWe're busy interviewing this fine gentleman..."), MSGBOX_NPC) }
+script CasteliaCity_Chef { 
+    lock
+    faceplayer
+    msgbox(format("...with the most exquisite views of the Castelia City harbour...\p"
+    "...finest of chefs and staff with unparalleled expertise...\p"
+    "...our menu is simply unmatched anywhere else in the city...\p"
+    "...always served the absolute finest of dishes..."), MSGBOX_DEFAULT) 
+    release
 }

@@ -1,1 +1,10 @@
 mapscripts CasteliaCity_CafeSonataAlley_MapScripts {}
+
+script CasteliaCity_CafeSonataAlley_CafeSign { msgbox(format("Café Sonata"), MSGBOX_SIGN) }
+
+script CasteliaCity_CafeSonataAlley_DirectionsSign { msgbox(format("{LEFT_ARROW} Liberty Pier\n  Narrow Street {RIGHT_ARROW}"), MSGBOX_SIGN) }
+
+script CasteliaCity_CafeSonataAlley_ShadyMan { 
+    msgbox(format("Eheheheh..."), MSGBOX_NPC) 
+    applymovement(VAR_LAST_TALKED, face_down)
+}
