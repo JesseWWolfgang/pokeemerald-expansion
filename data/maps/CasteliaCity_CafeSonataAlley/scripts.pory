@@ -6,5 +6,5 @@ script CasteliaCity_CafeSonataAlley_DirectionsSign { msgbox(format("{LEFT_ARROW}
 
 script CasteliaCity_CafeSonataAlley_ShadyMan { 
     msgbox(format("Eheheheh..."), MSGBOX_NPC) 
-    applymovement(VAR_LAST_TALKED, face_down)
+    applymovement(VAR_LAST_TALKED, Common_Movement_FaceDown)
 }

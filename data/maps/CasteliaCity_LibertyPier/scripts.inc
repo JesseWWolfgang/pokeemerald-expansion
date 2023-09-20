@@ -172,23 +172,8 @@ CasteliaCity_FleaMarketGirl::
 
 
 CasteliaCity_CafeSonataLady::
-	lock
-	msgbox CasteliaCity_CafeSonataLady_Text_0, MSGBOX_DEFAULT
-	faceplayer
-	msgbox CasteliaCity_CafeSonataLady_Text_1, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq CasteliaCity_CafeSonataLady_2
-	msgbox CasteliaCity_CafeSonataLady_Text_3, MSGBOX_NPC
-	applymovement VAR_LAST_TALKED, Common_Movement_FaceDown
-CasteliaCity_CafeSonataLady_1:
-	release
+	msgbox CasteliaCity_CafeSonataLady_Text_0, MSGBOX_NPC
 	return
-
-CasteliaCity_CafeSonataLady_2:
-	msgbox CasteliaCity_CafeSonataLady_Text_2, MSGBOX_DEFAULT
-	warp MAP_CASTELIA_CITY_CAFE_SONATA, 4, 14
-	waitstate
-	goto CasteliaCity_CafeSonataLady_1
 
 
 	.align 2
@@ -260,6 +245,25 @@ CasteliaCity_MarketMan2::
 CasteliaCity_MarketPikachu::
 	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
 	msgbox CasteliaCity_MarketPikachu_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_InterviewerF::
+	lock
+	msgbox CasteliaCity_InterviewerF_Text_0, MSGBOX_DEFAULT
+	release
+	return
+
+
+CasteliaCity_InterviewerM::
+	msgbox CasteliaCity_InterviewerM_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_Chef::
+	lock
+	msgbox CasteliaCity_Chef_Text_0, MSGBOX_DEFAULT
+	release
 	return
 
 
@@ -350,21 +354,11 @@ CasteliaCity_FleaMarketGirl_Text_0:
 	.string "enjoy yourself!$"
 
 CasteliaCity_CafeSonataLady_Text_0:
-	.string "Ahhh...\p"
-	.string "What a delightful cup of coffee...$"
-
-CasteliaCity_CafeSonataLady_Text_1:
 	.string "Oh hello there youngster. Wondering\n"
 	.string "where I got this coffee from?\p"
-	.string "Its from a nearby café that I visit\n"
-	.string "often. Would you like me to show you\l"
-	.string "where?$"
-
-CasteliaCity_CafeSonataLady_Text_2:
-	.string "Follow me!$"
-
-CasteliaCity_CafeSonataLady_Text_3:
-	.string "Let me know if you change your mind.$"
+	.string "A café that I visit often, just down the\n"
+	.string "road here and up a narrow street, it's\l"
+	.string "easy to miss.$"
 
 CasteliaCity_PierMan_Text_0:
 	.string "My goodness, this sure is a magnificent\n"
@@ -400,3 +394,25 @@ CasteliaCity_MarketMan2_Text_0:
 
 CasteliaCity_MarketPikachu_Text_0:
 	.string "Pika... pikaaaa!$"
+
+CasteliaCity_InterviewerF_Text_0:
+	.string "Can you tell us more about what diners\n"
+	.string "can expect at your legendary\l"
+	.string "restaurant?\p"
+	.string "I hear the legendary boeuf bourguignon\n"
+	.string "is simply divine...$"
+
+CasteliaCity_InterviewerM_Text_0:
+	.string "Get out of the way kid.\l"
+	.string "We're busy interviewing this fine\l"
+	.string "gentleman...$"
+
+CasteliaCity_Chef_Text_0:
+	.string "...with the most exquisite views of the\n"
+	.string "Castelia City harbour...\p"
+	.string "...finest of chefs and staff with\n"
+	.string "unparalleled expertise...\p"
+	.string "...our menu is simply unmatched anywhere\n"
+	.string "else in the city...\p"
+	.string "...always served the absolute finest of\n"
+	.string "dishes...$"

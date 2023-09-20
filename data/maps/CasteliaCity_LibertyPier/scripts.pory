@@ -196,14 +196,12 @@ script CasteliaCity_MarketPikachu {
 }
 script CasteliaCity_InterviewerF { 
     lock
-    faceplayer
     msgbox(format("Can you tell us more about what diners can expect at your legendary restaurant?\pI hear the legendary boeuf bourguignon is simply divine..."), MSGBOX_DEFAULT) 
     release
 }
-script CasteliaCity_InterviewerM { msgbox(format("Get out of the way kid.\lWe're busy interviewing this fine gentleman..."), MSGBOX_NPC) }
+script CasteliaCity_InterviewerM { msgbox(format("Get out of the way kid.\nWe're busy interviewing this fine gentleman..."), MSGBOX_NPC) }
 script CasteliaCity_Chef { 
     lock
-    faceplayer
     msgbox(format("...with the most exquisite views of the Castelia City harbour...\p"
     "...finest of chefs and staff with unparalleled expertise...\p"
     "...our menu is simply unmatched anywhere else in the city...\p"
