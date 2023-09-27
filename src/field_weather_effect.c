@@ -13,6 +13,8 @@
 #include "task.h"
 #include "trig.h"
 #include "gpu_regs.h"
+#include "constants/rgb.h"
+#include "palette.h"
 
 EWRAM_DATA static u8 sCurrentAbnormalWeather = 0;
 EWRAM_DATA static u16 sUnusedWeatherRelated = 0;
