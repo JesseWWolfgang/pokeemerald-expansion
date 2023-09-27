@@ -12,3 +12,4 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Automatically make the keyboard switch to lowercase after the first character | https://github.com/pret/pokeemerald/wiki/Automatically-make-the-keyboard-switch-to-lowercase-after-the-first-character/
 | Move Pokemon as first PC option   | https://www.pokecommunity.com/showpost.php?p=10065761
 | Swap party slots with select      | https://www.pokecommunity.com/showpost.php?p=10420662
+| Show species switching for in party menu | https://github.com/pret/pokeemerald/wiki/Show-Species-That-You're-Switching-For-in-the-Party-Menu
