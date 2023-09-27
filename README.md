@@ -14,3 +14,4 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Swap party slots with select      | https://www.pokecommunity.com/showpost.php?p=10420662
 | Show species switching for in party menu | https://github.com/pret/pokeemerald/wiki/Show-Species-That-You're-Switching-For-in-the-Party-Menu
 | Common FindItem script            | https://github.com/pret/pokeemerald/wiki/Set-Up-Item-Balls-on-a-Map-Without-Needing-New-Scripts
+| Bulk Premier Balls                | https://github.com/pret/pokeemerald/wiki/LGPE-Style-Bonus-Premier-Balls
