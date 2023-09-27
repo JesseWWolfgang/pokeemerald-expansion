@@ -185,7 +185,7 @@ void BlendNextWeatherPalettes()
 {
     if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather)
     {
-        #if DYNAMIC_OW_PALS
+        #ifdef DYNAMIC_OW_PALS
             u32 fogPalettes = 0x7FFF0000;   // all but last sprite palette
             u16 fogIdx = IndexOfSpritePaletteTag(PALTAG_WEATHER);
             if (fogIdx < 15) {

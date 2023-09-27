@@ -1815,7 +1815,7 @@ void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u8 graphicsId)
     if (paletteSlot == PALSLOT_PLAYER)
     {
         PatchObjectPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
-        #if DYNAMIC_OW_PALS == TRUE
+        #ifdef DYNAMIC_OW_PALS
             UpdateSpritePaletteWithWeather(FindObjectEventPaletteIndexByTag(graphicsInfo->paletteTag));
         #else
             UpdateSpritePaletteWithWeather(graphicsInfo->paletteSlot);
@@ -2064,7 +2064,7 @@ static u8 FindObjectEventPaletteIndexByTag(u16 tag)
 
 bool8 IsObjectEventPaletteIndex(u8 paletteIndex)
 {
-    #if DYNAMIC_OW_PALS
+    #ifdef DYNAMIC_OW_PALS
         if (FindObjectEventPaletteIndexByTag(GetSpritePaletteTagByPaletteNum(paletteIndex - 16)) != 0xFF)
             return TRUE;
     #else
