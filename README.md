@@ -17,3 +17,4 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Bulk Premier Balls                | https://github.com/pret/pokeemerald/wiki/LGPE-Style-Bonus-Premier-Balls
 | Berries no longer disappear       | https://www.pokecommunity.com/showpost.php?p=10142996&postcount=63
 | Fog blends sprite palettes        | https://www.pokecommunity.com/showpost.php?p=10222192&postcount=177
+| Disable union room check          | https://github.com/pret/pokeemerald/wiki/Disabling-Union-Room-check-when-entering-Pok%C3%A9mon-Centers
