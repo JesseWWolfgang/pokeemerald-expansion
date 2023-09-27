@@ -1477,6 +1477,22 @@ static void Task_HandleCancelChooseMonYesNoInput(u8 taskId)
     }
 }
 
+static bool8 IsInvalidPartyMenuActionType(u8 partyMenuType)
+{
+    return (partyMenuType == PARTY_ACTION_SEND_OUT
+        || partyMenuType == PARTY_ACTION_CANT_SWITCH
+        || partyMenuType == PARTY_ACTION_USE_ITEM
+        || partyMenuType == PARTY_ACTION_ABILITY_PREVENTS
+        || partyMenuType == PARTY_ACTION_GIVE_ITEM
+        || partyMenuType == PARTY_ACTION_GIVE_PC_ITEM
+        || partyMenuType == PARTY_ACTION_GIVE_MAILBOX_MAIL
+        || partyMenuType == PARTY_ACTION_SOFTBOILED
+        || partyMenuType == PARTY_ACTION_CHOOSE_AND_CLOSE
+        || partyMenuType == PARTY_ACTION_MOVE_TUTOR
+        || partyMenuType == PARTY_ACTION_MINIGAME
+        || partyMenuType == PARTY_ACTION_REUSABLE_ITEM);
+}
+
 static u16 PartyMenuButtonHandler(s8 *slotPtr)
 {
     s8 movementDir;
