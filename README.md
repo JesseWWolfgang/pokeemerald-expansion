@@ -12,6 +12,7 @@ Contains:
 - feature/forbidden-shop-items
 - feature/ipatix-mixer
 - feature/available-mystery-gifts
+- feature/general-improvements
 - merge/item-desc-header
 - merge/namebox
 - merge/dynmulti
