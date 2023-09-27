@@ -13,6 +13,7 @@ Contains:
 - feature/ipatix-mixer
 - feature/available-mystery-gifts
 - feature/general-improvements
+- feature/trainers-throw-pokeball
 - merge/item-desc-header
 - merge/namebox
 - merge/dynmulti
