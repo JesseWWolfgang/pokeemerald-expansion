@@ -452,5 +452,13 @@ void SetVirtualObjectSpriteAnim(u8 virtualObjId, u8 animNum);
 bool32 IsVirtualObjectAnimating(u8 virtualObjId);
 void LockObjectElevation(u8 localId, u8 mapNum, u8 mapGroup, u8 elevation);
 void ResetObjectElevation(u8 localId, u8 mapNum, u8 mapGroup);
+u8 GetObjectEventIdByLocalId(u8 localId);
+
+// run slow
+u8 GetPlayerRunSlowMovementAction(u32);
+//sideways stairs
+u8 GetSidewaysStairsToRightDirection(s16, s16, u8);
+u8 GetSidewaysStairsToLeftDirection(s16, s16, u8);
+u8 GetSidewaysStairsCollision(struct ObjectEvent *objectEvent, u8 dir, u8 currentBehavior, u8 nextBehavior, u8 collision);
 
 #endif //GUARD_EVENT_OBJECT_MOVEMENT_H
