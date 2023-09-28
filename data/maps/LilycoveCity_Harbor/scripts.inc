@@ -297,7 +297,7 @@ LilycoveHarbor_SelectedLibertyPass_8:
 	playse SE_SHOP
 	waitse
 	hidemoneybox
-	msgbox LilycoveHarbor_SelectedLibertyPass_Text_5, MSGBOX_NPC
+	msgbox LilycoveHarbor_SelectedLibertyPass_Text_5, MSGBOX_DEFAULT
 	dynmultichoice 1, 1, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, LilycoveHarbor_SelectedLibertyPass_Text_6, LilycoveHarbor_SelectedLibertyPass_Text_7
 	switch VAR_RESULT
 	case 0, LilycoveHarbor_SelectedLibertyPass_13
@@ -1000,7 +1000,7 @@ LilycoveHarbor_SelectedLibertyPass_Text_3:
 
 LilycoveHarbor_SelectedLibertyPass_Text_4:
 	.string "So what do you say? ¥10000 for a trip\n"
-	.string "to Liberty Garden?$"
+	.string "to Unova?$"
 
 LilycoveHarbor_SelectedLibertyPass_Text_5:
 	.string "We can sail directly for Liberty Garden,\n"
