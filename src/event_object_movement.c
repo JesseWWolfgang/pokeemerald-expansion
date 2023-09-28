@@ -2975,7 +2975,6 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
 
     SetObjectSubpriorityByElevation(objectEvent->previousElevation, sprite, 1);
     UpdateObjectEventVisibility(objectEvent, sprite);
-    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(graphicsInfo->paletteTag));
     return objectEventId;
 }
 
@@ -3317,11 +3316,6 @@ void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u16 graphicsId)
     {
         LoadObjectEventPalette(graphicsInfo->paletteTag);
         UpdatePaletteColorMapType(IndexOfSpritePaletteTag(graphicsInfo->paletteTag), COLOR_MAP_CONTRAST);
-        #ifdef DYNAMIC_OW_PALS
-            UpdateSpritePaletteWithWeather(FindObjectEventPaletteIndexByTag(graphicsInfo->paletteTag));
-        #else
-            UpdateSpritePaletteWithWeather(graphicsInfo->paletteSlot);
-        #endif
     }
     sprite->oam.shape = graphicsInfo->oam->shape;
     sprite->oam.size = graphicsInfo->oam->size;
@@ -10631,19 +10625,4 @@ bool8 MovementType_ForceRotateClockwise_Step3(struct ObjectEvent *objectEvent, s
     SetObjectEventDirection(objectEvent, direction);
     sprite->sTypeFuncId = 0;
     return TRUE;
-}
-
-bool8 IsObjectEventPaletteIndex(u8 paletteIndex)
-{
-    #if DYNAMIC_OW_PALS
-        if (FindObjectEventPaletteIndexByTag(GetSpritePaletteTagByPaletteNum(paletteIndex - 16)) != 0xFF)
-            return TRUE;
-    #else
-        if ((paletteIndex - 16) > 10)
-            return FALSE;   //don't mess with the weather pal itself
-        else if (FindObjectEventPaletteIndexByTag(GetSpritePaletteTagByPaletteNum(paletteIndex)) != 0xFF)
-            return TRUE;
-    #endif
-
-    return FALSE;
 }

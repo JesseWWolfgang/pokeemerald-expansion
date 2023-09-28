@@ -453,6 +453,4 @@ bool32 IsVirtualObjectAnimating(u8 virtualObjId);
 void LockObjectElevation(u8 localId, u8 mapNum, u8 mapGroup, u8 elevation);
 void ResetObjectElevation(u8 localId, u8 mapNum, u8 mapGroup);
 
-bool8 IsObjectEventPaletteIndex(u8 paletteIndex);
-
 #endif //GUARD_EVENT_OBJECT_MOVEMENT_H
