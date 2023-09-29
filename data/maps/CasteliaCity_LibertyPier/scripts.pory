@@ -1,5 +1,9 @@
 const OBJECT_SSTIDAL = 1
 const OBJECT_SAILOR = 2
+const OBJECT_REPORTER_F = 7
+const OBJECT_REPORTER_M = 8
+const OBJECT_P2_SCIENTIST = 9
+const VAR_TEMP_FIRST_INTERACT_STATE = VAR_TEMP_0
 
 mapscripts CasteliaCity_LibertyPier_MapScripts {}
 
@@ -194,17 +198,222 @@ script CasteliaCity_MarketPikachu {
     playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL) 
     msgbox(format("Pika... pikaaaa!"), MSGBOX_NPC) 
 }
+
 script CasteliaCity_InterviewerF { 
     lock
-    msgbox(format("Can you tell us more about what diners can expect at your legendary restaurant?\pI hear the legendary boeuf bourguignon is simply divine..."), MSGBOX_DEFAULT) 
+    if (!flag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW)) {
+        msgbox(format("Quickly! There he is!"), MSGBOX_DEFAULT) 
+        closemessage
+        goto(CasteliaCity_P2ScientistInterview)
+    }
+    else {
+        msgbox(format("Looks like he ran off... mentioned something about a warehouse on Route 17."), MSGBOX_NPC) 
+    }
     release
 }
-script CasteliaCity_InterviewerM { msgbox(format("Get out of the way kid.\nWe're busy interviewing this fine gentleman..."), MSGBOX_NPC) }
-script CasteliaCity_Chef { 
+
+script CasteliaCity_InterviewerM {
     lock
-    msgbox(format("...with the most exquisite views of the Castelia City harbour...\p"
-    "...finest of chefs and staff with unparalleled expertise...\p"
-    "...our menu is simply unmatched anywhere else in the city...\p"
-    "...always served the absolute finest of dishes..."), MSGBOX_DEFAULT) 
+    if (!flag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW)) {
+        msgbox(format("Three...\pTwo...\pOne..."), MSGBOX_DEFAULT) 
+        closemessage
+        goto(CasteliaCity_P2ScientistInterview)
+    }
+    else {
+        msgbox(format("What an absolute donkey..."), MSGBOX_NPC) 
+    }
     release
 }
+
+script CasteliaCity_P2Scientist { 
+    lock
+    msgbox(format(".......\p"
+    "He seems to be on an important sounding phone call. Better leave him alone..."), MSGBOX_DEFAULT) 
+    closemessage
+    delay(30)
+    goto(CasteliaCity_P2ScientistInterview)
+    release
+}
+
+script CasteliaCity_P2ScientistInterview {
+    lock
+
+    // Set a temp var based on where the player starts the interview.
+    if (var(VAR_LAST_TALKED) == OBJECT_REPORTER_F) {
+        switch (var(VAR_FACING)) {
+            case DIR_NORTH: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 0)
+            case DIR_SOUTH: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 1)
+            case DIR_EAST: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 2)
+        }
+    }
+    elif (var(VAR_LAST_TALKED) == OBJECT_REPORTER_M) {
+        switch (var(VAR_FACING)) {
+            case DIR_NORTH: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 3)
+            case DIR_EAST: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 4)
+            case DIR_WEST: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 5)
+        }
+    }
+    elif (var(VAR_LAST_TALKED) == OBJECT_P2_SCIENTIST) {
+        switch (var(VAR_FACING)) {
+            case DIR_NORTH: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 6)
+            case DIR_SOUTH: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 7)
+            case DIR_EAST: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 8)
+            case DIR_WEST: setvar(VAR_TEMP_FIRST_INTERACT_STATE, 9)
+        }
+    }
+
+    // Decide how to move player then move reporters to the scientist
+    switch (var(VAR_TEMP_FIRST_INTERACT_STATE)) {
+        case 0: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterF_North_1)
+        case 1: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterF_South_1)
+        case 2: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterF_East_1)
+        case 3: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_North_1)
+        case 4: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_East_1)
+        case 5: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_West_1)
+        case 6: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_North_1)
+        case 8: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_East_1)
+        default: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)
+    }
+
+    applymovement(OBJECT_REPORTER_F, CasteliaCity_P2ScientistInterview_ReporterF_MoveToInterview)
+    applymovement(OBJECT_REPORTER_M, CasteliaCity_P2ScientistInterview_ReporterM_MoveToInterview)
+    waitmovement(OBJECT_REPORTER_F)
+    waitmovement(OBJECT_REPORTER_M)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+
+    switch (var(VAR_TEMP_FIRST_INTERACT_STATE)) {
+        case 7: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_South_1)
+        case 9: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_West_1)
+        default: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)
+    }
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+
+    playse(SE_PIN)
+    applymovement(OBJECT_P2_SCIENTIST, CasteliaCity_P2ScientistInterview_Scientist_Startled)
+    waitmovement(OBJECT_P2_SCIENTIST)
+    delay(30)
+
+    switch (var(VAR_TEMP_FIRST_INTERACT_STATE)) {
+        case 0: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterF_North_2)
+        case 1: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterF_South_2)
+        case 2: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterF_East_2)
+        case 3: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_North_2)
+        case 4: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_East_2)
+        case 5: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_West_2)
+        case 6: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_North_2)
+        case 7: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_South_2)
+        case 8: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_East_2)
+        case 9: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_West_2)
+        default: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)
+    }
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+
+    delay(10)
+    applymovement(OBJECT_REPORTER_F, Common_Movement_WalkInPlaceLeft)
+    waitmovement(0)
+    delay(10)
+    msgbox(format("...Mr. Dudley! What can you tell us about the rumours of a secret experiment you're allegedly undertaking for Team Plasma?"), MSGBOX_DEFAULT) 
+    delay(10)
+    applymovement(OBJECT_P2_SCIENTIST, Common_Movement_WalkInPlaceFasterRight)
+    waitmovement(0)
+    applymovement(OBJECT_P2_SCIENTIST, Common_Movement_WalkInPlaceFasterRight)
+    waitmovement(0)
+    applymovement(OBJECT_P2_SCIENTIST, Common_Movement_WalkInPlaceFasterRight)
+    waitmovement(0)
+    delay(10)
+    msgbox(format("You seem to be mistaken! I'm not Dudley.\p"
+    "I don't know what you're talking about!"), MSGBOX_DEFAULT) 
+    delay(10)
+    applymovement(OBJECT_REPORTER_F, Common_Movement_WalkInPlaceLeft)
+    waitmovement(0)
+    delay(10)
+    msgbox(format("We have our sources. You are no doubt Mr. Dudley.\p"
+    "Is there some sort of operation stationed on Route 17, Mr. Dudley? Can you please tell us about that?"), MSGBOX_DEFAULT) 
+    playse(SE_PIN)
+    applymovement(OBJECT_P2_SCIENTIST, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    msgbox(format("............\p"
+    "Argh! To hell with it!\nI don't have the time to deal with this now!\p"
+    "Team Plasma will soon rule all of Unova! Just you wait!"), MSGBOX_DEFAULT) 
+    applymovement(OBJECT_P2_SCIENTIST, Common_Movement_FacePlayer)
+    waitmovement(0)
+
+    msgbox(format("Now move it kid! I have an important ferry to catch!"), MSGBOX_DEFAULT) 
+    closemessage
+    if (var(VAR_TEMP_FIRST_INTERACT_STATE) == 8) {
+        applymovement(OBJ_EVENT_ID_PLAYER,CasteliaCity_P2ScientistInterview_Scientist_East_3)
+    }
+    else {
+        applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)
+    }
+
+    applymovement(OBJECT_P2_SCIENTIST, CasteliaCity_P2ScientistInterview_Scientist_RunAway)
+    waitmovement(OBJ_EVENT_ID_PLAYER)       
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft)
+    applymovement(OBJECT_REPORTER_F, Common_Movement_FaceLeft)
+    applymovement(OBJECT_REPORTER_M, Common_Movement_FaceLeft)
+    waitmovement(OBJECT_P2_SCIENTIST)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    waitmovement(OBJECT_REPORTER_F)
+    waitmovement(OBJECT_REPORTER_M)
+
+    removeobject(OBJECT_P2_SCIENTIST)
+    setflag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW)
+
+    delay(60)
+    playse(SE_RG_SS_ANNE_HORN)
+    waitse
+
+    release
+}
+
+movement CasteliaCity_P2ScientistInterview_None { delay_1 }
+
+movement CasteliaCity_P2ScientistInterview_ReporterF_North_1 { player_run_left face_down }
+movement CasteliaCity_P2ScientistInterview_ReporterF_South_1 { face_down }
+movement CasteliaCity_P2ScientistInterview_ReporterF_East_1 { face_down }
+movement CasteliaCity_P2ScientistInterview_ReporterM_North_1 { face_left }
+movement CasteliaCity_P2ScientistInterview_ReporterM_East_1 { player_run_left face_down }
+movement CasteliaCity_P2ScientistInterview_ReporterM_West_1 { face_down }
+movement CasteliaCity_P2ScientistInterview_Scientist_North_1 { face_up }
+movement CasteliaCity_P2ScientistInterview_Scientist_South_1 { player_run_left face_right }
+movement CasteliaCity_P2ScientistInterview_Scientist_East_1 { face_right }
+movement CasteliaCity_P2ScientistInterview_Scientist_West_1 { player_run_down face_up }
+
+movement CasteliaCity_P2ScientistInterview_ReporterF_MoveToInterview {
+    walk_fast_down * 3
+    face_left
+}
+
+movement CasteliaCity_P2ScientistInterview_ReporterM_MoveToInterview {
+    walk_fast_left
+    walk_fast_down
+    walk_fast_left
+    face_down
+}
+
+movement CasteliaCity_P2ScientistInterview_Scientist_Startled {
+    emote_exclamation_mark
+    delay_16 * 2
+    face_up
+}
+
+movement CasteliaCity_P2ScientistInterview_ReporterF_North_2 { walk_left walk_down face_right }
+movement CasteliaCity_P2ScientistInterview_ReporterF_South_2 { walk_left * 2 walk_down * 3 face_right}
+movement CasteliaCity_P2ScientistInterview_ReporterF_East_2 { walk_left walk_down * 2 face_right }
+movement CasteliaCity_P2ScientistInterview_ReporterM_North_2 { walk_up walk_left * 3 walk_down face_right }
+movement CasteliaCity_P2ScientistInterview_ReporterM_East_2 { walk_left walk_down face_right }
+movement CasteliaCity_P2ScientistInterview_ReporterM_West_2 { walk_left * 4 walk_down face_right }
+movement CasteliaCity_P2ScientistInterview_Scientist_North_2 { face_up }
+movement CasteliaCity_P2ScientistInterview_Scientist_South_2 { face_right }
+movement CasteliaCity_P2ScientistInterview_Scientist_East_2 { face_right }
+movement CasteliaCity_P2ScientistInterview_Scientist_West_2 { face_up }
+
+// When scientist runs away
+movement CasteliaCity_P2ScientistInterview_Scientist_East_3 { player_run_up face_down }
+
+movement CasteliaCity_P2ScientistInterview_Scientist_RunAway {
+    walk_fast_left * 10
+}
+

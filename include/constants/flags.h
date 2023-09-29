@@ -661,7 +661,7 @@
 #define FLAG_GIVEN_CASTELIA_MARKET_MAN_RAGE_CANDY_BAR   0x26A
 #define FLAG_RELIC_SONG_PLAYED                          0x26B
 #define FLAG_CAPTURED_MELOETTA                          0x26C
-#define FLAG_UNUSED_0x26D  0x26D // Unused Flag
+#define FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW            0x26D
 #define FLAG_UNUSED_0x26E  0x26E // Unused Flag
 #define FLAG_UNUSED_0x26F  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag
