@@ -4,12 +4,12 @@
 			"path": "src/overworld.c",
 			"bookmarks": [
 				{
-					"line": 1108,
+					"line": 1110,
 					"column": 8,
 					"label": "Get location music"
 				},
 				{
-					"line": 1526,
+					"line": 1540,
 					"column": 10,
 					"label": "New Game"
 				}

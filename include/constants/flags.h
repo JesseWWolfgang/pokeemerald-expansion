@@ -51,7 +51,7 @@
 #define FLAG_NO_BAG_USE                     0x26
 #define FLAG_NO_CATCHING                    0x27
 #define FLAG_HIDE_SPECIAL_POKEMON_ON_MAP    0x28 // The event flag for custom static Pokemon. Should be cleared or set on map transition based on defeated flag.
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
+#define FLAG_MAP_MUSIC_OVERRIDE             0x29 // Use to override any map music. Any attempts to start playing the music for a map will be overridden with VAR_MAP_MUSIC_OVERRIDE.
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
