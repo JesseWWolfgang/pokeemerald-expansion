@@ -207,7 +207,8 @@ script CasteliaCity_InterviewerF {
         goto(CasteliaCity_P2ScientistInterview)
     }
     else {
-        msgbox(format("Looks like he ran off... mentioned something about a warehouse on Route 17."), MSGBOX_NPC) 
+        msgbox(format("He ran off...\nClearly he is involved in something fishy...\p"
+        "We had reports of a warehouse on Route 17 being used by Team Plasma to hide suspicious activity."), MSGBOX_NPC) 
     }
     release
 }
@@ -215,7 +216,7 @@ script CasteliaCity_InterviewerF {
 script CasteliaCity_InterviewerM {
     lock
     if (!flag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW)) {
-        msgbox(format("Three...\pTwo...\pOne..."), MSGBOX_DEFAULT) 
+        msgbox(format("Three...\pTwo...\pOne...\pCamera's rolling!"), MSGBOX_DEFAULT) 
         closemessage
         goto(CasteliaCity_P2ScientistInterview)
     }
@@ -237,6 +238,7 @@ script CasteliaCity_P2Scientist {
 
 script CasteliaCity_P2ScientistInterview {
     lock
+    special(Script_FadeOutMapMusic)
 
     // Set a temp var based on where the player starts the interview.
     if (var(VAR_LAST_TALKED) == OBJECT_REPORTER_F) {
@@ -271,7 +273,9 @@ script CasteliaCity_P2ScientistInterview {
         case 4: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_East_1)
         case 5: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_ReporterM_West_1)
         case 6: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_North_1)
+        // Apply 7 after reporter movement to simulate a shove
         case 8: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_East_1)
+        // Apply 9 after reporter movement to simulate a shove
         default: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)
     }
 
@@ -340,6 +344,17 @@ script CasteliaCity_P2ScientistInterview {
 
     msgbox(format("Now move it kid! I have an important ferry to catch!"), MSGBOX_DEFAULT) 
     closemessage
+
+    setflag(FLAG_CUSTOM_BATTLE_MUSIC)
+    setvar(VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_VS_CHAMPION)
+    trainerbattle_no_intro(TRAINER_P2DUDLEY1, "My god, what is this madness?!")
+    special(StopMapMusic)
+
+    msgbox(format("Enough!\p"
+    "I know nothing about any warehouse on Route 17.\p"
+    "Now out of my way!"), MSGBOX_DEFAULT) 
+    closemessage
+
     if (var(VAR_TEMP_FIRST_INTERACT_STATE) == 8) {
         applymovement(OBJ_EVENT_ID_PLAYER,CasteliaCity_P2ScientistInterview_Scientist_East_3)
     }
@@ -357,14 +372,19 @@ script CasteliaCity_P2ScientistInterview {
     waitmovement(OBJ_EVENT_ID_PLAYER)
     waitmovement(OBJECT_REPORTER_F)
     waitmovement(OBJECT_REPORTER_M)
-
+    
     removeobject(OBJECT_P2_SCIENTIST)
     setflag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW)
 
     delay(60)
     playse(SE_RG_SS_ANNE_HORN)
     waitse
+    applymovement(OBJECT_REPORTER_F, Common_Movement_WalkInPlaceLeft)
+    waitmovement(0)
+    msgbox(format("Hmm...\nI didn't say anything about a warehouse..."), MSGBOX_DEFAULT) 
+    closemessage
 
+    special(Overworld_PlaySpecialMapMusic)
     release
 }
 

@@ -857,11 +857,19 @@
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
 
+#define TRAINERS_NORMAL_END                 (TRAINER_MAY_PLACEHOLDER)
+
+#define TRAINERS_EXTENDED_MYSTERY_GIFT_START    (TRAINERS_NORMAL_END + 1)
+#define TRAINER_P2DUDLEY1                       (TRAINERS_EXTENDED_MYSTERY_GIFT_START + 0) // 855
+#define TRAINER_P2DUDLEY2                       (TRAINERS_EXTENDED_MYSTERY_GIFT_START + 1) // 856
+#define TRAINERS_EXTENDED_MYSTERY_GIFT_END      (TRAINER_P2DUDLEY2)
+
+#define TRAINERS_ALL_END                    (TRAINERS_EXTENDED_MYSTERY_GIFT_END)
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      855
+#define TRAINERS_COUNT                      (TRAINERS_ALL_END + 1) // 867
 #define MAX_TRAINERS_COUNT                  864
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

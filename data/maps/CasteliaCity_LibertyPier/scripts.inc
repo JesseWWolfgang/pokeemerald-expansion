@@ -290,6 +290,7 @@ CasteliaCity_P2Scientist::
 
 CasteliaCity_P2ScientistInterview::
 	lock
+	special Script_FadeOutMapMusic
 	compare VAR_LAST_TALKED, 7
 	goto_if_eq CasteliaCity_P2ScientistInterview_2
 	compare VAR_LAST_TALKED, 8
@@ -364,6 +365,12 @@ CasteliaCity_P2ScientistInterview_37:
 	waitmovement 0
 	msgbox CasteliaCity_P2ScientistInterview_Text_4, MSGBOX_DEFAULT
 	closemessage
+	setflag FLAG_CUSTOM_BATTLE_MUSIC
+	setvar VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_VS_CHAMPION
+	trainerbattle_no_intro TRAINER_P2DUDLEY1, CasteliaCity_P2ScientistInterview_Text_5
+	special StopMapMusic
+	msgbox CasteliaCity_P2ScientistInterview_Text_6, MSGBOX_DEFAULT
+	closemessage
 	compare VAR_TEMP_0, 8
 	goto_if_eq CasteliaCity_P2ScientistInterview_51
 	applymovement OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None
@@ -383,6 +390,11 @@ CasteliaCity_P2ScientistInterview_50:
 	delay 60
 	playse SE_RG_SS_ANNE_HORN
 	waitse
+	applymovement 7, Common_Movement_WalkInPlaceLeft
+	waitmovement 0
+	msgbox CasteliaCity_P2ScientistInterview_Text_7, MSGBOX_DEFAULT
+	closemessage
+	special Overworld_PlaySpecialMapMusic
 	release
 	return
 
@@ -666,7 +678,7 @@ CasteliaCity_P2ScientistInterview_Scientist_West_2:
 
 CasteliaCity_P2ScientistInterview_Scientist_East_3:
 	player_run_up
-	face_right
+	face_down
 	step_end
 
 CasteliaCity_P2ScientistInterview_Scientist_RunAway:
@@ -814,14 +826,18 @@ CasteliaCity_InterviewerF_Text_0:
 	.string "Quickly! There he is!$"
 
 CasteliaCity_InterviewerF_Text_1:
-	.string "Looks like he ran off... mentioned\n"
-	.string "something about a warehouse on Route\l"
-	.string "17.$"
+	.string "He ran off...\n"
+	.string "Clearly he is involved in something\l"
+	.string "fishy...\p"
+	.string "We had reports of a warehouse on Route\n"
+	.string "17 being used by Team Plasma to hide\l"
+	.string "suspicious activity.$"
 
 CasteliaCity_InterviewerM_Text_0:
 	.string "Three...\p"
 	.string "Two...\p"
-	.string "One...$"
+	.string "One...\p"
+	.string "Camera's rolling!$"
 
 CasteliaCity_InterviewerM_Text_1:
 	.string "What an absolute donkey...$"
@@ -859,3 +875,17 @@ CasteliaCity_P2ScientistInterview_Text_3:
 CasteliaCity_P2ScientistInterview_Text_4:
 	.string "Now move it kid! I have an important\n"
 	.string "ferry to catch!$"
+
+CasteliaCity_P2ScientistInterview_Text_5:
+	.string "My god, what is this madness?!$"
+
+CasteliaCity_P2ScientistInterview_Text_6:
+	.string "Enough!\p"
+	.string "I know nothing about any warehouse on\n"
+	.string "Route 17.\p"
+	.string "Now out of my way!$"
+
+CasteliaCity_P2ScientistInterview_Text_7:
+	.string "Hmm...\n"
+	.string "I didn't say anything about a\l"
+	.string "warehouse...$"

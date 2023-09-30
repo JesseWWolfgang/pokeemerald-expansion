@@ -11804,3 +11804,29 @@ static const struct TrainerMon sParty_MayLinkPlaceholder[] = {
     .species = SPECIES_KYOGRE,
     }
 };
+
+static const struct TrainerMon sParty_P2Dudley1[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(4, 4, 4, 4, 4, 4),
+    .lvl = 38,
+    .species = SPECIES_SCRAFTY,
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 40,
+    .species = SPECIES_GARBODOR,
+    },
+};
+
+static const struct TrainerMon sParty_P2Dudley2[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(4, 4, 4, 4, 4, 4),
+    .lvl = 38,
+    .species = SPECIES_SCRAFTY,
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 40,
+    .species = SPECIES_GARBODOR,
+    },
+};

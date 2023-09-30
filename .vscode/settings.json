@@ -130,6 +130,11 @@
             "type": "define",
             "file": "include/battle_transition.h"
         },
+        {
+            "expression": "^\\s*#define\\s+(TRAINER_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/opponents.h"
+        },
     ],
     "bookmarks.saveBookmarksInProject": true,
     "cmake.configureOnOpen": false,
