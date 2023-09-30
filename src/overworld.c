@@ -1105,6 +1105,8 @@ static bool16 IsInflitratedSpaceCenter(struct WarpData *warp)
 
 u16 GetLocationMusic(struct WarpData *warp)
 {
+    if (FlagGet(FLAG_MAP_MUSIC_OVERRIDE))
+        return VarGet(VAR_MAP_MUSIC_OVERRIDE);
     if (NoMusicInSotopolisWithLegendaries(warp) == TRUE)
         return MUS_NONE;
     else if (ShouldLegendaryMusicPlayAtLocation(warp) == TRUE)
@@ -1120,6 +1122,9 @@ u16 GetLocationMusic(struct WarpData *warp)
 u16 GetCurrLocationDefaultMusic(void)
 {
     u16 music;
+
+    if (FlagGet(FLAG_MAP_MUSIC_OVERRIDE))
+        return VarGet(VAR_MAP_MUSIC_OVERRIDE);
 
     // Play the desert music only when the sandstorm is active on Route 111.
     if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(ROUTE111)
@@ -1167,7 +1172,11 @@ void Overworld_PlaySpecialMapMusic(void)
 {
     u16 music = GetCurrLocationDefaultMusic();
 
-    if (music != MUS_ABNORMAL_WEATHER && music != MUS_NONE)
+    if (FlagGet(FLAG_MAP_MUSIC_OVERRIDE))
+    {
+        music = VarGet(VAR_MAP_MUSIC_OVERRIDE);
+    }
+    else if (music != MUS_ABNORMAL_WEATHER && music != MUS_NONE)
     {
         if (gSaveBlock1Ptr->savedMusic)
             music = gSaveBlock1Ptr->savedMusic;
@@ -1197,7 +1206,12 @@ static void TransitionMapMusic(void)
     {
         u16 newMusic = GetWarpDestinationMusic();
         u16 currentMusic = GetCurrentMapMusic();
-        if (newMusic != MUS_ABNORMAL_WEATHER && newMusic != MUS_NONE)
+
+        if (FlagGet(FLAG_MAP_MUSIC_OVERRIDE))
+        {
+            newMusic = VarGet(VAR_MAP_MUSIC_OVERRIDE);
+        }
+        else if (newMusic != MUS_ABNORMAL_WEATHER && newMusic != MUS_NONE)
         {
             if (currentMusic == MUS_UNDERWATER || currentMusic == MUS_SURF)
                 return;

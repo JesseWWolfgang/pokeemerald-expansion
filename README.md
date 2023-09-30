@@ -18,3 +18,4 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Berries no longer disappear       | https://www.pokecommunity.com/showpost.php?p=10142996&postcount=63
 | Disable union room check          | https://github.com/pret/pokeemerald/wiki/Disabling-Union-Room-check-when-entering-Pok%C3%A9mon-Centers
 | Change direction while moving     | https://www.pokecommunity.com/showpost.php?p=10402610
+| Flag to override map music        | N/A. Flag is FLAG_MAP_MUSIC_OVERRIDE and var is VAR_MAP_MUSIC_OVERRIDE.
