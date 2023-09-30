@@ -714,6 +714,12 @@ bool8 ScrCmd_setweather(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_getweather(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = gSaveBlock1Ptr->weather;
+    return FALSE;
+}
+
 bool8 ScrCmd_resetweather(struct ScriptContext *ctx)
 {
     SetSavedWeatherFromCurrMapHeader();
