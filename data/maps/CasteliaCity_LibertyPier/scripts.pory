@@ -3,6 +3,7 @@ const OBJECT_SAILOR = 2
 const OBJECT_REPORTER_F = 7
 const OBJECT_REPORTER_M = 8
 const OBJECT_P2_SCIENTIST = 9
+const OBJECT_SHADY_BOAT_MAN = 22
 const VAR_TEMP_FIRST_INTERACT_STATE = VAR_TEMP_0
 
 mapscripts CasteliaCity_LibertyPier_MapScripts {}
@@ -10,8 +11,15 @@ mapscripts CasteliaCity_LibertyPier_MapScripts {}
 script CasteliaCity_SailorInteract {
     lock
     faceplayer
-    msgbox(format(""
-    "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
+    if (flag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW) && !flag(FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB)) {
+        setflag(FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB)
+        msgbox(format("I just saw a man in a white coat in a huge hurry to board a small boat on the other side of the dock."
+        "They sped out of the port at a very dangerous speed too.\p"
+        ".......\p"
+        "He was working for Team Plasma on something suspicious...?\p"
+        "I see... I don't know what Team Plasma is, but if you're intent on following, just give me the word and I'll take you to wherever they were headed."), MSGBOX_NPC)
+    }
+    msgbox(format("Let me know when you are ready to depart."), MSGBOX_DEFAULT)
     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
     switch (var(VAR_RESULT)) {
         case 0:
@@ -21,10 +29,20 @@ script CasteliaCity_SailorInteract {
 }
 
 script CasteliaCity_AskHomeOrCasteliaCity {
-    msgbox(format("Do you want to go to Liberty Garden not far west of here?\p"
-    "Or do you want to head back to Lilycove City in Hoenn.\p"
-    "What do you reckon?"), MSGBOX_DEFAULT)
-    dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Liberty Garden", "Lilycove City")
+    dynmultipush("Liberty Garden", 0)
+    if (flag(FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW)) {
+        msgbox(format("Do you want to head to Liberty Garden, the warehouse on Route 17, or back home to Lilycove?\p"
+        "What do you reckon?"), MSGBOX_DEFAULT)
+        dynmultipush("Unova Route 17", 2)
+    }
+    else {
+        msgbox(format("Do you want to go to Liberty Garden not far west of here?\p"
+        "Or do you want to head back to Lilycove City in Hoenn.\p"
+        "What do you reckon?"), MSGBOX_DEFAULT)
+    }
+	dynmultipush("Lilycove City", 1)
+	dynmultistack(1, 1, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+
     switch (var(VAR_RESULT)) {
         case 0:
             msgbox(format("Alright, off to Liberty Garden. We're setting sail!"), MSGBOX_NPC)
@@ -35,6 +53,11 @@ script CasteliaCity_AskHomeOrCasteliaCity {
             msgbox(format("We've a few days travel ahead of us! All aboard for the Hoenn region!"), MSGBOX_NPC)
             call(CasteliaCity_DepartWithSailor)
             warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+	        waitstate
+        case 2:
+            msgbox(format("Let me pull out my old Unova map. Hopefully it's still up to date. All aboard!"), MSGBOX_NPC)
+            call(CasteliaCity_DepartWithSailor)
+            warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
 	        waitstate
     }
 }
@@ -80,6 +103,28 @@ script CasteliaCity_LibertyPierSign {
 
 script CasteliaCity_FleaMarketsSign {
     msgbox(format("Castelia City's Flea Markets!\nPermanently set up for all your second-hand shopping needs!"), MSGBOX_SIGN)
+}
+
+script CasteliaCity_PierMan { msgbox(format("My goodness, this sure is a magnificent view. Its one of Castelia City's finest."), MSGBOX_NPC) }
+script CasteliaCity_PierBoy { msgbox(format("Hey man, check out all of those sick boats aye. That's heaps good, yeah."), MSGBOX_NPC) }
+script CasteliaCity_MarketLittleGirl { msgbox(format("Wow, there are so many things! Look at all the baloons!"), MSGBOX_NPC) }
+script CasteliaCity_MarketGirl { msgbox(format("I could really do with an extra pair of shoes...\pOh, but maybe I would be better off with this nice scented candle for my apartment..."), MSGBOX_NPC) }
+script CasteliaCity_MarketMan2 { msgbox(format("This area of Castelia City was famous for its seasonal flea markets.\p"
+"Perhaps it was due to the beautiful view, or the refreshing sea breeze. Most likely both.\p"
+"Eventually, it just became so popular that Castelia's Gym Leader Burgh made it a year round attraction for the City.\p"
+"He is, after all, an avid attendee of course."), MSGBOX_NPC) }
+script CasteliaCity_MarketPikachu {
+    playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL) 
+    msgbox(format("Pika... pikaaaa!"), MSGBOX_NPC) 
+}
+script CasteliaCity_CafeSonataLady { msgbox(format("Oh hello there youngster. Wondering where I got this coffee from?\p"
+    "A café that I visit often, just down the road here and up a narrow street, it's easy to miss."), MSGBOX_NPC) 
+}
+script CasteliaCity_ShadyBoatMan { 
+    msgbox(format("This is a private boat, and I am waiting for someone important.\p"
+    "Access is restricted for the likes of you."), MSGBOX_NPC) 
+    applymovement(OBJECT_SHADY_BOAT_MAN, Common_Movement_FaceRight)
+    waitmovement(0)
 }
 
 script CasteliaCity_MarketMan1 { 
@@ -143,10 +188,6 @@ script CasteliaCity_FleaMarketGirl {
     release
 }
 
-script CasteliaCity_CafeSonataLady { msgbox(format("Oh hello there youngster. Wondering where I got this coffee from?\p"
-    "A café that I visit often, just down the road here and up a narrow street, it's easy to miss."), MSGBOX_NPC) 
-}
-
 mart CasteliaCity_FleaMarketLadyMart {
     ITEM_POKE_BALL
     ITEM_GREAT_BALL
@@ -184,19 +225,6 @@ mart CasteliaCity_FleaMarketGirlMart {
     ITEM_CAMERUPTITE
     ITEM_ALTARIANITE
     ITEM_METAGROSSITE
-}
-
-script CasteliaCity_PierMan { msgbox(format("My goodness, this sure is a magnificent view. Its one of Castelia City's finest."), MSGBOX_NPC) }
-script CasteliaCity_PierBoy { msgbox(format("Hey man, check out all of those sick boats aye. That's heaps good, yeah."), MSGBOX_NPC) }
-script CasteliaCity_MarketLittleGirl { msgbox(format("Wow, there are so many things! Look at all the baloons!"), MSGBOX_NPC) }
-script CasteliaCity_MarketGirl { msgbox(format("I could really do with an extra pair of shoes...\pOh, but maybe I would be better off with this nice scented candle for my apartment..."), MSGBOX_NPC) }
-script CasteliaCity_MarketMan2 { msgbox(format("This area of Castelia City was famous for its seasonal flea markets.\p"
-"Perhaps it was due to the beautiful view, or the refreshing sea breeze. Most likely both.\p"
-"Eventually, it just became so popular that Castelia's Gym Leader Burgh made it a year round attraction for the City.\p"
-"He is, after all, an avid attendee of course."), MSGBOX_NPC) }
-script CasteliaCity_MarketPikachu {
-    playmoncry(SPECIES_PIKACHU, CRY_MODE_NORMAL) 
-    msgbox(format("Pika... pikaaaa!"), MSGBOX_NPC) 
 }
 
 script CasteliaCity_InterviewerF { 
@@ -286,8 +314,8 @@ script CasteliaCity_P2ScientistInterview {
     waitmovement(OBJ_EVENT_ID_PLAYER)
 
     switch (var(VAR_TEMP_FIRST_INTERACT_STATE)) {
-        case 7: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_South_1)
-        case 9: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_West_1)
+        case 7: playse(SE_WALL_HIT) applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_South_1)
+        case 9: playse(SE_WALL_HIT) applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_West_1)
         default: applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)
     }
     waitmovement(OBJ_EVENT_ID_PLAYER)
@@ -345,10 +373,12 @@ script CasteliaCity_P2ScientistInterview {
     msgbox(format("Now move it kid! I have an important ferry to catch!"), MSGBOX_DEFAULT) 
     closemessage
 
+    setflag(FLAG_MAP_MUSIC_OVERRIDE)
+    setvar(VAR_MAP_MUSIC_OVERRIDE, MUS_NONE)
     setflag(FLAG_CUSTOM_BATTLE_MUSIC)
     setvar(VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_VS_CHAMPION)
-    trainerbattle_no_intro(TRAINER_P2DUDLEY1, "My god, what is this madness?!")
-    special(StopMapMusic)
+    trainerbattle_no_intro(TRAINER_P2DUDLEY1, "My god, what is this nonsense?!")
+    clearflag(FLAG_MAP_MUSIC_OVERRIDE)
 
     msgbox(format("Enough!\p"
     "I know nothing about any warehouse on Route 17.\p"
@@ -356,7 +386,8 @@ script CasteliaCity_P2ScientistInterview {
     closemessage
 
     if (var(VAR_TEMP_FIRST_INTERACT_STATE) == 8) {
-        applymovement(OBJ_EVENT_ID_PLAYER,CasteliaCity_P2ScientistInterview_Scientist_East_3)
+        playse(SE_WALL_HIT)
+        applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_East_3)
     }
     else {
         applymovement(OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_None)

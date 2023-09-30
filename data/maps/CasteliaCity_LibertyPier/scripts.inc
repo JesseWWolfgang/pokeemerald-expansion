@@ -5,38 +5,66 @@ CasteliaCity_LibertyPier_MapScripts::
 CasteliaCity_SailorInteract::
 	lock
 	faceplayer
-	msgbox CasteliaCity_SailorInteract_Text_0, MSGBOX_DEFAULT
-	dynmultichoice 1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, CasteliaCity_SailorInteract_Text_1, CasteliaCity_SailorInteract_Text_2
-	switch VAR_RESULT
-	case 0, CasteliaCity_SailorInteract_3
+	goto_if_set FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW, CasteliaCity_SailorInteract_3
 CasteliaCity_SailorInteract_1:
+	msgbox CasteliaCity_SailorInteract_Text_1, MSGBOX_DEFAULT
+	dynmultichoice 1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, CasteliaCity_SailorInteract_Text_2, CasteliaCity_SailorInteract_Text_3
+	switch VAR_RESULT
+	case 0, CasteliaCity_SailorInteract_8
+CasteliaCity_SailorInteract_6:
 	release
 	return
 
-CasteliaCity_SailorInteract_3:
-	call CasteliaCity_AskHomeOrCasteliaCity
+CasteliaCity_SailorInteract_2:
+	setflag FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB
+	msgbox CasteliaCity_SailorInteract_Text_0, MSGBOX_NPC
 	goto CasteliaCity_SailorInteract_1
+
+CasteliaCity_SailorInteract_3:
+	goto_if_unset FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB, CasteliaCity_SailorInteract_2
+	goto CasteliaCity_SailorInteract_1
+
+CasteliaCity_SailorInteract_8:
+	call CasteliaCity_AskHomeOrCasteliaCity
+	goto CasteliaCity_SailorInteract_6
 
 
 CasteliaCity_AskHomeOrCasteliaCity::
-	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_0, MSGBOX_DEFAULT
-	dynmultichoice 1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, CasteliaCity_AskHomeOrCasteliaCity_Text_1, CasteliaCity_AskHomeOrCasteliaCity_Text_2
+	dynmultipush CasteliaCity_AskHomeOrCasteliaCity_Text_0, 0
+	goto_if_set FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW, CasteliaCity_AskHomeOrCasteliaCity_2
+	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_3, MSGBOX_DEFAULT
+CasteliaCity_AskHomeOrCasteliaCity_1:
+	dynmultipush CasteliaCity_AskHomeOrCasteliaCity_Text_4, 1
+	dynmultistack 1, 1, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
-	case 0, CasteliaCity_AskHomeOrCasteliaCity_2
-	case 1, CasteliaCity_AskHomeOrCasteliaCity_3
+	case 0, CasteliaCity_AskHomeOrCasteliaCity_6
+	case 1, CasteliaCity_AskHomeOrCasteliaCity_7
+	case 2, CasteliaCity_AskHomeOrCasteliaCity_8
 	return
 
 CasteliaCity_AskHomeOrCasteliaCity_2:
-	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_3, MSGBOX_NPC
+	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_1, MSGBOX_DEFAULT
+	dynmultipush CasteliaCity_AskHomeOrCasteliaCity_Text_2, 2
+	goto CasteliaCity_AskHomeOrCasteliaCity_1
+
+CasteliaCity_AskHomeOrCasteliaCity_6:
+	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_5, MSGBOX_NPC
 	call CasteliaCity_DepartWithSailor
 	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
 	waitstate
 	return
 
-CasteliaCity_AskHomeOrCasteliaCity_3:
-	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_4, MSGBOX_NPC
+CasteliaCity_AskHomeOrCasteliaCity_7:
+	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_6, MSGBOX_NPC
 	call CasteliaCity_DepartWithSailor
 	warp MAP_LILYCOVE_CITY_HARBOR, 8, 11
+	waitstate
+	return
+
+CasteliaCity_AskHomeOrCasteliaCity_8:
+	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_7, MSGBOX_NPC
+	call CasteliaCity_DepartWithSailor
+	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
 	waitstate
 	return
 
@@ -97,6 +125,49 @@ CasteliaCity_LibertyPierSign::
 
 CasteliaCity_FleaMarketsSign::
 	msgbox CasteliaCity_FleaMarketsSign_Text_0, MSGBOX_SIGN
+	return
+
+
+CasteliaCity_PierMan::
+	msgbox CasteliaCity_PierMan_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_PierBoy::
+	msgbox CasteliaCity_PierBoy_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_MarketLittleGirl::
+	msgbox CasteliaCity_MarketLittleGirl_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_MarketGirl::
+	msgbox CasteliaCity_MarketGirl_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_MarketMan2::
+	msgbox CasteliaCity_MarketMan2_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_MarketPikachu::
+	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
+	msgbox CasteliaCity_MarketPikachu_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_CafeSonataLady::
+	msgbox CasteliaCity_CafeSonataLady_Text_0, MSGBOX_NPC
+	return
+
+
+CasteliaCity_ShadyBoatMan::
+	msgbox CasteliaCity_ShadyBoatMan_Text_0, MSGBOX_NPC
+	applymovement 22, Common_Movement_FaceRight
+	waitmovement 0
 	return
 
 
@@ -171,11 +242,6 @@ CasteliaCity_FleaMarketGirl::
 	return
 
 
-CasteliaCity_CafeSonataLady::
-	msgbox CasteliaCity_CafeSonataLady_Text_0, MSGBOX_NPC
-	return
-
-
 	.align 2
 CasteliaCity_FleaMarketLadyMart:
 	.2byte ITEM_POKE_BALL
@@ -216,37 +282,6 @@ CasteliaCity_FleaMarketGirlMart:
 	.2byte ITEM_ALTARIANITE
 	.2byte ITEM_METAGROSSITE
 	.2byte ITEM_NONE
-
-CasteliaCity_PierMan::
-	msgbox CasteliaCity_PierMan_Text_0, MSGBOX_NPC
-	return
-
-
-CasteliaCity_PierBoy::
-	msgbox CasteliaCity_PierBoy_Text_0, MSGBOX_NPC
-	return
-
-
-CasteliaCity_MarketLittleGirl::
-	msgbox CasteliaCity_MarketLittleGirl_Text_0, MSGBOX_NPC
-	return
-
-
-CasteliaCity_MarketGirl::
-	msgbox CasteliaCity_MarketGirl_Text_0, MSGBOX_NPC
-	return
-
-
-CasteliaCity_MarketMan2::
-	msgbox CasteliaCity_MarketMan2_Text_0, MSGBOX_NPC
-	return
-
-
-CasteliaCity_MarketPikachu::
-	playmoncry SPECIES_PIKACHU, CRY_MODE_NORMAL
-	msgbox CasteliaCity_MarketPikachu_Text_0, MSGBOX_NPC
-	return
-
 
 CasteliaCity_InterviewerF::
 	lock
@@ -365,10 +400,12 @@ CasteliaCity_P2ScientistInterview_37:
 	waitmovement 0
 	msgbox CasteliaCity_P2ScientistInterview_Text_4, MSGBOX_DEFAULT
 	closemessage
+	setflag FLAG_MAP_MUSIC_OVERRIDE
+	setvar VAR_MAP_MUSIC_OVERRIDE, MUS_NONE
 	setflag FLAG_CUSTOM_BATTLE_MUSIC
 	setvar VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_VS_CHAMPION
 	trainerbattle_no_intro TRAINER_P2DUDLEY1, CasteliaCity_P2ScientistInterview_Text_5
-	special StopMapMusic
+	clearflag FLAG_MAP_MUSIC_OVERRIDE
 	msgbox CasteliaCity_P2ScientistInterview_Text_6, MSGBOX_DEFAULT
 	closemessage
 	compare VAR_TEMP_0, 8
@@ -493,10 +530,12 @@ CasteliaCity_P2ScientistInterview_31:
 	goto CasteliaCity_P2ScientistInterview_1
 
 CasteliaCity_P2ScientistInterview_34:
+	playse SE_WALL_HIT
 	applymovement OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_South_1
 	goto CasteliaCity_P2ScientistInterview_32
 
 CasteliaCity_P2ScientistInterview_35:
+	playse SE_WALL_HIT
 	applymovement OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_West_1
 	goto CasteliaCity_P2ScientistInterview_32
 
@@ -541,6 +580,7 @@ CasteliaCity_P2ScientistInterview_48:
 	goto CasteliaCity_P2ScientistInterview_37
 
 CasteliaCity_P2ScientistInterview_51:
+	playse SE_WALL_HIT
 	applymovement OBJ_EVENT_ID_PLAYER, CasteliaCity_P2ScientistInterview_Scientist_East_3
 	goto CasteliaCity_P2ScientistInterview_50
 
@@ -695,35 +735,63 @@ CasteliaCity_P2ScientistInterview_Scientist_RunAway:
 	step_end
 
 CasteliaCity_SailorInteract_Text_0:
+	.string "I just saw a man in a white coat in a\n"
+	.string "huge hurry to board a small boat on the\l"
+	.string "other side of the dock. They sped out\l"
+	.string "of the port at a very dangerous speed\l"
+	.string "too.\p"
+	.string ".......\p"
+	.string "He was working for Team Plasma on\n"
+	.string "something suspicious...?\p"
+	.string "I see... I don't know what Team Plasma\n"
+	.string "is, but if you're intent on following,\l"
+	.string "just give me the word and I'll take you\l"
+	.string "to wherever they were headed.$"
+
+CasteliaCity_SailorInteract_Text_1:
 	.string "Let me know when you are ready to\n"
 	.string "depart.$"
 
-CasteliaCity_SailorInteract_Text_1:
+CasteliaCity_SailorInteract_Text_2:
 	.string "Let's go$"
 
-CasteliaCity_SailorInteract_Text_2:
+CasteliaCity_SailorInteract_Text_3:
 	.string "Stay$"
 
 CasteliaCity_AskHomeOrCasteliaCity_Text_0:
+	.string "Liberty Garden$"
+
+CasteliaCity_AskHomeOrCasteliaCity_Text_1:
+	.string "Do you want to head to Liberty Garden,\n"
+	.string "the warehouse on Route 17, or back\l"
+	.string "home to Lilycove?\p"
+	.string "What do you reckon?$"
+
+CasteliaCity_AskHomeOrCasteliaCity_Text_2:
+	.string "Unova Route 17$"
+
+CasteliaCity_AskHomeOrCasteliaCity_Text_3:
 	.string "Do you want to go to Liberty Garden not\n"
 	.string "far west of here?\p"
 	.string "Or do you want to head back to Lilycove\n"
 	.string "City in Hoenn.\p"
 	.string "What do you reckon?$"
 
-CasteliaCity_AskHomeOrCasteliaCity_Text_1:
-	.string "Liberty Garden$"
-
-CasteliaCity_AskHomeOrCasteliaCity_Text_2:
+CasteliaCity_AskHomeOrCasteliaCity_Text_4:
 	.string "Lilycove City$"
 
-CasteliaCity_AskHomeOrCasteliaCity_Text_3:
+CasteliaCity_AskHomeOrCasteliaCity_Text_5:
 	.string "Alright, off to Liberty Garden. We're\n"
 	.string "setting sail!$"
 
-CasteliaCity_AskHomeOrCasteliaCity_Text_4:
+CasteliaCity_AskHomeOrCasteliaCity_Text_6:
 	.string "We've a few days travel ahead of us! All\n"
 	.string "aboard for the Hoenn region!$"
+
+CasteliaCity_AskHomeOrCasteliaCity_Text_7:
+	.string "Let me pull out my old Unova map.\n"
+	.string "Hopefully it's still up to date. All\l"
+	.string "aboard!$"
 
 CasteliaCity_LibertyPierSign_Text_0:
 	.string "Castelia City\n"
@@ -733,6 +801,54 @@ CasteliaCity_FleaMarketsSign_Text_0:
 	.string "Castelia City's Flea Markets!\n"
 	.string "Permanently set up for all your\l"
 	.string "second-hand shopping needs!$"
+
+CasteliaCity_PierMan_Text_0:
+	.string "My goodness, this sure is a magnificent\n"
+	.string "view. Its one of Castelia City's finest.$"
+
+CasteliaCity_PierBoy_Text_0:
+	.string "Hey man, check out all of those sick\n"
+	.string "boats aye. That's heaps good, yeah.$"
+
+CasteliaCity_MarketLittleGirl_Text_0:
+	.string "Wow, there are so many things! Look at\n"
+	.string "all the baloons!$"
+
+CasteliaCity_MarketGirl_Text_0:
+	.string "I could really do with an extra pair of\n"
+	.string "shoes...\p"
+	.string "Oh, but maybe I would be better off with\n"
+	.string "this nice scented candle for my\l"
+	.string "apartment...$"
+
+CasteliaCity_MarketMan2_Text_0:
+	.string "This area of Castelia City was famous\n"
+	.string "for its seasonal flea markets.\p"
+	.string "Perhaps it was due to the beautiful\n"
+	.string "view, or the refreshing sea breeze.\l"
+	.string "Most likely both.\p"
+	.string "Eventually, it just became so popular\n"
+	.string "that Castelia's Gym Leader Burgh made\l"
+	.string "it a year round attraction for the\l"
+	.string "City.\p"
+	.string "He is, after all, an avid attendee of\n"
+	.string "course.$"
+
+CasteliaCity_MarketPikachu_Text_0:
+	.string "Pika... pikaaaa!$"
+
+CasteliaCity_CafeSonataLady_Text_0:
+	.string "Oh hello there youngster. Wondering\n"
+	.string "where I got this coffee from?\p"
+	.string "A café that I visit often, just down the\n"
+	.string "road here and up a narrow street, it's\l"
+	.string "easy to miss.$"
+
+CasteliaCity_ShadyBoatMan_Text_0:
+	.string "This is a private boat, and I am waiting\n"
+	.string "for someone important.\p"
+	.string "Access is restricted for the likes of\n"
+	.string "you.$"
 
 CasteliaCity_MarketMan1_Text_0:
 	.string "...om nom, nom...$"
@@ -779,48 +895,6 @@ CasteliaCity_MarketSaleslady_Text_0:
 CasteliaCity_FleaMarketGirl_Text_0:
 	.string "Hi there, please have a look around and\n"
 	.string "enjoy yourself!$"
-
-CasteliaCity_CafeSonataLady_Text_0:
-	.string "Oh hello there youngster. Wondering\n"
-	.string "where I got this coffee from?\p"
-	.string "A café that I visit often, just down the\n"
-	.string "road here and up a narrow street, it's\l"
-	.string "easy to miss.$"
-
-CasteliaCity_PierMan_Text_0:
-	.string "My goodness, this sure is a magnificent\n"
-	.string "view. Its one of Castelia City's finest.$"
-
-CasteliaCity_PierBoy_Text_0:
-	.string "Hey man, check out all of those sick\n"
-	.string "boats aye. That's heaps good, yeah.$"
-
-CasteliaCity_MarketLittleGirl_Text_0:
-	.string "Wow, there are so many things! Look at\n"
-	.string "all the baloons!$"
-
-CasteliaCity_MarketGirl_Text_0:
-	.string "I could really do with an extra pair of\n"
-	.string "shoes...\p"
-	.string "Oh, but maybe I would be better off with\n"
-	.string "this nice scented candle for my\l"
-	.string "apartment...$"
-
-CasteliaCity_MarketMan2_Text_0:
-	.string "This area of Castelia City was famous\n"
-	.string "for its seasonal flea markets.\p"
-	.string "Perhaps it was due to the beautiful\n"
-	.string "view, or the refreshing sea breeze.\l"
-	.string "Most likely both.\p"
-	.string "Eventually, it just became so popular\n"
-	.string "that Castelia's Gym Leader Burgh made\l"
-	.string "it a year round attraction for the\l"
-	.string "City.\p"
-	.string "He is, after all, an avid attendee of\n"
-	.string "course.$"
-
-CasteliaCity_MarketPikachu_Text_0:
-	.string "Pika... pikaaaa!$"
 
 CasteliaCity_InterviewerF_Text_0:
 	.string "Quickly! There he is!$"
@@ -877,7 +951,7 @@ CasteliaCity_P2ScientistInterview_Text_4:
 	.string "ferry to catch!$"
 
 CasteliaCity_P2ScientistInterview_Text_5:
-	.string "My god, what is this madness?!$"
+	.string "My god, what is this nonsense?!$"
 
 CasteliaCity_P2ScientistInterview_Text_6:
 	.string "Enough!\p"

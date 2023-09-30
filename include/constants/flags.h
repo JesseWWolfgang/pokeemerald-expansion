@@ -662,7 +662,7 @@
 #define FLAG_RELIC_SONG_PLAYED                          0x26B
 #define FLAG_CAPTURED_MELOETTA                          0x26C
 #define FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW            0x26D
-#define FLAG_UNUSED_0x26E  0x26E // Unused Flag
+#define FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB              0x26E // Unused Flag
 #define FLAG_UNUSED_0x26F  0x26F // Unused Flag
 #define FLAG_UNUSED_0x270  0x270 // Unused Flag
 #define FLAG_UNUSED_0x271  0x271 // Unused Flag
