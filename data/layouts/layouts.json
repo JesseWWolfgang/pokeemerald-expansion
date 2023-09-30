@@ -4490,6 +4490,16 @@
       "secondary_tileset": "gTileset_Facility",
       "border_filepath": "data/layouts/CasteliaCity_CafeSonataAlley/border.bin",
       "blockdata_filepath": "data/layouts/CasteliaCity_CafeSonataAlley/map.bin"
+    },
+    {
+      "id": "LAYOUT_UNOVA_ROUTE17",
+      "name": "Unova_Route17_Layout",
+      "width": 64,
+      "height": 64,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Pacifidlog",
+      "border_filepath": "data/layouts/Unova_Route17/border.bin",
+      "blockdata_filepath": "data/layouts/Unova_Route17/map.bin"
     }
   ]
 }

@@ -1734,6 +1734,14 @@
       "y": 0,
       "width": 1,
       "height": 1
+    },
+    {
+      "map_section": "MAPSEC_UNOVA_ROUTE_17",
+      "name": "UNOVA ROUTE 17",
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1
     }
   ]
 }

@@ -600,6 +600,7 @@
 #define MAP_CASTELIA_CITY_LIBERTY_PIER      (3 | (34 << 8))
 #define MAP_CASTELIA_CITY_CAFE_SONATA       (4 | (34 << 8))
 #define MAP_CASTELIA_CITY_CAFE_SONATA_ALLEY (5 | (34 << 8))
+#define MAP_UNOVA_ROUTE17                   (6 | (34 << 8))
 
 #define MAP_GROUPS_COUNT 35
 
