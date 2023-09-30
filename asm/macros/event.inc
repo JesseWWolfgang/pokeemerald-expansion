@@ -1308,6 +1308,11 @@
 	.2byte \type
 	.endm
 
+	@ Gets the current weather type in VAR_RESULT.
+	.macro getweather
+	.byte 0xe7
+	.endm
+
 	@ Executes the weather change queued with resetweather or setweather. The current weather will smoothly fade into the queued weather.
 	.macro doweather
 	.byte 0xa5
