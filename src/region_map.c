@@ -282,6 +282,7 @@ static const u8 sMapSecIdsOffMap[] =
     MAPSEC_CASTELIA_CITY,
     MAPSEC_CAFE_SONATA,
     MAPSEC_UNOVA_ROUTE_17,
+    MAPSEC_P2_LABORATORY,
 };
 
 static const u16 sRegionMapFramePal[] = INCBIN_U16("graphics/pokenav/region_map/frame.gbapal");

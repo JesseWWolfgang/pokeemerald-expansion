@@ -1,14 +1,44 @@
 const OBJECT_SSTIDAL = 1
 const OBJECT_SAILOR = 2
+const VAR_TEMP_LOADED = VAR_TEMP_F
 
-mapscripts Unova_Route17_MapScripts {}
+mapscripts Unova_Route17_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_LOADED, 0: Unova_Route17_SailorThisIsAsFarAsIGo
+    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+        if (var(VAR_TEMP_0) == 72 && var(VAR_TEMP_1) == 28) {
+            setweather(WEATHER_RAIN_THUNDERSTORM)
+        }
+    }
+}
+
+script Unova_Route17_SailorThisIsAsFarAsIGo {
+    setvar(VAR_TEMP_LOADED, 1)
+    getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    if (var(VAR_TEMP_0) == 52 && var(VAR_TEMP_1) == 79) {
+        lock
+        delay(20)
+        applymovement(OBJECT_SAILOR, Common_Movement_FacePlayer)
+        waitmovement(0)
+        msgbox(format("This is about as far as I can take you. You'll have to surf the rest of the way. Good luck."), MSGBOX_DEFAULT)
+        release
+    }
+}
 
 script Unova_Route17_SailorInteract {
     lock
     faceplayer
-    setweather
-    msgbox(format("It's quite pleasant out here isn't it? A bit wet though...\p"
-    "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
+    getweather
+    if (var(VAR_RESULT) == WEATHER_RAIN_THUNDERSTORM) {
+        msgbox(format("Ugh... it's pouring rain and my clothes are soaked, can we head back now?"), MSGBOX_DEFAULT)
+    }
+    else {
+        msgbox(format("It's quite pleasant out here isn't it? A bit wet though...\p"
+        "Let me know when you are ready to depart."), MSGBOX_DEFAULT)
+    }
+    
     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
     switch (var(VAR_RESULT)) {
         case 0:
@@ -35,17 +65,16 @@ script Unova_Route17_AskHomeOrCasteliaCity {
 }
 
 script Unova_Route17_DepartWithSailor {
-    applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterLeft)
+    applymovement(OBJECT_SAILOR, Common_Movement_WalkInPlaceFasterDown)
     waitmovement(0)
     delay(30)
     hideobjectat(OBJECT_SAILOR, MAP_UNOVA_ROUTE17)
     switch (var(VAR_FACING)) {
-        case DIR_NORTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
         case DIR_EAST: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkRight)
         case DIR_SOUTH: applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
     }
     waitmovement(0)
-    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
     waitmovement(0)
     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_UNOVA_ROUTE17)
     delay(30)

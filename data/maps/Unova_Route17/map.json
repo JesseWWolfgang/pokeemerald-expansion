@@ -120,20 +120,26 @@
     }
   ],
   "warp_events": [
-
+    {
+      "x": 72,
+      "y": 28,
+      "elevation": 0,
+      "dest_map": "MAP_P2LABORATORY",
+      "dest_warp_id": "0"
+    }
   ],
   "coord_events": [
     {
       "type": "weather",
       "x": 9,
-      "y": 61,
+      "y": 57,
       "elevation": 0,
       "weather": "COORD_EVENT_WEATHER_RAIN_THUNDERSTORM"
     },
     {
       "type": "weather",
       "x": 8,
-      "y": 61,
+      "y": 58,
       "elevation": 0,
       "weather": "COORD_EVENT_WEATHER_RAIN_THUNDERSTORM"
     }
