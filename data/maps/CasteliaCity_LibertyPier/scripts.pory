@@ -57,7 +57,7 @@ script CasteliaCity_AskHomeOrCasteliaCity {
         case 2:
             msgbox(format("Let me pull out my old Unova map. Hopefully it's still up to date. All aboard!"), MSGBOX_NPC)
             call(CasteliaCity_DepartWithSailor)
-            warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
+            warp(MAP_UNOVA_ROUTE17, 52, 79)
 	        waitstate
     }
 }

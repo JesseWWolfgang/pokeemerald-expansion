@@ -2417,7 +2417,7 @@
       "width": 58,
       "height": 26,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "0",
+      "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/UnusedOutdoorArea/border.bin",
       "blockdata_filepath": "data/layouts/UnusedOutdoorArea/map.bin"
     },
@@ -4494,8 +4494,8 @@
     {
       "id": "LAYOUT_UNOVA_ROUTE17",
       "name": "Unova_Route17_Layout",
-      "width": 64,
-      "height": 64,
+      "width": 86,
+      "height": 86,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Pacifidlog",
       "border_filepath": "data/layouts/Unova_Route17/border.bin",

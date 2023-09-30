@@ -64,7 +64,7 @@ CasteliaCity_AskHomeOrCasteliaCity_7:
 CasteliaCity_AskHomeOrCasteliaCity_8:
 	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_7, MSGBOX_NPC
 	call CasteliaCity_DepartWithSailor
-	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
+	warp MAP_UNOVA_ROUTE17, 52, 79
 	waitstate
 	return
 
