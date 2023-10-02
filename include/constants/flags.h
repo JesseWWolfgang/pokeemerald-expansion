@@ -662,11 +662,11 @@
 #define FLAG_RELIC_SONG_PLAYED                          0x26B
 #define FLAG_CAPTURED_MELOETTA                          0x26C
 #define FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW            0x26D
-#define FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB              0x26E // Unused Flag
-#define FLAG_UNUSED_0x26F  0x26F // Unused Flag
-#define FLAG_UNUSED_0x270  0x270 // Unused Flag
-#define FLAG_UNUSED_0x271  0x271 // Unused Flag
-#define FLAG_UNUSED_0x272  0x272 // Unused Flag
+#define FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB              0x26E
+#define FLAG_ITEM_UNOVA_ROUTE_17_EVIOLITE               0x26F
+#define FLAG_ITEM_UNOVA_ROUTE_17_BLACK_SLUDGE           0x270
+#define FLAG_ITEM_UNOVA_ROUTE_17_CLEAR_AMULET           0x271
+#define FLAG_HIDDEN_ITEM_UNOVA_ROUTE_17_COVERT_CLOAK    0x272
 #define FLAG_UNUSED_0x273  0x273 // Unused Flag
 #define FLAG_UNUSED_0x274  0x274 // Unused Flag
 #define FLAG_UNUSED_0x275  0x275 // Unused Flag

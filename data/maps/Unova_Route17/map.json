@@ -2,7 +2,7 @@
   "id": "MAP_UNOVA_ROUTE17",
   "name": "Unova_Route17",
   "layout": "LAYOUT_UNOVA_ROUTE17",
-  "music": "MUS_ROUTE119",
+  "music": "MUS_UNOVA_ROUTE_17",
   "region_map_section": "MAPSEC_UNOVA_ROUTE_17",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -55,16 +55,16 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 30,
-      "y": 64,
+      "x": 22,
+      "y": 54,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
+      "trainer_sight_or_berry_tree_id": "ITEM_CLEAR_AMULET",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_UNOVA_ROUTE_17_CLEAR_AMULET"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
@@ -117,6 +117,45 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NULL",
       "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
+      "x": 57,
+      "y": 25,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_WANDER_RIGHT_AND_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NULL",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 29,
+      "y": 35,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "ITEM_EVIOLITE",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_UNOVA_ROUTE_17_EVIOLITE"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 6,
+      "y": 39,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "ITEM_BLACK_SLUDGE",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_UNOVA_ROUTE_17_BLACK_SLUDGE"
     }
   ],
   "warp_events": [
@@ -145,6 +184,13 @@
     }
   ],
   "bg_events": [
-
+    {
+      "type": "hidden_item",
+      "x": 27,
+      "y": 62,
+      "elevation": 0,
+      "item": "ITEM_COVERT_CLOAK",
+      "flag": "FLAG_HIDDEN_ITEM_UNOVA_ROUTE_17_COVERT_CLOAK"
+    }
   ]
 }
