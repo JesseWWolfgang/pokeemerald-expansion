@@ -27,6 +27,8 @@ u16 GetRegionMusicTrainerBattle(u8 region)
         case REGION_KANTO:
         case REGION_SEVII:
             return MUS_RG_VS_TRAINER;
+        case REGION_UNOVA:
+            return MUS_UNOVA_TRAINER;
         default:
             return MUS_VS_TRAINER;
     }
@@ -39,6 +41,8 @@ u16 GetRegionMusicWildBattle(u8 region)
         case REGION_KANTO:
         case REGION_SEVII:
             return MUS_RG_VS_WILD;
+        case REGION_UNOVA:
+            return MUS_UNOVA_WILD;
         default:
             return MUS_VS_WILD;
     }
@@ -51,6 +55,8 @@ u16 GetRegionMusicTrainerVictory(u8 region)
         case REGION_KANTO:
         case REGION_SEVII:
             return MUS_RG_VICTORY_TRAINER;
+        case REGION_UNOVA:
+            return MUS_UNOVA_TRAINER_VICTORY;
         default:
             return MUS_VICTORY_TRAINER;
     }
@@ -63,6 +69,8 @@ u16 GetRegionMusicWildVictory(u8 region)
         case REGION_KANTO:
         case REGION_SEVII:
             return MUS_RG_VICTORY_WILD;
+        case REGION_UNOVA:
+            return MUS_UNOVA_WILD_VICTORY;
         default:
             return MUS_VICTORY_WILD;
     }
@@ -75,6 +83,8 @@ u16 GetRegionMusicSurf(u8 region)
         case REGION_KANTO:
         case REGION_SEVII:
             return MUS_RG_SURF;
+        case REGION_UNOVA:
+            return MUS_UNOVA_SURF;
         default:
             return MUS_SURF;
     }
@@ -84,6 +94,8 @@ u16 GetRegionFanfareItemPickup(u8 region)
 {
     switch (region)
     {
+        case REGION_UNOVA:
+            return MUS_UNOVA_OBTAIN_ITEM;
         default:
             return MUS_OBTAIN_ITEM;
     }
@@ -95,12 +107,6 @@ u16 GetLocationMusicTrainerBattle(u8 mapSec)
 {
     switch (mapSec)
     {
-        case MAPSEC_LIBERTY_GARDEN:
-        case MAPSEC_CASTELIA_CITY:
-        case MAPSEC_CAFE_SONATA:
-        case MAPSEC_UNOVA_ROUTE_17:
-        case MAPSEC_P2_LABORATORY:
-            return MUS_UNOVA_TRAINER;
         default:
             return GetLocationMusicTrainerBattle(GetRegionForMapSec(mapSec));
     }
@@ -110,12 +116,6 @@ u16 GetLocationMusicWildBattle(u8 mapSec)
 {
     switch (mapSec)
     {
-        case MAPSEC_LIBERTY_GARDEN:
-        case MAPSEC_CASTELIA_CITY:
-        case MAPSEC_CAFE_SONATA:
-        case MAPSEC_UNOVA_ROUTE_17:
-        case MAPSEC_P2_LABORATORY:
-            return MUS_UNOVA_WILD;
         default:
             return GetRegionMusicWildBattle(GetRegionForMapSec(mapSec));
     }
@@ -125,12 +125,6 @@ u16 GetLocationMusicTrainerVictory(u8 mapSec)
 {
     switch (mapSec)
     {
-        case MAPSEC_LIBERTY_GARDEN:
-        case MAPSEC_CASTELIA_CITY:
-        case MAPSEC_CAFE_SONATA:
-        case MAPSEC_UNOVA_ROUTE_17:
-        case MAPSEC_P2_LABORATORY:
-            return MUS_UNOVA_TRAINER_VICTORY;
         default:
             return GetRegionMusicTrainerVictory(GetRegionForMapSec(mapSec));
     }
@@ -140,12 +134,6 @@ u16 GetLocationMusicWildVictory(u8 mapSec)
 {
     switch (mapSec)
     {
-        case MAPSEC_LIBERTY_GARDEN:
-        case MAPSEC_CASTELIA_CITY:
-        case MAPSEC_CAFE_SONATA:
-        case MAPSEC_UNOVA_ROUTE_17:
-        case MAPSEC_P2_LABORATORY:
-            return MUS_UNOVA_WILD_VICTORY;
         default:
             return GetRegionMusicWildVictory(GetRegionForMapSec(mapSec));
     }

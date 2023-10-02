@@ -561,6 +561,8 @@
 #define MUS_UNOVA_WILD_VICTORY              MUS_BW_VICTORY_WILD
 #define MUS_UNOVA_TRAINER                   MUS_BW_VS_TRAINER
 #define MUS_UNOVA_TRAINER_VICTORY           MUS_BW_VICTORY_TRAINER
+#define MUS_UNOVA_SURF                      MUS_BW_SURF
+#define MUS_UNOVA_OBTAIN_ITEM               MUS_BW_OBTAIN_ITEM
 
 #else
 
@@ -575,6 +577,8 @@
 #define MUS_UNOVA_WILD_VICTORY              MUS_RG_VICTORY_WILD
 #define MUS_UNOVA_TRAINER                   MUS_RG_VS_TRAINER
 #define MUS_UNOVA_TRAINER_VICTORY           MUS_RG_VICTORY_TRAINER
+#define MUS_UNOVA_SURF                      MUS_RG_SURF
+#define MUS_UNOVA_OBTAIN_ITEM               MUS_RG_OBTAIN_ITEM
 
 #endif
 

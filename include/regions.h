@@ -6,6 +6,7 @@ enum {
     REGION_HOENN,
     REGION_KANTO,
     REGION_SEVII,
+    REGION_UNOVA,
 };
 
 extern const u8 gMapsecToRegion[];

@@ -214,6 +214,11 @@ const u8 gMapsecToRegion[] = {
     [MAPSEC_ALTERING_CAVE]              = REGION_HOENN,
     [MAPSEC_NAVEL_ROCK]                 = REGION_SEVII,
     [MAPSEC_TRAINER_HILL]               = REGION_HOENN,
+    [MAPSEC_LIBERTY_GARDEN]             = REGION_UNOVA,
+    [MAPSEC_CASTELIA_CITY]              = REGION_UNOVA,
+    [MAPSEC_CAFE_SONATA]                = REGION_UNOVA,
+    [MAPSEC_UNOVA_ROUTE_17]             = REGION_UNOVA,
+    [MAPSEC_P2_LABORATORY]              = REGION_UNOVA,
 };
 
 // There should be a region assigned to every mapsec.
