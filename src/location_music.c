@@ -5,7 +5,7 @@
 
 u8 GetRegionForMapSec(u8 mapSec)
 {
-    return sMapsecToRegion[mapSec];
+    return gMapsecToRegion[mapSec];
 }
 
 u16 ConvertFanfareMusToLocationFanfareMus(u16 mus, u8 mapSec)
