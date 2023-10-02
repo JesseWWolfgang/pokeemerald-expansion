@@ -563,6 +563,7 @@
 #define MUS_UNOVA_TRAINER_VICTORY           MUS_BW_VICTORY_TRAINER
 #define MUS_UNOVA_SURF                      MUS_BW_SURF
 #define MUS_UNOVA_OBTAIN_ITEM               MUS_BW_OBTAIN_ITEM
+#define MUS_UNOVA_VS_PLASMA                 MUS_BW_VS_PLASMA
 
 #else
 
@@ -579,6 +580,7 @@
 #define MUS_UNOVA_TRAINER_VICTORY           MUS_RG_VICTORY_TRAINER
 #define MUS_UNOVA_SURF                      MUS_RG_SURF
 #define MUS_UNOVA_OBTAIN_ITEM               MUS_OBTAIN_ITEM
+#define MUS_UNOVA_VS_PLASMA                 MUS_RG_VS_TRAINER
 
 #endif
 
