@@ -1,6 +1,5 @@
 #include "location_music.h"
 #include "regions.h"
-#include "include/sound.h"
 #include "constants/songs.h"
 
 u8 GetRegionForMapSec(u8 mapSec)
