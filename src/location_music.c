@@ -1,10 +1,11 @@
 #include "location_music.h"
+#include "regions.h"
 #include "include/sound.h"
 #include "constants/songs.h"
 
 u8 GetRegionForMapSec(u8 mapSec)
 {
-    return 0;
+    return sMapsecToRegion[mapSec];
 }
 
 u16 ConvertFanfareMusToLocationFanfareMus(u16 mus, u8 mapSec)
@@ -23,6 +24,9 @@ u16 GetRegionMusicTrainerBattle(u8 region)
 {
     switch (region)
     {
+        case REGION_KANTO:
+        case REGION_SEVII:
+            return MUS_RG_VS_TRAINER;
         default:
             return MUS_VS_TRAINER;
     }
@@ -32,6 +36,9 @@ u16 GetRegionMusicWildBattle(u8 region)
 {
     switch (region)
     {
+        case REGION_KANTO:
+        case REGION_SEVII:
+            return MUS_RG_VS_WILD;
         default:
             return MUS_VS_WILD;
     }
@@ -41,6 +48,9 @@ u16 GetRegionMusicTrainerVictory(u8 region)
 {
     switch (region)
     {
+        case REGION_KANTO:
+        case REGION_SEVII:
+            return MUS_RG_VICTORY_TRAINER;
         default:
             return MUS_VICTORY_TRAINER;
     }
@@ -50,6 +60,9 @@ u16 GetRegionMusicWildVictory(u8 region)
 {
     switch (region)
     {
+        case REGION_KANTO:
+        case REGION_SEVII:
+            return MUS_RG_VICTORY_WILD;
         default:
             return MUS_VICTORY_WILD;
     }
@@ -59,6 +72,9 @@ u16 GetRegionMusicSurf(u8 region)
 {
     switch (region)
     {
+        case REGION_KANTO:
+        case REGION_SEVII:
+            return MUS_RG_SURF;
         default:
             return MUS_SURF;
     }
@@ -69,7 +85,7 @@ u16 GetRegionFanfareItemPickup(u8 region)
     switch (region)
     {
         default:
-            return FANFARE_OBTAIN_ITEM;
+            return MUS_OBTAIN_ITEM;
     }
 }
 
