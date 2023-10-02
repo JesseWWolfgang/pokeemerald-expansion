@@ -151,3 +151,4 @@
 	.include "src/debug.o"
 	.include "src/battle_controller_player.o"
 	.include "src/location_music.o"
+	.include "src/regions.o"

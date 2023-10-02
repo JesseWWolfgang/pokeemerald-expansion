@@ -11,3 +11,7 @@ Adds a collection of simple functions to control custom music for the following 
 Functions are defined in:
 
 `location_music.h` and `location_music.c`.
+
+Uses:
+
+- feature/multi-region: Allows specifying regions for each Mapsec.
