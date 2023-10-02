@@ -27,7 +27,7 @@
 #include "link.h"
 #include "link_rfu.h"
 #include "load_save.h"
-#include "location_music.h"a
+#include "location_music.h"
 #include "main.h"
 #include "malloc.h"
 #include "m4a.h"
