@@ -215,3 +215,6 @@ const u8 gMapsecToRegion[] = {
     [MAPSEC_NAVEL_ROCK]                 = REGION_SEVII,
     [MAPSEC_TRAINER_HILL]               = REGION_HOENN,
 };
+
+// There should be a region assigned to every mapsec.
+STATIC_ASSERT(sizeof(u8) * MAPSEC_NONE == sizeof(gMapsecToRegion), HasAllMapsecsAssignedToRegions);
