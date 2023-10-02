@@ -19,6 +19,7 @@
 #include "string_util.h"
 #include "sound.h"
 #include "task.h"
+#include "test_runner.h"
 #include "util.h"
 #include "text.h"
 #include "constants/abilities.h"
@@ -629,7 +630,7 @@ static void SetBattlePartyIds(void)
             {
                 if (i < 2)
                 {
-                    if (GET_BATTLER_SIDE2(i) == B_SIDE_PLAYER)
+                    if (GetBattlerSide(i) == B_SIDE_PLAYER)
                     {
                         if (IsValidForBattle(&gPlayerParty[j]))
                         {
@@ -648,7 +649,7 @@ static void SetBattlePartyIds(void)
                 }
                 else
                 {
-                    if (GET_BATTLER_SIDE2(i) == B_SIDE_PLAYER)
+                    if (GetBattlerSide(i) == B_SIDE_PLAYER)
                     {
                         if (IsValidForBattle(&gPlayerParty[j]) && gBattlerPartyIndexes[i - 2] != j)
                         {
@@ -2687,26 +2688,26 @@ void BtlController_HandlePrintString(u32 battler, bool32 updateTvData, bool32 ar
 
 void BtlController_HandleHealthBarUpdate(u32 battler, bool32 updateHpText)
 {
+    s32 maxHP, curHP;
     s16 hpVal;
     struct Pokemon *party = GetBattlerParty(battler);
 
     LoadBattleBarGfx(0);
     hpVal = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
+    maxHP = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_MAX_HP);
+    curHP = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_HP);
 
     if (hpVal != INSTANT_HP_BAR_DROP)
     {
-        u32 maxHP = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_MAX_HP);
-        u32 curHP = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_HP);
-
         SetBattleBarStruct(battler, gHealthboxSpriteIds[battler], maxHP, curHP, hpVal);
+        TestRunner_Battle_RecordHP(battler, curHP, min(maxHP, max(0, curHP - hpVal)));
     }
     else
     {
-        u32 maxHP = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_MAX_HP);
-
         SetBattleBarStruct(battler, gHealthboxSpriteIds[battler], maxHP, 0, hpVal);
         if (updateHpText)
             UpdateHpTextInHealthbox(gHealthboxSpriteIds[battler], HP_CURRENT, 0, maxHP);
+        TestRunner_Battle_RecordHP(battler, curHP, 0);
     }
 
     gBattlerControllerFuncs[battler] = Controller_WaitForHealthBar;

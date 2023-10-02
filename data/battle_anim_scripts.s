@@ -948,6 +948,7 @@ gBattleAnims_General::
 	.4byte General_AffectionHangedOn        @ B_ANIM_AFFECTION_HANGED_ON
 	.4byte General_Snow                     @ B_ANIM_SNOW_CONTINUES
 	.4byte General_UltraBurst               @ B_ANIM_ULTRA_BURST
+	.4byte General_SaltCureDamage           @ B_ANIM_SALT_CURE_DAMAGE
 
 	.align 2
 gBattleAnims_Special::
@@ -1882,28 +1883,28 @@ Move_MAGNET_RISE:
 	delay 0
 	createvisualtask AnimTask_BlendColorCycle, 2, (F_PAL_BG | F_PAL_BATTLERS), -31, 1, 5, 5, RGB(31, 31, 20)
 	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_ATTACKER
-	createvisualtask AnimTask_WindUpLunge, 5, ANIM_OPPONENT_RIGHT, 0, -12, 4, 10, 10, 12, 6
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 32, 24, 190, 12, 0, 1, 0
+	createvisualtask AnimTask_WindUpLunge, 5, ANIM_ATTACKER, -12, 4, 10, 10, 12, 6
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 32, 24, 190, 12, ANIM_ATTACKER, 1, 0
 	delay 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 80, 24, 22, 12, 0, 1, 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 156, 24, 121, 13, 0, 1, 1
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 80, 24, 22, 12, ANIM_ATTACKER, 1, 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 156, 24, 121, 13, ANIM_ATTACKER, 1, 1
 	delay 0
 	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_ATTACKER
 	delay 4
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 100, 24, 60, 10, 0, 1, 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 170, 24, 42, 11, 0, 1, 1
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 100, 24, 60, 10, ANIM_ATTACKER, 1, 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 170, 24, 42, 11, ANIM_ATTACKER, 1, 1
 	delay 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 238, 24, 165, 10, 0, 1, 1
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 238, 24, 165, 10, ANIM_ATTACKER, 1, 1
 	delay 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 32, 24, 190, 12, 0, 1, 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 32, 24, 190, 12, ANIM_ATTACKER, 1, 0
 	delay 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 80, 24, 22, 12, 0, 1, 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 156, 24, 121, 13, 0, 1, 1
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 80, 24, 22, 12, ANIM_ATTACKER, 1, 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 156, 24, 121, 13, ANIM_ATTACKER, 1, 1
 	delay 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 100, 24, 60, 10, 0, 1, 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 170, 24, 42, 11, 0, 1, 1
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 100, 24, 60, 10, ANIM_ATTACKER, 1, 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 170, 24, 42, 11, ANIM_ATTACKER, 1, 1
 	delay 0
-	createsprite gSparkElectricitySpriteTemplate, 0, 7, 238, 24, 165, 10, 0, 1, 1
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 238, 24, 165, 10, ANIM_ATTACKER, 1, 1
 	delay 0
 	createvisualtask AnimTask_BlendColorCycle, 2, (F_PAL_BG | F_PAL_BATTLERS), -31, 1, 0, 0, RGB(31, 31, 20)
 	delay 20
@@ -8927,7 +8928,7 @@ Boomburst_Doubles:
 
 Move_FAIRY_LOCK::
 	loadspritegfx ANIM_TAG_CHAIN_LINK @Chain Colour
-	loadspritegfx ANIM_TAG_FAIRY_LOCK_CHAINS @Fairy Lock Chain
+	loadspritegfx ANIM_TAG_FAIRY_LOCK_CHAINS @AnimTask is missing for Fairy Lock Chain
 	setalpha 8, 8
 	monbg ANIM_ATK_PARTNER
 	createvisualtask AnimTask_BlendBattleAnimPal, 0xa, F_PAL_BG, 0x1, 0x0, 0x8, 0x6B1F
@@ -16382,6 +16383,82 @@ TakeHeartRings:
 	delay 0x4
 	return
 
+Move_BITTER_BLADE::
+	loadspritegfx ANIM_TAG_FOCUS_ENERGY
+	loadspritegfx ANIM_TAG_CLAW_SLASH
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	loadspritegfx ANIM_TAG_ORBS
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	splitbgprio_foes ANIM_TARGET
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 0, 1, 3, 0, 12, RGB(14, 6, 24)
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	call EndureEffect
+	delay 8
+	call EndureEffect
+	delay 8
+	call EndureEffect
+	waitforvisualfinish
+	delay 3
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	createsprite gBitterBladeImpactTemplate ANIM_TARGET, 1, 0x0, 0xa, 0x0, 0xFF00, 0xA
+	delay 2
+	createvisualtask AnimTask_ShakeMon, 0x2, 0x1, 0x0, 0x3, 0xa, 0x1
+	waitforvisualfinish
+	delay 3
+	call GigaDrainAbsorbEffect
+	waitforvisualfinish
+	delay 15
+	call HealingEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 0, 1, 3, 12, 0, RGB(14, 6, 24)
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+Move_DOUBLE_SHOCK::
+	loadspritegfx ANIM_TAG_ELECTRIC_ORBS
+	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
+	loadspritegfx ANIM_TAG_LIGHTNING
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 0, 1, 3, 0, 12, RGB_BLACK
+	waitforvisualfinish
+	createvisualtask AnimTask_ElectricChargingParticles, 0x2, ANIM_ATTACKER, 30, 0, 3 @;Amount, Slowness, Slowness, Compaction
+	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+	delay 12
+	createsprite gGrowingShockWaveOrbSpriteTemplate, ANIM_ATTACKER, 0, 0x0
+	waitforvisualfinish
+	delay 1
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 2, 16, 0, RGB_BLACK
+	delay 1
+	waitforvisualfinish
+	playsewithpan SE_M_TRI_ATTACK2, SOUND_PAN_TARGET
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 6, -16, -32
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 24, -32
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, -16, -16
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 24, -16
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 6, -16, 16
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 24, 16
+	delay 1
+	playsewithpan SE_M_TRI_ATTACK2, SOUND_PAN_TARGET
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4
+	delay 2
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 0, 3, 15, 1
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0, 0, ANIM_TARGET, 2
+	delay 1
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	end
+
 Move_TERA_BLAST::
 Move_AXE_KICK::
 Move_LAST_RESPECTS::
@@ -16418,8 +16495,6 @@ Move_HYPER_DRILL::
 Move_TWIN_BEAM::
 Move_RAGE_FIST::
 Move_ARMOR_CANNON::
-Move_BITTER_BLADE::
-Move_DOUBLE_SHOCK::
 Move_GIGATON_HAMMER::
 Move_COMEUPPANCE::
 Move_AQUA_CUTTER::
@@ -27060,6 +27135,9 @@ General_AffectionHangedOn_3Hearts:
 	createsprite gRedHeartBurstSpriteTemplate, ANIM_ATTACKER, 3, 128, -16
 	waitforvisualfinish
 	end
+
+General_SaltCureDamage::
+	goto Status_Freeze
 
 SnatchMoveTrySwapFromSubstitute:
 	createvisualtask AnimTask_IsAttackerBehindSubstitute, 2

@@ -803,10 +803,16 @@ static const u8 sText_MirrorHerbCopied[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} us
 static const u8 sText_PkmnItemMelted[] = _("{B_ATK_NAME_WITH_PREFIX} corroded\n{B_DEF_NAME_WITH_PREFIX}'s {B_LAST_ITEM}!");
 static const u8 sText_UltraBurstReacting[] = _("Bright light is about to\nburst out of {B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_UltraBurstCompleted[] = _("{B_ATK_NAME_WITH_PREFIX} regained its\ntrue power through Ultra Burst!");
-
+static const u8 sText_TeamGainedEXP[] = _("The rest of your team gained EXP.\nPoints thanks to the {B_LAST_ITEM}!\p");
+static const u8 sText_CurrentMoveCantSelect[] = _("{B_BUFF1} cannot be used!\p");
+static const u8 sText_TargetIsBeingSaltCured[] = _("{B_DEF_NAME_WITH_PREFIX} is being salt cured!");
+static const u8 sText_TargetIsHurtBySaltCure[] = _("{B_DEF_NAME_WITH_PREFIX} is hurt by {B_BUFF1}!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 {
+    [STRINGID_TARGETISHURTBYSALTCURE - BATTLESTRINGS_TABLE_START] = sText_TargetIsHurtBySaltCure,
+    [STRINGID_TARGETISBEINGSALTCURED - BATTLESTRINGS_TABLE_START] = sText_TargetIsBeingSaltCured,
+    [STRINGID_CURRENTMOVECANTSELECT - BATTLESTRINGS_TABLE_START] = sText_CurrentMoveCantSelect,
     [STRINGID_PKMNITEMMELTED - BATTLESTRINGS_TABLE_START] = sText_PkmnItemMelted,
     [STRINGID_MIRRORHERBCOPIED - BATTLESTRINGS_TABLE_START] = sText_MirrorHerbCopied,
     [STRINGID_THUNDERCAGETRAPPED - BATTLESTRINGS_TABLE_START] = sText_AtkTrappedDef,
@@ -1462,6 +1468,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_PKMNFROSTBITEHEALEDBY - BATTLESTRINGS_TABLE_START] = sText_PkmnFrostbiteHealedBy,
     [STRINGID_ULTRABURSTREACTING - BATTLESTRINGS_TABLE_START] = sText_UltraBurstReacting,
     [STRINGID_ULTRABURSTCOMPLETED - BATTLESTRINGS_TABLE_START] = sText_UltraBurstCompleted,
+    [STRINGID_TEAMGAINEDEXP - BATTLESTRINGS_TABLE_START] = sText_TeamGainedEXP,
 };
 
 const u16 gTrainerUsedItemStringIds[] =
@@ -1490,17 +1497,16 @@ const u16 gMentalHerbCureStringIds[] =
     [B_MSG_MENTALHERBCURE_DISABLE]     = STRINGID_PKMNMOVEDISABLEDNOMORE,
 };
 
-const u16 gTerrainStringIds[] =
+const u16 gTerrainStringIds[B_MSG_TERRAIN_COUNT] =
 {
-    STRINGID_TERRAINBECOMESMISTY, STRINGID_TERRAINBECOMESGRASSY, STRINGID_TERRAINBECOMESELECTRIC, STRINGID_TERRAINBECOMESPSYCHIC, STRINGID_TERRAINREMOVED,
-};
-
-const u16 gTerrainEndingStringIds[B_MSG_TERRAINENDS_COUNT] =
-{
-    [B_MSG_TERRAINENDS_MISTY] = STRINGID_MISTYTERRAINENDS,
-    [B_MSG_TERRAINENDS_ELECTRIC] = STRINGID_ELECTRICTERRAINENDS,
-    [B_MSG_TERRAINENDS_PSYCHIC] = STRINGID_PSYCHICTERRAINENDS,
-    [B_MSG_TERRAINENDS_GRASS] = STRINGID_GRASSYTERRAINENDS,
+    [B_MSG_TERRAIN_SET_MISTY] = STRINGID_TERRAINBECOMESMISTY,
+    [B_MSG_TERRAIN_SET_ELECTRIC] = STRINGID_TERRAINBECOMESELECTRIC,
+    [B_MSG_TERRAIN_SET_PSYCHIC] = STRINGID_TERRAINBECOMESPSYCHIC,
+    [B_MSG_TERRAIN_SET_GRASSY] = STRINGID_TERRAINBECOMESGRASSY,
+    [B_MSG_TERRAIN_END_MISTY] = STRINGID_MISTYTERRAINENDS,
+    [B_MSG_TERRAIN_END_ELECTRIC] = STRINGID_ELECTRICTERRAINENDS,
+    [B_MSG_TERRAIN_END_PSYCHIC] = STRINGID_PSYCHICTERRAINENDS,
+    [B_MSG_TERRAIN_END_GRASSY] = STRINGID_GRASSYTERRAINENDS,
 };
 
 const u16 gTerrainPreventsStringIds[] =
@@ -1844,7 +1850,11 @@ const u16 gWeatherStartsStringIds[] =
     [WEATHER_SUNNY_CLOUDS]       = STRINGID_ITISRAINING,
     [WEATHER_SUNNY]              = STRINGID_ITISRAINING,
     [WEATHER_RAIN]               = STRINGID_ITISRAINING,
-    [WEATHER_SNOW]               = STRINGID_ITISRAINING,
+#if B_OVERWORLD_SNOW >= GEN_9
+    [WEATHER_SNOW]               = STRINGID_STARTEDSNOW,
+#else
+    [WEATHER_SNOW]               = STRINGID_STARTEDHAIL,
+#endif
     [WEATHER_RAIN_THUNDERSTORM]  = STRINGID_ITISRAINING,
     [WEATHER_FOG_HORIZONTAL]     = STRINGID_ITISRAINING,
     [WEATHER_VOLCANIC_ASH]       = STRINGID_ITISRAINING,
@@ -2975,7 +2985,7 @@ static void GetBattlerNick(u32 battler, u8 *dst)
 {
     struct Pokemon *mon, *illusionMon;
 
-    if (GET_BATTLER_SIDE(battler) == B_SIDE_PLAYER)
+    if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         mon = &gPlayerParty[gBattlerPartyIndexes[battler]];
     else
         mon = &gEnemyParty[gBattlerPartyIndexes[battler]];
@@ -3855,7 +3865,7 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId)
     else
         gTextFlags.useAlternateDownArrow = TRUE;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED))
+    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED)) || gTestRunnerEnabled)
         gTextFlags.autoScroll = TRUE;
     else
         gTextFlags.autoScroll = FALSE;

@@ -26,6 +26,7 @@
 #include "sound.h"
 #include "string_util.h"
 #include "task.h"
+#include "test_runner.h"
 #include "text.h"
 #include "util.h"
 #include "window.h"
@@ -45,7 +46,6 @@ static void PlayerHandleTrainerSlide(u32 battler);
 static void PlayerHandleTrainerSlideBack(u32 battler);
 static void PlayerHandlePaletteFade(u32 battler);
 static void PlayerHandleSuccessBallThrowAnim(u32 battler);
-static void PlayerHandleBallThrowAnim(u32 battler);
 static void PlayerHandlePause(u32 battler);
 static void PlayerHandleMoveAnimation(u32 battler);
 static void PlayerHandlePrintString(u32 battler);
@@ -692,7 +692,7 @@ static void HandleInputChooseMove(u32 battler)
         if (moveTarget & MOVE_TARGET_USER)
             gMultiUsePlayerCursor = battler;
         else
-            gMultiUsePlayerCursor = GetBattlerAtPosition(BATTLE_OPPOSITE(GET_BATTLER_SIDE(battler)));
+            gMultiUsePlayerCursor = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler)));
 
         if (!gBattleResources->bufferA[battler][1]) // not a double battle
         {
@@ -1452,6 +1452,7 @@ static void Task_PrepareToGiveExpWithExpBar(u8 taskId)
     exp -= currLvlExp;
     expToNextLvl = gExperienceTables[gSpeciesInfo[species].growthRate][level + 1] - currLvlExp;
     SetBattleBarStruct(battler, gHealthboxSpriteIds[battler], expToNextLvl, exp, -gainedExp);
+    TestRunner_Battle_RecordExp(battler, exp, -gainedExp);
     PlaySE(SE_EXP);
     gTasks[taskId].func = Task_GiveExpWithExpBar;
 }
@@ -1850,7 +1851,7 @@ static void PlayerHandleSuccessBallThrowAnim(u32 battler)
     BtlController_HandleSuccessBallThrowAnim(battler, gBattlerTarget, B_ANIM_BALL_THROW, TRUE);
 }
 
-static void PlayerHandleBallThrowAnim(u32 battler)
+void PlayerHandleBallThrowAnim(u32 battler)
 {
     BtlController_HandleBallThrowAnim(battler, gBattlerTarget, B_ANIM_BALL_THROW, TRUE);
 }
@@ -1889,6 +1890,19 @@ static void HandleChooseActionAfterDma3(u32 battler)
     {
         gBattle_BG0_X = 0;
         gBattle_BG0_Y = DISPLAY_HEIGHT;
+        if (gBattleStruct->aiDelayTimer != 0)
+        {
+            gBattleStruct->aiDelayFrames = gMain.vblankCounter1 - gBattleStruct->aiDelayTimer;
+            gBattleStruct->aiDelayTimer = 0;
+            #if DEBUG_AI_DELAY_TIMER
+            {
+                static const u8 sText_AIDelay[] = _("AI delay:\n{B_BUFF1} frames");
+                PREPARE_HWORD_NUMBER_BUFFER(gBattleTextBuff1, 3, gBattleStruct->aiDelayFrames);
+                BattleStringExpandPlaceholdersToDisplayedString(sText_AIDelay);
+                BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+            }
+            #endif // DEBUG_AI_DELAY_TIMER
+        }
         gBattlerControllerFuncs[battler] = HandleInputChooseAction;
     }
 }
