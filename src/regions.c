@@ -1,6 +1,6 @@
 #include "regions.h"
 
-const u8 sMapsecToRegion[] = {
+const u8 gMapsecToRegion[] = {
     [MAPSEC_LITTLEROOT_TOWN]            = REGION_HOENN,
     [MAPSEC_OLDALE_TOWN]                = REGION_HOENN,
     [MAPSEC_DEWFORD_TOWN]               = REGION_HOENN,

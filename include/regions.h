@@ -8,6 +8,6 @@ enum {
     REGION_SEVII,
 };
 
-extern const u8 sMapsecToRegion[];
+extern const u8 gMapsecToRegion[];
 
 #endif  // GUARD_REGIONS_H
