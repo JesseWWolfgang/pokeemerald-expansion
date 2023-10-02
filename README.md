@@ -12,6 +12,7 @@ This feature uses:
 - merge/sideways-stairs: Stairs used in some maps.
 - feature/custom-transitions-battlemusic: Customise transitions from scripting.
 - feature/location-battle-music: Customise battle music for other regions.
+- feature/multi-region: Support for other regions.
 - feature/enhanced-movement: Movement features for Meloetta's dance.
 
 # List of Locations
