@@ -7,6 +7,7 @@
 #include "pokemon.h"
 #include "constants/songs.h"
 #include "task.h"
+#include "location_music.h"
 
 struct Fanfare
 {
@@ -213,6 +214,8 @@ void StopFanfareByFanfareNum(u8 fanfareNum)
 void PlayFanfare(u16 songNum)
 {
     s32 i;
+    songNum = ConvertFanfareMusToLocationFanfareMus(songNum, gMapHeader.regionMapSectionId);
+
     for (i = 0; (u32)i < ARRAY_COUNT(sFanfares); i++)
     {
         if (sFanfares[i].songNum == songNum)

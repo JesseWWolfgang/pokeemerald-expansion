@@ -11,6 +11,7 @@
 #include "fieldmap.h"
 #include "fldeff.h"
 #include "gpu_regs.h"
+#include "location_music.h"
 #include "main.h"
 #include "mirage_tower.h"
 #include "menu.h"
@@ -2983,7 +2984,7 @@ u8 FldEff_UseSurf(void)
     u8 taskId = CreateTask(Task_SurfFieldEffect, 0xff);
     gTasks[taskId].tMonId = gFieldEffectArguments[0];
     Overworld_ClearSavedMusic();
-    Overworld_ChangeMusicTo(MUS_SURF);
+    Overworld_ChangeMusicTo(GetLocationMusicSurf(gMapHeader.regionMapSectionId));
     return FALSE;
 }
 
