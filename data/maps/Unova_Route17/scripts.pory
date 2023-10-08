@@ -1,6 +1,5 @@
 const OBJECT_SSTIDAL = 1
 const OBJECT_SAILOR = 2
-const VAR_TEMP_LOADED = VAR_TEMP_F
 
 mapscripts Unova_Route17_MapScripts {
     MAP_SCRIPT_ON_FRAME_TABLE [

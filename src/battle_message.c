@@ -808,6 +808,9 @@ static const u8 sText_CurrentMoveCantSelect[] = _("{B_BUFF1} cannot be used!\p")
 static const u8 sText_TargetIsBeingSaltCured[] = _("{B_DEF_NAME_WITH_PREFIX} is being salt cured!");
 static const u8 sText_TargetIsHurtBySaltCure[] = _("{B_DEF_NAME_WITH_PREFIX} is hurt by {B_BUFF1}!");
 
+// Extended mystery gift
+static const u8 sText_P2LaboratoryScientistGenesectSwitchIn[] = _("Now witness...\nMy all-powerful creation!!");
+
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 {
     [STRINGID_TARGETISHURTBYSALTCURE - BATTLESTRINGS_TABLE_START] = sText_TargetIsHurtBySaltCure,
@@ -3985,6 +3988,11 @@ static const struct TrainerSlide sTrainerSlides[] =
         .msgBeforeFirstTurn = sText_GravityIntensified,
     },
     */
+    {
+        .trainerId = TRAINER_P2DUDLEY2,
+        .isFrontierTrainer = FALSE,
+        .msgLastSwitchIn = sText_P2LaboratoryScientistGenesectSwitchIn,
+    },
 };
 
 static u32 GetEnemyMonCount(u32 firstId, u32 lastId, bool32 onlyAlive)

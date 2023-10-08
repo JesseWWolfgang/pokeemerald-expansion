@@ -11821,12 +11821,17 @@ static const struct TrainerMon sParty_P2Dudley1[] = {
 static const struct TrainerMon sParty_P2Dudley2[] = {
     {
     .iv = TRAINER_PARTY_IVS(4, 4, 4, 4, 4, 4),
-    .lvl = 38,
+    .lvl = 42,
     .species = SPECIES_SCRAFTY,
     },
     {
-    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
-    .lvl = 40,
-    .species = SPECIES_GARBODOR,
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .lvl = 50,
+    .species = SPECIES_GENESECT,
     },
+    {
+    .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12),
+    .lvl = 45,
+    .species = SPECIES_GARBODOR,
+    },  
 };

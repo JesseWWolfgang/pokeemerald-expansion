@@ -19,12 +19,12 @@ Unova_Route17_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
 	return
 
 Unova_Route17_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_TEMP_F, 0, Unova_Route17_SailorThisIsAsFarAsIGo
+	map_script_2 VAR_TEMP_LOADED, 0, Unova_Route17_SailorThisIsAsFarAsIGo
 	.2byte 0
 
 
 Unova_Route17_SailorThisIsAsFarAsIGo::
-	setvar VAR_TEMP_F, 1
+	setvar VAR_TEMP_LOADED, 1
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	compare VAR_TEMP_0, 52
 	goto_if_eq Unova_Route17_SailorThisIsAsFarAsIGo_2

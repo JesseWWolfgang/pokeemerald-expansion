@@ -1,1 +1,133 @@
-mapscripts P2Laboratory_MapScripts {}
+const OBJECT_SCIENTIST = 1
+const OBJECT_GENESECT = 2
+
+mapscripts P2Laboratory_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_LOADED, 0: P2Laboratory_GenesectEvent
+    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        if (flag(FLAG_CAPTURED_GENESECT) || !flag(FLAG_DEFEATED_P2_SCIENTIST)) {
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+        else {
+            clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+    }
+}
+
+script P2Laboratory_GenesectEvent {
+    setvar(VAR_TEMP_LOADED, 1)
+    if (flag(FLAG_DEFEATED_P2_SCIENTIST)) {
+        end
+    }
+
+    lock
+    delay(30)
+    special(SpawnCameraObject)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, P2Laboratory_CameraMoveUp)
+    waitmovement(0)
+    playse(SE_PIN)
+    applymovement(OBJECT_SCIENTIST, Common_Movement_ExclamationMark)
+    waitmovement(0)
+    delay(45)
+    applymovement(OBJECT_SCIENTIST, Common_Movement_FaceDown)
+    waitmovement(0)
+    delay(45)
+    msgbox(format("Oh, it's that kid from before..."), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, P2Laboratory_PlayerWalkToTalk)
+    applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkToTalk)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    waitmovement(OBJECT_SCIENTIST)
+    msgbox(format("How did you find this place? We kept this entire route completely blocked off!\p"
+    "The fact that you are here means you have come to stop whatever shady things I may or may not be doing here..."), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJECT_SCIENTIST, Common_Movement_WalkDown)
+    waitmovement(0)
+    msgbox(format("We, Team Plasma...\p"
+    "...no, really it was I, the genius that I am, revived the ancient Pokémon Genesect from a fossil.\p"
+    "Then we enhanced the Pokémon with the power of science!\p"
+    "It is the strongest Pokémon in history!!"), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJECT_SCIENTIST, Common_Movement_WalkDown)
+    waitmovement(0)
+    msgbox(format("But, our lord N was not interested in this Genesect that was modified by the power of science!\p"
+    "“Science damages the natural beauty of Pokémon! They're perfect beings!”\p"
+    "That's what he said...\p"
+    "So my research was halted, and this facility was closed...\p"
+    "However!!\nThe Genesect research is all mine!"), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJECT_SCIENTIST, Common_Movement_WalkDown)
+    applymovement(OBJ_EVENT_ID_CAMERA, Common_Movement_WalkDown)
+    waitmovement(OBJECT_SCIENTIST)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    msgbox(format("So if you want to know Genesect's secret, you'll have to beat me in battle!\p"
+    "At my full power!"), MSGBOX_DEFAULT)
+    closemessage
+    special(RemoveCameraObject)
+
+    call(P2Laboratory_BattleScientist)
+    release
+}
+
+script P2Laboratory_BattleScientist {
+    setflag(FLAG_CUSTOM_BATTLE_MUSIC)
+    setvar(VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_UNOVA_VS_PLASMA)
+    trainerbattle_no_intro(TRAINER_P2DUDLEY2, "Oh!\nMy groundbreaking research...")
+    msgbox(format("I've lost everything...\p"
+    "I forgot my duty as a Scientist is to make the world happy.\p"
+    "So, this must be what I get for trying to make a Pokémon into a tool for fighting..."), MSGBOX_NPC)
+    applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkUp)
+    waitmovement(0)
+    msgbox(format("I'm going to wash my hands of this Genesect matter...\p"
+    "I don't need this anymore...\nDo as you wish."), MSGBOX_NPC)
+    playse(SE_BALL_THROW)
+    waitse
+    playse(SE_BALL_OPEN)
+    fadescreen(FADE_TO_WHITE)
+    waitse
+    setflag(FLAG_DEFEATED_P2_SCIENTIST)
+    clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+    addobject(OBJECT_GENESECT)
+    fadescreen(FADE_FROM_WHITE)
+    applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkAway)
+    waitmovement(0)
+}
+
+script P2Laboratory_Genesect {
+    lock
+    faceplayer
+    waitse
+    playmoncry(SPECIES_GENESECT, CRY_MODE_ENCOUNTER)
+    msgbox(format("GWEEEEOYUUU!"), MSGBOX_NPC)
+    delay(20)
+    waitmoncry
+    setwildbattle(SPECIES_GENESECT, 50)
+    special(BattleSetup_StartLegendaryBattle)
+    waitstate
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    switch (var(VAR_RESULT)) {
+        case B_OUTCOME_CAUGHT:
+            setflag(FLAG_CAPTURED_GENESECT)
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+            fadescreenswapbuffers(FADE_TO_BLACK)
+            removeobject(VAR_LAST_TALKED)
+            fadescreenswapbuffers(FADE_FROM_BLACK)
+        case B_OUTCOME_RAN:
+            msgbox(format("Genesect is watching carefully."), MSGBOX_DEFAULT)
+        default:
+            fadescreenswapbuffers(FADE_TO_BLACK)
+            removeobject(OBJECT_GENESECT)
+            fadescreenswapbuffers(FADE_FROM_BLACK)
+            msgbox(format("Genesect fled the laboratory..."), MSGBOX_DEFAULT)
+    }
+    release
+    end
+}
+
+movement P2Laboratory_CameraMoveUp { walk_up * 6 }
+movement P2Laboratory_ScientistWalkToTalk { walk_right * 2 face_down }
+movement P2Laboratory_PlayerWalkToTalk { walk_up * 5 face_up } 
+movement P2Laboratory_ScientistWalkUp { walk_up * 2 }
+movement P2Laboratory_ScientistWalkAway { walk_up walk_left * 2 face_up }
