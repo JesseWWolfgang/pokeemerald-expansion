@@ -20,6 +20,7 @@ P2Laboratory_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 
 P2Laboratory_GenesectEvent::
 	setvar VAR_TEMP_LOADED, 1
+	goto_if_set FLAG_DEFEATED_P2_SCIENTIST, P2Laboratory_GenesectEvent_2
 	lock
 	delay 30
 	special SpawnCameraObject
@@ -59,6 +60,9 @@ P2Laboratory_GenesectEvent::
 	release
 	return
 
+P2Laboratory_GenesectEvent_2:
+	end
+
 
 P2Laboratory_BattleScientist::
 	setflag FLAG_CUSTOM_BATTLE_MUSIC
@@ -75,7 +79,7 @@ P2Laboratory_BattleScientist::
 	waitse
 	setflag FLAG_DEFEATED_P2_SCIENTIST
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
-	showobjectat 2, MAP_P2LABORATORY
+	addobject 2
 	fadescreen FADE_FROM_WHITE
 	applymovement 1, P2Laboratory_ScientistWalkAway
 	waitmovement 0

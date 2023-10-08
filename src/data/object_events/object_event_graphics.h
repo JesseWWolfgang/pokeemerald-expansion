@@ -2324,8 +2324,8 @@ const u16 gObjectEventPalette_Pokemon_Species_648[] = INCBIN_U16("graphics/objec
 const u32 gObjectEventPic_Pokemon_Species_648_B[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/648_B.4bpp");
 const u16 gObjectEventPalette_Pokemon_Species_648_B[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/648_B.gbapal");
 
-// const u32 gObjectEventPic_Pokemon_Species_649[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/649.4bpp");
-// const u16 gObjectEventPalette_Pokemon_Species_649[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/649.gbapal");
+const u32 gObjectEventPic_Pokemon_Species_649[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/649.4bpp");
+const u16 gObjectEventPalette_Pokemon_Species_649[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/649.gbapal");
 
 // const u32 gObjectEventPic_Pokemon_Species_650[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/650.4bpp");
 // const u16 gObjectEventPalette_Pokemon_Species_650[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/650.gbapal");
