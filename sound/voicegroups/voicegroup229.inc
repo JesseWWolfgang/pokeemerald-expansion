@@ -1,10 +1,10 @@
 	.align 2
 voicegroup229:: @ HGSS main
 	voice_keysplit voicegroup233, KeySplitTable35	@ piano
-	voice_keysplit voicegroup234, KeySplitTable36	@ piano 2
+	voice_keysplit voicegroup234, KeySplitTable36	@ rock piano
 	voice_keysplit voicegroup235, KeySplitTable37	@ piano octave
-	voice_keysplit voicegroup236, KeySplitTable9	@ rhodes 1
-	voice_keysplit voicegroup237, KeySplitTable9	@ rhodes 2
+	voice_keysplit voicegroup236, KeySplitTable9	@ rhodes
+	voice_keysplit voicegroup237, KeySplitTable9	@ rhodes (no rel)
 	voice_keysplit voicegroup238, KeySplitTable36	@ vibraphone
 	voice_keysplit voicegroup239, KeySplitTable38	@ marimba
 	voice_keysplit voicegroup240, KeySplitTable39	@ xylophone
@@ -16,8 +16,8 @@ voicegroup229:: @ HGSS main
 	voice_keysplit voicegroup246, KeySplitTable40	@ accordion
 	voice_keysplit voicegroup247, KeySplitTable41	@ nylon guitar
 	voice_keysplit voicegroup248, KeySplitTable41	@ martin guitar
-	voice_keysplit voicegroup249, KeySplitTable32	@ distortion guitar 1
-	voice_keysplit voicegroup250, KeySplitTable32	@ distortion guitar 2
+	voice_keysplit voicegroup249, KeySplitTable32	@ distortion guitar (no rel)
+	voice_keysplit voicegroup250, KeySplitTable32	@ distortion guitar
 	voice_keysplit voicegroup251, KeySplitTable41	@ clean guitar
 	voice_keysplit voicegroup252, KeySplitTable42	@ upright bass
 	voice_keysplit voicegroup253, KeySplitTable43	@ fingered bass

@@ -279,6 +279,8 @@ include songs.mk
 %.lz: % ; $(GFX) $< $@
 %.rl: % ; $(GFX) $< $@
 $(CRY_SUBDIR)/%.bin: $(CRY_SUBDIR)/%.aif ; $(AIF) $< $@ --compress
+sound/direct_sound_samples/bw_drum_loop_%.bin: sound/direct_sound_samples/bw_drum_loop_%.aif ; $(AIF) $< $@ --compress
+sound/direct_sound_samples/b2_drum_loop_%.bin: sound/direct_sound_samples/b2_drum_loop_%.aif ; $(AIF) $< $@ --compress
 sound/%.bin: sound/%.aif ; $(AIF) $< $@
 
 

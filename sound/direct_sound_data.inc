@@ -3531,6 +3531,14 @@ DirectSoundWaveData_bw_claps::
 	.incbin "sound/direct_sound_samples/bw_claps.bin"
 
 	.align 2
+DirectSoundWaveData_bw_clarinet_ensemble_a4::
+	.incbin "sound/direct_sound_samples/bw_clarinet_ensemble_a4.bin"
+
+	.align 2
+DirectSoundWaveData_bw_clarinet_ensemble_c4::
+	.incbin "sound/direct_sound_samples/bw_clarinet_ensemble_c4.bin"
+
+	.align 2
 DirectSoundWaveData_bw_closed_triangle::
 	.incbin "sound/direct_sound_samples/bw_closed_triangle.bin"
 
@@ -3577,6 +3585,10 @@ DirectSoundWaveData_bw_electric_bass_a2::
 	.align 2
 DirectSoundWaveData_bw_electric_bass_e2::
 	.incbin "sound/direct_sound_samples/bw_electric_bass_e2.bin"
+
+	.align 2
+DirectSoundWaveData_bw_electronic_organ_c5::
+	.incbin "sound/direct_sound_samples/bw_electronic_organ_c5.bin"
 
 	.align 2
 DirectSoundWaveData_bw_erhu_c3::
@@ -3799,6 +3811,26 @@ DirectSoundWaveData_bw_piano1_g5::
 	.incbin "sound/direct_sound_samples/bw_piano1_g5.bin"
 
 	.align 2
+DirectSoundWaveData_bw_piano2_c2::
+	.incbin "sound/direct_sound_samples/bw_piano2_c2.bin"
+
+	.align 2
+DirectSoundWaveData_bw_piano2_c3::
+	.incbin "sound/direct_sound_samples/bw_piano2_c3.bin"
+
+	.align 2
+DirectSoundWaveData_bw_piano2_c4::
+	.incbin "sound/direct_sound_samples/bw_piano2_c4.bin"
+
+	.align 2
+DirectSoundWaveData_bw_piano2_c5::
+	.incbin "sound/direct_sound_samples/bw_piano2_c5.bin"
+
+	.align 2
+DirectSoundWaveData_bw_piano2_c6::
+	.incbin "sound/direct_sound_samples/bw_piano2_c6.bin"
+
+	.align 2
 DirectSoundWaveData_bw_pipe_organ_a4::
 	.incbin "sound/direct_sound_samples/bw_pipe_organ_a4.bin"
 
@@ -3995,6 +4027,14 @@ DirectSoundWaveData_bw_steel_drum_g4::
 	.incbin "sound/direct_sound_samples/bw_steel_drum_g4.bin"
 
 	.align 2
+DirectSoundWaveData_bw_suscymroll_in::
+	.incbin "sound/direct_sound_samples/bw_suscymroll_in.bin"
+
+	.align 2
+DirectSoundWaveData_bw_suscymroll_out::
+	.incbin "sound/direct_sound_samples/bw_suscymroll_out.bin"
+
+	.align 2
 DirectSoundWaveData_bw_suspended_cymbal_e2::
 	.incbin "sound/direct_sound_samples/bw_suspended_cymbal_e2.bin"
 
@@ -4015,6 +4055,26 @@ DirectSoundWaveData_bw_t9_snare::
 	.incbin "sound/direct_sound_samples/bw_t9_snare.bin"
 
 	.align 2
+DirectSoundWaveData_bw_tabla_8::
+	.incbin "sound/direct_sound_samples/bw_tabla_8.bin"
+
+	.align 2
+DirectSoundWaveData_bw_tabla_10::
+	.incbin "sound/direct_sound_samples/bw_tabla_10.bin"
+
+	.align 2
+DirectSoundWaveData_bw_tabla_11::
+	.incbin "sound/direct_sound_samples/bw_tabla_11.bin"
+
+	.align 2
+DirectSoundWaveData_bw_tabla_12::
+	.incbin "sound/direct_sound_samples/bw_tabla_12.bin"
+
+	.align 2
+DirectSoundWaveData_bw_tabla_13::
+	.incbin "sound/direct_sound_samples/bw_tabla_13.bin"
+
+	.align 2
 DirectSoundWaveData_bw_tack_piano_c4::
 	.incbin "sound/direct_sound_samples/bw_tack_piano_c4.bin"
 
@@ -4025,6 +4085,14 @@ DirectSoundWaveData_bw_tack_piano_c5::
 	.align 2
 DirectSoundWaveData_bw_tambourine::
 	.incbin "sound/direct_sound_samples/bw_tambourine.bin"
+
+	.align 2
+DirectSoundWaveData_bw_train_sfx_1::
+	.incbin "sound/direct_sound_samples/bw_train_sfx_1.bin"
+
+	.align 2
+DirectSoundWaveData_bw_train_sfx_2::
+	.incbin "sound/direct_sound_samples/bw_train_sfx_2.bin"
 
 	.align 2
 DirectSoundWaveData_bw_trombone_stab_cs2::
@@ -4069,6 +4137,10 @@ DirectSoundWaveData_bw_upright_bass_g3::
 	.align 2
 DirectSoundWaveData_bw_vibraphone_c6::
 	.incbin "sound/direct_sound_samples/bw_vibraphone_c6.bin"
+
+	.align 2
+DirectSoundWaveData_bw_vibraphone_soft_c5::
+	.incbin "sound/direct_sound_samples/bw_vibraphone_soft_c5.bin"
 
 	.align 2
 DirectSoundWaveData_bw_vocoder_58::
