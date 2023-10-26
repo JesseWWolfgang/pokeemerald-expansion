@@ -237,6 +237,7 @@ BattleScript_TrainerASlideMsgRet::
     trainerslidein B_POSITION_OPPONENT_LEFT
     handletrainerslidemsg BS_SCRIPTING, 1
     waitstate
+    waitmessage B_WAIT_TIME_MED
     trainerslideout B_POSITION_OPPONENT_LEFT
     waitstate
     handletrainerslidemsg BS_SCRIPTING, 2
@@ -251,6 +252,7 @@ BattleScript_TrainerBSlideMsgRet::
     trainerslidein B_POSITION_OPPONENT_RIGHT
     handletrainerslidemsg BS_SCRIPTING, 1
     waitstate
+    waitmessage B_WAIT_TIME_MED
     trainerslideout B_POSITION_OPPONENT_RIGHT
     waitstate
     handletrainerslidemsg BS_SCRIPTING, 2
