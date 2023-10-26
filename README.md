@@ -14,6 +14,7 @@ This feature uses:
 - feature/location-battle-music: Customise battle music for other regions.
 - feature/multi-region: Support for other regions.
 - feature/enhanced-movement: Movement features for Meloetta's dance.
+- feature/general-improvements: getweather+finditem script cmd, extend trainer slide in message, etc.
 
 # List of Locations
 
