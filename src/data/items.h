@@ -9822,5 +9822,8 @@ const struct Item gItems[] =
         .price = 50000,
         .description = sLibertyPassDesc,
         .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 };

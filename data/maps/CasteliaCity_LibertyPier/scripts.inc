@@ -403,7 +403,7 @@ CasteliaCity_P2ScientistInterview_37:
 	setflag FLAG_MAP_MUSIC_OVERRIDE
 	setvar VAR_MAP_MUSIC_OVERRIDE, MUS_NONE
 	setflag FLAG_CUSTOM_BATTLE_MUSIC
-	setvar VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_VS_CHAMPION
+	setvar VAR_TEMP_CUSTOM_BATTLE_MUSIC, MUS_UNOVA_VS_PLASMA
 	trainerbattle_no_intro TRAINER_P2DUDLEY1, CasteliaCity_P2ScientistInterview_Text_5
 	clearflag FLAG_MAP_MUSIC_OVERRIDE
 	msgbox CasteliaCity_P2ScientistInterview_Text_6, MSGBOX_DEFAULT
