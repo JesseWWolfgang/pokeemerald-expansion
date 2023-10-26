@@ -95,7 +95,7 @@ u16 GetLocationMusicTrainerBattle(u8 mapSec)
     switch (mapSec)
     {
         default:
-            return GetLocationMusicTrainerBattle(GetRegionForMapSec(mapSec));
+            return GetRegionMusicTrainerBattle(GetRegionForMapSec(mapSec));
     }
 }
 
