@@ -153,4 +153,3 @@
 	.include "src/pokedex_plus_hgss.o"
 	.include "src/location_music.o"
 	.include "src/regions.o"
-	
