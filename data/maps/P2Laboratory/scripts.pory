@@ -126,6 +126,10 @@ script P2Laboratory_Genesect {
     end
 }
 
+script P2Laboratory_Scientist {
+    
+}
+
 movement P2Laboratory_CameraMoveUp { walk_up * 6 }
 movement P2Laboratory_ScientistWalkToTalk { walk_right * 2 face_down }
 movement P2Laboratory_PlayerWalkToTalk { walk_up * 5 face_up } 

@@ -97,13 +97,9 @@ movement CasteliaCity_FerryMovement {
 	walk_left
 }
 
-script CasteliaCity_LibertyPierSign {
-    msgbox(format("Castelia City\nLiberty Pier"), MSGBOX_SIGN)
-}
-
-script CasteliaCity_FleaMarketsSign {
-    msgbox(format("Castelia City's Flea Markets!\nPermanently set up for all your second-hand shopping needs!"), MSGBOX_SIGN)
-}
+script CasteliaCity_LibertyPierSign { msgbox(format("Castelia City\nLiberty Pier"), MSGBOX_SIGN) }
+script CasteliaCity_FleaMarketsSign { msgbox(format("Castelia City's Flea Markets!\nPermanently set up for all your second-hand shopping needs!"), MSGBOX_SIGN) }
+script CasteliaCity_StreetSign { msgbox(format("{LEFT_ARROW} Liberty Pier\n  Narrow Street {RIGHT_ARROW}"), MSGBOX_SIGN) }
 
 script CasteliaCity_PierMan { msgbox(format("My goodness, this sure is a magnificent view. Its one of Castelia City's finest."), MSGBOX_NPC) }
 script CasteliaCity_PierBoy { msgbox(format("Hey man, check out all of those sick boats aye. That's heaps good, yeah."), MSGBOX_NPC) }
