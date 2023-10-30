@@ -20,5 +20,6 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Change direction while moving     | https://www.pokecommunity.com/showpost.php?p=10402610
 | Flag to override map music        | Flag is FLAG_MAP_MUSIC_OVERRIDE and var is VAR_MAP_MUSIC_OVERRIDE.
 | Script command `getweather`       | Adds a script command `getweather` which stores the current weather in VAR_RESULT.
-| Extend trainer slide in message time | Adds a small delay after a trainer slide in message. |
+| Extend trainer slide in message time | Adds a small delay after a trainer slide in message.
 | Enable HGSS Pokedex               | Enables the HGSS style Pokedex by default.
+| ScrCmd_callfunc                   | Script function to call a C function with a number of arguments. https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160

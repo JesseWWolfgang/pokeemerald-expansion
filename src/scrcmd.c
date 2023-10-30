@@ -2430,3 +2430,39 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
     ResetInitialPlayerAvatarState();
     return TRUE;
 }
+
+// https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160
+bool8 ScrCmd_callfunc(struct ScriptContext *ctx)
+{
+    u32 func = ScriptReadWord(ctx);
+    u32 argNum = ScriptReadByte(ctx);
+    u16 args[4];
+    u32 i;
+
+    if (argNum <= ARRAY_COUNT(args))
+        for (i = 0; i < argNum; i++)
+            args[i] = VarGet(ScriptReadHalfword(ctx));
+
+    switch (argNum)
+    {
+    case 0:
+        gSpecialVar_Result = ((u32 (*)(void)) func)();
+        break;
+    case 1:
+        gSpecialVar_Result = ((u32 (*)(u16)) func)(args[0]);
+        break;
+    case 2:
+        gSpecialVar_Result = ((u32 (*)(u16, u16)) func)(args[0], args[1]);
+        break;
+    case 3:
+        gSpecialVar_Result = ((u32 (*)(u16, u16, u16)) func)(args[0], args[1], args[2]);
+        break;
+    case 4:
+        gSpecialVar_Result = ((u32 (*)(u16, u16, u16, u16)) func)(args[0], args[1], args[2], args[3]);
+        break;
+    default: // call like ScrCmd
+        return ((ScrCmdFunc) func)(ctx);
+        break;
+    }
+    return FALSE;
+}
