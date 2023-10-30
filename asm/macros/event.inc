@@ -2096,3 +2096,33 @@
 			goto .e\@
 		.e\@:
 	.endm
+	
+	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
+	.macro callfunc func:req var1, var2, var3, var4
+	.byte 0xe7
+	.4byte \func
+	.ifb \var1
+		.byte 0
+	.else
+	.ifb \var2
+		.byte 1
+		.2byte \var1
+	.else
+	.ifb \var3
+		.byte 2
+		.2byte \var1
+		.2byte \var2
+	.else
+	.ifb \var4
+		.byte 3
+		.2byte \var1
+		.2byte \var2
+		.2byte \var3
+	.else
+		.byte 4
+		.2byte \var1
+		.2byte \var2
+		.2byte \var3
+		.2byte \var4
+	.endif
+	.endm

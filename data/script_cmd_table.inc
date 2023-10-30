@@ -232,6 +232,7 @@ gScriptCmdTable::
 	.4byte ScrCmd_lockelevation                     @ 0xe5
 	.4byte ScrCmd_resetelevation                    @ 0xe6
 	.4byte ScrCmd_getweather                        @ 0xe7
+	.4byte ScrCmd_callfunc							@ 0xe8
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop
