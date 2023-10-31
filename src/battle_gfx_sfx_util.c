@@ -278,7 +278,7 @@ u16 ChooseMoveAndTargetInBattlePalace(u32 battler)
     else if (moveTarget == MOVE_TARGET_SELECTED)
         chosenMoveId |= GetBattlePalaceTarget(battler);
     else
-        chosenMoveId |= (GetBattlerAtPosition(BATTLE_OPPOSITE(GET_BATTLER_SIDE(battler))) << 8);
+        chosenMoveId |= (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(battler))) << 8);
 
     return chosenMoveId;
 }
@@ -377,7 +377,7 @@ void SpriteCB_WaitForBattlerBallReleaseAnim(struct Sprite *sprite)
     }
 }
 
-static void UnusedDoBattleSpriteAffineAnim(struct Sprite *sprite, bool8 pointless)
+static void UNUSED UnusedDoBattleSpriteAffineAnim(struct Sprite *sprite, bool8 pointless)
 {
     sprite->animPaused = TRUE;
     sprite->callback = SpriteCallbackDummy;
@@ -591,13 +591,16 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, u32 battler)
     else
     {
         species = gBattleSpritesDataPtr->battlerData[battler].transformSpecies;
-        #if B_TRANSFORM_SHINY >= GEN_4
+        if (B_TRANSFORM_SHINY >= GEN_4)
+        {
             currentPersonality = gTransformedPersonalities[battler];
             currentOtId = gTransformedOtIds[battler];
-        #else
+        }
+        else
+        {
             currentPersonality = monsPersonality;
             currentOtId = otId;
-        #endif
+        }
     }
 
     position = GetBattlerPosition(battler);
@@ -630,6 +633,13 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, u32 battler)
     {
         BlendPalette(paletteOffset, 16, 6, RGB_WHITE);
         CpuCopy32(&gPlttBufferFaded[paletteOffset], &gPlttBufferUnfaded[paletteOffset], PLTT_SIZEOF(16));
+    }
+
+    // dynamax tint
+    if (IsDynamaxed(battler))
+    {
+        BlendPalette(paletteOffset, 16, 4, RGB(31, 0, 12));
+        CpuCopy32(gPlttBufferFaded + paletteOffset, gPlttBufferUnfaded + paletteOffset, 32);
     }
 }
 
@@ -684,7 +694,7 @@ void BattleLoadAllHealthBoxesGfxAtOnce(void)
         numberOfBattlers = MAX_BATTLERS_COUNT;
     }
     for (i = 0; i < numberOfBattlers; i++)
-        LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[i]]);
+        LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(i)]);
 }
 
 bool8 BattleLoadAllHealthBoxesGfx(u8 state)
@@ -711,9 +721,9 @@ bool8 BattleLoadAllHealthBoxesGfx(u8 state)
             else if (state == 3)
                 LoadCompressedSpriteSheet(&sSpriteSheet_SinglesOpponentHealthbox);
             else if (state == 4)
-                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[0]]);
+                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(0)]);
             else if (state == 5)
-                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[1]]);
+                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(1)]);
             else
                 retVal = TRUE;
         }
@@ -733,13 +743,13 @@ bool8 BattleLoadAllHealthBoxesGfx(u8 state)
             else if (state == 5)
                 LoadCompressedSpriteSheet(&sSpriteSheets_DoublesOpponentHealthbox[1]);
             else if (state == 6)
-                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[0]]);
+                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(0)]);
             else if (state == 7)
-                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[1]]);
+                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(1)]);
             else if (state == 8)
-                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[2]]);
+                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(2)]);
             else if (state == 9)
-                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[3]]);
+                LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[GetBattlerPosition(3)]);
             else
                 retVal = TRUE;
         }
@@ -792,7 +802,7 @@ bool8 BattleInitAllSprites(u8 *state1, u8 *battler)
         break;
     case 4:
         InitBattlerHealthboxCoords(*battler);
-        if (gBattlerPositions[*battler] <= B_POSITION_OPPONENT_LEFT)
+        if (GetBattlerPosition(*battler) <= B_POSITION_OPPONENT_LEFT)
             DummyBattleInterfaceFunc(gHealthboxSpriteIds[*battler], FALSE);
         else
             DummyBattleInterfaceFunc(gHealthboxSpriteIds[*battler], TRUE);
@@ -886,14 +896,12 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool32 megaEvo, bo
 
         if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER)
         {
-        #if B_TRANSFORM_SHINY >= GEN_4
-            if (trackEnemyPersonality)
+            if (B_TRANSFORM_SHINY >= GEN_4 && trackEnemyPersonality)
             {
                 personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
                 otId = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
             }
             else
-        #endif
             {
                 personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
                 otId = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
@@ -907,15 +915,13 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool32 megaEvo, bo
         }
         else
         {
-        #if B_TRANSFORM_SHINY >= GEN_4
-            if (trackEnemyPersonality)
+            if (B_TRANSFORM_SHINY >= GEN_4 && trackEnemyPersonality)
             {
                 personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
                 otId = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
 
             }
             else
-        #endif
             {
                 personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
                 otId = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
