@@ -9194,3 +9194,29 @@ bool8 MovementType_ForceRotateClockwise_Step3(struct ObjectEvent *objectEvent, s
     sprite->sTypeFuncId = 0;
     return TRUE;
 }
+
+bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 playerObjectId;
+
+    if (!TryGetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0, &playerObjectId))
+        FaceDirection(objectEvent, sprite, GetDirectionToFace(objectEvent->currentCoords.x,
+                                                              objectEvent->currentCoords.y,
+                                                              gObjectEvents[playerObjectId].currentCoords.x,
+                                                              gObjectEvents[playerObjectId].currentCoords.y));
+    sprite->sActionFuncId = 1;
+    return TRUE;
+}
+
+bool8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 playerObjectId;
+
+    if (!TryGetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0, &playerObjectId))
+        FaceDirection(objectEvent, sprite, GetOppositeDirection(GetDirectionToFace(objectEvent->currentCoords.x,
+                                                                                   objectEvent->currentCoords.y,
+                                                                                   gObjectEvents[playerObjectId].currentCoords.x,
+                                                                                   gObjectEvents[playerObjectId].currentCoords.y)));
+    sprite->sActionFuncId = 1;
+    return TRUE;
+}
