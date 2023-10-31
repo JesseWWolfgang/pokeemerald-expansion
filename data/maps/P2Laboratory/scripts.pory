@@ -114,6 +114,7 @@ script P2Laboratory_Genesect {
             fadescreenswapbuffers(FADE_TO_BLACK)
             removeobject(VAR_LAST_TALKED)
             fadescreenswapbuffers(FADE_FROM_BLACK)
+            call(P2Laboratory_ScientistGivesFirstDrive)
         case B_OUTCOME_RAN:
             msgbox(format("Genesect is watching carefully."), MSGBOX_DEFAULT)
         default:
@@ -126,8 +127,24 @@ script P2Laboratory_Genesect {
     end
 }
 
+script P2Laboratory_ScientistGivesFirstDrive {
+    applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkToGiveDrive)
+    waitmovement(0)
+    applymovementplayerfacing()
+}
+
 script P2Laboratory_Scientist {
-    
+    lock
+    faceplayer
+    if (!flag(FLAG_CAPTURED_GENESECT)) {
+        msgbox(format("Despite Genesect being a lab experiment, it still needs a home - a partner...\p"
+        "You should show it what it means to be with a trustworthy trainer."))
+    } 
+    else {
+        msgbox(format("Despite Genesect being a lab experiment, it still needs a home - a partner...\p"
+        "You should show it what it means to be with a trustworthy trainer."))
+    }
+    release
 }
 
 movement P2Laboratory_CameraMoveUp { walk_up * 6 }
@@ -135,3 +152,4 @@ movement P2Laboratory_ScientistWalkToTalk { walk_right * 2 face_down }
 movement P2Laboratory_PlayerWalkToTalk { walk_up * 5 face_up } 
 movement P2Laboratory_ScientistWalkUp { walk_up * 2 }
 movement P2Laboratory_ScientistWalkAway { walk_up walk_left * 2 face_up }
+movement P2Laboratory_ScientistWalkToGiveDrive { walk_right face_player }
