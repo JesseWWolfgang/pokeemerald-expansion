@@ -274,6 +274,7 @@ void MovementType_Invisible(struct Sprite *);
 void MovementType_WalkSlowlyInPlace(struct Sprite *);
 void MovementType_ForceRotateCounterclockwise(struct Sprite *);
 void MovementType_ForceRotateClockwise(struct Sprite *);
+void MovementType_FacePlayer(struct Sprite *);
 u8 GetSlideMovementAction(u32);
 u8 GetJumpMovementAction(u32);
 u8 GetJump2MovementAction(u32);
@@ -442,6 +443,7 @@ u8 MovementType_ForceRotateClockwise_Step0(struct ObjectEvent *, struct Sprite *
 u8 MovementType_ForceRotateClockwise_Step1(struct ObjectEvent *, struct Sprite *);
 u8 MovementType_ForceRotateClockwise_Step2(struct ObjectEvent *, struct Sprite *);
 u8 MovementType_ForceRotateClockwise_Step3(struct ObjectEvent *, struct Sprite *);
+u8 MovementType_FacePlayer_Step0(struct ObjectEvent *, struct Sprite *);
 
 u8 CreateVirtualObject(u8 graphicsId, u8 virtualObjId, s16 x, s16 y, u8 elevation, u8 direction);
 void TurnVirtualObject(u8 virtualObjId, u8 direction);

@@ -288,6 +288,7 @@ static void (*const sMovementTypeCallbacks[])(struct Sprite *) =
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = MovementType_ForceRotateCounterclockwise,
     [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = MovementType_ForceRotateClockwise,
+    [MOVEMENT_TYPE_FACE_PLAYER] = MovementType_FacePlayer,
 };
 
 static const bool8 sMovementTypeHasRange[NUM_MOVEMENT_TYPES] = {
@@ -9229,7 +9230,7 @@ bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sp
     u8 targetObjectId;
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
 
-    if (targetObjectId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
+    if (targetLocalId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
         FaceDirection(objectEvent, sprite, GetDirectionToFace(objectEvent->currentCoords.x,
                                                               objectEvent->currentCoords.y,
                                                               gObjectEvents[targetObjectId].currentCoords.x,
@@ -9243,11 +9244,21 @@ bool8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *objectEvent, struc
     u8 targetObjectId;
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
 
-    if (targetObjectId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
+    if (targetLocalId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
         FaceDirection(objectEvent, sprite, GetOppositeDirection(GetDirectionToFace(objectEvent->currentCoords.x,
                                                                                    objectEvent->currentCoords.y,
                                                                                    gObjectEvents[targetObjectId].currentCoords.x,
                                                                                    gObjectEvents[targetObjectId].currentCoords.y)));
     sprite->sActionFuncId = 1;
+    return TRUE;
+}
+
+movement_type_def(MovementType_FacePlayer, gMovementTypeFuncs_FacePlayer)
+
+bool8 MovementType_FacePlayer_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ClearObjectEventMovement(objectEvent, sprite);
+    ObjectEventSetSingleMovement(objectEvent, sprite, MovementAction_FacePlayer_Step0(objectEvent, sprite));
+    sprite->sTypeFuncId = 0;
     return TRUE;
 }

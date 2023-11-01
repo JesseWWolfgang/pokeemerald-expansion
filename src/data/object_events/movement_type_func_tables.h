@@ -454,3 +454,7 @@ u8 (*const gMovementTypeFuncs_ForceRotateClockwise[])(struct ObjectEvent *, stru
 };
 
 const u8 gForceClockwiseDirections[] = {DIR_SOUTH, DIR_WEST, DIR_EAST, DIR_NORTH, DIR_SOUTH};
+
+u8 (*const gMovementTypeFuncs_FacePlayer[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementType_FacePlayer_Step0,
+};
