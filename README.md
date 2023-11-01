@@ -49,3 +49,27 @@ applymovementplayerfacing(GFX_ID_XYZ,
     east, 
     west)
 ```
+
+## Face Object and Face Away Object
+
+Adds movement types 
+
+- `face_object`
+- `face_away_object` 
+
+and corresponding 
+
+- `Common_Movement_FaceObject` 
+- `Common_Movement_FaceAwayObject` 
+
+These perform the same as `face_player` and `face_away_player` but instead of facing towards the player object, the 
+moving object will face in the direction of the object stored in `VAR_TARGET_OBJECT_EVENT`.
+
+This var is reset to 0xFF (empty) upon loading a map just the same as the temp vars, so it should be set before using these movements.
+
+## Improved facing direction
+
+Adds a config option `OW_USE_IMPROVED_FACING_DIRECTION` in `include/config/overworld.h` to improve the way 
+that `GetDirectionToFace` behaves. (used by `face_player` and `face_object` etc)
+
+This will choose the direction that faces along the axis that has the longer displacement, instead of instantly preferring left/right.

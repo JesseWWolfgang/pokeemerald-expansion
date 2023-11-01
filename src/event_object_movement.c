@@ -4630,6 +4630,34 @@ void SetStepAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 anim
 
 u8 GetDirectionToFace(s16 x, s16 y, s16 targetX, s16 targetY)
 {
+#if OW_USE_IMPROVED_FACING_DIRECTION
+    // Checks which direction has the longer displacement and faces that.
+
+    // If true, face left or right, otherwise up or down
+    // When both axes are equal, using < will prefer left/right over up/down. <= will prefer up/down over left/right.
+    bool8 yHasSmallerDiff = abs(targetY - y) <= abs(targetX - x); 
+
+    if (yHasSmallerDiff)
+    {
+        if (x > targetX)
+            return DIR_WEST;
+
+        if (x < targetX)
+            return DIR_EAST;
+    }
+    else
+    {
+        if (y > targetY)
+            return DIR_NORTH;
+
+        if (y < targetY)
+            return DIR_SOUTH;
+    }    
+
+    return DIR_SOUTH; // When current and target are same position, face south.
+#else
+
+    // Original - Always prefers left/right over up/down.
     if (x > targetX)
         return DIR_WEST;
 
@@ -4640,6 +4668,7 @@ u8 GetDirectionToFace(s16 x, s16 y, s16 targetX, s16 targetY)
         return DIR_NORTH;
 
     return DIR_SOUTH;
+#endif
 }
 
 void SetTrainerMovementType(struct ObjectEvent *objectEvent, u8 movementType)
@@ -9197,26 +9226,28 @@ bool8 MovementType_ForceRotateClockwise_Step3(struct ObjectEvent *objectEvent, s
 
 bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    u8 playerObjectId;
+    u8 targetObjectId;
+    u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
 
-    if (!TryGetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0, &playerObjectId))
+    if (targetObjectId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
         FaceDirection(objectEvent, sprite, GetDirectionToFace(objectEvent->currentCoords.x,
                                                               objectEvent->currentCoords.y,
-                                                              gObjectEvents[playerObjectId].currentCoords.x,
-                                                              gObjectEvents[playerObjectId].currentCoords.y));
+                                                              gObjectEvents[targetObjectId].currentCoords.x,
+                                                              gObjectEvents[targetObjectId].currentCoords.y));
     sprite->sActionFuncId = 1;
     return TRUE;
 }
 
 bool8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    u8 playerObjectId;
+    u8 targetObjectId;
+    u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
 
-    if (!TryGetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0, &playerObjectId))
+    if (targetObjectId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
         FaceDirection(objectEvent, sprite, GetOppositeDirection(GetDirectionToFace(objectEvent->currentCoords.x,
                                                                                    objectEvent->currentCoords.y,
-                                                                                   gObjectEvents[playerObjectId].currentCoords.x,
-                                                                                   gObjectEvents[playerObjectId].currentCoords.y)));
+                                                                                   gObjectEvents[targetObjectId].currentCoords.x,
+                                                                                   gObjectEvents[targetObjectId].currentCoords.y)));
     sprite->sActionFuncId = 1;
     return TRUE;
 }

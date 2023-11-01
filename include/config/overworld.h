@@ -17,4 +17,7 @@
 #define OW_FLAG_NO_TRAINER_SEE      FLAG_NO_TRAINER_SEE  // If this flag is set, trainers will not battle the player unless they're talked to.
 #define OW_FLAG_NO_COLLISION        FLAG_NO_COLLISION  // If this flag is set, the player will be able to walk over tiles with collision. Mainly intended for debugging purposes.
 
+// Enhanced Movement
+#define OW_USE_IMPROVED_FACING_DIRECTION    TRUE // If true, then GetDirectionToFace (used by face_player and face_object etc) will face along the axis that has the longer displacement.
+
 #endif // GUARD_CONFIG_OVERWORLD_H

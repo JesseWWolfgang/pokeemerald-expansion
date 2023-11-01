@@ -98,3 +98,13 @@ Common_Movement_WalkUp2::
 	walk_up
 	walk_up
 	step_end
+
+
+@ Enhanced Movement
+Common_Movement_FaceObject:
+	face_object
+	step_end
+
+Common_Movement_FaceAwayObject:
+	face_away_object
+	step_end
