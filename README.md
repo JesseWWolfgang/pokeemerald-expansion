@@ -67,9 +67,14 @@ moving object will face in the direction of the object stored in `VAR_TARGET_OBJ
 
 This var is reset to 0xFF (empty) upon loading a map just the same as the temp vars, so it should be set before using these movements.
 
-## Improved facing direction
+## Improved Facing Direction
 
 Adds a config option `OW_USE_IMPROVED_FACING_DIRECTION` in `include/config/overworld.h` to improve the way 
 that `GetDirectionToFace` behaves. (used by `face_player` and `face_object` etc)
 
 This will choose the direction that faces along the axis that has the longer displacement, instead of instantly preferring left/right.
+
+## Face Player Movement Type
+
+Adds the `MOVEMENT_TYPE_FACE_PLAYER` movement type.
+This will make the object always face the player.
