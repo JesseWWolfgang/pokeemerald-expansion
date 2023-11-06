@@ -67,6 +67,8 @@ moving object will face in the direction of the object stored in `VAR_TARGET_OBJ
 
 This var is reset to 0xFF (empty) upon loading a map just the same as the temp vars, so it should be set before using these movements.
 
+A script macro `lookatobject localId:req, targetLocalId:req` has also been added to perform the `varset`, `movement` and `waitmovement` calls in one go.
+
 ## Improved Facing Direction
 
 Adds a config option `OW_USE_IMPROVED_FACING_DIRECTION` in `include/config/overworld.h` to improve the way 

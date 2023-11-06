@@ -2058,6 +2058,9 @@
 	trainerbattle_no_intro \trainer2, NULL
 	.endm
 
+
+	@ Enhanced Movement
+
 	@ Locks the elevation of the specified (localId) object to the given elevation.
 	.macro lockelevation localId:req, elevation:req
 		.byte 0xe5
@@ -2090,4 +2093,12 @@
 			applymovement \localId, \west
 			goto .e\@
 		.e\@:
+	.endm
+
+	@ Turns the specified object to face the direction of the specified target.
+	@ This updates the VAR_TARGET_OBJECT_EVENT object.
+	.macro lookatobject localId:req, targetLocalId:req
+	setvar VAR_TARGET_OBJECT_EVENT, \targetLocalId
+	applymovement \localId, Common_Movement_FaceObject
+	waitmovement 0
 	.endm
