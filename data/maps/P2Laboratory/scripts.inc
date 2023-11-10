@@ -115,11 +115,145 @@ P2Laboratory_Genesect_3:
 	fadescreenswapbuffers FADE_TO_BLACK
 	removeobject VAR_LAST_TALKED
 	fadescreenswapbuffers FADE_FROM_BLACK
+	call P2Laboratory_ScientistPostGenesectCapture
 	goto P2Laboratory_Genesect_1
 
 P2Laboratory_Genesect_4:
 	msgbox P2Laboratory_Genesect_Text_1, MSGBOX_DEFAULT
 	goto P2Laboratory_Genesect_1
+
+
+P2Laboratory_ScientistPostGenesectCapture::
+	applymovement 1, P2Laboratory_ScientistWalkToGiveDrive
+	waitmovement 0
+	playerfaceobject 1
+	msgbox P2Laboratory_ScientistPostGenesectCapture_Text_0, MSGBOX_DEFAULT
+	call P2Laboratory_ScientistGiveFirstDrive
+	closemessage
+	applymovement 1, P2Laboratory_ScientistWalkBackFromeGiveDrive
+	waitmovement 0
+	return
+
+
+P2Laboratory_ScientistGiveFirstDrive::
+	msgbox P2Laboratory_ScientistGiveFirstDrive_Text_0, MSGBOX_DEFAULT
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_1, ITEM_SHOCK_DRIVE
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_2, ITEM_BURN_DRIVE
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_3, ITEM_CHILL_DRIVE
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_4, ITEM_DOUSE_DRIVE
+	dynmultistack 1, 1, TRUE, 4, FALSE, ITEM_SHOCK_DRIVE, DYN_MULTICHOICE_CB_SHOW_ITEM
+	giveitem VAR_RESULT
+	compare VAR_RESULT, 0
+	goto_if_eq P2Laboratory_ScientistGiveFirstDrive_1
+	setflag FLAG_OBTAINED_GENESECT_DRIVE
+	msgbox P2Laboratory_ScientistGiveFirstDrive_Text_6, MSGBOX_DEFAULT
+	return
+
+P2Laboratory_ScientistGiveFirstDrive_1:
+	msgbox P2Laboratory_ScientistGiveFirstDrive_Text_5, MSGBOX_DEFAULT
+	return
+
+
+P2Laboratory_ScientistSwapDrive::
+	setvar VAR_TEMP_0, ITEM_NONE
+	checkitem ITEM_SHOCK_DRIVE
+	compare VAR_RESULT, 0
+	goto_if_ne P2Laboratory_ScientistSwapDrive_2
+P2Laboratory_ScientistSwapDrive_1:
+	checkitem ITEM_BURN_DRIVE
+	compare VAR_RESULT, 0
+	goto_if_ne P2Laboratory_ScientistSwapDrive_5
+P2Laboratory_ScientistSwapDrive_4:
+	checkitem ITEM_CHILL_DRIVE
+	compare VAR_RESULT, 0
+	goto_if_ne P2Laboratory_ScientistSwapDrive_8
+P2Laboratory_ScientistSwapDrive_7:
+	checkitem ITEM_DOUSE_DRIVE
+	compare VAR_RESULT, 0
+	goto_if_ne P2Laboratory_ScientistSwapDrive_11
+P2Laboratory_ScientistSwapDrive_10:
+	compare VAR_TEMP_0, ITEM_NONE
+	goto_if_eq P2Laboratory_ScientistSwapDrive_14
+	compare VAR_TEMP_0, ITEM_SHOCK_DRIVE
+	goto_if_ne P2Laboratory_ScientistSwapDrive_17
+P2Laboratory_ScientistSwapDrive_16:
+	compare VAR_TEMP_0, ITEM_BURN_DRIVE
+	goto_if_ne P2Laboratory_ScientistSwapDrive_20
+P2Laboratory_ScientistSwapDrive_19:
+	compare VAR_TEMP_0, ITEM_CHILL_DRIVE
+	goto_if_ne P2Laboratory_ScientistSwapDrive_23
+P2Laboratory_ScientistSwapDrive_22:
+	compare VAR_TEMP_0, ITEM_DOUSE_DRIVE
+	goto_if_ne P2Laboratory_ScientistSwapDrive_26
+P2Laboratory_ScientistSwapDrive_25:
+	dynmultipush P2Laboratory_ScientistSwapDrive_Text_1, ITEM_NONE
+	msgbox P2Laboratory_ScientistSwapDrive_Text_2, MSGBOX_DEFAULT
+	dynmultistack 1, 1, FALSE, 4, FALSE, ITEM_NONE, DYN_MULTICHOICE_CB_SHOW_ITEM
+	switch VAR_RESULT
+	case ITEM_NONE, P2Laboratory_ScientistSwapDrive_30
+	case MULTI_B_PRESSED, P2Laboratory_ScientistSwapDrive_30
+	copyvar VAR_TEMP_1, VAR_RESULT
+	removeitem VAR_TEMP_0
+	giveitem VAR_TEMP_1
+	return
+
+P2Laboratory_ScientistSwapDrive_2:
+	setvar VAR_TEMP_0, ITEM_SHOCK_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_1
+
+P2Laboratory_ScientistSwapDrive_5:
+	setvar VAR_TEMP_0, ITEM_BURN_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_4
+
+P2Laboratory_ScientistSwapDrive_8:
+	setvar VAR_TEMP_0, ITEM_CHILL_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_7
+
+P2Laboratory_ScientistSwapDrive_11:
+	setvar VAR_TEMP_0, ITEM_DOUSE_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_10
+
+P2Laboratory_ScientistSwapDrive_14:
+	msgbox P2Laboratory_ScientistSwapDrive_Text_0, MSGBOX_DEFAULT
+	return
+
+P2Laboratory_ScientistSwapDrive_17:
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_1, ITEM_SHOCK_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_16
+
+P2Laboratory_ScientistSwapDrive_20:
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_2, ITEM_BURN_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_19
+
+P2Laboratory_ScientistSwapDrive_23:
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_3, ITEM_CHILL_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_22
+
+P2Laboratory_ScientistSwapDrive_26:
+	dynmultipush P2Laboratory_ScientistGiveFirstDrive_Text_4, ITEM_DOUSE_DRIVE
+	goto P2Laboratory_ScientistSwapDrive_25
+
+P2Laboratory_ScientistSwapDrive_30:
+	return
+
+
+P2Laboratory_Scientist::
+	lock
+	faceplayer
+	goto_if_unset FLAG_CAPTURED_GENESECT, P2Laboratory_Scientist_2
+	goto_if_set FLAG_OBTAINED_GENESECT_DRIVE, P2Laboratory_Scientist_5
+	call P2Laboratory_ScientistGiveFirstDrive
+P2Laboratory_Scientist_1:
+	release
+	return
+
+P2Laboratory_Scientist_2:
+	msgbox P2Laboratory_Scientist_Text_0
+	goto P2Laboratory_Scientist_1
+
+P2Laboratory_Scientist_5:
+	call P2Laboratory_ScientistSwapDrive
+	goto P2Laboratory_Scientist_1
 
 
 P2Laboratory_CameraMoveUp:
@@ -158,6 +292,16 @@ P2Laboratory_ScientistWalkAway:
 	face_up
 	step_end
 
+P2Laboratory_ScientistWalkToGiveDrive:
+	walk_right
+	face_player
+	step_end
+
+P2Laboratory_ScientistWalkBackFromeGiveDrive:
+	walk_left
+	face_up
+	step_end
+
 P2Laboratory_GenesectEvent_Text_0:
 	.string "Oh, it's that kid from before...$"
 
@@ -165,9 +309,10 @@ P2Laboratory_GenesectEvent_Text_1:
 	.string "How did you find this place? We kept\n"
 	.string "this entire route completely blocked\l"
 	.string "off!\p"
-	.string "The fact that you are here means you\n"
-	.string "have come to stop whatever shady\l"
-	.string "things I may or may not be doing here...$"
+	.string "The fact that you are here surely means\n"
+	.string "you have come to stop whatever\l"
+	.string "“shady” things I may or may not be\l"
+	.string "doing...$"
 
 P2Laboratory_GenesectEvent_Text_2:
 	.string "We, Team Plasma...\p"
@@ -222,3 +367,66 @@ P2Laboratory_Genesect_Text_1:
 
 P2Laboratory_Genesect_Text_2:
 	.string "Genesect fled the laboratory...$"
+
+P2Laboratory_ScientistPostGenesectCapture_Text_0:
+	.string "Genesect deserves a proper trainer who\n"
+	.string "will treat it well...\n"
+	.string "Not a lab rat like me.\p"
+	.string "You seem to fit the bill.\n"
+	.string "Thank you for helping me see my errors.\p"
+	.string "I have one more thing before you\n"
+	.string "leave...\p"
+	.string "Genesect has been artificially\n"
+	.string "reconstructed with an extremely\l"
+	.string "powerful cannon on its back, giving it\l"
+	.string "the move Techno Blast.\p"
+	.string "By inserting a special drive into the\n"
+	.string "cannon, the move's type can be\l"
+	.string "changed.\p"
+	.string "You should take the one you want. If\n"
+	.string "you ever feel like swapping, you can\l"
+	.string "always come back and ask.$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_0:
+	.string "Which drive would you like?$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_1:
+	.string "Shock Drive$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_2:
+	.string "Burn Drive$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_3:
+	.string "Chill Drive$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_4:
+	.string "Douse Drive$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_5:
+	.string "Looks like you don't have enough space\n"
+	.string "to carry it... Come back when you make\l"
+	.string "some space.$"
+
+P2Laboratory_ScientistGiveFirstDrive_Text_6:
+	.string "Remember, you can always come back\n"
+	.string "again later if you want to swap.$"
+
+P2Laboratory_ScientistSwapDrive_Text_0:
+	.string "It seems you don't have the last drive I\n"
+	.string "gave you.\p"
+	.string "You'll have to find it if you want to\n"
+	.string "swap.$"
+
+P2Laboratory_ScientistSwapDrive_Text_1:
+	.string "No thanks!$"
+
+P2Laboratory_ScientistSwapDrive_Text_2:
+	.string "Would you like to swap Genesect's\n"
+	.string "drive?$"
+
+P2Laboratory_Scientist_Text_0:
+	.string "Despite Genesect being a lab\n"
+	.string "experiment, it still needs a home - a\l"
+	.string "partner...\p"
+	.string "You should show it what it means to be\n"
+	.string "with a trustworthy trainer.$"

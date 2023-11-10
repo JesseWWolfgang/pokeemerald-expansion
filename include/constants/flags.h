@@ -669,7 +669,7 @@
 #define FLAG_HIDDEN_ITEM_UNOVA_ROUTE_17_COVERT_CLOAK    0x272
 #define FLAG_DEFEATED_P2_SCIENTIST                      0x273
 #define FLAG_CAPTURED_GENESECT                          0x274
-#define FLAG_UNUSED_0x275  0x275 // Unused Flag
+#define FLAG_OBTAINED_GENESECT_DRIVE                    0x275
 #define FLAG_UNUSED_0x276  0x276 // Unused Flag
 #define FLAG_UNUSED_0x277  0x277 // Unused Flag
 #define FLAG_UNUSED_0x278  0x278 // Unused Flag

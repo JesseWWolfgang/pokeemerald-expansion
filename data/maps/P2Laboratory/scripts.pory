@@ -114,7 +114,7 @@ script P2Laboratory_Genesect {
             fadescreenswapbuffers(FADE_TO_BLACK)
             removeobject(VAR_LAST_TALKED)
             fadescreenswapbuffers(FADE_FROM_BLACK)
-            call(P2Laboratory_ScientistGivesFirstDrive)
+            call(P2Laboratory_ScientistPostGenesectCapture)
         case B_OUTCOME_RAN:
             msgbox(format("Genesect is watching carefully."), MSGBOX_DEFAULT)
         default:
@@ -127,10 +127,73 @@ script P2Laboratory_Genesect {
     end
 }
 
-script P2Laboratory_ScientistGivesFirstDrive {
+script P2Laboratory_ScientistPostGenesectCapture {
     applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkToGiveDrive)
     waitmovement(0)
-    
+    playerfaceobject(OBJECT_SCIENTIST)
+    msgbox(format("Genesect deserves a proper trainer who will treat it well...\nNot a lab rat like me.\p"
+    "You seem to fit the bill.\nThank you for helping me see my errors.\p"
+    "I have one more thing before you leave...\p"
+    "Genesect has been artificially reconstructed with an extremely powerful cannon on its back, giving it the move Techno Blast.\p"
+    "By inserting a special drive into the cannon, the move's type can be changed.\p"
+    "You should take the one you want. If you ever feel like swapping, you can always come back and ask."), MSGBOX_DEFAULT)
+    call(P2Laboratory_ScientistGiveFirstDrive)
+    closemessage
+    applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkBackFromeGiveDrive)
+    waitmovement(0)
+}
+
+script P2Laboratory_ScientistGiveFirstDrive {
+    msgbox(format("Which drive would you like?"), MSGBOX_DEFAULT)
+    dynmultipush("Shock Drive", ITEM_SHOCK_DRIVE)
+    dynmultipush("Burn Drive", ITEM_BURN_DRIVE)
+    dynmultipush("Chill Drive", ITEM_CHILL_DRIVE)
+    dynmultipush("Douse Drive", ITEM_DOUSE_DRIVE)
+    dynmultistack(1, 1, TRUE, 4, FALSE, ITEM_SHOCK_DRIVE, DYN_MULTICHOICE_CB_SHOW_ITEM)
+    giveitem(VAR_RESULT)
+    if (!var(VAR_RESULT)) { 
+        msgbox(format("Looks like you don't have enough space to carry it..."
+        "Come back when you make some space."), MSGBOX_DEFAULT)
+    }
+    else {
+        setflag(FLAG_OBTAINED_GENESECT_DRIVE)
+        msgbox(format("Remember, you can always come back again later if you want to swap."), MSGBOX_DEFAULT)
+    }
+}
+
+script P2Laboratory_ScientistSwapDrive {
+    setvar(VAR_TEMP_0, ITEM_NONE) // The last type of drive the player has in their bag.
+    checkitem(ITEM_SHOCK_DRIVE)
+    if (var(VAR_RESULT)) { setvar(VAR_TEMP_0, ITEM_SHOCK_DRIVE) }
+    checkitem(ITEM_BURN_DRIVE)
+    if (var(VAR_RESULT)) { setvar(VAR_TEMP_0, ITEM_BURN_DRIVE) }
+    checkitem(ITEM_CHILL_DRIVE)
+    if (var(VAR_RESULT)) { setvar(VAR_TEMP_0, ITEM_CHILL_DRIVE) }
+    checkitem(ITEM_DOUSE_DRIVE)
+    if (var(VAR_RESULT)) { setvar(VAR_TEMP_0, ITEM_DOUSE_DRIVE) }
+
+    if (var(VAR_TEMP_0) == ITEM_NONE) {
+        msgbox(format("It seems you don't have the last drive I gave you.\p"
+        "You'll have to find it if you want to swap."), MSGBOX_DEFAULT)
+        return
+    }
+
+    if (var(VAR_TEMP_0) != ITEM_SHOCK_DRIVE) { dynmultipush("Shock Drive", ITEM_SHOCK_DRIVE) }
+    if (var(VAR_TEMP_0) != ITEM_BURN_DRIVE) { dynmultipush("Burn Drive", ITEM_BURN_DRIVE) }
+    if (var(VAR_TEMP_0) != ITEM_CHILL_DRIVE) { dynmultipush("Chill Drive", ITEM_CHILL_DRIVE) }
+    if (var(VAR_TEMP_0) != ITEM_DOUSE_DRIVE) { dynmultipush("Douse Drive", ITEM_DOUSE_DRIVE) }
+    dynmultipush("No thanks!", ITEM_NONE)
+
+    msgbox(format("Would you like to swap Genesect's drive?"), MSGBOX_DEFAULT)
+    dynmultistack(1, 1, FALSE, 4, FALSE, ITEM_NONE, DYN_MULTICHOICE_CB_SHOW_ITEM)
+    switch(var(VAR_RESULT)) {
+        case ITEM_NONE:
+        case MULTI_B_PRESSED:
+            return
+    }
+    copyvar(VAR_TEMP_1, VAR_RESULT) // The selected item to swap to.
+    removeitem(VAR_TEMP_0)
+    giveitem(VAR_TEMP_1)
 }
 
 script P2Laboratory_Scientist {
@@ -141,8 +204,11 @@ script P2Laboratory_Scientist {
         "You should show it what it means to be with a trustworthy trainer."))
     } 
     else {
-        msgbox(format("Despite Genesect being a lab experiment, it still needs a home - a partner...\p"
-        "You should show it what it means to be with a trustworthy trainer."))
+        if (flag(FLAG_OBTAINED_GENESECT_DRIVE)) {
+            call(P2Laboratory_ScientistSwapDrive)
+        } else {
+            call(P2Laboratory_ScientistGiveFirstDrive)
+        }    
     }
     release
 }
@@ -153,3 +219,4 @@ movement P2Laboratory_PlayerWalkToTalk { walk_up * 5 face_up }
 movement P2Laboratory_ScientistWalkUp { walk_up * 2 }
 movement P2Laboratory_ScientistWalkAway { walk_up walk_left * 2 face_up }
 movement P2Laboratory_ScientistWalkToGiveDrive { walk_right face_player }
+movement P2Laboratory_ScientistWalkBackFromeGiveDrive { walk_left face_up }

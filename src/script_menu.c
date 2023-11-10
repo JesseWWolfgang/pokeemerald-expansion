@@ -160,6 +160,9 @@ static void MultichoiceDynamicEventDebug_OnDestroy(struct DynamicListMenuEventAr
 
 static void MultichoiceDynamicEventShowItem_OnInit(struct DynamicListMenuEventArgs *eventArgs)
 {
+    if (eventArgs->selectedItem == ITEM_NONE)
+        return;
+        
     struct WindowTemplate *template = &gWindows[eventArgs->windowId].window;
     u32 baseBlock = template->baseBlock + template->width * template->height;
     struct WindowTemplate auxTemplate = CreateWindowTemplate(0, template->tilemapLeft + template->width + 2, template->tilemapTop, 4, 4, 15, baseBlock);
@@ -184,7 +187,18 @@ static void MultichoiceDynamicEventShowItem_OnSelectionChanged(struct DynamicLis
         DestroySprite(&gSprites[sItemSpriteId]);
     }
 
-    sItemSpriteId = AddItemIconSprite(TAG_CB_ITEM_ICON, TAG_CB_ITEM_ICON, eventArgs->selectedItem);
+    if (eventArgs->selectedItem == ITEM_NONE)
+    {
+        MultichoiceDynamicEventShowItem_OnDestroy(eventArgs);
+        sItemSpriteId = MAX_SPRITES;
+        return;
+    }
+    else
+    {
+        if (sItemSpriteId == MAX_SPRITES)
+            MultichoiceDynamicEventShowItem_OnInit(eventArgs);
+        sItemSpriteId = AddItemIconSprite(TAG_CB_ITEM_ICON, TAG_CB_ITEM_ICON, eventArgs->selectedItem);
+    }
     gSprites[sItemSpriteId].oam.priority = 0;
     gSprites[sItemSpriteId].x = x;
     gSprites[sItemSpriteId].y = y;
