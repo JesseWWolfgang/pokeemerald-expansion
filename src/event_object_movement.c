@@ -288,6 +288,7 @@ static void (*const sMovementTypeCallbacks[])(struct Sprite *) =
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = MovementType_ForceRotateCounterclockwise,
     [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = MovementType_ForceRotateClockwise,
+    [MOVEMENT_TYPE_FACE_PLAYER] = MovementType_FacePlayer,
 };
 
 static const bool8 sMovementTypeHasRange[NUM_MOVEMENT_TYPES] = {
@@ -6130,6 +6131,33 @@ void SetStepAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 anim
 
 u8 GetDirectionToFace(s16 x, s16 y, s16 targetX, s16 targetY)
 {
+#if OW_USE_IMPROVED_FACING_DIRECTION
+    // Checks which direction has the longer displacement and faces that.
+
+    // If true, face left or right, otherwise up or down
+    // When both axes are equal, using < will prefer left/right over up/down. <= will prefer up/down over left/right.
+    bool8 yHasSmallerDiff = abs(targetY - y) <= abs(targetX - x); 
+
+    if (yHasSmallerDiff)
+    {
+        if (x > targetX)
+            return DIR_WEST;
+
+        if (x < targetX)
+            return DIR_EAST;
+    }
+    else
+    {
+        if (y > targetY)
+            return DIR_NORTH;
+
+        if (y < targetY)
+            return DIR_SOUTH;
+    }    
+
+    return DIR_SOUTH; // When current and target are same position, face south.
+#else
+    // Original - Always prefers left/right over up/down.
     if (x > targetX)
         return DIR_WEST;
 
@@ -6140,6 +6168,7 @@ u8 GetDirectionToFace(s16 x, s16 y, s16 targetX, s16 targetY)
         return DIR_NORTH;
 
     return DIR_SOUTH;
+#endif
 }
 
 void SetTrainerMovementType(struct ObjectEvent *objectEvent, u8 movementType)
@@ -10982,4 +11011,72 @@ bool8 MovementActionFunc_RunSlow_Step1(struct ObjectEvent *objectEvent, struct S
         return TRUE;
     }
     return FALSE;
+}
+
+bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 targetObjectId;
+    u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
+
+    if (targetLocalId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
+        FaceDirection(objectEvent, sprite, GetDirectionToFace(objectEvent->currentCoords.x,
+                                                              objectEvent->currentCoords.y,
+                                                              gObjectEvents[targetObjectId].currentCoords.x,
+                                                              gObjectEvents[targetObjectId].currentCoords.y));
+    sprite->sActionFuncId = 1;
+    return TRUE;
+}
+
+bool8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 targetObjectId;
+    u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
+
+    if (targetLocalId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
+        FaceDirection(objectEvent, sprite, GetOppositeDirection(GetDirectionToFace(objectEvent->currentCoords.x,
+                                                                                   objectEvent->currentCoords.y,
+                                                                                   gObjectEvents[targetObjectId].currentCoords.x,
+                                                                                   gObjectEvents[targetObjectId].currentCoords.y)));
+    sprite->sActionFuncId = 1;
+    return TRUE;
+}
+
+movement_type_def(MovementType_FacePlayer, gMovementTypeFuncs_FacePlayer)
+
+bool8 MovementType_FacePlayer_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    ClearObjectEventMovement(objectEvent, sprite); // Can be separated to its own 0 step and ObjectEventSetSingleMovement becomes step 1.
+    ObjectEventSetSingleMovement(objectEvent, sprite, MOVEMENT_ACTION_FACE_PLAYER);
+    sprite->sTypeFuncId = 1;
+    return TRUE;
+}
+
+bool8 MovementType_FacePlayer_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (!ObjectEventExecSingleMovementAction(objectEvent, sprite))
+        return FALSE;
+
+    SetMovementDelay(sprite, 8);
+    objectEvent->singleMovementActive = FALSE;
+    sprite->sTypeFuncId = 2;
+    return TRUE;
+}
+
+bool8 MovementType_FacePlayer_Step2(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (!WaitForMovementDelay(sprite) && !ObjectEventIsTrainerAndCloseToPlayer(objectEvent))
+        return FALSE;
+        
+    sprite->sTypeFuncId = 3;
+    return TRUE;
+}
+
+bool8 MovementType_FacePlayer_Step3(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    u8 direction = TryGetTrainerEncounterDirection(objectEvent, RUNFOLLOW_ANY);
+    if (direction == DIR_NONE)
+        direction = objectEvent->facingDirection;
+    SetObjectEventDirection(objectEvent, direction);
+    sprite->sTypeFuncId = 0;
+    return TRUE;
 }

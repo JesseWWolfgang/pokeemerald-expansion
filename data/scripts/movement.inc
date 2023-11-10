@@ -110,3 +110,12 @@ Common_Movement_WalkRight:
 Common_Movement_WalkLeft:
 	walk_left
 	step_end
+
+@ Enhanced Movement
+Common_Movement_FaceObject:
+	face_object
+	step_end
+
+Common_Movement_FaceAwayObject:
+	face_away_object
+	step_end

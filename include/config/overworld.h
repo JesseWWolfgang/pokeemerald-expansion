@@ -21,4 +21,7 @@
 // from the start of the game. If FALSE, it can only be unlocked after beating the game.
 #define OW_LILYCOVE_MYSTERYGIFT_ACCESSIBLE_FROM_START   TRUE
 
+// Enhanced Movement
+#define OW_USE_IMPROVED_FACING_DIRECTION    TRUE // If true, then GetDirectionToFace (used by face_player and face_object etc) will face along the axis that has the longer displacement.
+
 #endif // GUARD_CONFIG_OVERWORLD_H
