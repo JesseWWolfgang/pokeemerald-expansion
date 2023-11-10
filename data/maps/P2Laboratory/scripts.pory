@@ -41,7 +41,7 @@ script P2Laboratory_GenesectEvent {
     waitmovement(OBJ_EVENT_ID_PLAYER)
     waitmovement(OBJECT_SCIENTIST)
     msgbox(format("How did you find this place? We kept this entire route completely blocked off!\p"
-    "The fact that you are here means you have come to stop whatever shady things I may or may not be doing here..."), MSGBOX_DEFAULT)
+    "The fact that you are here surely means you have come to stop whatever “shady” things I may or may not be doing..."), MSGBOX_DEFAULT)
     closemessage
     applymovement(OBJECT_SCIENTIST, Common_Movement_WalkDown)
     waitmovement(0)
@@ -130,7 +130,7 @@ script P2Laboratory_Genesect {
 script P2Laboratory_ScientistGivesFirstDrive {
     applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkToGiveDrive)
     waitmovement(0)
-    applymovementplayerfacing()
+    
 }
 
 script P2Laboratory_Scientist {

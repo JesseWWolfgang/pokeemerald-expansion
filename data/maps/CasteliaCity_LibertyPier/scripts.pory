@@ -17,7 +17,7 @@ script CasteliaCity_SailorInteract {
         "They sped out of the port at a very dangerous speed too.\p"
         ".......\p"
         "He was working for Team Plasma on something suspicious...?\p"
-        "I see... I don't know what Team Plasma is, but if you're intent on following, just give me the word and I'll take you to wherever they were headed."), MSGBOX_NPC)
+        "I see... I don't know what Team Plasma is, but if you're intent on following, just give me the word and I'll take you to wherever they were headed."), MSGBOX_DEFAULT)
     }
     msgbox(format("Let me know when you are ready to depart."), MSGBOX_DEFAULT)
     dynmultichoice(1, 1, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Let's go", "Stay")
