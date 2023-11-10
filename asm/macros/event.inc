@@ -2096,9 +2096,21 @@
 	.endm
 
 	@ Turns the specified object to face the direction of the specified target.
-	@ This updates the VAR_TARGET_OBJECT_EVENT object.
-	.macro lookatobject localId:req, targetLocalId:req
+	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
+	.macro faceobject localId:req, targetLocalId:req
 	setvar VAR_TARGET_OBJECT_EVENT, \targetLocalId
 	applymovement \localId, Common_Movement_FaceObject
 	waitmovement 0
+	.endm
+
+	@ Turns the player to face the direction of the specified target.
+	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
+	.macro playerfaceobject targetLocalId:req
+	faceobject OBJ_EVENT_ID_PLAYER, \targetLocalId
+	.endm
+
+	@ Turns the object the player last talked with to face the direction of the specified target.
+	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
+	.macro lasttalkedfaceobject targetLocalId:req
+	faceobject VAR_LAST_TALKED, \targetLocalId
 	.endm
