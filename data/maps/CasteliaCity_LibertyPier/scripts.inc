@@ -128,6 +128,11 @@ CasteliaCity_FleaMarketsSign::
 	return
 
 
+CasteliaCity_StreetSign::
+	msgbox CasteliaCity_StreetSign_Text_0, MSGBOX_SIGN
+	return
+
+
 CasteliaCity_PierMan::
 	msgbox CasteliaCity_PierMan_Text_0, MSGBOX_NPC
 	return
@@ -801,6 +806,10 @@ CasteliaCity_FleaMarketsSign_Text_0:
 	.string "Castelia City's Flea Markets!\n"
 	.string "Permanently set up for all your\l"
 	.string "second-hand shopping needs!$"
+
+CasteliaCity_StreetSign_Text_0:
+	.string "{LEFT_ARROW} Liberty Pier\n"
+	.string "Narrow Street {RIGHT_ARROW}$"
 
 CasteliaCity_PierMan_Text_0:
 	.string "My goodness, this sure is a magnificent\n"
