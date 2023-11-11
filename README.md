@@ -1,6 +1,6 @@
 # feature/extended-mystery-gifts
 
-This feature introduces locations and encounters to mimic the corresponding events from later games.
+This feature introduces locations and encounters to mimic the corresponding events from later games, common myths and brand new theoretical encounter events.
 
 It is based on the feature/available-mystery-gifts
 
@@ -21,6 +21,7 @@ This feature uses:
 ## Southern Island
 
 Features Latias or Latios, whichever the player did not choose after beating the Elite Four, OR Latios if the player has not beaten the Elite Four.
+
 ## Navel Rock
 
 Features both Ho-oh and Lugia.
@@ -52,6 +53,9 @@ In addition, the player can also encounter the following Pokemon in the tall gra
 | Pansear   | 5%    |
 | Panpour   | 5%    |
 | Axew      | 1%    |
+
+![](docs/images/extended-mystery-gifts-victini-1.png)
+![](docs/images/extended-mystery-gifts-victini-2.png)
 
 ## Liberty Pier (Castelia City)
 
@@ -110,9 +114,23 @@ Additionally, the bartender sells:
 - Kee Berry
 - Maranga Berry
 
+![](docs/images/extended-mystery-gifts-meloetta-1.png)
+![](docs/images/extended-mystery-gifts-meloetta-2.png)
+
+## Unova Route 17 and P2 Laboratory
+
+There is an encounter with a scientist and reporter/cameraman at Liberty Pier in Castelia City that will unlock travel to Unova Route 17.
+
+At the end of the route lies the P2 Laboratory where Genesect can be encountered.
+
+After capturing Genesect, the player can receive their choice of the Genesect Drives to change the type of Techo Blast. Only one may be given at a time. (This is intentional primarily to save precious bag space)
+
+![](docs/images/extended-mystery-gifts-genesect-1.png)
+![](docs/images/extended-mystery-gifts-genesect-2.png)
+
 ## In Progress
-- P2 Laboratory
-    - Genesect
+- Space
+    - Jirachi
 
 # Planned Locations
 
@@ -123,5 +141,9 @@ Travel to space to encounter Jirachi.
 ## Ilex Forest
 
 The Ilex Forest shrine will enable a Celebi encounter.
+
+## Diancie
+
+An encounter and location for Diancie.
 
 ## Location and Mechanics
