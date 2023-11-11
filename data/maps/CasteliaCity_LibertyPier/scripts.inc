@@ -17,7 +17,7 @@ CasteliaCity_SailorInteract_6:
 
 CasteliaCity_SailorInteract_2:
 	setflag FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB
-	msgbox CasteliaCity_SailorInteract_Text_0, MSGBOX_NPC
+	msgbox CasteliaCity_SailorInteract_Text_0, MSGBOX_DEFAULT
 	goto CasteliaCity_SailorInteract_1
 
 CasteliaCity_SailorInteract_3:
@@ -50,7 +50,7 @@ CasteliaCity_AskHomeOrCasteliaCity_2:
 CasteliaCity_AskHomeOrCasteliaCity_6:
 	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_5, MSGBOX_NPC
 	call CasteliaCity_DepartWithSailor
-	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
+	warp MAP_LIBERTY_GARDEN_EXTERIOR, 1
 	waitstate
 	return
 
@@ -64,7 +64,7 @@ CasteliaCity_AskHomeOrCasteliaCity_7:
 CasteliaCity_AskHomeOrCasteliaCity_8:
 	msgbox CasteliaCity_AskHomeOrCasteliaCity_Text_7, MSGBOX_NPC
 	call CasteliaCity_DepartWithSailor
-	warp MAP_UNOVA_ROUTE17, 52, 79
+	warp MAP_UNOVA_ROUTE17, 1
 	waitstate
 	return
 

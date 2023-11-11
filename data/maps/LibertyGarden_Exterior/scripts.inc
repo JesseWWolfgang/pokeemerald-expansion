@@ -53,7 +53,7 @@ LibertyGarden_AskHomeOrCasteliaCity_2:
 LibertyGarden_AskHomeOrCasteliaCity_6:
 	msgbox LibertyGarden_AskHomeOrCasteliaCity_Text_5, MSGBOX_NPC
 	call LibertyGarden_DepartWithSailor
-	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28
+	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 2
 	waitstate
 	return
 

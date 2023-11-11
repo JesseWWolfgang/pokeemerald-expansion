@@ -310,14 +310,14 @@ LilycoveHarbor_SelectedLibertyPass_13:
 	msgbox LilycoveHarbor_SelectedLibertyPass_Text_8, MSGBOX_NPC
 	closemessage
 	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
-	warp MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15
+	warp MAP_LIBERTY_GARDEN_EXTERIOR, 1
 	goto LilycoveHarbor_SelectedLibertyPass_11
 
 LilycoveHarbor_SelectedLibertyPass_14:
 	msgbox LilycoveHarbor_SelectedLibertyPass_Text_9, MSGBOX_NPC
 	closemessage
 	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
-	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28
+	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 2
 	goto LilycoveHarbor_SelectedLibertyPass_11
 
 

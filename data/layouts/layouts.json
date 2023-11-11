@@ -4495,7 +4495,7 @@
       "id": "LAYOUT_UNOVA_ROUTE17",
       "name": "Unova_Route17_Layout",
       "width": 86,
-      "height": 86,
+      "height": 64,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Pacifidlog",
       "border_filepath": "data/layouts/Unova_Route17/border.bin",

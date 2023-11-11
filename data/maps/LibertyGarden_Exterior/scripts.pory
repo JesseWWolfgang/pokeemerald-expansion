@@ -4,6 +4,9 @@
 const OBJECT_SSTIDAL = 1
 const OBJECT_SAILOR = 2
 
+const LILYCOVE_WARP_X = 8
+const LILYCOVE_WARP_Y = 11
+
 mapscripts LibertyGarden_Exterior_MapScripts {
     
 }
@@ -54,12 +57,12 @@ script LibertyGarden_AskHomeOrCasteliaCity {
         case 0:
             msgbox(format("A short trip to Castelia City it is then! Jump on the ship and lets get going."), MSGBOX_NPC)
             call(LibertyGarden_DepartWithSailor)
-            warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28)
+            warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 2)
 	        waitstate
         case 1:
             msgbox(format("We've got a long voyage back to Lilycove City! All aboard!"), MSGBOX_NPC)
             call(LibertyGarden_DepartWithSailor)
-            warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+            warp(MAP_LILYCOVE_CITY_HARBOR, LILYCOVE_WARP_X, LILYCOVE_WARP_Y)
 	        waitstate
     }
 }

@@ -251,12 +251,12 @@ script LilycoveHarbor_SelectedLibertyPass {
 					msgbox(format("We're setting sail for the Libery Garden in Unova. All aboard!"), MSGBOX_NPC)
 					closemessage
 					call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
-					warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
+					warp(MAP_LIBERTY_GARDEN_EXTERIOR, 1)
 				case 1:
 					msgbox(format("We're setting sail for Castelia City in Unova. All aboard!"), MSGBOX_NPC)
 					closemessage
 					call(LilycoveCity_Harbor_EventScript_BoardFerryWithSailor)
-					warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28)
+					warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 2)
 			}
 			waitstate
 		}

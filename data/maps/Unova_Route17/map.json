@@ -17,7 +17,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SS_TIDAL",
       "x": 53,
-      "y": 82,
+      "y": 61,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -30,7 +30,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 53,
-      "y": 79,
+      "y": 58,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -43,7 +43,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 22,
-      "y": 54,
+      "y": 33,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -56,7 +56,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
       "x": 57,
-      "y": 25,
+      "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -69,7 +69,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 29,
-      "y": 35,
+      "y": 14,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -82,7 +82,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 6,
-      "y": 39,
+      "y": 18,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -96,9 +96,16 @@
   "warp_events": [
     {
       "x": 72,
-      "y": 28,
+      "y": 7,
       "elevation": 0,
       "dest_map": "MAP_P2LABORATORY",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 52,
+      "y": 58,
+      "elevation": 0,
+      "dest_map": "MAP_UNOVA_ROUTE17",
       "dest_warp_id": "0"
     }
   ],
@@ -106,14 +113,14 @@
     {
       "type": "weather",
       "x": 9,
-      "y": 57,
+      "y": 36,
       "elevation": 0,
       "weather": "COORD_EVENT_WEATHER_RAIN_THUNDERSTORM"
     },
     {
       "type": "weather",
       "x": 8,
-      "y": 58,
+      "y": 37,
       "elevation": 0,
       "weather": "COORD_EVENT_WEATHER_RAIN_THUNDERSTORM"
     }
@@ -122,10 +129,26 @@
     {
       "type": "hidden_item",
       "x": 27,
-      "y": 62,
+      "y": 41,
       "elevation": 0,
       "item": "ITEM_COVERT_CLOAK",
       "flag": "FLAG_HIDDEN_ITEM_UNOVA_ROUTE_17_COVERT_CLOAK"
+    },
+    {
+      "type": "sign",
+      "x": 74,
+      "y": 39,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Unova_Route17_RouteSign"
+    },
+    {
+      "type": "sign",
+      "x": 77,
+      "y": 45,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Unova_Route17_TeamPlasmaBlockedSign"
     }
   ]
 }

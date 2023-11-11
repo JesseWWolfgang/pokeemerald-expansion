@@ -1,22 +1,32 @@
 const OBJECT_SSTIDAL = 1
 const OBJECT_SAILOR = 2
 
+const WAREHOUSE_DOOR_X = 72
+const WAREHOUSE_DOOR_Y = 7
+const SAILOR_WARP_X = 52
+const SAILOR_WARP_Y = 58
+const LILYCOVE_WARP_X = 8
+const LILYCOVE_WARP_Y = 11
+
 mapscripts Unova_Route17_MapScripts {
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TEMP_LOADED, 0: Unova_Route17_SailorThisIsAsFarAsIGo
     ]
     MAP_SCRIPT_ON_TRANSITION {
         getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-        if (var(VAR_TEMP_0) == 72 && var(VAR_TEMP_1) == 28) {
+        if (var(VAR_TEMP_0) == WAREHOUSE_DOOR_X && var(VAR_TEMP_1) == WAREHOUSE_DOOR_Y) {
             setweather(WEATHER_RAIN_THUNDERSTORM)
         }
     }
 }
 
+script Unova_Route17_RouteSign { msgbox(format("{LEFT_ARROW} Route 17\n  Route 1 {RIGHT_ARROW}"), MSGBOX_SIGN) }
+script Unova_Route17_TeamPlasmaBlockedSign { msgbox(format("This route gate has been closed off for your protection.\l- Team Plasma"), MSGBOX_SIGN) }
+
 script Unova_Route17_SailorThisIsAsFarAsIGo {
     setvar(VAR_TEMP_LOADED, 1)
     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-    if (var(VAR_TEMP_0) == 52 && var(VAR_TEMP_1) == 79) {
+    if (var(VAR_TEMP_0) == SAILOR_WARP_X && var(VAR_TEMP_1) == SAILOR_WARP_Y) {
         lock
         delay(20)
         applymovement(OBJECT_SAILOR, Common_Movement_FacePlayer)
@@ -53,12 +63,12 @@ script Unova_Route17_AskHomeOrCasteliaCity {
         case 0:
             msgbox(format("Back to Castelia City it is then! Jump on the ship and lets get going."), MSGBOX_NPC)
             call(Unova_Route17_DepartWithSailor)
-            warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28)
+            warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 2)
 	        waitstate
         case 1:
             msgbox(format("We've got a long voyage back to Lilycove City! All aboard!"), MSGBOX_NPC)
             call(Unova_Route17_DepartWithSailor)
-            warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+            warp(MAP_LILYCOVE_CITY_HARBOR, LILYCOVE_WARP_X, LILYCOVE_WARP_Y)
 	        waitstate
     }
 }

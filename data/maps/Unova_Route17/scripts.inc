@@ -14,13 +14,23 @@ Unova_Route17_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	return
 
 Unova_Route17_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
-	compare VAR_TEMP_1, 28
+	compare VAR_TEMP_1, 7
 	goto_if_eq Unova_Route17_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	return
 
 Unova_Route17_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TEMP_LOADED, 0, Unova_Route17_SailorThisIsAsFarAsIGo
 	.2byte 0
+
+
+Unova_Route17_RouteSign::
+	msgbox Unova_Route17_RouteSign_Text_0, MSGBOX_SIGN
+	return
+
+
+Unova_Route17_TeamPlasmaBlockedSign::
+	msgbox Unova_Route17_TeamPlasmaBlockedSign_Text_0, MSGBOX_SIGN
+	return
 
 
 Unova_Route17_SailorThisIsAsFarAsIGo::
@@ -40,7 +50,7 @@ Unova_Route17_SailorThisIsAsFarAsIGo_1:
 	return
 
 Unova_Route17_SailorThisIsAsFarAsIGo_2:
-	compare VAR_TEMP_1, 79
+	compare VAR_TEMP_1, 58
 	goto_if_eq Unova_Route17_SailorThisIsAsFarAsIGo_1
 	return
 
@@ -80,7 +90,7 @@ Unova_Route17_AskHomeOrCasteliaCity::
 Unova_Route17_AskHomeOrCasteliaCity_2:
 	msgbox Unova_Route17_AskHomeOrCasteliaCity_Text_3, MSGBOX_NPC
 	call Unova_Route17_DepartWithSailor
-	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 10, 28
+	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 2
 	waitstate
 	return
 
@@ -135,6 +145,15 @@ Unova_Route17_FerryMovement:
 	walk_left
 	walk_left
 	step_end
+
+Unova_Route17_RouteSign_Text_0:
+	.string "{LEFT_ARROW} Route 17\n"
+	.string "Route 1 {RIGHT_ARROW}$"
+
+Unova_Route17_TeamPlasmaBlockedSign_Text_0:
+	.string "This route gate has been closed off for\n"
+	.string "your protection.\l"
+	.string "- Team Plasma$"
 
 Unova_Route17_SailorThisIsAsFarAsIGo_Text_0:
 	.string "This is about as far as I can take you.\n"

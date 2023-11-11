@@ -6,6 +6,9 @@ const OBJECT_P2_SCIENTIST = 9
 const OBJECT_SHADY_BOAT_MAN = 22
 const VAR_TEMP_FIRST_INTERACT_STATE = VAR_TEMP_0
 
+const LILYCOVE_WARP_X = 8
+const LILYCOVE_WARP_Y = 11
+
 mapscripts CasteliaCity_LibertyPier_MapScripts {}
 
 script CasteliaCity_SailorInteract {
@@ -47,17 +50,17 @@ script CasteliaCity_AskHomeOrCasteliaCity {
         case 0:
             msgbox(format("Alright, off to Liberty Garden. We're setting sail!"), MSGBOX_NPC)
             call(CasteliaCity_DepartWithSailor)
-            warp(MAP_LIBERTY_GARDEN_EXTERIOR, 6, 15)
+            warp(MAP_LIBERTY_GARDEN_EXTERIOR, 1)
 	        waitstate
         case 1:
             msgbox(format("We've a few days travel ahead of us! All aboard for the Hoenn region!"), MSGBOX_NPC)
             call(CasteliaCity_DepartWithSailor)
-            warp(MAP_LILYCOVE_CITY_HARBOR, 8, 11)
+            warp(MAP_LILYCOVE_CITY_HARBOR, LILYCOVE_WARP_X, LILYCOVE_WARP_Y)
 	        waitstate
         case 2:
             msgbox(format("Let me pull out my old Unova map. Hopefully it's still up to date. All aboard!"), MSGBOX_NPC)
             call(CasteliaCity_DepartWithSailor)
-            warp(MAP_UNOVA_ROUTE17, 52, 79)
+            warp(MAP_UNOVA_ROUTE17, 1)
 	        waitstate
     }
 }
