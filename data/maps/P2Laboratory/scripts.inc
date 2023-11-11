@@ -356,8 +356,10 @@ P2Laboratory_BattleScientist_Text_1:
 P2Laboratory_BattleScientist_Text_2:
 	.string "I'm going to wash my hands of this\n"
 	.string "Genesect matter...\p"
-	.string "I don't need this anymore...\n"
-	.string "Do as you wish.$"
+	.string "I don't have the right to continue\n"
+	.string "holding on to it anymore...\l"
+	.string "Kid, you may do as you wish.\p"
+	.string "Goodbye, Genesect...$"
 
 P2Laboratory_Genesect_Text_0:
 	.string "GWEEEEOYUUU!$"

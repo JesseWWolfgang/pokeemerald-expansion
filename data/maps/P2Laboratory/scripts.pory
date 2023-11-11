@@ -81,7 +81,8 @@ script P2Laboratory_BattleScientist {
     applymovement(OBJECT_SCIENTIST, P2Laboratory_ScientistWalkUp)
     waitmovement(0)
     msgbox(format("I'm going to wash my hands of this Genesect matter...\p"
-    "I don't need this anymore...\nDo as you wish."), MSGBOX_NPC)
+    "I don't have the right to continue holding on to it anymore...\lKid, you may do as you wish.\p"
+    "Goodbye, Genesect..."), MSGBOX_NPC)
     playse(SE_BALL_THROW)
     waitse
     playse(SE_BALL_OPEN)
