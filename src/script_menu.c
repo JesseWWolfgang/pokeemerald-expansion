@@ -401,7 +401,7 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     sDynamicMenuEventScratchPad = AllocZeroed(100 * sizeof(u16));
     if (sDynamicMenuEventId != DYN_MULTICHOICE_CB_NONE && sDynamicListMenuEventCollections[sDynamicMenuEventId].OnInit)
     {
-        struct DynamicListMenuEventArgs eventArgs = {.selectedItem = initialRow, .windowId = windowId, .list = NULL};
+        struct DynamicListMenuEventArgs eventArgs = {.selectedItem = items[initialRow].id, .windowId = windowId, .list = NULL};
         sDynamicListMenuEventCollections[sDynamicMenuEventId].OnInit(&eventArgs);
     }
 
