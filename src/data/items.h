@@ -8869,7 +8869,7 @@ const struct Item gItems[] =
     [ITEM_EON_TICKET] =
     {
         .name = _("Eon Ticket"),
-        .price = 50000,
+        .price = 25000,
         .description = sEonTicketDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
@@ -8881,7 +8881,7 @@ const struct Item gItems[] =
     [ITEM_MYSTIC_TICKET] =
     {
         .name = _("Mystic Ticket"),
-        .price = 65000,
+        .price = 45000,
         .description = sMysticTicketDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
@@ -8892,7 +8892,7 @@ const struct Item gItems[] =
     [ITEM_AURORA_TICKET] =
     {
         .name = _("Aurora Ticket"),
-        .price = 50000,
+        .price = 30000,
         .description = sAuroraTicketDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
@@ -8903,7 +8903,7 @@ const struct Item gItems[] =
     [ITEM_OLD_SEA_MAP] =
     {
         .name = _("Old Sea Map"),
-        .price = 50000,
+        .price = 30000,
         .description = sOldSeaMapDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
@@ -9809,7 +9809,7 @@ const struct Item gItems[] =
     [ITEM_LIBERTY_PASS] =
     {
         .name = _("Liberty Pass"),
-        .price = 50000,
+        .price = 65000,
         .description = sLibertyPassDesc,
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
