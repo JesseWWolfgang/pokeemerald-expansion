@@ -38,6 +38,7 @@ mart MysteryGiftGirl_Items {
     ITEM_AURORA_TICKET
     ITEM_OLD_SEA_MAP
     ITEM_LIBERTY_PASS
+    ITEM_WHITE_ROCK
     ITEM_ENIGMA_BERRY
 }
 

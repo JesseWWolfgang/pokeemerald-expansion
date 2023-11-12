@@ -861,6 +861,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_GLIMMERING_CHARM] = {gItemIcon_GlimmeringCharm, gItemIconPalette_GlimmeringCharm},
     // Extended Mystery Gift
     [ITEM_LIBERTY_PASS] = {gItemIcon_LibertyPass, gItemIconPalette_LibertyPass},
+    [ITEM_WHITE_ROCK] = {gItemIcon_OvalStone, gItemIconPalette_OvalStone},
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };

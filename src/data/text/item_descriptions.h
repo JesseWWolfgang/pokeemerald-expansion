@@ -3998,3 +3998,8 @@ static const u8 sLibertyPassDesc[] = _(
     "A ticket required\n"
     "to board the ship\n"
     "to Liberty Garden.");
+
+static const u8 sWhiteRockDesc[] = _(
+    "A smooth white\n"
+    "rock similar to the\n"
+    "one in Mossdeep.");
