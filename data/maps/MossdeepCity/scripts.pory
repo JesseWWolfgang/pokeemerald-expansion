@@ -1,30 +1,32 @@
-MossdeepCity_EventScript_WhiteRock::
-	goto_if_unset FLAG_TALKED_TO_WHITE_ROCK, MossdeepCity_EventScript_WhiteRock_2
-MossdeepCity_EventScript_WhiteRock_1:
-	msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
-	return
+const OBJECT_WHITE_ROCK_GIRL = 8
 
-MossdeepCity_EventScript_WhiteRock_2:
-	checkitem ITEM_WHITE_ROCK
-	compare VAR_RESULT, 0
-	goto_if_ne MossdeepCity_EventScript_WhiteRock_4
-	goto MossdeepCity_EventScript_WhiteRock_1
+script MossdeepCity_EventScript_WhiteRock {
+	if (!flag(FLAG_TALKED_TO_WHITE_ROCK)) { 
+		checkitem(ITEM_WHITE_ROCK)
+		if (var(VAR_RESULT)) {
+			lock
+			setflag(FLAG_TALKED_TO_WHITE_ROCK)
+			msgbox(MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN)
+			playse(SE_PIN)
+			applymovement(OBJECT_WHITE_ROCK_GIRL, Common_Movement_ExclamationMark)
+			waitmovement(0)
+			waitse
+			applymovement(OBJECT_WHITE_ROCK_GIRL, Common_Movement_FaceDown)
+			waitmovement(0)
+			msgbox(format("Oh... is that a piece of the white rock?\p"
+			"Huh, it's different after all.\p"
+			"The resemblance is uncanny, the colour and texture too.\p"
+			"I'm not sure how you found this, but I have this feeling that you were always destined to find it after all?\p"
+			"Perhaps someone somewhere made a wish upon a star...\p"
+			"You should go and show that white rock to the people at the SPACE CENTER.\lI think they might like to see it."), MSGBOX_DEFAULT)
+			release
+			end
+		}
+	}
+	msgbox(MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN)
+}
 
-MossdeepCity_EventScript_WhiteRock_4:
-	lock
-	setflag FLAG_TALKED_TO_WHITE_ROCK
-	msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
-	playse SE_PIN
-	applymovement 8, Common_Movement_ExclamationMark
-	waitmovement 0
-	waitse
-	applymovement 8, Common_Movement_FaceDown
-	waitmovement 0
-	msgbox MossdeepCity_EventScript_WhiteRock_Text_0, MSGBOX_DEFAULT
-	release
-	end
-
-
+raw `
 .set LOCALID_GRUNT_1, 10
 .set LOCALID_GRUNT_2, 11
 .set LOCALID_GRUNT_3, 12
@@ -459,17 +461,4 @@ MossdeepCity_Text_SootopolisNewGymLeader:
 	.string "LEADER come in.\p"
 	.string "People tell me the new LEADER once\n"
 	.string "mentored WALLACE.$"
-
-MossdeepCity_EventScript_WhiteRock_Text_0:
-	.string "Oh... is that a piece of the white rock?\p"
-	.string "Huh, it's different after all.\p"
-	.string "The resemblance is uncanny, the colour\n"
-	.string "and texture too.\p"
-	.string "I'm not sure how you found this, but I\n"
-	.string "have this feeling that you were always\l"
-	.string "destined to find it after all?\p"
-	.string "Perhaps someone somewhere made a wish\n"
-	.string "upon a star...\p"
-	.string "You should go and show that white rock\n"
-	.string "to the people at the SPACE CENTER.\l"
-	.string "I think they might like to see it.$"
+`

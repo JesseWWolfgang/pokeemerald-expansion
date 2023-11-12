@@ -1,108 +1,110 @@
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter::
+const OBJECT_LAUNCH_COUNTER_SCIENTIST = 1
+const OBJECT_SCIENTIST_2 = 2
+
+script MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter {
 	lock
 	faceplayer
-	goto_if_set FLAG_TALKED_TO_WHITE_ROCK, MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_2
-	goto_if_eq VAR_MOSSDEEP_CITY_STATE, 2, MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounterMagma
+	if (flag(FLAG_TALKED_TO_WHITE_ROCK)) {
+		if (flag(FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET)) {
+			msgbox(format("wanna go space?"), MSGBOX_YESNO)
+		}
+		else {
+			call(MossdeepCity_SpaceCenter_1F_ShowWhiteRock)
+		}
+		release
+		end
+	}
+
+	goto_if_eq(VAR_MOSSDEEP_CITY_STATE, 2, MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounterMagma)
 	dotimebasedevents
-	specialvar VAR_RESULT, GetWeekCount
-	buffernumberstring STR_VAR_1, VAR_RESULT
-	call_if_eq VAR_RESULT, 0, MossdeepCity_SpaceCenter_1F_EventScript_NoLaunchesYet
-	call_if_ge VAR_RESULT, 1, MossdeepCity_SpaceCenter_1F_EventScript_ShowLaunchNumber
+	specialvar(VAR_RESULT, GetWeekCount)
+	buffernumberstring(STR_VAR_1, VAR_RESULT)
+	call_if_eq(VAR_RESULT, 0, MossdeepCity_SpaceCenter_1F_EventScript_NoLaunchesYet)
+	call_if_ge(VAR_RESULT, 1, MossdeepCity_SpaceCenter_1F_EventScript_ShowLaunchNumber)
 	closemessage
-	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
-	waitmovement 0
+	applymovement(VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection)
+	waitmovement(0)
 	release
 	end
+}
 
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_2:
-	goto_if_set FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET, MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_5
-	call MossdeepCity_SpaceCenter_1F_ShowWhiteRock
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_4:
-	release
-	end
-
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_5:
-	msgbox MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_Text_0, MSGBOX_YESNO
-	goto MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_4
-
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock::
-	setflag FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET
-	buffernumberstring STR_VAR_1, 100
-	call MossdeepCity_SpaceCenter_1F_EventScript_ShowLaunchNumber
-	playse SE_PIN
-	applymovement 1, Common_Movement_ExclamationMark
-	waitmovement 0
+script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
+	setflag(FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET)
+	buffernumberstring(STR_VAR_1, 100)
+	call(MossdeepCity_SpaceCenter_1F_EventScript_ShowLaunchNumber)
+	playse(SE_PIN)
+	applymovement(OBJECT_LAUNCH_COUNTER_SCIENTIST, Common_Movement_ExclamationMark)
+	waitmovement(0)
 	waitse
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_0, MSGBOX_DEFAULT
-	playse SE_PIN
-	applymovement 2, Common_Movement_FaceRight
-	applymovement 2, Common_Movement_ExclamationMark
-	waitmovement 0
+	msgbox(format("Is that... a piece of the white rock just outside the space center?\p"
+		"No? Goodness it is remarkably similar!\p"
+		"This is incredible, these stones are very special to us here. They are small fragments of the Millennium Comet, a pure-white comet that is seen for only a single week every thousand years.\p"
+		"You must have seen it on TV right? The Milennium Festival where the comet is visible at night is in fact going to be prepared in the coming weeks..."), MSGBOX_DEFAULT)
+	playse(SE_PIN)
+	applymovement(OBJECT_SCIENTIST_2, Common_Movement_FaceRight)
+	applymovement(OBJECT_SCIENTIST_2, Common_Movement_ExclamationMark)
+	waitmovement(0)
 	waitse
-	delay 20
-	applymovement 2, MossdeepCity_SpaceCenter_1F_Scientist2ApproachPlayer
-	waitmovement 0
-	setvar VAR_TARGET_OBJECT_EVENT, 2
-	compare VAR_FACING, DIR_EAST
-	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_2
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_1:
-	applymovement 2, Common_Movement_WalkRight
-	waitmovement 0
-	playerfaceobject 2
-	applymovement 1, Common_Movement_FaceObject
-	waitmovement 0
-	delay 20
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_1, MSGBOX_DEFAULT
-	delay 20
-	applymovement 1, Common_Movement_FacePlayer
-	waitmovement 0
-	playerfaceobject 1
-	delay 20
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2, MSGBOX_DEFAULT
-	delay 20
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	waitmovement 0
-	playerfaceobject 2
-	delay 20
+	delay(20)
+	applymovement(OBJECT_SCIENTIST_2, MossdeepCity_SpaceCenter_1F_Scientist2ApproachPlayer)
+	waitmovement(0)
+	setvar(VAR_TARGET_OBJECT_EVENT, OBJECT_SCIENTIST_2)
+	if (var(VAR_FACING) == DIR_EAST) {
+		applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
+	}
+	applymovement(OBJECT_SCIENTIST_2, Common_Movement_WalkRight)
+	waitmovement(0)
+	playerfaceobject(OBJECT_SCIENTIST_2)
+	applymovement(OBJECT_LAUNCH_COUNTER_SCIENTIST, Common_Movement_FaceObject)
+	waitmovement(0)
+	delay(20)
+	msgbox(format("I couldn't help but overhear you pair talking about the Millennium Comet.\p"
+		"We have performed many geological studies on the white rock here in Mossdeep.\pNo other fragments have ever been reported showing up on Earth except the one right here.\p"
+		"And now of course this one you have right here...\p"
+		"To deepen the mystery, we also discovered minerals in the white rock that we have never identified in any other recorded comet.\p"
+		"Many of us here at the space center believe that the Millennium Comet is something very special."), MSGBOX_DEFAULT)
+	delay(20)
+	applymovement(OBJECT_LAUNCH_COUNTER_SCIENTIST, Common_Movement_FacePlayer)
+	waitmovement(0)
+	playerfaceobject(OBJECT_LAUNCH_COUNTER_SCIENTIST)
+	delay(20)
+	msgbox(format("It's quite a strange event that you show up right here at the space center now of all times kid...\p"
+		"With the festival just around the corner, the 100th successful rocket launch, and the comet approaching very soon, I think it can't just be a coincidence.\p"
+		".........\p"
+		"The comet is due to pass very close to our moon in about 18 days time.\p"
+		"You should join the spacecraft crew on their next journey to the moon for the event.\p"
+		"I'm not kidding either, this is truly a once in a lifetime opportunity to try and unravel the secrets the comet must hold.\p"
+		"It must either be destiny that brought you here today, or a long held wish from the cosmos..."), MSGBOX_DEFAULT)
+	delay(20)
+	applymovement(OBJECT_SCIENTIST_2, Common_Movement_WalkInPlaceDown)
+	waitmovement(0)
+	playerfaceobject(OBJECT_SCIENTIST_2)
+	delay(20)
 	checkplayergender
-	compare VAR_RESULT, MALE
-	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_5
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_4, MSGBOX_DEFAULT
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_4:
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_5, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_8
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7, MSGBOX_DEFAULT
-	return
+	if (var(VAR_RESULT) == MALE) {
+		msgbox(format("What do you say young man?"), MSGBOX_DEFAULT)
+	}
+	else {
+		msgbox(format("What do you say young lady?"), MSGBOX_DEFAULT)
+	}
+	msgbox(format("Would you like to join the crew on the next expedition to the moon?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		msgbox(format("You will be able to help us out with some incredible research. You should be proud!\p"
+			"Our team will help you prepare and tell you all that you need to know for space travel.\p"
+			"Please, follow us..."), MSGBOX_DEFAULT)
+		fadescreen(FADE_TO_BLACK)
+		delay(120)
+		fadescreen(FADE_FROM_BLACK)
+	}
+	else {
+		msgbox(format("I understand. It's a huge decision to make, travelling into space. Think it over and come back and talk to us if you decide to join."), MSGBOX_DEFAULT)
+	}
+}
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_2:
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown
-	goto MossdeepCity_SpaceCenter_1F_ShowWhiteRock_1
+movement MossdeepCity_SpaceCenter_1F_Scientist2ApproachPlayer { walk_right * 3 }
+movement MossdeepCity_SpaceCenter_1F_PlayerMoveForScientist2 { walk_down face_object }
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_5:
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3, MSGBOX_DEFAULT
-	goto MossdeepCity_SpaceCenter_1F_ShowWhiteRock_4
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_8:
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6, MSGBOX_DEFAULT
-	fadescreen FADE_TO_BLACK
-	delay 120
-	fadescreen FADE_FROM_BLACK
-	return
-
-
-MossdeepCity_SpaceCenter_1F_Scientist2ApproachPlayer:
-	walk_right
-	walk_right
-	walk_right
-	step_end
-
-MossdeepCity_SpaceCenter_1F_PlayerMoveForScientist2:
-	walk_down
-	face_object
-	step_end
-
+raw `
 .set LOCALID_SCIENTIST_1, 1
 .set LOCALID_SCIENTIST_2, 2
 .set LOCALID_SAILOR, 3
@@ -534,87 +536,4 @@ MossdeepCity_SpaceCenter_1F_Text_MagmaIntentToStealNotice:
 	.string "We will take the fuel no matter what.\p"
 	.string "“Let there be more land!\n"
 	.string "                                          TEAM MAGMA”$"
-
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_Text_0:
-	.string "wanna go space?$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_0:
-	.string "Is that... a piece of the white rock just\n"
-	.string "outside the space center?\p"
-	.string "No? Goodness it is remarkably similar!\p"
-	.string "This is incredible, these stones are\n"
-	.string "very special to us here. They are small\l"
-	.string "fragments of the Millennium Comet, a\l"
-	.string "pure-white comet that is seen for only\l"
-	.string "a single week every thousand years.\p"
-	.string "You must have seen it on TV right? The\n"
-	.string "Milennium Festival where the comet is\l"
-	.string "visible at night is in fact going to be\l"
-	.string "prepared in the coming weeks...$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_1:
-	.string "I couldn't help but overhear you pair\n"
-	.string "talking about the Millennium Comet.\p"
-	.string "We have performed many geological\n"
-	.string "studies on the white rock here in\l"
-	.string "Mossdeep.\p"
-	.string "No other fragments have ever been\n"
-	.string "reported showing up on Earth except\l"
-	.string "the one right here.\p"
-	.string "And now of course this one you have\n"
-	.string "right here...\p"
-	.string "To deepen the mystery, we also\n"
-	.string "discovered minerals in the white rock\l"
-	.string "that we have never identified in any\l"
-	.string "other recorded comet.\p"
-	.string "Many of us here at the space center\n"
-	.string "believe that the Millennium Comet is\l"
-	.string "something very special.$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2:
-	.string "It's quite a strange event that you\n"
-	.string "show up right here at the space center\l"
-	.string "now of all times kid...\p"
-	.string "With the festival just around the\n"
-	.string "corner, the 100th successful rocket\l"
-	.string "launch, and the comet approaching very\l"
-	.string "soon, I think it can't just be a\l"
-	.string "coincidence.\p"
-	.string ".........\p"
-	.string "The comet is due to pass very close to\n"
-	.string "our moon in about 18 days time.\p"
-	.string "You should join the spacecraft crew on\n"
-	.string "their next journey to the moon for the\l"
-	.string "event.\p"
-	.string "I'm not kidding either, this is truly a\n"
-	.string "once in a lifetime opportunity to try\l"
-	.string "and unravel the secrets the comet\l"
-	.string "must hold.\p"
-	.string "It must either be destiny that brought\n"
-	.string "you here today, or a long held wish from\l"
-	.string "the cosmos...$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3:
-	.string "What do you say young man?$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_4:
-	.string "What do you say young lady?$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_5:
-	.string "Would you like to join the crew on the\n"
-	.string "next expedition to the moon?$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6:
-	.string "You will be able to help us out with some\n"
-	.string "incredible research. You should be\l"
-	.string "proud!\p"
-	.string "Our team will help you prepare and tell\n"
-	.string "you all that you need to know for space\l"
-	.string "travel.\p"
-	.string "Please, follow us...$"
-
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7:
-	.string "I understand. It's a huge decision to\n"
-	.string "make, travelling into space. Think it\l"
-	.string "over and come back and talk to us if\l"
-	.string "you decide to join.$"
+`

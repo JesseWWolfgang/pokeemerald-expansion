@@ -44,7 +44,7 @@
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1773,
+					"line": 1774,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -64,7 +64,7 @@
 			"path": "src/pokemon.c",
 			"bookmarks": [
 				{
-					"line": 7433,
+					"line": 7448,
 					"column": 7,
 					"label": "Get Battle BGM"
 				}
