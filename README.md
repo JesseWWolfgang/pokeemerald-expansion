@@ -1,5 +1,5 @@
 # base/bare-minimum
-edit
+
 The bare minimum code required to make effective and instant development with pokeemerald.
 
 Contains:
