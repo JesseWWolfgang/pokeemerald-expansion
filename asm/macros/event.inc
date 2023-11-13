@@ -2114,3 +2114,9 @@
 	.macro lasttalkedfaceobject targetLocalId:req
 	faceobject VAR_LAST_TALKED, \targetLocalId
 	.endm
+
+	@ Turns the specified object to face the direction of the player.
+	.macro objectfaceplayer localId:req
+	applymovement \localId, Common_Movement_FacePlayer
+	waitmovement 0
+	.endm

@@ -614,6 +614,7 @@ u8 (*const *const gMovementActionFuncs[])(struct ObjectEvent *, struct Sprite *)
     [MOVEMENT_ACTION_WALK_FAST_DIAGONAL_DOWN_RIGHT] = gMovementActionFuncs_WalkFastDiagonalDownRight,
     [MOVEMENT_ACTION_FACE_OBJECT] = gMovementActionFuncs_FaceObject,
     [MOVEMENT_ACTION_FACE_AWAY_OBJECT] = gMovementActionFuncs_FaceAwayObject,
+    [MOVEMENT_ACTION_WALK_IN_PLACE] = gMovementActionFuncs_WalkInPlace,
 };
 
 u8 (*const gMovementActionFuncs_FaceDown[])(struct ObjectEvent *, struct Sprite *) = {
@@ -1605,5 +1606,11 @@ u8 (*const gMovementActionFuncs_FaceObject[])(struct ObjectEvent *, struct Sprit
 
 u8 (*const gMovementActionFuncs_FaceAwayObject[])(struct ObjectEvent *, struct Sprite *) = {
     MovementAction_FaceAwayObject_Step0,
+    MovementAction_PauseSpriteAnim,
+};
+
+u8 (*const gMovementActionFuncs_WalkInPlace[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_WalkInPlace_Step0,
+    MovementAction_WalkInPlace_Step1,
     MovementAction_PauseSpriteAnim,
 };

@@ -6,7 +6,7 @@ Adds extra features related to event object movement.
 
 Adds 2 script commands for locking the elevation of event objects to the desired elevation and resetting.
 
-They can be used as such using 4 as the desired elevation to lock at:
+They can be used such as in the following example where 4 is the desired elevation to lock at:
 
 ```
 lockelevation(GFX_ID_XYZ, 4)
@@ -27,6 +27,8 @@ Additionally adds 2 movement types that use these forced facing movements:
 
 - `MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE`
 - `MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE`
+
+These are useful for example when making dance animations such as when spinning while simultainously moving around.
 
 ## Fast Diagonal Walk
 
@@ -65,13 +67,14 @@ and corresponding
 These perform the same as `face_player` and `face_away_player` but instead of facing towards the player object, the 
 moving object will face in the direction of the object stored in `VAR_TARGET_OBJECT_EVENT`.
 
-This var is reset to 0xFF (empty) upon loading a map just the same as the temp vars, so it should be set before using these movements.
+This var is reset to OBJ_EVENT_ID_NONE (0xFE) upon loading a map just the same as the temp vars, so it should be set before using these movements.
 
 Script macros have also been added to perform the `varset`, `movement` and `waitmovement` calls in one go:
 
 - `faceobject(localId, targetLocalId)`
 - `playerfaceobject(targetLocalId)`
 - `lasttalkedfaceobject(targetLocalId)`
+- `objectfaceplayer(localId)` (doesn't update VAR_TARGET_OBJECT_EVENT)
 
 ## Improved Facing Direction
 
@@ -84,3 +87,10 @@ This will choose the direction that faces along the axis that has the longer dis
 
 Adds the `MOVEMENT_TYPE_FACE_PLAYER` movement type.
 This will make the object always face the player.
+
+## Walk in Place using Current Direction
+
+- `walk_in_place` and
+- `Common_Movement_WalkInPlace`
+
+These are the same as the existing walk in place actions but use the object's current direction.
