@@ -6,7 +6,7 @@ script MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter {
 	faceplayer
 	if (flag(FLAG_TALKED_TO_WHITE_ROCK)) {
 		if (flag(FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET)) {
-			msgbox(format("wanna go space?"), MSGBOX_YESNO)
+			call(MossdeepCity_SpaceCenter_1F_ReadyForSpace)
 		}
 		else {
 			call(MossdeepCity_SpaceCenter_1F_ShowWhiteRock)
@@ -40,7 +40,9 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 		"It's not? Goodness it is remarkably similar!\p"
 		"This is incredible, these stones are very special to us here.\p"
 		"They are small fragments of the Millennium Comet, a pure-white comet that is seen for only a single week every thousand years.\p"
-		"You must have seen it on TV right? The Milennium Festival where the comet is visible at night is in fact going to be prepared in the coming weeks..."), MSGBOX_DEFAULT)
+		"You might have heard this is due to happen very soon.\p"
+		"You've seen it on TV right?\p"
+		"The Milennium Festival where the comet is visible at night is being prepared in the coming weeks..."), MSGBOX_DEFAULT)
 	playse(SE_PIN)
 	applymovement(OBJECT_SCIENTIST_2, Common_Movement_ExclamationMark)
 	applymovement(OBJECT_SCIENTIST_2, Common_Movement_FaceRight)
@@ -63,7 +65,8 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 	faceobject(OBJECT_LAUNCH_COUNTER_SCIENTIST, OBJECT_SCIENTIST_2)
 	delay(20)
 	msgbox(format("I couldn't help but overhear you pair talking about the Millennium Comet.\p"
-		"We have performed many geological studies on the white rock here in Mossdeep.\pNo other fragments have ever been reported showing up on Earth except the one right here."), MSGBOX_DEFAULT)
+		"We have performed many geological studies on the white rock here in Mossdeep.\p"
+		"No other fragments have ever been reported showing up on Earth except the one right here."), MSGBOX_DEFAULT)
 	objectfaceplayer(OBJECT_SCIENTIST_2)
 	msgbox(format("And now of course this one you have right here...\p"
 		"To deepen the mystery, we also discovered minerals in the white rock that we have never identified in any other recorded comet.\p"
@@ -74,10 +77,11 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 	applymovement(OBJECT_LAUNCH_COUNTER_SCIENTIST, Common_Movement_WalkInPlace)
 	waitmovement(0)
 	delay(20)
-	msgbox(format("It's quite a strange event that you show up right here at the space center now of all times kid...\p"
-		"With the festival just around the corner, the 100th successful rocket launch, and the comet approaching very soon, I think it can't just be a coincidence.\p"
+	msgbox(format("Showing up right here at the space center now of all times is very bizarre...\p"
+		"With the festival just around the corner, the 100th successful rocket launch, and the comet approaching very soon...\p"
+		"I think it can't just be a coincidence.\p"
 		".........\p"
-		"The comet is due to pass very close to our moon in about 18 days time.\p"
+		"The comet is due to pass very close to our moon in about 2 weeks time.\p"
 		"You should join the spacecraft crew on their next journey to the moon for the event.\p"
 		"I'm not kidding either, this is truly a once in a lifetime opportunity to try and unravel the secrets the comet must hold.\p"
 		"It must either be destiny that brought you here today, or a long held wish from the cosmos..."), MSGBOX_DEFAULT)
@@ -96,8 +100,8 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 	msgbox(format("Would you like to join the crew on the next expedition to the moon?"), MSGBOX_YESNO)
 	if (var(VAR_RESULT) == YES) {
 		msgbox(format("You will be able to help us out with some incredible research. You should be proud!\p"
-			"Our team will help you prepare and tell you all that you need to know for space travel.\p"
-			"Please, follow us..."), MSGBOX_DEFAULT)
+			"Our team will help arrange the paperwork and prepare you for space travel.\p"
+			"Please return here as soon as you are ready for take-off."), MSGBOX_DEFAULT)
 		fadescreen(FADE_TO_BLACK)
 		delay(120)
 		fadescreen(FADE_FROM_BLACK)
@@ -110,6 +114,17 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 movement MossdeepCity_SpaceCenter_1F_Scientist2ApproachPlayer { walk_right * 3 }
 movement MossdeepCity_SpaceCenter_1F_PlayerMoveForScientist2 { walk_down face_object }
 movement MossdeepCity_SpaceCenter_1F_PlayerMoveToScientist2 { walk_down walk_left }
+
+script MossdeepCity_SpaceCenter_1F_ReadyForSpace {
+	msgbox(format("Have you prepared yourself for the trip to the moon?\p"
+	"Once we take off, you won't be able to come back until we have completed the expedition.\lAre you ready?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(format("Please get yourself ready and return ASAP, you won't want to miss this."), MSGBOX_YESNO)
+		return
+	}
+
+	msgbox(format(""), MSGBOX_YESNO)
+}
 
 raw `
 .set LOCALID_SCIENTIST_1, 1
