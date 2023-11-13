@@ -22,7 +22,7 @@ MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_4:
 	end
 
 MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_5:
-	msgbox MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_Text_0, MSGBOX_YESNO
+	call MossdeepCity_SpaceCenter_1F_ReadyForSpace
 	goto MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_4
 
 
@@ -95,9 +95,6 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_7:
 
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_10:
 	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7, MSGBOX_DEFAULT
-	fadescreen FADE_TO_BLACK
-	delay 120
-	fadescreen FADE_FROM_BLACK
 	return
 
 
@@ -116,6 +113,19 @@ MossdeepCity_SpaceCenter_1F_PlayerMoveToScientist2:
 	walk_down
 	walk_left
 	step_end
+
+MossdeepCity_SpaceCenter_1F_ReadyForSpace::
+	msgbox MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq MossdeepCity_SpaceCenter_1F_ReadyForSpace_2
+	msgbox MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2, MSGBOX_DEFAULT
+	warp MAP_LUNAR_SUMMIT, 0
+	return
+
+MossdeepCity_SpaceCenter_1F_ReadyForSpace_2:
+	msgbox MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_1, MSGBOX_DEFAULT
+	return
+
 
 .set LOCALID_SCIENTIST_1, 1
 .set LOCALID_SCIENTIST_2, 2
@@ -549,9 +559,6 @@ MossdeepCity_SpaceCenter_1F_Text_MagmaIntentToStealNotice:
 	.string "“Let there be more land!\n"
 	.string "                                          TEAM MAGMA”$"
 
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_Text_0:
-	.string "wanna go space?$"
-
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_0:
 	.string "Is that... a piece of the white rock just\n"
 	.string "outside the space center?\p"
@@ -592,8 +599,9 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2:
 	.string "something very special.$"
 
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3:
-	.string "Show up right here at the space center\n"
-	.string "now of all times is very bizarre...\p"
+	.string "Showing up right here at the space\n"
+	.string "center now of all times is very\l"
+	.string "bizarre...\p"
 	.string "With the festival just around the\n"
 	.string "corner, the 100th successful rocket\l"
 	.string "launch, and the comet approaching very\l"
@@ -627,13 +635,29 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7:
 	.string "You will be able to help us out with some\n"
 	.string "incredible research. You should be\l"
 	.string "proud!\p"
-	.string "Our team will help you prepare and tell\n"
-	.string "you all that you need to know for space\l"
+	.string "Our team will help arrange the\n"
+	.string "paperwork and prepare you for space\l"
 	.string "travel.\p"
-	.string "Please, follow us...$"
+	.string "Please return here as soon as you are\n"
+	.string "ready for take-off.$"
 
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_8:
 	.string "I understand. It's a huge decision to\n"
 	.string "make, travelling into space. Think it\l"
 	.string "over and come back and talk to us if\l"
 	.string "you decide to join.$"
+
+MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_0:
+	.string "Have you prepared yourself for the trip\n"
+	.string "to the moon?\p"
+	.string "Once we take off, you won't be able to\n"
+	.string "come back until we have completed the\l"
+	.string "expedition.\l"
+	.string "Are you ready?$"
+
+MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_1:
+	.string "Please get yourself ready and return\n"
+	.string "ASAP, you won't want to miss this.$"
+
+MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2:
+	.string "Take off$"

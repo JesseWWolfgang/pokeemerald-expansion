@@ -102,9 +102,6 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 		msgbox(format("You will be able to help us out with some incredible research. You should be proud!\p"
 			"Our team will help arrange the paperwork and prepare you for space travel.\p"
 			"Please return here as soon as you are ready for take-off."), MSGBOX_DEFAULT)
-		fadescreen(FADE_TO_BLACK)
-		delay(120)
-		fadescreen(FADE_FROM_BLACK)
 	}
 	else {
 		msgbox(format("I understand. It's a huge decision to make, travelling into space. Think it over and come back and talk to us if you decide to join."), MSGBOX_DEFAULT)
@@ -119,11 +116,12 @@ script MossdeepCity_SpaceCenter_1F_ReadyForSpace {
 	msgbox(format("Have you prepared yourself for the trip to the moon?\p"
 	"Once we take off, you won't be able to come back until we have completed the expedition.\lAre you ready?"), MSGBOX_YESNO)
 	if (var(VAR_RESULT) == NO) {
-		msgbox(format("Please get yourself ready and return ASAP, you won't want to miss this."), MSGBOX_YESNO)
+		msgbox(format("Please get yourself ready and return ASAP, you won't want to miss this."), MSGBOX_DEFAULT)
 		return
 	}
 
-	msgbox(format(""), MSGBOX_YESNO)
+	msgbox(format("Take off"), MSGBOX_DEFAULT)
+	warp(MAP_LUNAR_SUMMIT, 0)
 }
 
 raw `

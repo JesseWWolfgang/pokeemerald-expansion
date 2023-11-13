@@ -216,3 +216,6 @@ const u16 gMetatileAttributes_liberty_garden[] = INCBIN_U16("data/tilesets/secon
 
 const u16 gMetatiles_CafeSonata[] = INCBIN_U16("data/tilesets/secondary/cafe_sonata/metatiles.bin");
 const u16 gMetatileAttributes_CafeSonata[] = INCBIN_U16("data/tilesets/secondary/cafe_sonata/metatile_attributes.bin");
+
+const u16 gMetatiles_LunarSummit[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/metatiles.bin");
+const u16 gMetatileAttributes_LunarSummit[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/metatile_attributes.bin");

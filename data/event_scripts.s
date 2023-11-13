@@ -1081,3 +1081,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Unova_Route17/scripts.inc"
 
 	.include "data/maps/P2Laboratory/scripts.inc"
+
+	.include "data/maps/LunarSummit/scripts.inc"

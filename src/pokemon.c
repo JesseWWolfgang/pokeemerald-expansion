@@ -8251,6 +8251,9 @@ u16 GetBattleBGM(void)
                 case SPECIES_REGIELEKI:
                 case SPECIES_REGIDRAGO:
                     return MUS_VS_REGI;
+                case SPECIES_DEOXYS:
+                case SPECIES_JIRACHI:
+                    return MUS_RG_VS_DEOXYS;
                 case SPECIES_VICTINI:
                 case SPECIES_KELDEO:
                 case SPECIES_MELOETTA:

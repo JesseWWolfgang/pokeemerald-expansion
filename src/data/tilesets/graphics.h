@@ -1691,3 +1691,22 @@ const u16 gTilesetPalettes_CafeSonata[][16] =
 };
 
 const u32 gTilesetTiles_CafeSonata[] = INCBIN_U32("data/tilesets/secondary/cafe_sonata/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_LunarSummit[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lunar_summit/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_LunarSummit[] = INCBIN_U32("data/tilesets/secondary/lunar_summit/tiles.4bpp.lz");

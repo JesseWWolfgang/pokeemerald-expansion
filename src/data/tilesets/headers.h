@@ -858,3 +858,14 @@ const struct Tileset gTileset_CafeSonata =
     .metatileAttributes = gMetatileAttributes_CafeSonata,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_LunarSummit =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_LunarSummit,
+    .palettes = gTilesetPalettes_LunarSummit,
+    .metatiles = gMetatiles_LunarSummit,
+    .metatileAttributes = gMetatileAttributes_LunarSummit,
+    .callback = NULL,
+};

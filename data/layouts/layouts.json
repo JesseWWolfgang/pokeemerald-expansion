@@ -4510,6 +4510,16 @@
       "secondary_tileset": "gTileset_Lab",
       "border_filepath": "data/layouts/P2Laboratory/border.bin",
       "blockdata_filepath": "data/layouts/P2Laboratory/map.bin"
+    },
+    {
+      "id": "LAYOUT_LUNAR_SUMMIT",
+      "name": "LunarSummit_Layout",
+      "width": 76,
+      "height": 76,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_LunarSummit",
+      "border_filepath": "data/layouts/LunarSummit/border.bin",
+      "blockdata_filepath": "data/layouts/LunarSummit/map.bin"
     }
   ]
 }

@@ -9,7 +9,7 @@ PAL_NAMES := $(PAL_NUMS:%=palettes/%.pal)
 DEST_NAMES := tiles.png metatiles.bin metatile_attributes.bin $(PAL_NAMES)
 
 PRIMARY_TILESET_NAMES := porytiles_test porytiles_test2
-SECONDARY_TILESET_NAMES := porytiles_test_secondary liberty_garden cafe_sonata
+SECONDARY_TILESET_NAMES := porytiles_test_secondary liberty_garden cafe_sonata lunar_summit
 
 PRIMARY_TILESET_PATHS := $(patsubst %, $(TILESETS_DIR)/primary/%/, $(PRIMARY_TILESET_NAMES))
 PRIMARY_TARGETS := $(foreach P, $(PRIMARY_TILESET_PATHS), $(addprefix $(P), $(DEST_NAMES)))
@@ -41,3 +41,6 @@ $(addprefix $(TILESETS_DIR)/secondary/liberty_garden/, $(DEST_NAMES)) &: $(shell
 
 $(addprefix $(TILESETS_DIR)/secondary/cafe_sonata/, $(DEST_NAMES)) &: $(shell find $(PORYTILES_DIR)/secondary/cafe_sonata)
 	$(PORYTILES_BINARY) compile-secondary ${PORYARGS} -o $(TILESETS_DIR)/secondary/cafe_sonata $(PORYTILES_DIR)/secondary/cafe_sonata $(PORYTILES_DIR)/primary/porytiles_test
+
+$(addprefix $(TILESETS_DIR)/secondary/lunar_summit/, $(DEST_NAMES)) &: $(shell find $(PORYTILES_DIR)/secondary/lunar_summit)
+	$(PORYTILES_BINARY) compile-secondary ${PORYARGS} -o $(TILESETS_DIR)/secondary/lunar_summit $(PORYTILES_DIR)/secondary/lunar_summit $(PORYTILES_DIR)/primary/porytiles_test
