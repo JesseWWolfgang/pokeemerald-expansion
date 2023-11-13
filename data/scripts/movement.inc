@@ -119,3 +119,7 @@ Common_Movement_FaceObject:
 Common_Movement_FaceAwayObject:
 	face_away_object
 	step_end
+
+Common_Movement_WalkInPlace:
+	walk_in_place
+	step_end

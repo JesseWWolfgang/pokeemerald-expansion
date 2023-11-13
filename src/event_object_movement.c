@@ -11017,12 +11017,13 @@ bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sp
 {
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
     u8 targetObjectId = GetObjectEventIdByLocalId(targetLocalId);
-    
-    if (targetLocalId != 0xFF && targetObjectId != OBJECT_EVENTS_COUNT)
+        
+    if (targetLocalId != OBJ_EVENT_ID_NONE && targetObjectId != OBJECT_EVENTS_COUNT)
         FaceDirection(objectEvent, sprite, GetDirectionToFace(objectEvent->currentCoords.x,
                                                               objectEvent->currentCoords.y,
                                                               gObjectEvents[targetObjectId].currentCoords.x,
                                                               gObjectEvents[targetObjectId].currentCoords.y));
+
     sprite->sActionFuncId = 1;
     return TRUE;
 }
@@ -11032,7 +11033,7 @@ bool8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *objectEvent, struc
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
     u8 targetObjectId = GetObjectEventIdByLocalId(targetLocalId);
 
-    if (targetLocalId != 0xFF && targetObjectId != OBJECT_EVENTS_COUNT)
+    if (targetLocalId != OBJ_EVENT_ID_NONE && targetObjectId != OBJECT_EVENTS_COUNT)
         FaceDirection(objectEvent, sprite, GetOppositeDirection(GetDirectionToFace(objectEvent->currentCoords.x,
                                                                                    objectEvent->currentCoords.y,
                                                                                    gObjectEvents[targetObjectId].currentCoords.x,
@@ -11079,4 +11080,10 @@ bool8 MovementType_FacePlayer_Step3(struct ObjectEvent *objectEvent, struct Spri
     SetObjectEventDirection(objectEvent, direction);
     sprite->sTypeFuncId = 0;
     return TRUE;
+}
+
+bool8 MovementAction_WalkInPlace_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMoveInPlace(objectEvent, sprite, objectEvent->facingDirection, GetMoveDirectionAnimNum(objectEvent->facingDirection), 16);
+    return MovementAction_WalkInPlace_Step1(objectEvent, sprite);
 }
