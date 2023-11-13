@@ -41,8 +41,8 @@ script MossdeepCity_SpaceCenter_1F_ShowWhiteRock {
 		"This is incredible, these stones are very special to us here. They are small fragments of the Millennium Comet, a pure-white comet that is seen for only a single week every thousand years.\p"
 		"You must have seen it on TV right? The Milennium Festival where the comet is visible at night is in fact going to be prepared in the coming weeks..."), MSGBOX_DEFAULT)
 	playse(SE_PIN)
-	applymovement(OBJECT_SCIENTIST_2, Common_Movement_FaceRight)
 	applymovement(OBJECT_SCIENTIST_2, Common_Movement_ExclamationMark)
+	applymovement(OBJECT_SCIENTIST_2, Common_Movement_FaceRight)
 	waitmovement(0)
 	waitse
 	delay(20)

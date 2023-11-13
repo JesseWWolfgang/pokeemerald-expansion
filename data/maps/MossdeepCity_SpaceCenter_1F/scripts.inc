@@ -36,8 +36,8 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock::
 	waitse
 	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_0, MSGBOX_DEFAULT
 	playse SE_PIN
-	applymovement 2, Common_Movement_FaceRight
 	applymovement 2, Common_Movement_ExclamationMark
+	applymovement 2, Common_Movement_FaceRight
 	waitmovement 0
 	waitse
 	delay 20
