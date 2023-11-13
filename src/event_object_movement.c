@@ -11015,10 +11015,10 @@ bool8 MovementActionFunc_RunSlow_Step1(struct ObjectEvent *objectEvent, struct S
 
 bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    u8 targetObjectId;
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
-
-    if (targetLocalId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
+    u8 targetObjectId = GetObjectEventIdByLocalId(targetLocalId);
+    
+    if (targetLocalId != 0xFF && targetObjectId != OBJECT_EVENTS_COUNT)
         FaceDirection(objectEvent, sprite, GetDirectionToFace(objectEvent->currentCoords.x,
                                                               objectEvent->currentCoords.y,
                                                               gObjectEvents[targetObjectId].currentCoords.x,
@@ -11029,10 +11029,10 @@ bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sp
 
 bool8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    u8 targetObjectId;
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
+    u8 targetObjectId = GetObjectEventIdByLocalId(targetLocalId);
 
-    if (targetLocalId != 0xFF && !TryGetObjectEventIdByLocalIdAndMap(targetLocalId, 0, 0, &targetObjectId))
+    if (targetLocalId != 0xFF && targetObjectId != OBJECT_EVENTS_COUNT)
         FaceDirection(objectEvent, sprite, GetOppositeDirection(GetDirectionToFace(objectEvent->currentCoords.x,
                                                                                    objectEvent->currentCoords.y,
                                                                                    gObjectEvents[targetObjectId].currentCoords.x,
