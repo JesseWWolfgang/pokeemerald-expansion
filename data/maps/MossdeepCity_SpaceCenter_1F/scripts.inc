@@ -46,20 +46,25 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock::
 	setvar VAR_TARGET_OBJECT_EVENT, 2
 	compare VAR_FACING, DIR_EAST
 	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_2
+	compare VAR_FACING, DIR_WEST
+	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_3
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_1:
 	applymovement 2, Common_Movement_WalkRight
-	waitmovement 0
+	waitmovement 2
+	waitmovement OBJ_EVENT_ID_PLAYER
 	playerfaceobject 2
-	applymovement 1, Common_Movement_FaceObject
-	waitmovement 0
+	faceobject 1, 2
 	delay 20
 	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_1, MSGBOX_DEFAULT
-	delay 20
-	applymovement 1, Common_Movement_FacePlayer
-	waitmovement 0
-	playerfaceobject 1
-	delay 20
+	objectfaceplayer 2
 	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2, MSGBOX_DEFAULT
+	delay 20
+	objectfaceplayer 1
+	playerfaceobject 1
+	applymovement 1, Common_Movement_WalkInPlace
+	waitmovement 0
+	delay 20
+	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3, MSGBOX_DEFAULT
 	delay 20
 	applymovement 2, Common_Movement_WalkInPlaceDown
 	waitmovement 0
@@ -67,25 +72,29 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_1:
 	delay 20
 	checkplayergender
 	compare VAR_RESULT, MALE
-	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_5
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_4, MSGBOX_DEFAULT
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_4:
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_5, MSGBOX_YESNO
+	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_7
+	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_5, MSGBOX_DEFAULT
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_6:
+	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6, MSGBOX_YESNO
 	compare VAR_RESULT, YES
-	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_8
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7, MSGBOX_DEFAULT
+	goto_if_eq MossdeepCity_SpaceCenter_1F_ShowWhiteRock_10
+	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_8, MSGBOX_DEFAULT
 	return
 
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_2:
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown
 	goto MossdeepCity_SpaceCenter_1F_ShowWhiteRock_1
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_5:
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3, MSGBOX_DEFAULT
-	goto MossdeepCity_SpaceCenter_1F_ShowWhiteRock_4
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_3:
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_1F_PlayerMoveToScientist2
+	goto MossdeepCity_SpaceCenter_1F_ShowWhiteRock_1
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_8:
-	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6, MSGBOX_DEFAULT
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_7:
+	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_4, MSGBOX_DEFAULT
+	goto MossdeepCity_SpaceCenter_1F_ShowWhiteRock_6
+
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_10:
+	msgbox MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
 	delay 120
 	fadescreen FADE_FROM_BLACK
@@ -101,6 +110,11 @@ MossdeepCity_SpaceCenter_1F_Scientist2ApproachPlayer:
 MossdeepCity_SpaceCenter_1F_PlayerMoveForScientist2:
 	walk_down
 	face_object
+	step_end
+
+MossdeepCity_SpaceCenter_1F_PlayerMoveToScientist2:
+	walk_down
+	walk_left
 	step_end
 
 .set LOCALID_SCIENTIST_1, 1
@@ -541,12 +555,14 @@ MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter_Text_0:
 MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_0:
 	.string "Is that... a piece of the white rock just\n"
 	.string "outside the space center?\p"
-	.string "No? Goodness it is remarkably similar!\p"
+	.string "It's not? Goodness it is remarkably\n"
+	.string "similar!\p"
 	.string "This is incredible, these stones are\n"
-	.string "very special to us here. They are small\l"
-	.string "fragments of the Millennium Comet, a\l"
-	.string "pure-white comet that is seen for only\l"
-	.string "a single week every thousand years.\p"
+	.string "very special to us here.\p"
+	.string "They are small fragments of the\n"
+	.string "Millennium Comet, a pure-white comet\l"
+	.string "that is seen for only a single week\l"
+	.string "every thousand years.\p"
 	.string "You must have seen it on TV right? The\n"
 	.string "Milennium Festival where the comet is\l"
 	.string "visible at night is in fact going to be\l"
@@ -560,7 +576,9 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_1:
 	.string "Mossdeep.\p"
 	.string "No other fragments have ever been\n"
 	.string "reported showing up on Earth except\l"
-	.string "the one right here.\p"
+	.string "the one right here.$"
+
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2:
 	.string "And now of course this one you have\n"
 	.string "right here...\p"
 	.string "To deepen the mystery, we also\n"
@@ -571,7 +589,7 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_1:
 	.string "believe that the Millennium Comet is\l"
 	.string "something very special.$"
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2:
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3:
 	.string "It's quite a strange event that you\n"
 	.string "show up right here at the space center\l"
 	.string "now of all times kid...\p"
@@ -594,17 +612,17 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_2:
 	.string "you here today, or a long held wish from\l"
 	.string "the cosmos...$"
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_3:
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_4:
 	.string "What do you say young man?$"
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_4:
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_5:
 	.string "What do you say young lady?$"
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_5:
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6:
 	.string "Would you like to join the crew on the\n"
 	.string "next expedition to the moon?$"
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6:
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7:
 	.string "You will be able to help us out with some\n"
 	.string "incredible research. You should be\l"
 	.string "proud!\p"
@@ -613,7 +631,7 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_6:
 	.string "travel.\p"
 	.string "Please, follow us...$"
 
-MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_7:
+MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_8:
 	.string "I understand. It's a huge decision to\n"
 	.string "make, travelling into space. Think it\l"
 	.string "over and come back and talk to us if\l"
