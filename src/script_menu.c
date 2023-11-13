@@ -157,9 +157,16 @@ static void MultichoiceDynamicEventDebug_OnDestroy(struct DynamicListMenuEventAr
 #define sAuxWindowId sDynamicMenuEventScratchPad[0]
 #define sItemSpriteId sDynamicMenuEventScratchPad[1]
 #define TAG_CB_ITEM_ICON 3000
+#define AUX_WINDOW_NOT_VISIBLE 0xFFFF
 
 static void MultichoiceDynamicEventShowItem_OnInit(struct DynamicListMenuEventArgs *eventArgs)
-{
+{   
+    if (eventArgs->selectedItem == ITEM_NONE)
+    {
+        sAuxWindowId = AUX_WINDOW_NOT_VISIBLE;
+        return;
+    }
+
     struct WindowTemplate *template = &gWindows[eventArgs->windowId].window;
     u32 baseBlock = template->baseBlock + template->width * template->height;
     struct WindowTemplate auxTemplate = CreateWindowTemplate(0, template->tilemapLeft + template->width + 2, template->tilemapTop, 4, 4, 15, baseBlock);
@@ -173,6 +180,24 @@ static void MultichoiceDynamicEventShowItem_OnInit(struct DynamicListMenuEventAr
 
 static void MultichoiceDynamicEventShowItem_OnSelectionChanged(struct DynamicListMenuEventArgs *eventArgs)
 {
+    // If the item window is not visible, we either:
+    // A) keep it hidden and do nothing if there is no selected item or
+    // B) show the item window if there is now a selected item
+    if (sAuxWindowId == AUX_WINDOW_NOT_VISIBLE)
+    {
+        if (eventArgs->selectedItem == ITEM_NONE)
+            return;
+        else
+            MultichoiceDynamicEventShowItem_OnInit(eventArgs);
+    }
+
+    // If the item window is visible but there is now no selected item, we destroy the item window and return.
+    if (eventArgs->selectedItem == ITEM_NONE)
+    {
+        MultichoiceDynamicEventShowItem_OnDestroy(eventArgs);
+        return;
+    }
+
     struct WindowTemplate *template = &gWindows[eventArgs->windowId].window;
     u32 x = template->tilemapLeft * 8 + template->width * 8 + 36;
     u32 y = template->tilemapTop * 8 + 20;
@@ -192,8 +217,12 @@ static void MultichoiceDynamicEventShowItem_OnSelectionChanged(struct DynamicLis
 
 static void MultichoiceDynamicEventShowItem_OnDestroy(struct DynamicListMenuEventArgs *eventArgs)
 {
+    if (sAuxWindowId == AUX_WINDOW_NOT_VISIBLE)
+        return;
+    
     ClearStdWindowAndFrame(sAuxWindowId, TRUE);
     RemoveWindow(sAuxWindowId);
+    sAuxWindowId = AUX_WINDOW_NOT_VISIBLE;
 
     if (sItemSpriteId != MAX_SPRITES)
     {
@@ -206,6 +235,7 @@ static void MultichoiceDynamicEventShowItem_OnDestroy(struct DynamicListMenuEven
 #undef sAuxWindowId
 #undef sItemSpriteId
 #undef TAG_CB_ITEM_ICON
+#undef AUX_WINDOW_NOT_VISIBLE
 
 static void FreeListMenuItems(struct ListMenuItem *items, u32 count)
 {
@@ -371,7 +401,7 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
     sDynamicMenuEventScratchPad = AllocZeroed(100 * sizeof(u16));
     if (sDynamicMenuEventId != DYN_MULTICHOICE_CB_NONE && sDynamicListMenuEventCollections[sDynamicMenuEventId].OnInit)
     {
-        struct DynamicListMenuEventArgs eventArgs = {.selectedItem = initialRow, .windowId = windowId, .list = NULL};
+        struct DynamicListMenuEventArgs eventArgs = {.selectedItem = items[initialRow].id, .windowId = windowId, .list = NULL};
         sDynamicListMenuEventCollections[sDynamicMenuEventId].OnInit(&eventArgs);
     }
 
