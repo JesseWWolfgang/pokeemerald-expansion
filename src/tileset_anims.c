@@ -43,6 +43,9 @@ static void TilesetAnim_MauvilleGym(u16);
 static void TilesetAnim_BikeShop(u16);
 static void TilesetAnim_BattlePyramid(u16);
 static void TilesetAnim_BattleDome(u16);
+// Extended mystery gift
+static void TilesetAnim_Lunar(u16);
+
 static void QueueAnimTiles_General_Flower(u16);
 static void QueueAnimTiles_General_Water(u16);
 static void QueueAnimTiles_General_SandWaterEdge(u16);
