@@ -1529,8 +1529,8 @@ const u16 gObjectEventPal_HoOh[] = INCBIN_U16("graphics/object_events/palettes/h
 // const u32 gObjectEventPic_Pokemon_Species_384[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/384.4bpp");
 // const u16 gObjectEventPalette_Pokemon_Species_384[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/384.gbapal");
 
-// const u32 gObjectEventPic_Pokemon_Species_385[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/385.4bpp");
-// const u16 gObjectEventPalette_Pokemon_Species_385[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/385.gbapal");
+const u32 gObjectEventPic_Pokemon_Species_385[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/385.4bpp");
+const u16 gObjectEventPalette_Pokemon_Species_385[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/385.gbapal");
 
 // const u32 gObjectEventPic_Pokemon_Species_386[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/386.4bpp");
 // const u16 gObjectEventPalette_Pokemon_Species_386[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/386.gbapal");
