@@ -44,7 +44,7 @@ static void TilesetAnim_BikeShop(u16);
 static void TilesetAnim_BattlePyramid(u16);
 static void TilesetAnim_BattleDome(u16);
 // Extended mystery gift
-//static void TilesetAnim_Lunar(u16);
+static void TilesetAnim_LunarSummit(u16);
 
 static void QueueAnimTiles_General_Flower(u16);
 static void QueueAnimTiles_General_Water(u16);
@@ -76,6 +76,8 @@ static void QueueAnimTiles_MauvilleGym_ElectricGates(u16);
 static void QueueAnimTiles_SootopolisGym_Waterfalls(u16);
 static void QueueAnimTiles_EliteFour_GroundLights(u16);
 static void QueueAnimTiles_EliteFour_WallLights(u16);
+// Extended mystery gift
+static void QueueAnimTiles_LunarSummit_Comet(u16);
 
 const u16 gTilesetAnims_General_Flower_Frame1[] = INCBIN_U16("data/tilesets/primary/general/anim/flower/1.4bpp");
 const u16 gTilesetAnims_General_Flower_Frame0[] = INCBIN_U16("data/tilesets/primary/general/anim/flower/0.4bpp");
@@ -546,6 +548,28 @@ static const u16 *const sTilesetAnims_BattleDomeFloorLightPals[] = {
     gTilesetAnims_BattleDomePals0_2,
     gTilesetAnims_BattleDomePals0_3,
 };
+
+// Extended mystery gift
+#define TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(tileIndex) \
+    const u16 gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_" #tileIndex "/00.4bpp"); \
+    const u16 gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_" #tileIndex "/01.4bpp"); \
+    const u16 gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_" #tileIndex "/02.4bpp"); \
+    const u16 *const gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex[] = { \
+        gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame0, \
+        gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame1, \
+        gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame2, \
+    }
+
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(00);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(01);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(02);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(03);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(04);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(05);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(06);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(07);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(08);
+TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(09);
 
 static void ResetTilesetAnimBuffer(void)
 {
@@ -1188,4 +1212,16 @@ static void BlendAnimPalette_BattleDome_FloorLightsNoBlend(u16 timer)
         if (!--sSecondaryTilesetAnimCounterMax)
             sSecondaryTilesetAnimCallback = NULL;
     }
+}
+
+static void TilesetAnim_LunarSummit(u16 timer)
+{
+    if (timer % 2 == 0)
+        QueueAnimTiles_LunarSummit_Comet(timer / 2);
+}
+
+static void QueueAnimTiles_LunarSummit_Comet(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_LandWaterEdge);
+    AppendTilesetAnimToBuffer(gTilesetAnims_General_LandWaterEdge[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(480)), 10 * TILE_SIZE_4BPP);
 }
