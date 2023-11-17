@@ -550,26 +550,88 @@ static const u16 *const sTilesetAnims_BattleDomeFloorLightPals[] = {
 };
 
 // Extended mystery gift
-#define TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(tileIndex) \
-    const u16 gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_" #tileIndex "/00.4bpp"); \
-    const u16 gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_" #tileIndex "/01.4bpp"); \
-    const u16 gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_" #tileIndex "/02.4bpp"); \
-    const u16 *const gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex[] = { \
-        gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame0, \
-        gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame1, \
-        gTilesetAnims_LunarSummit_Comet_Tile ## tileIndex ## _Frame2, \
-    }
+const u16 gTilesetAnims_LunarSummit_Comet_Tile00_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_00/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile00_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_00/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile00_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_00/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile00[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile00_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile00_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile00_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile01_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_01/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile01_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_01/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile01_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_01/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile01[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile01_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile01_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile01_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile02_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_02/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile02_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_02/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile02_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_02/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile02[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile02_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile02_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile02_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile03_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_03/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile03_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_03/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile03_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_03/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile03[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile03_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile03_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile03_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile04_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_04/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile04_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_04/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile04_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_04/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile04[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile04_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile04_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile04_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile05_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_05/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile05_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_05/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile05_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_05/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile05[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile05_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile05_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile05_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile06_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_06/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile06_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_06/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile06_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_06/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile06[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile06_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile06_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile06_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile07_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_07/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile07_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_07/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile07_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_07/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile07[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile07_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile07_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile07_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile08_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_08/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile08_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_08/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile08_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_08/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile08[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile08_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile08_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile08_Frame2,
+};
+const u16 gTilesetAnims_LunarSummit_Comet_Tile09_Frame0[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_09/00.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile09_Frame1[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_09/01.4bpp");
+const u16 gTilesetAnims_LunarSummit_Comet_Tile09_Frame2[] = INCBIN_U16("data/tilesets/secondary/lunar_summit/anim/comet_09/02.4bpp");
+const u16 *const gTilesetAnims_LunarSummit_Comet_Tile09[] = {
+        gTilesetAnims_LunarSummit_Comet_Tile09_Frame0,
+        gTilesetAnims_LunarSummit_Comet_Tile09_Frame1,
+        gTilesetAnims_LunarSummit_Comet_Tile09_Frame2,
+};
 
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(00);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(01);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(02);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(03);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(04);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(05);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(06);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(07);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(08);
-TILESET_ANIMS_LUNAR_SUMMIT_COMET_TILE(09);
+
 
 static void ResetTilesetAnimBuffer(void)
 {
@@ -1214,14 +1276,15 @@ static void BlendAnimPalette_BattleDome_FloorLightsNoBlend(u16 timer)
     }
 }
 
-static void TilesetAnim_LunarSummit(u16 timer)
+static void UNUSED TilesetAnim_LunarSummit(u16 timer)
 {
     if (timer % 2 == 0)
         QueueAnimTiles_LunarSummit_Comet(timer / 2);
 }
 
-static void QueueAnimTiles_LunarSummit_Comet(u16 timer)
+static void UNUSED QueueAnimTiles_LunarSummit_Comet(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_LandWaterEdge);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_LandWaterEdge[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(480)), 10 * TILE_SIZE_4BPP);
+    // Each comet tile has same num of frames
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_LunarSummit_Comet_Tile00);
+    AppendTilesetAnimToBuffer(gTilesetAnims_LunarSummit_Comet_Tile00[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(480)), 10 * TILE_SIZE_4BPP);
 }
