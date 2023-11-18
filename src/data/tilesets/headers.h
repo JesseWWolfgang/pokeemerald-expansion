@@ -867,5 +867,5 @@ const struct Tileset gTileset_LunarSummit =
     .palettes = gTilesetPalettes_LunarSummit,
     .metatiles = gMetatiles_LunarSummit,
     .metatileAttributes = gMetatileAttributes_LunarSummit,
-    .callback = NULL,
+    .callback = InitTilesetAnim_LunarSummit,
 };
