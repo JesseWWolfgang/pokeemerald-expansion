@@ -1217,7 +1217,6 @@ static void TilesetAnim_LunarSummit(u16 timer)
 
 static void QueueAnimTiles_LunarSummit_Comet(u16 timer)
 {
-    // Each comet tile has same num of frames
     u16 i = timer % ARRAY_COUNT(gTilesetAnims_LunarSummit_Comet);
     AppendTilesetAnimToBuffer(gTilesetAnims_LunarSummit_Comet[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 0)), (4 * TILE_SIZE_4BPP) * 10);
 }

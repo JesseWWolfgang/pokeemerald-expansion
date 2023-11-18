@@ -1,4 +1,74 @@
-mapscripts LunarSummit_MapScripts {}
+const VAR_TEMP_WITNESSED_MILLENNIUM_COMET = VAR_TEMP_0
+const OBJECT_JIRACHI = 1
+
+mapscripts LunarSummit_MapScripts {
+    MAP_SCRIPT_ON_LOAD {
+        if (flag(FLAG_CAPTURED_VICTINI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+        else {
+            clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+
+        if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+            setvar(VAR_TEMP_WITNESSED_MILLENNIUM_COMET, 1)
+        }
+        else {
+            setvar(VAR_TEMP_WITNESSED_MILLENNIUM_COMET, 0)
+        }
+    }
+}
+
+script LunarSummit_WitnessMillenniumComet {
+    lock
+    setvar(VAR_TEMP_WITNESSED_MILLENNIUM_COMET, 1)
+    delay(60)
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveToComet)
+    waitmovement(0)
+    delay(120)
+    
+    // Sparkle
+    playse(SE_M_DETECT)
+	dofieldeffectsparkle(47, 3, 0)
+	waitfieldeffect(FLDEFF_SPARKLE)
+    delay(50)
+
+    // Orb anim
+    playfanfare(MUS_AWAKEN_LEGEND)
+	playse(SE_ORB)
+    setvar(VAR_RESULT, 4)
+    special(DoOrbEffect)
+    delay(500)
+    special(FadeOutOrbEffect)
+	waitstate
+
+    fadescreen(FADE_TO_WHITE)
+    clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+    addobject(OBJECT_JIRACHI)
+    setobjectxy(OBJECT_JIRACHI, 44, 4)
+    playse(SE_ICE_BREAK) 
+    fadescreen(FADE_FROM_WHITE)
+    waitse
+    delay(20)
+    playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    delay(60)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveFromComet)
+    waitmovement(0)
+    delay(20)
+    applymovement(OBJECT_JIRACHI, LunarSummit_JirachiMovesToBattle)
+    waitmovement(0)
+
+    special(RemoveCameraObject)
+    release
+}
+
+movement LunarSummit_CameraMoveToComet { walk_slow_up * 3 }
+movement LunarSummit_CameraMoveFromComet { walk_slow_down * 3 }
+movement LunarSummit_JirachiMovesToBattle { walk_slow_down * 2 }
+
 
 script LunarSummit_Jirachi {
     lock
@@ -8,6 +78,12 @@ script LunarSummit_Jirachi {
     msgbox(format("Ta-ta-ta-tah!"), MSGBOX_NPC)
     delay(20)
     waitmoncry
+
+    // Essential lol
+    
+
+
+
     setwildbattle(SPECIES_JIRACHI, 15)
     special(BattleSetup_StartLegendaryBattle)
     waitstate

@@ -35,6 +35,10 @@
 #include "trainer_hill.h"
 #include "fldeff.h"
 
+#define ORB_EFFECT_RED   0
+#define ORB_EFFECT_BLUE  1
+#define ORB_EFFECT_WHITE 2
+
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
 static void Task_DoContestHallWarp(u8);
@@ -1068,15 +1072,17 @@ void DoSpinExitWarp(void)
     CreateTask(Task_SpinExitWarp, 10);
 }
 
-static void LoadOrbEffectPalette(bool8 blueOrb)
+static void LoadOrbEffectPalette(u8 orbType) // 0 = Red, 1 = Blue, 2 = White
 {
     int i;
     u16 color[1];
 
-    if (!blueOrb)
+    if (orbType == ORB_EFFECT_RED)
         color[0] = RGB_RED;
-    else
+    else if (orbType == ORB_EFFECT_BLUE)
         color[0] = RGB_BLUE;
+    else if (orbType == ORB_EFFECT_WHITE)
+        color[0] = RGB_WHITE;
 
     for (i = 0; i < 16; i++)
         LoadPalette(color, BG_PLTT_ID(15) + i, PLTT_SIZEOF(1));
@@ -1106,7 +1112,7 @@ static bool8 UpdateOrbEffectBlend(u16 shakeDir)
         return FALSE;
 }
 
-#define tBlueOrb     data[1]
+#define tOrbType     data[1]
 #define tCenterX     data[2]
 #define tCenterY     data[3]
 #define tShakeDelay  data[4]
@@ -1116,6 +1122,7 @@ static bool8 UpdateOrbEffectBlend(u16 shakeDir)
 #define tBldAlpha    data[8]
 #define tWinIn       data[9]
 #define tWinOut      data[10]
+#define tOrbRadius   data[11]
 
 static void Task_OrbEffect(u8 taskId)
 {
@@ -1143,8 +1150,8 @@ static void Task_OrbEffect(u8 taskId)
         break;
     case 1:
         BgDmaFill(0, PIXEL_FILL(1), 0, 1);
-        LoadOrbEffectPalette(tBlueOrb);
-        StartUpdateOrbFlashEffect(tCenterX, tCenterY, 1, 160, 1, 2);
+        LoadOrbEffectPalette(tOrbType);
+        StartUpdateOrbFlashEffect(tCenterX, tCenterY, 1, tOrbRadius == 0 ? 160 : tOrbRadius, 1, 2);
         tState = 2;
         break;
     case 2:
@@ -1209,28 +1216,34 @@ void DoOrbEffect(void)
     u8 taskId = CreateTask(Task_OrbEffect, 80);
     s16 *data = gTasks[taskId].data;
 
+    tCenterY = 80;
     if (gSpecialVar_Result == 0)
     {
-        tBlueOrb = FALSE;
+        tOrbType = ORB_EFFECT_RED;
         tCenterX = 104;
     }
     else if (gSpecialVar_Result == 1)
     {
-        tBlueOrb = TRUE;
+        tOrbType = ORB_EFFECT_BLUE;
         tCenterX = 136;
     }
     else if (gSpecialVar_Result == 2)
     {
-        tBlueOrb = FALSE;
+        tOrbType = ORB_EFFECT_RED;
         tCenterX = 120;
     }
-    else
+    else if (gSpecialVar_Result == 3)
     {
-        tBlueOrb = TRUE;
+        tOrbType = ORB_EFFECT_BLUE;
         tCenterX = 120;
     }
-
-    tCenterY = 80;
+    else if (gSpecialVar_Result == 4)
+    {
+        tOrbType = ORB_EFFECT_WHITE;
+        tCenterX = 166;
+        tCenterY = 62;
+        tOrbRadius = 200;
+    }
 }
 
 void FadeOutOrbEffect(void)
@@ -1239,7 +1252,7 @@ void FadeOutOrbEffect(void)
     gTasks[taskId].tState = 6;
 }
 
-#undef tBlueOrb
+#undef tOrbType
 #undef tCenterX
 #undef tCenterY
 #undef tShakeDelay
@@ -1249,6 +1262,7 @@ void FadeOutOrbEffect(void)
 #undef tBldAlpha
 #undef tWinIn
 #undef tWinOut
+#undef tOrbRadius
 
 void Script_FadeOutMapMusic(void)
 {

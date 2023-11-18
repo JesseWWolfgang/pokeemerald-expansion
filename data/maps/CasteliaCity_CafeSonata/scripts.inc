@@ -541,14 +541,11 @@ CafeSonata_Mart:
 
 CafeSonata_Bard_CaughtMeloetta_Text_0:
 	.string "Let it sing the Relic Song.\p"
-	.string "Aria Forme will become Pirouette Forme\n"
-	.string "and vice versa.\p"
+	.string "Aria Forme will become Pirouette Forme and vice versa.\p"
 	.string "Want me to teach the Relic Song?$"
 
 CafeSonata_Bard_NotCaughtMeloetta_Text_0:
-	.string "The scent you brought me reminded me\n"
-	.string "of a long-ago melody from the fringes\l"
-	.string "of my sepia-toned memories.\p"
+	.string "The scent you brought me reminded me of a long-ago melody from the fringes of my sepia-toned memories.\p"
 	.string "It was a song my mother loved...\n"
 	.string "It makes me feel so nostalgic.\p"
 	.string "Would you like to hear the melody?$"
@@ -557,14 +554,9 @@ CafeSonata_Meloetta_Text_0:
 	.string "Aouueoeaa-{EMOJI_NOTE}$"
 
 CafeSonata_Meloetta_Text_1:
-	.string "My mother once told me of a Pokémon\n"
-	.string "that played a melody and danced so\l"
-	.string "lightly that it filled people's hearts\l"
-	.string "with joy.\p"
-	.string "Then sorrow darkened the entire world,\n"
-	.string "and the Pokémon lost the melody...\p"
-	.string "Also, at that time, some red shoes were\n"
-	.string "lost somewhere...$"
+	.string "My mother once told me of a Pokémon that played a melody and danced so lightly that it filled people's hearts with joy.\p"
+	.string "Then sorrow darkened the entire world, and the Pokémon lost the melody...\p"
+	.string "Also, at that time, some red shoes were lost somewhere...$"
 
 CafeSonata_Meloetta_Text_2:
 	.string "Meloetta is watching carefully.$"
@@ -573,24 +565,17 @@ CafeSonata_Meloetta_Text_3:
 	.string "Meloetta fled the café...$"
 
 CafeSonata_ManAtBar_Text_0:
-	.string "When I listen to his guitar, it reminds\n"
-	.string "me of leaving home for the first time,\l"
-	.string "and the tears of farewell my mother\l"
-	.string "cried...$"
+	.string "When I listen to his guitar, it reminds me of leaving home for the first time, and the tears of farewell my mother cried...$"
 
 CafeSonata_TableMan_Text_0:
-	.string "After a tiring day of work, this café is\n"
-	.string "a perfect spot to let your mind relax.$"
+	.string "After a tiring day of work, this café is a perfect spot to let your mind relax.$"
 
 CafeSonata_Barista_Text_0:
 	.string "You came all the way here.\n"
 	.string "Enjoy...$"
 
 CafeSonata_Bard_RememberedMelody::
-	.string "When you came through the door, I\n"
-	.string "remembered the melody!\p"
-	.string "And the Pokémon that had forgotten\n"
-	.string "how to dance began to step lightly\l"
-	.string "once more!\p"
+	.string "When you came through the door, I remembered the melody!\p"
+	.string "And the Pokémon that had forgotten how to dance began to step lightly once more!\p"
 	.string "You are the inspiration.\n"
 	.string "You are a mysterious child...$"

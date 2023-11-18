@@ -17,7 +17,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_POKEMON_385",
       "x": 44,
-      "y": 7,
+      "y": 6,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -25,7 +25,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "LunarSummit_Jirachi",
-      "flag": "0"
+      "flag": "FLAG_HIDE_SPECIAL_POKEMON_ON_MAP"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
@@ -43,15 +43,23 @@
   ],
   "warp_events": [
     {
-      "x": 63,
-      "y": 61,
+      "x": 48,
+      "y": 19,
       "elevation": 0,
       "dest_map": "MAP_LUNAR_SUMMIT",
       "dest_warp_id": "0"
     }
   ],
   "coord_events": [
-
+    {
+      "type": "trigger",
+      "x": 44,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "LunarSummit_WitnessMillenniumComet"
+    }
   ],
   "bg_events": [
 

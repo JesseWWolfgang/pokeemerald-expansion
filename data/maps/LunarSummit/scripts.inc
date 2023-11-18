@@ -1,6 +1,81 @@
 LunarSummit_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD
 	.byte 0
 
+LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD:
+	goto_if_set FLAG_CAPTURED_VICTINI, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
+	goto_if_unset FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
+	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_1:
+	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7
+	setvar VAR_TEMP_0, 0
+	return
+
+LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2:
+	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	goto LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_1
+
+LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
+	setvar VAR_TEMP_0, 1
+	return
+
+
+LunarSummit_WitnessMillenniumComet::
+	lock
+	setvar VAR_TEMP_0, 1
+	delay 60
+	special SpawnCameraObject
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveToComet
+	waitmovement 0
+	delay 120
+	playse SE_M_DETECT
+	dofieldeffectsparkle 47, 3, 0
+	waitfieldeffect FLDEFF_SPARKLE
+	delay 50
+	playfanfare MUS_AWAKEN_LEGEND
+	playse SE_ORB
+	setvar VAR_RESULT, 4
+	special DoOrbEffect
+	delay 500
+	special FadeOutOrbEffect
+	waitstate
+	fadescreen FADE_TO_WHITE
+	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	addobject 1
+	setobjectxy 1, 44, 4
+	playse SE_ICE_BREAK
+	fadescreen FADE_FROM_WHITE
+	waitse
+	delay 20
+	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
+	waitmoncry
+	delay 60
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveFromComet
+	waitmovement 0
+	delay 20
+	applymovement 1, LunarSummit_JirachiMovesToBattle
+	waitmovement 0
+	special RemoveCameraObject
+	release
+	return
+
+
+LunarSummit_CameraMoveToComet:
+	walk_slow_up
+	walk_slow_up
+	walk_slow_up
+	step_end
+
+LunarSummit_CameraMoveFromComet:
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	step_end
+
+LunarSummit_JirachiMovesToBattle:
+	walk_slow_down
+	walk_slow_down
+	step_end
 
 LunarSummit_Jirachi::
 	lock
