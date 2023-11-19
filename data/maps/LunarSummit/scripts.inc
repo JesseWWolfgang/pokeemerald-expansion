@@ -3,7 +3,7 @@ LunarSummit_MapScripts::
 	.byte 0
 
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD:
-	goto_if_set FLAG_CAPTURED_VICTINI, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
+	goto_if_set FLAG_CAPTURED_JIRACHI, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
 	goto_if_unset FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_1:
@@ -22,6 +22,7 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
 
 LunarSummit_WitnessMillenniumComet::
 	lock
+	setflag FLAG_WITNESSED_MILLENNIUM_COMET
 	setvar VAR_TEMP_0, 1
 	delay 60
 	special SpawnCameraObject
@@ -32,8 +33,8 @@ LunarSummit_WitnessMillenniumComet::
 	dofieldeffectsparkle 47, 3, 0
 	dofieldeffectsparkle 46, 3, 0
 	dofieldeffectsparkle 48, 3, 0
-	dofieldeffectsparkle 46, 2, 0
-	dofieldeffectsparkle 46, 4, 0
+	dofieldeffectsparkle 47, 2, 0
+	dofieldeffectsparkle 47, 4, 0
 	waitfieldeffect FLDEFF_SPARKLE
 	delay 50
 	playfanfare MUS_AWAKEN_LEGEND
@@ -91,7 +92,7 @@ LunarSummit_Jirachi::
 	msgbox LunarSummit_Jirachi_Text_0, MSGBOX_NPC
 	delay 20
 	waitmoncry
-	setwildbattle SPECIES_JIRACHI, 15
+	setwildbattle SPECIES_JIRACHI, 40
 	special BattleSetup_StartLegendaryBattle
 	waitstate
 	specialvar VAR_RESULT, GetBattleOutcome
@@ -99,6 +100,7 @@ LunarSummit_Jirachi::
 	case B_OUTCOME_CAUGHT, LunarSummit_Jirachi_3
 	case B_OUTCOME_RAN, LunarSummit_Jirachi_4
 	fadescreenswapbuffers FADE_TO_BLACK
+	removeobject 1
 	fadescreenswapbuffers FADE_FROM_BLACK
 	msgbox LunarSummit_Jirachi_Text_2, MSGBOX_DEFAULT
 LunarSummit_Jirachi_1:
@@ -106,6 +108,7 @@ LunarSummit_Jirachi_1:
 	end
 
 LunarSummit_Jirachi_3:
+	setflag FLAG_CAPTURED_JIRACHI
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	call Common_EventScript_RemoveStaticPokemon
 	goto LunarSummit_Jirachi_1
@@ -116,7 +119,7 @@ LunarSummit_Jirachi_4:
 
 
 LunarSummit_Jirachi_Text_0:
-	.string "Ta-ta-ta-tah!$"
+	.string "Wishah wishah!$"
 
 LunarSummit_Jirachi_Text_1:
 	.string "Jirachi is watching carefully.$"

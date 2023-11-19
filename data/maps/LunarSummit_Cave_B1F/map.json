@@ -1,0 +1,41 @@
+{
+  "id": "MAP_LUNAR_SUMMIT_CAVE_B1F",
+  "name": "LunarSummit_Cave_B1F",
+  "layout": "LAYOUT_LUNAR_SUMMIT_CAVE_B1F",
+  "music": "MUS_RG_MT_MOON",
+  "region_map_section": "MAPSEC_LUNAR_SUMMIT",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+    {
+      "x": 4,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_LUNAR_SUMMIT",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "elevation": 0,
+      "dest_map": "MAP_LUNAR_SUMMIT_CAVE_B1F",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

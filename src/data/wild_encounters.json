@@ -11659,6 +11659,75 @@
               }
             ]
           }
+        },
+        {
+          "map": "MAP_LUNAR_SUMMIT_CAVE_B1F",
+          "base_label": "gLunarSummit_Cave_B1F0",
+          "land_mons": {
+            "encounter_rate": 4,
+            "mons": [
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 34,
+                "max_level": 40,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 42,
+                "max_level": 50,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 42,
+                "max_level": 50,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 42,
+                "max_level": 50,
+                "species": "SPECIES_CLEFAIRY"
+              },
+              {
+                "min_level": 42,
+                "max_level": 50,
+                "species": "SPECIES_CLEFAIRY"
+              }
+            ]
+          }
         }
       ]
     },

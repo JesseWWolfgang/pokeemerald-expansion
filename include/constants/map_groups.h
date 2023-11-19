@@ -603,6 +603,7 @@
 #define MAP_UNOVA_ROUTE17                   (6 | (34 << 8))
 #define MAP_P2LABORATORY                    (7 | (34 << 8))
 #define MAP_LUNAR_SUMMIT                    (8 | (34 << 8))
+#define MAP_LUNAR_SUMMIT_CAVE_B1F           (9 | (34 << 8))
 
 #define MAP_GROUPS_COUNT 35
 

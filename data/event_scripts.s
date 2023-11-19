@@ -1083,3 +1083,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/P2Laboratory/scripts.inc"
 
 	.include "data/maps/LunarSummit/scripts.inc"
+
+	.include "data/maps/LunarSummit_Cave_B1F/scripts.inc"
