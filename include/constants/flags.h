@@ -674,7 +674,7 @@
 #define FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET              0x277
 #define FLAG_TRAVELLED_TO_SPACE                         0x278
 #define FLAG_WITNESSED_MILLENNIUM_COMET                 0x279
-#define FLAG_UNUSED_0x27A  0x27A // Unused Flag
+#define FLAG_CAPTURED_JIRACHI                           0x27A
 #define FLAG_UNUSED_0x27B  0x27B // Unused Flag
 #define FLAG_UNUSED_0x27C  0x27C // Unused Flag
 #define FLAG_UNUSED_0x27D  0x27D // Unused Flag

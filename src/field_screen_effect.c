@@ -1240,8 +1240,8 @@ void DoOrbEffect(void)
     else if (gSpecialVar_Result == 4)
     {
         tOrbType = ORB_EFFECT_WHITE;
-        tCenterX = 166;
-        tCenterY = 62;
+        tCenterX = 168;
+        tCenterY = 64;
         tOrbRadius = 200;
     }
 }

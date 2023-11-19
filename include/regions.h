@@ -3,6 +3,7 @@
 #include "global.h"
 
 enum {
+    REGION_NONE,
     REGION_HOENN,
     REGION_KANTO,
     REGION_SEVII,

@@ -219,6 +219,7 @@ const u8 gMapsecToRegion[] = {
     [MAPSEC_CAFE_SONATA]                = REGION_UNOVA,
     [MAPSEC_UNOVA_ROUTE_17]             = REGION_UNOVA,
     [MAPSEC_P2_LABORATORY]              = REGION_UNOVA,
+    [MAPSEC_LUNAR_SUMMIT]               = REGION_NONE,
 };
 
 // There should be a region assigned to every mapsec.

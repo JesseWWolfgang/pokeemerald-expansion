@@ -3,7 +3,7 @@ const OBJECT_JIRACHI = 1
 
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
-        if (flag(FLAG_CAPTURED_VICTINI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+        if (flag(FLAG_CAPTURED_JIRACHI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
         else {
@@ -21,6 +21,7 @@ mapscripts LunarSummit_MapScripts {
 
 script LunarSummit_WitnessMillenniumComet {
     lock
+    setflag(FLAG_WITNESSED_MILLENNIUM_COMET)
     setvar(VAR_TEMP_WITNESSED_MILLENNIUM_COMET, 1)
     delay(60)
     special(SpawnCameraObject)
@@ -31,6 +32,10 @@ script LunarSummit_WitnessMillenniumComet {
     // Sparkle
     playse(SE_M_DETECT)
 	dofieldeffectsparkle(47, 3, 0)
+    dofieldeffectsparkle(46, 3, 0)
+    dofieldeffectsparkle(48, 3, 0)
+    dofieldeffectsparkle(47, 2, 0)
+    dofieldeffectsparkle(47, 4, 0)
 	waitfieldeffect(FLDEFF_SPARKLE)
     delay(50)
 
@@ -43,6 +48,7 @@ script LunarSummit_WitnessMillenniumComet {
     special(FadeOutOrbEffect)
 	waitstate
 
+    // Show Jirachi
     fadescreen(FADE_TO_WHITE)
     clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
     addobject(OBJECT_JIRACHI)
@@ -55,14 +61,16 @@ script LunarSummit_WitnessMillenniumComet {
     waitmoncry
     delay(60)
 
+    // Approach the player and start the battle
     applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveFromComet)
     waitmovement(0)
     delay(20)
     applymovement(OBJECT_JIRACHI, LunarSummit_JirachiMovesToBattle)
     waitmovement(0)
-
     special(RemoveCameraObject)
-    release
+    delay(20)
+    setvar(VAR_LAST_TALKED, OBJECT_JIRACHI)
+    goto(LunarSummit_Jirachi)
 }
 
 movement LunarSummit_CameraMoveToComet { walk_slow_up * 3 }
@@ -75,29 +83,24 @@ script LunarSummit_Jirachi {
     faceplayer
     waitse
     playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
-    msgbox(format("Ta-ta-ta-tah!"), MSGBOX_NPC)
+    msgbox(format("Wishah wishah!"), MSGBOX_NPC)
     delay(20)
     waitmoncry
 
-    // Essential lol
-    
-
-
-
-    setwildbattle(SPECIES_JIRACHI, 15)
+    setwildbattle(SPECIES_JIRACHI, 40)
     special(BattleSetup_StartLegendaryBattle)
     waitstate
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            //setflag(FLAG_CAPTURED_VICTINI)
+            setflag(FLAG_CAPTURED_JIRACHI)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             call(Common_EventScript_RemoveStaticPokemon)
         case B_OUTCOME_RAN:
             msgbox(format("Jirachi is watching carefully."), MSGBOX_DEFAULT)
         default:
             fadescreenswapbuffers(FADE_TO_BLACK)
-            //removeobject(OBJECT_ID_VICTINI)
+            removeobject(OBJECT_JIRACHI)
             fadescreenswapbuffers(FADE_FROM_BLACK)
             msgbox(format("Jirachi fled into a crater..."), MSGBOX_DEFAULT)
     }

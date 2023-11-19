@@ -30,6 +30,10 @@ LunarSummit_WitnessMillenniumComet::
 	delay 120
 	playse SE_M_DETECT
 	dofieldeffectsparkle 47, 3, 0
+	dofieldeffectsparkle 46, 3, 0
+	dofieldeffectsparkle 48, 3, 0
+	dofieldeffectsparkle 46, 2, 0
+	dofieldeffectsparkle 46, 4, 0
 	waitfieldeffect FLDEFF_SPARKLE
 	delay 50
 	playfanfare MUS_AWAKEN_LEGEND
@@ -56,7 +60,9 @@ LunarSummit_WitnessMillenniumComet::
 	applymovement 1, LunarSummit_JirachiMovesToBattle
 	waitmovement 0
 	special RemoveCameraObject
-	release
+	delay 20
+	setvar VAR_LAST_TALKED, 1
+	goto LunarSummit_Jirachi
 	return
 
 
