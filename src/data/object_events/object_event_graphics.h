@@ -376,6 +376,10 @@ const u16 gObjectEventPal_Lugia[] = INCBIN_U16("graphics/object_events/palettes/
 const u32 gObjectEventPic_HoOh[] = INCBIN_U32("graphics/object_events/pics/pokemon/ho_oh.4bpp");
 const u16 gObjectEventPal_HoOh[] = INCBIN_U16("graphics/object_events/palettes/ho_oh.gbapal");
 
+// Extended mystery gift
+const u32 gObjectEventPic_Rocket[] = INCBIN_U32("graphics/object_events/pics/misc/rocket.4bpp");
+const u16 gObjectEventPal_Rocket[] = INCBIN_U16("graphics/object_events/palettes/rocket.gbapal");
+
 //Pokemon overworlds
 // const u32 gObjectEventPic_Pokemon_Species_001[] = INCBIN_U32("graphics/object_events/pics/pokemon/species/001.4bpp");
 // const u16 gObjectEventPalette_Pokemon_Species_001[] = INCBIN_U16("graphics/object_events/pics/pokemon/species/001.gbapal");

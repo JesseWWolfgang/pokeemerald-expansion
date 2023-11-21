@@ -2173,6 +2173,19 @@ static const struct SpriteFrameImage sPicTable_RubySapphireMay[] = {
     overworld_frame(gObjectEventPic_RubySapphireMayNormal, 2, 4, 8),
 };
 
+// Extended mystery gift
+static const struct SpriteFrameImage sPicTable_Rocket[] = {
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 1),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 1),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 1),
+};
+
 
 //Pokemon overworlds
 // const struct SpriteFrameImage gObjectEventPicTable_Pokemon_Species_001[] = {

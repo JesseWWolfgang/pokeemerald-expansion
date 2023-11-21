@@ -241,6 +241,8 @@
 #define OBJ_EVENT_GFX_LUGIA                      237
 #define OBJ_EVENT_GFX_HOOH                       238
 
+#define END_OBJ_EVENT_GFX_NORMAL                    (OBJ_EVENT_GFX_HOOH)
+
 // NOTE: By default, the max value for NUM_OBJ_EVENT_GFX is 239.
 //
 // Object event graphics ids are 1 byte in size (max value of 255), and the dynamic
@@ -250,7 +252,14 @@
 // object graphics that can be removed. If more graphics are needed, anything that
 // stores graphics ids will need to be increased in size. See wiki entry below:
 // https://github.com/pret/pokeemerald/wiki/Feature-Branches#overworld-expansion
-#define NUM_REGULAR_OBJ_EVENT_GFX                (OBJ_EVENT_GFX_HOOH + 1)
+
+// Extended mystery gift
+#define START_OBJ_EVENT_GFX_EXTENDED_MYSTERY_GIFT       (END_OBJ_EVENT_GFX_NORMAL + 1)
+#define OBJ_EVENT_GFX_ROCKET                            (START_OBJ_EVENT_GFX_EXTENDED_MYSTERY_GIFT + 0) // 239
+#define END_OBJ_EVENT_GFX_EXTENDED_MYSTERY_GIFT         (OBJ_EVENT_GFX_ROCKET)
+
+
+#define NUM_REGULAR_OBJ_EVENT_GFX                (END_OBJ_EVENT_GFX_EXTENDED_MYSTERY_GIFT + 1) // 240
 
 //Pokemon overworlds
 #define OBJ_EVENT_GFX_POKEMON_001		(NUM_REGULAR_OBJ_EVENT_GFX + 0)

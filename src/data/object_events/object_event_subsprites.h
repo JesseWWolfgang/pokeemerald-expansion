@@ -1528,3 +1528,338 @@ static const struct SubspriteTable sOamTables_88x32[] = {
     {ARRAY_COUNT(sOamTable_88x32_3), sOamTable_88x32_3},
     {ARRAY_COUNT(sOamTable_88x32_3), sOamTable_88x32_3}
 };
+
+
+// Extended mystery gift
+
+static const struct Subsprite sOamTable_32x80_0[] = {
+    {
+        .x = -16,
+        .y = -40,
+        .shape = SPRITE_SHAPE(32x64),
+        .size = SPRITE_SIZE(32x64),
+        .tileOffset = 0,
+        .priority = 2
+    },
+    {
+        .x = -16,
+        .y = 64,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 8,
+        .priority = 2
+    },
+};
+
+static const struct Subsprite sOamTable_32x80_1[] = {
+    {
+        .x = -16,
+        .y = -40,
+        .shape = SPRITE_SHAPE(32x64),
+        .size = SPRITE_SIZE(32x64),
+        .tileOffset = 0,
+        .priority = 2
+    },
+    {
+        .x = -16,
+        .y = 64,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 8,
+        .priority = 2
+    },
+};
+
+static const struct Subsprite sOamTable_32x80_2[] = {
+    {
+        .x = -16,
+        .y = -40,
+        .shape = SPRITE_SHAPE(32x64),
+        .size = SPRITE_SIZE(32x64),
+        .tileOffset = 0,
+        .priority = 2
+    },
+    {
+        .x = -16,
+        .y = 64,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 8,
+        .priority = 2
+    },
+};
+
+static const struct Subsprite sOamTable_32x80_3[] = {
+    {
+        .x = -16,
+        .y = -40,
+        .shape = SPRITE_SHAPE(32x64),
+        .size = SPRITE_SIZE(32x64),
+        .tileOffset = 0,
+        .priority = 2
+    },
+    {
+        .x = -16,
+        .y = 64,
+        .shape = SPRITE_SHAPE(32x16),
+        .size = SPRITE_SIZE(32x16),
+        .tileOffset = 8,
+        .priority = 2
+    },
+};
+
+// static const struct Subsprite sOamTable_96x40_2[] = {
+//     {
+//         .x = -48,
+//         .y = -20,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 0,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y = -20,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 4,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y = -20,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 8,
+//         .priority = 2
+//     },
+//     {
+//         .x = -48,
+//         .y = -12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 12,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y = -12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 16,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y = -12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 20,
+//         .priority = 2
+//     },
+//     {
+//         .x = -48,
+//         .y =  -4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 24,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y =  -4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 28,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y =  -4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 32,
+//         .priority = 2
+//     },
+//     {
+//         .x = -48,
+//         .y =   4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 36,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y =   4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 40,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y =   4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 44,
+//         .priority = 2
+//     },
+//     {
+//         .x = -48,
+//         .y =  12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 48,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y =  12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 52,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y =  12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 56,
+//         .priority = 2
+//     }
+// };
+
+// static const struct Subsprite sOamTable_96x40_3[] = {
+//     {
+//         .x = -48,
+//         .y = -20,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 0,
+//         .priority = 1
+//     },
+//     {
+//         .x = -16,
+//         .y = -20,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 4,
+//         .priority = 1
+//     },
+//     {
+//         .x =  16,
+//         .y = -20,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 8,
+//         .priority = 1
+//     },
+//     {
+//         .x = -48,
+//         .y = -12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 12,
+//         .priority = 1
+//     },
+//     {
+//         .x = -16,
+//         .y = -12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 16,
+//         .priority = 1
+//     },
+//     {
+//         .x =  16,
+//         .y = -12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 20,
+//         .priority = 1
+//     },
+//     {
+//         .x = -48,
+//         .y =  -4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 24,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y =  -4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 28,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y =  -4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 32,
+//         .priority = 2
+//     },
+//     {
+//         .x = -48,
+//         .y =   4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 36,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y =   4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 40,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y =   4,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 44,
+//         .priority = 2
+//     },
+//     {
+//         .x = -48,
+//         .y =  12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 48,
+//         .priority = 2
+//     },
+//     {
+//         .x = -16,
+//         .y =  12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 52,
+//         .priority = 2
+//     },
+//     {
+//         .x =  16,
+//         .y =  12,
+//         .shape = SPRITE_SHAPE(32x8),
+//         .size = SPRITE_SIZE(32x8),
+//         .tileOffset = 56,
+//         .priority = 2
+//     }
+// };
+
+// Used by Rocket
+static const struct SubspriteTable sOamTables_32x80[] = {
+    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0},
+    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0},
+    {ARRAY_COUNT(sOamTable_32x80_1), sOamTable_32x80_1},
+    {ARRAY_COUNT(sOamTable_32x80_2), sOamTable_32x80_2},
+    {ARRAY_COUNT(sOamTable_32x80_3), sOamTable_32x80_3},
+    {ARRAY_COUNT(sOamTable_32x80_3), sOamTable_32x80_3}
+};
