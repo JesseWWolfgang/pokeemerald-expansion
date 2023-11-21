@@ -1543,10 +1543,10 @@ static const struct Subsprite sOamTable_32x80_0[] = {
     },
     {
         .x = -16,
-        .y = 64,
+        .y = 16,
         .shape = SPRITE_SHAPE(32x16),
         .size = SPRITE_SIZE(32x16),
-        .tileOffset = 8,
+        .tileOffset = 32,
         .priority = 2
     },
 };
@@ -1562,10 +1562,10 @@ static const struct Subsprite sOamTable_32x80_1[] = {
     },
     {
         .x = -16,
-        .y = 64,
+        .y = 16,
         .shape = SPRITE_SHAPE(32x16),
         .size = SPRITE_SIZE(32x16),
-        .tileOffset = 8,
+        .tileOffset = 32,
         .priority = 2
     },
 };
@@ -1581,10 +1581,10 @@ static const struct Subsprite sOamTable_32x80_2[] = {
     },
     {
         .x = -16,
-        .y = 64,
+        .y = 16,
         .shape = SPRITE_SHAPE(32x16),
         .size = SPRITE_SIZE(32x16),
-        .tileOffset = 8,
+        .tileOffset = 32,
         .priority = 2
     },
 };
@@ -1600,10 +1600,10 @@ static const struct Subsprite sOamTable_32x80_3[] = {
     },
     {
         .x = -16,
-        .y = 64,
+        .y = 16,
         .shape = SPRITE_SHAPE(32x16),
         .size = SPRITE_SIZE(32x16),
-        .tileOffset = 8,
+        .tileOffset = 32,
         .priority = 2
     },
 };

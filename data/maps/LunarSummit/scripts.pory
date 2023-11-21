@@ -19,6 +19,10 @@ mapscripts LunarSummit_MapScripts {
     }
 }
 
+script TEMP_CheckRocket {
+    applymovement(3, Common_Movement_FaceUp)
+}
+
 script LunarSummit_WitnessMillenniumComet {
     lock
     setflag(FLAG_WITNESSED_MILLENNIUM_COMET)

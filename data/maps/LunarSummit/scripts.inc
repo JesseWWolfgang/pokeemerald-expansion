@@ -20,6 +20,11 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
 	return
 
 
+TEMP_CheckRocket::
+	applymovement 3, Common_Movement_FaceUp
+	return
+
+
 LunarSummit_WitnessMillenniumComet::
 	lock
 	setflag FLAG_WITNESSED_MILLENNIUM_COMET
