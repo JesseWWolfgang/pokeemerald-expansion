@@ -22,7 +22,13 @@ mapscripts LunarSummit_MapScripts {
 script LunarSummit_ScientistAtRocket {
     lock
     faceplayer
-    msgbox(format(""), MSGBOX_YESNO)
+    if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+
+    }
+    else {
+        msgbox(format("We haven't finished conducting our research here just yet.\p"
+        "You should go and find the highest point around here to get a clear view of the comet."), MSGBOX_YESNO)
+    }
     release
 }
 
@@ -37,14 +43,14 @@ movement ROKET {
     walk_slow_up * 5
     walk_up * 10
     walk_fast_up * 20
-    walk_faster_up * 30
+    walk_faster_up * 22
 }
 
 movement CEMERA {
     walk_slow_up * 5
     walk_up * 10
     walk_fast_up * 20
-    walk_faster_up * 20
+    walk_faster_up * 12
 }
 
 script LunarSummit_WitnessMillenniumComet {
