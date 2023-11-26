@@ -19,8 +19,32 @@ mapscripts LunarSummit_MapScripts {
     }
 }
 
-script TEMP_CheckRocket {
-    applymovement(3, Common_Movement_FaceUp)
+script LunarSummit_ScientistAtRocket {
+    lock
+    faceplayer
+    msgbox(format(""), MSGBOX_YESNO)
+    release
+}
+
+script LunarSummit_RocketTakeOff {
+    special(SpawnCameraObject)
+    applymovement(VAR_LAST_TALKED, ROKET)
+    applymovement(OBJ_EVENT_ID_CAMERA, CEMERA)
+    waitmovement(0)
+}
+
+movement ROKET {
+    walk_slow_up * 5
+    walk_up * 10
+    walk_fast_up * 20
+    walk_faster_up * 30
+}
+
+movement CEMERA {
+    walk_slow_up * 5
+    walk_up * 10
+    walk_fast_up * 20
+    walk_faster_up * 20
 }
 
 script LunarSummit_WitnessMillenniumComet {

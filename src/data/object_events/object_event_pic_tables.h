@@ -2176,8 +2176,8 @@ static const struct SpriteFrameImage sPicTable_RubySapphireMay[] = {
 // Extended mystery gift
 static const struct SpriteFrameImage sPicTable_Rocket[] = {
     overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
-    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
-    overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 1),
+    overworld_frame(gObjectEventPic_Rocket, 4, 10, 2),
     overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
     overworld_frame(gObjectEventPic_Rocket, 4, 10, 1),
     overworld_frame(gObjectEventPic_Rocket, 4, 10, 0),
