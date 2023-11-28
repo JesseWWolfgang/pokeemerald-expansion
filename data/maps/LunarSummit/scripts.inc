@@ -23,20 +23,131 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
 LunarSummit_ScientistAtRocket::
 	lock
 	faceplayer
-	msgbox LunarSummit_ScientistAtRocket_Text_0, MSGBOX_YESNO
+	goto_if_unset FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_ScientistAtRocket_2
+	msgbox LunarSummit_ScientistAtRocket_Text_2, MSGBOX_DEFAULT
+LunarSummit_ScientistAtRocket_1:
 	release
+	return
+
+LunarSummit_ScientistAtRocket_2:
+	msgbox LunarSummit_ScientistAtRocket_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_ScientistAtRocket_5
+	goto LunarSummit_ScientistAtRocket_1
+
+LunarSummit_ScientistAtRocket_5:
+	msgbox LunarSummit_ScientistAtRocket_Text_1, MSGBOX_DEFAULT
+	closemessage
+	call LunarSummit_PrepareTakeOff
+	goto LunarSummit_ScientistAtRocket_1
+
+
+LunarSummit_PrepareTakeOff::
+	applymovement 2, LunarSummit_PrepareTakeOffScientist1MoveForPlayerAndScientist2
+	waitmovement 0
+	applymovementplayerfacing OBJ_EVENT_ID_PLAYER, LunarSummit_PrepareTakeOffPlayerBoardNorth, LunarSummit_PrepareTakeOffPlayerBoardNorth, LunarSummit_PrepareTakeOffPlayerBoardEast, LunarSummit_PrepareTakeOffPlayerBoardWest
+	applymovement 4, LunarSummit_PrepareTakeOffScientist2Board
+	waitmovement OBJ_EVENT_ID_PLAYER
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
+	playse SE_EXIT
+	waitmovement 4
+	hideobjectat 4, MAP_LUNAR_SUMMIT
+	playse SE_EXIT
+	applymovement 2, LunarSummit_PrepareTakeOffScientist1Board
+	waitmovement 0
+	hideobjectat 2, MAP_LUNAR_SUMMIT
+	playse SE_EXIT
+	delay 30
+	msgbox LunarSummit_PrepareTakeOff_Text_0, MSGBOX_DEFAULT
+	closemessage
+	delay 60
+	call LunarSummit_RocketTakeOff
 	return
 
 
 LunarSummit_RocketTakeOff::
+	playse SE_M_EARTHQUAKE
+	setvar VAR_0x8004, 0
+	setvar VAR_0x8005, 2
+	setvar VAR_0x8006, 32
+	setvar VAR_0x8007, 2
+	special ShakeCamera
+	delay 32
+	applymovement 3, LunarSummit_TakeOffRocketWarmUp
+	waitstate
+	waitmovement 3
+	playse SE_M_EARTHQUAKE
+	special ShakeCamera
 	special SpawnCameraObject
-	applymovement VAR_LAST_TALKED, ROKET
-	applymovement OBJ_EVENT_ID_CAMERA, CEMERA
-	waitmovement 0
+	applymovement 3, LunarSummit_TakeOffRocketMovement
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_TakeOffCameraMovement
+	waitmovement 3
+	waitmovement OBJ_EVENT_ID_CAMERA
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	waitstate
 	return
 
 
-ROKET:
+LunarSummit_PrepareTakeOffScientist1MoveForPlayerAndScientist2:
+	walk_up
+	walk_up
+	walk_right
+	face_left
+	step_end
+
+LunarSummit_PrepareTakeOffPlayerBoardNorth:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+LunarSummit_PrepareTakeOffPlayerBoardEast:
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+LunarSummit_PrepareTakeOffPlayerBoardWest:
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+LunarSummit_PrepareTakeOffScientist2Board:
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+LunarSummit_PrepareTakeOffScientist1Board:
+	walk_left
+	walk_up
+	step_end
+
+LunarSummit_TakeOffRocketWarmUp:
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	step_end
+
+LunarSummit_TakeOffRocketMovement:
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
 	walk_slow_up
 	walk_slow_up
 	walk_slow_up
@@ -72,14 +183,6 @@ ROKET:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
@@ -104,7 +207,12 @@ ROKET:
 	walk_faster_up
 	step_end
 
-CEMERA:
+LunarSummit_TakeOffCameraMovement:
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
+	walk_in_place_up
 	walk_slow_up
 	walk_slow_up
 	walk_slow_up
@@ -150,16 +258,10 @@ CEMERA:
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
 	step_end
 
 LunarSummit_WitnessMillenniumComet::
@@ -261,7 +363,21 @@ LunarSummit_Jirachi_4:
 
 
 LunarSummit_ScientistAtRocket_Text_0:
-	.string "$"
+	.string "Ready to leave?$"
+
+LunarSummit_ScientistAtRocket_Text_1:
+	.string "Please board the shuttle and wait for\n"
+	.string "lift off.$"
+
+LunarSummit_ScientistAtRocket_Text_2:
+	.string "We haven't finished conducting our\n"
+	.string "research here just yet.\p"
+	.string "You could try and find the highest\n"
+	.string "point around here to get a clear view\l"
+	.string "of the comet.$"
+
+LunarSummit_PrepareTakeOff_Text_0:
+	.string "Take off.$"
 
 LunarSummit_Jirachi_Text_0:
 	.string "Wishah wishah!$"

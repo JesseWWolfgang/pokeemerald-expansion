@@ -1,5 +1,11 @@
 const VAR_TEMP_WITNESSED_MILLENNIUM_COMET = VAR_TEMP_0
 const OBJECT_JIRACHI = 1
+const OBJECT_SCIENTIST1 = 2
+const OBJECT_ROCKET = 3
+const OBJECT_SCIENTIST2 = 4
+
+const WARP_MOSSDEEP_X = 7
+const WARP_MOSSDEEP_Y = 3
 
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
@@ -22,35 +28,110 @@ mapscripts LunarSummit_MapScripts {
 script LunarSummit_ScientistAtRocket {
     lock
     faceplayer
-    if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
-
+    if (!flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+        msgbox(format("Ready to leave?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == YES) {
+            msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
+            closemessage
+            call(LunarSummit_PrepareTakeOff)
+        }
     }
     else {
         msgbox(format("We haven't finished conducting our research here just yet.\p"
-        "You should go and find the highest point around here to get a clear view of the comet."), MSGBOX_YESNO)
+        "You could try and find the highest point around here to get a clear view of the comet."), MSGBOX_DEFAULT)
     }
     release
 }
 
-script LunarSummit_RocketTakeOff {
-    special(SpawnCameraObject)
-    applymovement(VAR_LAST_TALKED, ROKET)
-    applymovement(OBJ_EVENT_ID_CAMERA, CEMERA)
+script LunarSummit_PrepareTakeOff {
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_PrepareTakeOffScientist1MoveForPlayerAndScientist2)
     waitmovement(0)
+    applymovementplayerfacing(OBJ_EVENT_ID_PLAYER, 
+        LunarSummit_PrepareTakeOffPlayerBoardNorth, 
+        LunarSummit_PrepareTakeOffPlayerBoardNorth, 
+        LunarSummit_PrepareTakeOffPlayerBoardEast, 
+        LunarSummit_PrepareTakeOffPlayerBoardWest)
+    applymovement(OBJECT_SCIENTIST2, LunarSummit_PrepareTakeOffScientist2Board)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
+    playse(SE_EXIT)
+    waitmovement(OBJECT_SCIENTIST2)
+    hideobjectat(OBJECT_SCIENTIST2, MAP_LUNAR_SUMMIT)
+    playse(SE_EXIT)
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_PrepareTakeOffScientist1Board)
+    waitmovement(0)
+    hideobjectat(OBJECT_SCIENTIST1, MAP_LUNAR_SUMMIT)
+    playse(SE_EXIT)
+    delay(30)
+    msgbox(format("Take off."), MSGBOX_DEFAULT)
+    closemessage
+    delay(60)
+    call(LunarSummit_RocketTakeOff)
 }
 
-movement ROKET {
+script LunarSummit_RocketTakeOff {
+    playse(SE_M_EARTHQUAKE)
+    setvar(VAR_0x8004, 0)  // vertical pan
+	setvar(VAR_0x8005, 2)  // horizontal pan
+	setvar(VAR_0x8006, 32)  // num shakes
+	setvar(VAR_0x8007, 2)  // shake delay
+	special(ShakeCamera)    
+    delay(32)
+    applymovement(OBJECT_ROCKET, LunarSummit_TakeOffRocketWarmUp)
+    waitstate
+    waitmovement(OBJECT_ROCKET)
+    playse(SE_M_EARTHQUAKE)
+    special(ShakeCamera)
+    special(SpawnCameraObject)
+    applymovement(OBJECT_ROCKET, LunarSummit_TakeOffRocketMovement)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_TakeOffCameraMovement)
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
+	waitstate
+}
+
+movement LunarSummit_PrepareTakeOffScientist1MoveForPlayerAndScientist2 {
+    walk_up * 2
+    walk_right
+    face_left
+}
+
+movement LunarSummit_PrepareTakeOffPlayerBoardNorth { walk_up * 4 }
+movement LunarSummit_PrepareTakeOffPlayerBoardEast { walk_right walk_up * 3 }
+movement LunarSummit_PrepareTakeOffPlayerBoardWest { walk_left walk_up * 3 }
+
+
+movement LunarSummit_PrepareTakeOffScientist2Board {
+    walk_up * 3
+    walk_right * 3
+    walk_up * 4
+}
+
+movement LunarSummit_PrepareTakeOffScientist1Board {
+    walk_left
+    walk_up
+}
+
+movement LunarSummit_TakeOffRocketWarmUp {
+    walk_in_place_up * 5
+}
+
+movement LunarSummit_TakeOffRocketMovement {
+    walk_in_place_up * 5
     walk_slow_up * 5
     walk_up * 10
     walk_fast_up * 20
     walk_faster_up * 22
 }
 
-movement CEMERA {
+movement LunarSummit_TakeOffCameraMovement {
+    walk_in_place_up * 5
     walk_slow_up * 5
     walk_up * 10
     walk_fast_up * 20
-    walk_faster_up * 12
+    walk_faster_up * 10
+    walk_up * 4
 }
 
 script LunarSummit_WitnessMillenniumComet {
