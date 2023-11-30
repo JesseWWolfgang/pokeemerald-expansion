@@ -62,6 +62,8 @@ LunarSummit_PrepareTakeOff::
 	closemessage
 	delay 60
 	call LunarSummit_RocketTakeOff
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	waitstate
 	return
 
 
@@ -74,17 +76,33 @@ LunarSummit_RocketTakeOff::
 	special ShakeCamera
 	delay 32
 	applymovement 3, LunarSummit_TakeOffRocketWarmUp
-	waitstate
 	waitmovement 3
 	playse SE_M_EARTHQUAKE
+	setvar VAR_0x8004, 0
+	setvar VAR_0x8005, 2
+	setvar VAR_0x8006, 50
+	setvar VAR_0x8007, 2
 	special ShakeCamera
 	special SpawnCameraObject
 	applymovement 3, LunarSummit_TakeOffRocketMovement
 	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_TakeOffCameraMovement
+	waitstate
+	playse SE_INTRO_BLAST
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 40
+	setvar VAR_0x8007, 2
+	special ShakeCamera
+	waitstate
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 80
+	setvar VAR_0x8007, 1
+	special ShakeCamera
+	delay 30
+	playse SE_APPLAUSE
 	waitmovement 3
 	waitmovement OBJ_EVENT_ID_CAMERA
-	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
-	waitstate
 	return
 
 
@@ -143,11 +161,6 @@ LunarSummit_TakeOffRocketWarmUp:
 	step_end
 
 LunarSummit_TakeOffRocketMovement:
-	walk_in_place_up
-	walk_in_place_up
-	walk_in_place_up
-	walk_in_place_up
-	walk_in_place_up
 	walk_slow_up
 	walk_slow_up
 	walk_slow_up
@@ -161,12 +174,6 @@ LunarSummit_TakeOffRocketMovement:
 	walk_up
 	walk_up
 	walk_up
-	walk_up
-	walk_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -208,11 +215,6 @@ LunarSummit_TakeOffRocketMovement:
 	step_end
 
 LunarSummit_TakeOffCameraMovement:
-	walk_in_place_up
-	walk_in_place_up
-	walk_in_place_up
-	walk_in_place_up
-	walk_in_place_up
 	walk_slow_up
 	walk_slow_up
 	walk_slow_up
@@ -226,12 +228,6 @@ LunarSummit_TakeOffCameraMovement:
 	walk_up
 	walk_up
 	walk_up
-	walk_up
-	walk_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -258,8 +254,9 @@ LunarSummit_TakeOffCameraMovement:
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
-	walk_up
-	walk_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
 	walk_up
 	walk_up
 	step_end
@@ -366,15 +363,11 @@ LunarSummit_ScientistAtRocket_Text_0:
 	.string "Ready to leave?$"
 
 LunarSummit_ScientistAtRocket_Text_1:
-	.string "Please board the shuttle and wait for\n"
-	.string "lift off.$"
+	.string "Please board the shuttle and wait for lift off.$"
 
 LunarSummit_ScientistAtRocket_Text_2:
-	.string "We haven't finished conducting our\n"
-	.string "research here just yet.\p"
-	.string "You could try and find the highest\n"
-	.string "point around here to get a clear view\l"
-	.string "of the comet.$"
+	.string "We haven't finished conducting our research here just yet.\p"
+	.string "You could try and find the highest point around here to get a clear view of the comet.$"
 
 LunarSummit_PrepareTakeOff_Text_0:
 	.string "Take off.$"

@@ -67,28 +67,63 @@ script LunarSummit_PrepareTakeOff {
     closemessage
     delay(60)
     call(LunarSummit_RocketTakeOff)
+    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
+	waitstate
 }
 
 script LunarSummit_RocketTakeOff {
+    // Engine Startup
     playse(SE_M_EARTHQUAKE)
     setvar(VAR_0x8004, 0)  // vertical pan
 	setvar(VAR_0x8005, 2)  // horizontal pan
-	setvar(VAR_0x8006, 32)  // num shakes
+	setvar(VAR_0x8006, 32) // num shakes
 	setvar(VAR_0x8007, 2)  // shake delay
-	special(ShakeCamera)    
+	special(ShakeCamera)
     delay(32)
+
+    // Ignition
     applymovement(OBJECT_ROCKET, LunarSummit_TakeOffRocketWarmUp)
-    waitstate
     waitmovement(OBJECT_ROCKET)
+
+    // Lift off
     playse(SE_M_EARTHQUAKE)
+    setvar(VAR_0x8004, 0)  // vertical pan
+	setvar(VAR_0x8005, 2)  // horizontal pan
+	setvar(VAR_0x8006, 50) // num shakes
+	setvar(VAR_0x8007, 2)  // shake delay
     special(ShakeCamera)
+
+    // Begin lift off animation
     special(SpawnCameraObject)
     applymovement(OBJECT_ROCKET, LunarSummit_TakeOffRocketMovement)
     applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_TakeOffCameraMovement)
+    
+    // Wait until lift off shake finishes
+    waitstate
+
+    // Continue heavy vibrations and speed up
+    playse(SE_INTRO_BLAST)
+    setvar(VAR_0x8004, 1)  // vertical pan
+	setvar(VAR_0x8005, 1)  // horizontal pan
+	setvar(VAR_0x8006, 40) // num shakes
+	setvar(VAR_0x8007, 2)  // shake delay
+    special(ShakeCamera)
+    waitstate
+
+    // Continue light vibrations
+    setvar(VAR_0x8004, 1)  // vertical pan
+	setvar(VAR_0x8005, 1)  // horizontal pan
+	setvar(VAR_0x8006, 80) // num shakes
+	setvar(VAR_0x8007, 1)  // shake delay
+    special(ShakeCamera)
+
+    // Wait for speed up sound to complete and play rain sound (since it sounds similar to wind)
+    delay(30) 
+    playse(SE_RAIN)
+    
+    // Wait until the animation has finished
     waitmovement(OBJECT_ROCKET)
     waitmovement(OBJ_EVENT_ID_CAMERA)
-    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
-	waitstate
 }
 
 movement LunarSummit_PrepareTakeOffScientist1MoveForPlayerAndScientist2 {
@@ -118,20 +153,19 @@ movement LunarSummit_TakeOffRocketWarmUp {
 }
 
 movement LunarSummit_TakeOffRocketMovement {
-    walk_in_place_up * 5
     walk_slow_up * 5
-    walk_up * 10
-    walk_fast_up * 20
+    walk_up * 8
+    walk_fast_up * 16
     walk_faster_up * 22
 }
 
 movement LunarSummit_TakeOffCameraMovement {
-    walk_in_place_up * 5
     walk_slow_up * 5
-    walk_up * 10
-    walk_fast_up * 20
+    walk_up * 8
+    walk_fast_up * 16
     walk_faster_up * 10
-    walk_up * 4
+    walk_fast_up * 3
+    walk_up * 2
 }
 
 script LunarSummit_WitnessMillenniumComet {
