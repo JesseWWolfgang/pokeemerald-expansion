@@ -1,4 +1,5 @@
 const VAR_TEMP_WITNESSED_MILLENNIUM_COMET = VAR_TEMP_0
+const FLAG_TEMP_SPOKEN_ABOUT_MILLENNIUM_COMET = FLAG_TEMP_1
 const OBJECT_JIRACHI = 1
 const OBJECT_SCIENTIST1 = 2
 const OBJECT_ROCKET = 3
@@ -28,7 +29,10 @@ mapscripts LunarSummit_MapScripts {
 script LunarSummit_ScientistAtRocket {
     lock
     faceplayer
-    if (!flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+    if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+        // if (!flag(FLAG_TEMP_SPOKEN_ABOUT_MILLENNIUM_COMET)) {
+        //     msgbox(format("Ready to leave?"), MSGBOX_YESNO)
+        // }
         msgbox(format("Ready to leave?"), MSGBOX_YESNO)
         if (var(VAR_RESULT) == YES) {
             msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
@@ -174,8 +178,12 @@ script LunarSummit_WitnessMillenniumComet {
     setvar(VAR_TEMP_WITNESSED_MILLENNIUM_COMET, 1)
     delay(60)
     special(SpawnCameraObject)
-    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveToComet)
-    waitmovement(0)
+
+    // Talk to the scientists first
+    call(LunarSummit_WitnessMillenniumComet_ScientistsBefore)
+
+    
+    
     delay(120)
     
     // Sparkle
@@ -222,9 +230,35 @@ script LunarSummit_WitnessMillenniumComet {
     goto(LunarSummit_Jirachi)
 }
 
-movement LunarSummit_CameraMoveToComet { walk_slow_up * 3 }
-movement LunarSummit_CameraMoveFromComet { walk_slow_down * 3 }
-movement LunarSummit_JirachiMovesToBattle { walk_slow_down * 2 }
+script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveToComet1)
+    waitmovement(0)
+    delay(120)
+
+    setobjectxy(OBJECT_SCIENTIST1, 44, 14)
+    setobjectxy(OBJECT_SCIENTIST2, 45, 13)
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1ApproachPlayer)
+    applymovement(OBJECT_SCIENTIST2, LunarSummit_Comet_Scientist2ApproachPlayer)
+    waitmovement(OBJECT_SCIENTIST1)
+    waitmovement(OBJECT_SCIENTIST2)
+    delay(20)
+    msgbox(format("Would you look at that..."), MSGBOX_DEFAULT)
+    closemessage
+    delay(100)
+    msgbox(format("This truly is a once in a lifetime view.\p"
+    "I've trained as an astronaut for years...\p"
+    "...but nothing truly prepares you from seeing something like this first-hand.\p"
+    ""), MSGBOX_DEFAULT)
+}
+
+movement LunarSummit_Comet_CameraMoveToComet1 { walk_slow_up * 2 }
+movement LunarSummit_Comet_CameraMoveToComet2 { walk_slow_up * 1 }
+
+movement LunarSummit_Comet_Scientist1ApproachPlayer { walk_up * 6 }
+movement LunarSummit_Comet_Scientist2ApproachPlayer { walk_up * 5 }
+
+movement LunarSummit_Comet_CameraMoveFromComet { walk_slow_down * 3 }
+movement LunarSummit_Comet_JirachiMovesToBattle { walk_slow_down * 2 }
 
 
 script LunarSummit_Jirachi {
