@@ -69,8 +69,8 @@
   ],
   "warp_events": [
     {
-      "x": 62,
-      "y": 62,
+      "x": 44,
+      "y": 15,
       "elevation": 0,
       "dest_map": "MAP_LUNAR_SUMMIT",
       "dest_warp_id": "0"

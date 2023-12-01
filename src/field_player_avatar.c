@@ -2359,3 +2359,31 @@ bool8 ObjectMovingOnRockStairs(struct ObjectEvent *objectEvent, u8 direction)
     #endif
 }
 
+// extended mystery gift
+
+void NativePlayerPullOutBall(void)
+{
+    ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_FIELD_MOVE));
+    StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], ANIM_FIELD_MOVE);
+
+    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
+    //gPlayerAvatar.preventStep = FALSE;
+    
+}
+
+void NativePlayerPutAwayBall(void)
+{
+    ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByCurrentState());
+    gFieldEffectArguments[1] = GetPlayerFacingDirection();
+    if (gFieldEffectArguments[1] == DIR_SOUTH)
+        gFieldEffectArguments[2] = 0;
+    if (gFieldEffectArguments[1] == DIR_NORTH)
+        gFieldEffectArguments[2] = 1;
+    if (gFieldEffectArguments[1] == DIR_WEST)
+        gFieldEffectArguments[2] = 2;
+    if (gFieldEffectArguments[1] == DIR_EAST)
+        gFieldEffectArguments[2] = 3;
+    StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], gFieldEffectArguments[2]);
+    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
+    gPlayerAvatar.preventStep = FALSE;
+}

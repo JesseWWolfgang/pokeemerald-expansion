@@ -219,10 +219,10 @@ script LunarSummit_WitnessMillenniumComet {
     delay(60)
 
     // Approach the player and start the battle
-    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveFromComet)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveFromComet)
     waitmovement(0)
     delay(20)
-    applymovement(OBJECT_JIRACHI, LunarSummit_JirachiMovesToBattle)
+    applymovement(OBJECT_JIRACHI, LunarSummit_Comet_JirachiMovesToBattle)
     waitmovement(0)
     special(RemoveCameraObject)
     delay(20)
@@ -231,28 +231,68 @@ script LunarSummit_WitnessMillenniumComet {
 }
 
 script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
-    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_CameraMoveToComet1)
-    waitmovement(0)
+    //applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1)
+    //waitmovement(0)
     delay(120)
 
-    setobjectxy(OBJECT_SCIENTIST1, 44, 14)
-    setobjectxy(OBJECT_SCIENTIST2, 45, 13)
+    setobjectxyperm(OBJECT_SCIENTIST1, 44, 14)
+    setobjectxyperm(OBJECT_SCIENTIST2, 45, 13)
     applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1ApproachPlayer)
     applymovement(OBJECT_SCIENTIST2, LunarSummit_Comet_Scientist2ApproachPlayer)
     waitmovement(OBJECT_SCIENTIST1)
     waitmovement(OBJECT_SCIENTIST2)
-    delay(20)
+    delay(30)
+
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
     msgbox(format("Would you look at that..."), MSGBOX_DEFAULT)
     closemessage
     delay(100)
+
     msgbox(format("This truly is a once in a lifetime view.\p"
-    "I've trained as an astronaut for years...\p"
-    "...but nothing truly prepares you from seeing something like this first-hand.\p"
-    ""), MSGBOX_DEFAULT)
+        "I used to read books about this sort of thing when I was just a kid.\p"
+        "...but nothing truly prepares you from seeing something like this first-hand."), MSGBOX_DEFAULT)
+    closemessage
+    delay(60)
+    
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Look how bright the comet shines. Simply magnificent.\p"), MSGBOX_DEFAULT)
+    closemessage
+    delay(40)
+
+    dofieldeffectsparkle(44, 7, 0)
+	waitfieldeffect(FLDEFF_SPARKLE)
+
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_ExclamationMark)
+    delay(15)
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_ExclamationMark)
+    waitmovement(OBJECT_SCIENTIST1)
+    waitmovement(OBJECT_SCIENTIST2)
+    delay(30)
+
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Hey {PLAYER}...!\p"
+    "The rock! In your bag!\lIt's shining!"), MSGBOX_DEFAULT)
+
+    callnative(NativePlayerPullOutBall)
+    delay(60)
+    dofieldeffectsparkle(44, 7, 0)
+	waitfieldeffect(FLDEFF_SPARKLE)
+    delay(20)
+    callnative(NativePlayerPutAwayBall)
+    delay(20)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("The light from the comet is getting bright!"), MSGBOX_DEFAULT)
+    closemessage
+
+    delay(100)
 }
 
-movement LunarSummit_Comet_CameraMoveToComet1 { walk_slow_up * 2 }
-movement LunarSummit_Comet_CameraMoveToComet2 { walk_slow_up * 1 }
+movement LunarSummit_Comet_CameraMoveToComet1 { walk_slow_up * 1 }
+movement LunarSummit_Comet_CameraMoveToComet2 { walk_slow_up * 2 }
 
 movement LunarSummit_Comet_Scientist1ApproachPlayer { walk_up * 6 }
 movement LunarSummit_Comet_Scientist2ApproachPlayer { walk_up * 5 }
