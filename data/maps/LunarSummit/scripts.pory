@@ -181,10 +181,6 @@ script LunarSummit_WitnessMillenniumComet {
 
     // Talk to the scientists first
     call(LunarSummit_WitnessMillenniumComet_ScientistsBefore)
-
-    
-    
-    delay(120)
     
     // Sparkle
     playse(SE_M_DETECT)
@@ -201,8 +197,79 @@ script LunarSummit_WitnessMillenniumComet {
 	playse(SE_ORB)
     setvar(VAR_RESULT, 4)
     special(DoOrbEffect)
-    delay(500)
+
+    // Sparkle during orb effect (total 500 frames)
+    delay(50)
+    dofieldeffectsparkle(44, 4, 0)
+    delay(50)
+    dofieldeffectsparkle(46, 5, 0)
+    delay(50)
+    dofieldeffectsparkle(43, 1, 0)
+    delay(40)
+    dofieldeffectsparkle(43, 5, 0)
+    delay(40)
+    dofieldeffectsparkle(46, 3, 0)
+    dofieldeffectsparkle(43, 4, 0)
+    delay(40)
+    dofieldeffectsparkle(43, 6, 0)
+    dofieldeffectsparkle(46, 5, 0)
+    delay(30)
+    dofieldeffectsparkle(43, 2, 0)
+    dofieldeffectsparkle(44, 4, 0)
+    delay(30)
+    dofieldeffectsparkle(44, 2, 0)
+    dofieldeffectsparkle(47, 2, 0)
+    dofieldeffectsparkle(44, 5, 0)
+    delay(30)
+    dofieldeffectsparkle(43, 2, 0)
+    dofieldeffectsparkle(44, 4, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 2, 0)
+    dofieldeffectsparkle(47, 2, 0)
+    dofieldeffectsparkle(44, 5, 0)
+    delay(20)
+    dofieldeffectsparkle(43, 2, 0)
+    dofieldeffectsparkle(44, 4, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 1, 0)
+    dofieldeffectsparkle(42, 6, 0)
+    dofieldeffectsparkle(46, 6, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 2, 0)
+    dofieldeffectsparkle(47, 2, 0)
+    dofieldeffectsparkle(44, 5, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 3, 0)
+    dofieldeffectsparkle(44, 5, 0)
+    dofieldeffectsparkle(43, 4, 0)
+    dofieldeffectsparkle(45, 4, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 2, 0)
+    dofieldeffectsparkle(44, 6, 0)
+    dofieldeffectsparkle(42, 4, 0)
+    dofieldeffectsparkle(46, 4, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 3, 0)
+    dofieldeffectsparkle(44, 5, 0)
+    dofieldeffectsparkle(43, 4, 0)
+    dofieldeffectsparkle(45, 4, 0)
+
+    // Fade out the orb and lower the sparkling.
     special(FadeOutOrbEffect)
+    delay(10)
+    dofieldeffectsparkle(43, 6, 0)
+    dofieldeffectsparkle(46, 5, 0)
+    delay(10)
+    dofieldeffectsparkle(43, 2, 0)
+    dofieldeffectsparkle(44, 4, 0)
+    delay(20)
+    dofieldeffectsparkle(44, 4, 0)
+    delay(20)
+    dofieldeffectsparkle(46, 5, 0)
+    delay(20)
+    dofieldeffectsparkle(43, 1, 0)
+    delay(20)
+    dofieldeffectsparkle(43, 5, 0)
 	waitstate
 
     // Show Jirachi
@@ -212,6 +279,20 @@ script LunarSummit_WitnessMillenniumComet {
     setobjectxy(OBJECT_JIRACHI, 44, 4)
     playse(SE_ICE_BREAK) 
     fadescreen(FADE_FROM_WHITE)
+    
+    // Sparkles when Jirachi appears
+    delay(4)
+    dofieldeffectsparkle(44, 3, 0)
+    delay(4)
+    dofieldeffectsparkle(44, 5, 0)
+    delay(4)
+    dofieldeffectsparkle(43, 4, 0)
+    delay(4)
+    dofieldeffectsparkle(45, 4, 0)
+    delay(4)
+    dofieldeffectsparkle(44, 4, 0)
+
+    // Play cry
     waitse
     delay(20)
     playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
@@ -231,12 +312,18 @@ script LunarSummit_WitnessMillenniumComet {
 }
 
 script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
-    //applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1)
-    //waitmovement(0)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1)
+    waitmovement(0)
     delay(120)
 
+    // Moving objects from offscreen requires removing them, updating their template XY positions (setobjectxyperm), then re-adding.
+    removeobject(OBJECT_SCIENTIST1)
+    removeobject(OBJECT_SCIENTIST2)
     setobjectxyperm(OBJECT_SCIENTIST1, 44, 14)
     setobjectxyperm(OBJECT_SCIENTIST2, 45, 13)
+    addobject(OBJECT_SCIENTIST1)
+    addobject(OBJECT_SCIENTIST2)
+
     applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1ApproachPlayer)
     applymovement(OBJECT_SCIENTIST2, LunarSummit_Comet_Scientist2ApproachPlayer)
     waitmovement(OBJECT_SCIENTIST1)
@@ -251,21 +338,23 @@ script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
 
     msgbox(format("This truly is a once in a lifetime view.\p"
         "I used to read books about this sort of thing when I was just a kid.\p"
-        "...but nothing truly prepares you from seeing something like this first-hand."), MSGBOX_DEFAULT)
+        "...but seeing something like this first-hand...\nNothing truly prepares you."), MSGBOX_DEFAULT)
     closemessage
     delay(60)
     
     applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
     waitmovement(0)
-    msgbox(format("Look how bright the comet shines. Simply magnificent.\p"), MSGBOX_DEFAULT)
+    msgbox(format("Look how bright the comet shines. Simply magnificent."), MSGBOX_DEFAULT)
     closemessage
     delay(40)
 
     dofieldeffectsparkle(44, 7, 0)
 	waitfieldeffect(FLDEFF_SPARKLE)
 
+    playse(SE_PIN)
     applymovement(OBJECT_SCIENTIST1, Common_Movement_ExclamationMark)
     delay(15)
+    playse(SE_PIN)
     applymovement(OBJECT_SCIENTIST2, Common_Movement_ExclamationMark)
     waitmovement(OBJECT_SCIENTIST1)
     waitmovement(OBJECT_SCIENTIST2)
@@ -276,19 +365,31 @@ script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
     msgbox(format("Hey {PLAYER}...!\p"
     "The rock! In your bag!\lIt's shining!"), MSGBOX_DEFAULT)
 
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
+    delay(10)
     callnative(NativePlayerPullOutBall)
     delay(60)
-    dofieldeffectsparkle(44, 7, 0)
+    dofieldeffectsparkle(43, 6, 0)
 	waitfieldeffect(FLDEFF_SPARKLE)
     delay(20)
     callnative(NativePlayerPutAwayBall)
-    delay(20)
+    delay(30)
+    playse(SE_PIN)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_ExclamationMark)
+    waitmovement(OBJECT_SCIENTIST1)
     applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
     waitmovement(0)
+    setweather(WEATHER_DROUGHT)
     msgbox(format("The light from the comet is getting bright!"), MSGBOX_DEFAULT)
     closemessage
 
-    delay(100)
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    delay(40)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet2)
+    waitmovement(0)
+    delay(60)
 }
 
 movement LunarSummit_Comet_CameraMoveToComet1 { walk_slow_up * 1 }
@@ -303,10 +404,11 @@ movement LunarSummit_Comet_JirachiMovesToBattle { walk_slow_down * 2 }
 
 script LunarSummit_Jirachi {
     lock
-    faceplayer
+    objectfaceplayer(OBJECT_JIRACHI)
     waitse
     playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
-    msgbox(format("Wishah wishah!"), MSGBOX_NPC)
+    msgbox(format("Wishah wishah!"), MSGBOX_DEFAULT)
+    closemessage
     delay(20)
     waitmoncry
 

@@ -268,7 +268,6 @@ LunarSummit_WitnessMillenniumComet::
 	delay 60
 	special SpawnCameraObject
 	call LunarSummit_WitnessMillenniumComet_ScientistsBefore
-	delay 120
 	playse SE_M_DETECT
 	dofieldeffectsparkle 47, 3, 0
 	dofieldeffectsparkle 46, 3, 0
@@ -281,8 +280,75 @@ LunarSummit_WitnessMillenniumComet::
 	playse SE_ORB
 	setvar VAR_RESULT, 4
 	special DoOrbEffect
-	delay 500
+	delay 50
+	dofieldeffectsparkle 44, 4, 0
+	delay 50
+	dofieldeffectsparkle 46, 5, 0
+	delay 50
+	dofieldeffectsparkle 43, 1, 0
+	delay 40
+	dofieldeffectsparkle 43, 5, 0
+	delay 40
+	dofieldeffectsparkle 46, 3, 0
+	dofieldeffectsparkle 43, 4, 0
+	delay 40
+	dofieldeffectsparkle 43, 6, 0
+	dofieldeffectsparkle 46, 5, 0
+	delay 30
+	dofieldeffectsparkle 43, 2, 0
+	dofieldeffectsparkle 44, 4, 0
+	delay 30
+	dofieldeffectsparkle 44, 2, 0
+	dofieldeffectsparkle 47, 2, 0
+	dofieldeffectsparkle 44, 5, 0
+	delay 30
+	dofieldeffectsparkle 43, 2, 0
+	dofieldeffectsparkle 44, 4, 0
+	delay 20
+	dofieldeffectsparkle 44, 2, 0
+	dofieldeffectsparkle 47, 2, 0
+	dofieldeffectsparkle 44, 5, 0
+	delay 20
+	dofieldeffectsparkle 43, 2, 0
+	dofieldeffectsparkle 44, 4, 0
+	delay 20
+	dofieldeffectsparkle 44, 1, 0
+	dofieldeffectsparkle 42, 6, 0
+	dofieldeffectsparkle 46, 6, 0
+	delay 20
+	dofieldeffectsparkle 44, 2, 0
+	dofieldeffectsparkle 47, 2, 0
+	dofieldeffectsparkle 44, 5, 0
+	delay 20
+	dofieldeffectsparkle 44, 3, 0
+	dofieldeffectsparkle 44, 5, 0
+	dofieldeffectsparkle 43, 4, 0
+	dofieldeffectsparkle 45, 4, 0
+	delay 20
+	dofieldeffectsparkle 44, 2, 0
+	dofieldeffectsparkle 44, 6, 0
+	dofieldeffectsparkle 42, 4, 0
+	dofieldeffectsparkle 46, 4, 0
+	delay 20
+	dofieldeffectsparkle 44, 3, 0
+	dofieldeffectsparkle 44, 5, 0
+	dofieldeffectsparkle 43, 4, 0
+	dofieldeffectsparkle 45, 4, 0
 	special FadeOutOrbEffect
+	delay 10
+	dofieldeffectsparkle 43, 6, 0
+	dofieldeffectsparkle 46, 5, 0
+	delay 10
+	dofieldeffectsparkle 43, 2, 0
+	dofieldeffectsparkle 44, 4, 0
+	delay 20
+	dofieldeffectsparkle 44, 4, 0
+	delay 20
+	dofieldeffectsparkle 46, 5, 0
+	delay 20
+	dofieldeffectsparkle 43, 1, 0
+	delay 20
+	dofieldeffectsparkle 43, 5, 0
 	waitstate
 	fadescreen FADE_TO_WHITE
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
@@ -290,6 +356,16 @@ LunarSummit_WitnessMillenniumComet::
 	setobjectxy 1, 44, 4
 	playse SE_ICE_BREAK
 	fadescreen FADE_FROM_WHITE
+	delay 4
+	dofieldeffectsparkle 44, 3, 0
+	delay 4
+	dofieldeffectsparkle 44, 5, 0
+	delay 4
+	dofieldeffectsparkle 43, 4, 0
+	delay 4
+	dofieldeffectsparkle 45, 4, 0
+	delay 4
+	dofieldeffectsparkle 44, 4, 0
 	waitse
 	delay 20
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
@@ -308,9 +384,15 @@ LunarSummit_WitnessMillenniumComet::
 
 
 LunarSummit_WitnessMillenniumComet_ScientistsBefore::
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1
+	waitmovement 0
 	delay 120
+	removeobject 2
+	removeobject 4
 	setobjectxyperm 2, 44, 14
 	setobjectxyperm 4, 45, 13
+	addobject 2
+	addobject 4
 	applymovement 2, LunarSummit_Comet_Scientist1ApproachPlayer
 	applymovement 4, LunarSummit_Comet_Scientist2ApproachPlayer
 	waitmovement 2
@@ -331,8 +413,10 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore::
 	delay 40
 	dofieldeffectsparkle 44, 7, 0
 	waitfieldeffect FLDEFF_SPARKLE
+	playse SE_PIN
 	applymovement 2, Common_Movement_ExclamationMark
 	delay 15
+	playse SE_PIN
 	applymovement 4, Common_Movement_ExclamationMark
 	waitmovement 2
 	waitmovement 4
@@ -340,18 +424,30 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore::
 	applymovement 2, Common_Movement_WalkInPlace
 	waitmovement 0
 	msgbox LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_3, MSGBOX_DEFAULT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	delay 10
 	callnative NativePlayerPullOutBall
 	delay 60
-	dofieldeffectsparkle 44, 7, 0
+	dofieldeffectsparkle 43, 6, 0
 	waitfieldeffect FLDEFF_SPARKLE
 	delay 20
 	callnative NativePlayerPutAwayBall
-	delay 20
+	delay 30
+	playse SE_PIN
+	applymovement 2, Common_Movement_ExclamationMark
+	waitmovement 2
 	applymovement 2, Common_Movement_WalkInPlace
 	waitmovement 0
+	setweather WEATHER_DROUGHT
 	msgbox LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_4, MSGBOX_DEFAULT
 	closemessage
-	delay 100
+	delay 20
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 40
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet2
+	waitmovement 0
+	delay 60
 	return
 
 
@@ -394,10 +490,11 @@ LunarSummit_Comet_JirachiMovesToBattle:
 
 LunarSummit_Jirachi::
 	lock
-	faceplayer
+	objectfaceplayer 1
 	waitse
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
-	msgbox LunarSummit_Jirachi_Text_0, MSGBOX_NPC
+	msgbox LunarSummit_Jirachi_Text_0, MSGBOX_DEFAULT
+	closemessage
 	delay 20
 	waitmoncry
 	setwildbattle SPECIES_JIRACHI, 40
@@ -450,13 +547,13 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_1:
 	.string "This truly is a once in a lifetime view.\p"
 	.string "I used to read books about this sort of\n"
 	.string "thing when I was just a kid.\p"
-	.string "...but nothing truly prepares you from\n"
-	.string "seeing something like this first-hand.$"
+	.string "...but seeing something like this\n"
+	.string "first-hand...\n"
+	.string "Nothing truly prepares you.$"
 
 LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_2:
 	.string "Look how bright the comet shines.\n"
-	.string "Simply magnificent.\p"
-	.string "$"
+	.string "Simply magnificent.$"
 
 LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_3:
 	.string "Hey {PLAYER}...!\p"

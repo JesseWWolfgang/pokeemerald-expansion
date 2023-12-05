@@ -2365,15 +2365,11 @@ void NativePlayerPullOutBall(void)
 {
     ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_FIELD_MOVE));
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], ANIM_FIELD_MOVE);
-
-    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
-    //gPlayerAvatar.preventStep = FALSE;
-    
+    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);    
 }
 
 void NativePlayerPutAwayBall(void)
 {
-    ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByCurrentState());
     gFieldEffectArguments[1] = GetPlayerFacingDirection();
     if (gFieldEffectArguments[1] == DIR_SOUTH)
         gFieldEffectArguments[2] = 0;
@@ -2383,7 +2379,6 @@ void NativePlayerPutAwayBall(void)
         gFieldEffectArguments[2] = 2;
     if (gFieldEffectArguments[1] == DIR_EAST)
         gFieldEffectArguments[2] = 3;
+    ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], GetPlayerAvatarGraphicsIdByCurrentState());
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], gFieldEffectArguments[2]);
-    ObjectEventForceSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], MOVEMENT_ACTION_START_ANIM_IN_DIRECTION);
-    gPlayerAvatar.preventStep = FALSE;
 }
