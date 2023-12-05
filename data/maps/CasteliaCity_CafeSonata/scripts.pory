@@ -5,7 +5,7 @@ const OBJECT_ID_PIROUETTE_FORM = 6
 mapscripts CasteliaCity_CafeSonata_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         hideobjectat(OBJECT_ID_PIROUETTE_FORM, MAP_CASTELIA_CITY_CAFE_SONATA)
-        if (flag(FLAG_CAPTURED_MELOETTA) || !flag(FLAG_RELIC_SONG_PLAYED)) {
+        if (flag(FLAG_CAUGHT_MELOETTA) || !flag(FLAG_RELIC_SONG_PLAYED)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
         else {
@@ -17,7 +17,7 @@ mapscripts CasteliaCity_CafeSonata_MapScripts {
 script CafeSonata_Bard {
     lock
     faceplayer
-    if (flag(FLAG_CAPTURED_MELOETTA)) {
+    if (flag(FLAG_CAUGHT_MELOETTA)) {
         call(CafeSonata_Bard_CaughtMeloetta)
     }
     elif (flag(FLAG_RELIC_SONG_PLAYED)) {
@@ -402,7 +402,7 @@ script CafeSonata_Meloetta {
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            setflag(FLAG_CAPTURED_MELOETTA)
+            setflag(FLAG_CAUGHT_MELOETTA)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             fadescreenswapbuffers(FADE_TO_BLACK)
             removeobject(VAR_LAST_TALKED)

@@ -4,7 +4,7 @@ CasteliaCity_CafeSonata_MapScripts::
 
 CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	hideobjectat 6, MAP_CASTELIA_CITY_CAFE_SONATA
-	goto_if_set FLAG_CAPTURED_MELOETTA, CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	goto_if_set FLAG_CAUGHT_MELOETTA, CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	goto_if_unset FLAG_RELIC_SONG_PLAYED, CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
@@ -17,7 +17,7 @@ CasteliaCity_CafeSonata_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 CafeSonata_Bard::
 	lock
 	faceplayer
-	goto_if_set FLAG_CAPTURED_MELOETTA, CafeSonata_Bard_2
+	goto_if_set FLAG_CAUGHT_MELOETTA, CafeSonata_Bard_2
 	goto_if_set FLAG_RELIC_SONG_PLAYED, CafeSonata_Bard_3
 	call CafeSonata_Bard_NotCaughtMeloetta
 CafeSonata_Bard_1:
@@ -462,7 +462,7 @@ CafeSonata_Meloetta_1:
 	end
 
 CafeSonata_Meloetta_3:
-	setflag FLAG_CAPTURED_MELOETTA
+	setflag FLAG_CAUGHT_MELOETTA
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	fadescreenswapbuffers FADE_TO_BLACK
 	removeobject VAR_LAST_TALKED

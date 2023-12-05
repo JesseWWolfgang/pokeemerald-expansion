@@ -3,7 +3,7 @@ LibertyGarden_2F_MapScripts::
 	.byte 0
 
 LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION:
-	goto_if_set FLAG_CAPTURED_VICTINI, LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	goto_if_set FLAG_CAUGHT_VICTINI, LibertyGarden_2F_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
 
@@ -36,7 +36,7 @@ LibertyGarden_Victini_1:
 	end
 
 LibertyGarden_Victini_3:
-	setflag FLAG_CAPTURED_VICTINI
+	setflag FLAG_CAUGHT_VICTINI
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	call Common_EventScript_RemoveStaticPokemon
 	goto LibertyGarden_Victini_1

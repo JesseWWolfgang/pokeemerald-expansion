@@ -4,7 +4,7 @@ P2Laboratory_MapScripts::
 	.byte 0
 
 P2Laboratory_MapScripts_MAP_SCRIPT_ON_TRANSITION:
-	goto_if_set FLAG_CAPTURED_GENESECT, P2Laboratory_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+	goto_if_set FLAG_CAUGHT_GENESECT, P2Laboratory_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	goto_if_unset FLAG_DEFEATED_P2_SCIENTIST, P2Laboratory_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
@@ -110,7 +110,7 @@ P2Laboratory_Genesect_1:
 	end
 
 P2Laboratory_Genesect_3:
-	setflag FLAG_CAPTURED_GENESECT
+	setflag FLAG_CAUGHT_GENESECT
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	fadescreenswapbuffers FADE_TO_BLACK
 	removeobject VAR_LAST_TALKED
@@ -240,7 +240,7 @@ P2Laboratory_ScientistSwapDrive_30:
 P2Laboratory_Scientist::
 	lock
 	faceplayer
-	goto_if_unset FLAG_CAPTURED_GENESECT, P2Laboratory_Scientist_2
+	goto_if_unset FLAG_CAUGHT_GENESECT, P2Laboratory_Scientist_2
 	goto_if_set FLAG_OBTAINED_GENESECT_DRIVE, P2Laboratory_Scientist_5
 	call P2Laboratory_ScientistGiveFirstDrive
 P2Laboratory_Scientist_1:

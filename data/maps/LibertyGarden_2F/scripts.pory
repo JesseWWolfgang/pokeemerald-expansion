@@ -2,7 +2,7 @@ const OBJECT_ID_VICTINI = 1
 
 mapscripts LibertyGarden_2F_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
-        if (flag(FLAG_CAPTURED_VICTINI)) {
+        if (flag(FLAG_CAUGHT_VICTINI)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
         else {
@@ -25,7 +25,7 @@ script LibertyGarden_Victini {
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            setflag(FLAG_CAPTURED_VICTINI)
+            setflag(FLAG_CAUGHT_VICTINI)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             call(Common_EventScript_RemoveStaticPokemon)
         case B_OUTCOME_RAN:

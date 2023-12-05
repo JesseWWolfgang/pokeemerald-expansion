@@ -10,7 +10,7 @@ const WARP_MOSSDEEP_Y = 3
 
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
-        if (flag(FLAG_CAPTURED_JIRACHI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+        if (flag(FLAG_CAUGHT_JIRACHI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
         else {
@@ -32,7 +32,7 @@ script LunarSummit_Scientist1 {
     faceplayer
     if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
 
-        if (flag(FLAG_CAPTURED_JIRACHI))
+        if (flag(FLAG_CAUGHT_JIRACHI))
         msgbox(format("Ready to leave?"), MSGBOX_YESNO)
         if (var(VAR_RESULT) == YES) {
             msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
@@ -508,7 +508,7 @@ script LunarSummit_Jirachi {
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            setflag(FLAG_CAPTURED_JIRACHI)
+            setflag(FLAG_CAUGHT_JIRACHI)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             call(Common_EventScript_RemoveStaticPokemon)
         case B_OUTCOME_RAN:

@@ -656,11 +656,11 @@
 #define FLAG_LILYCOVE_MYSTERYGIFT_OUTLOOK_ACCESSIBLE    0x265
 #define FLAG_ENABLE_SHIP_LIBERTY_GARDEN                 0x266
 #define FLAG_SHOWN_LIBERTY_PASS                         0x267
-#define FLAG_CAPTURED_VICTINI                           0x268
+#define FLAG_CAUGHT_VICTINI                             0x268
 #define FLAG_HIDDEN_ITEM_LIBERTY_GARDEN_ULTRA_BALL      0x269
 #define FLAG_GIVEN_CASTELIA_MARKET_MAN_RAGE_CANDY_BAR   0x26A
 #define FLAG_RELIC_SONG_PLAYED                          0x26B
-#define FLAG_CAPTURED_MELOETTA                          0x26C
+#define FLAG_CAUGHT_MELOETTA                            0x26C
 #define FLAG_SEEN_P2_LAB_SCIENTIST_INTERVIEW            0x26D
 #define FLAG_SPOKEN_TO_SAILOR_ABOUT_P2_LAB              0x26E
 #define FLAG_ITEM_UNOVA_ROUTE_17_EVIOLITE               0x26F
@@ -668,13 +668,13 @@
 #define FLAG_ITEM_UNOVA_ROUTE_17_CLEAR_AMULET           0x271
 #define FLAG_HIDDEN_ITEM_UNOVA_ROUTE_17_COVERT_CLOAK    0x272
 #define FLAG_DEFEATED_P2_SCIENTIST                      0x273
-#define FLAG_CAPTURED_GENESECT                          0x274
+#define FLAG_CAUGHT_GENESECT                            0x274
 #define FLAG_OBTAINED_GENESECT_DRIVE                    0x275
 #define FLAG_TALKED_TO_WHITE_ROCK                       0x276
 #define FLAG_SPOKEN_ABOUT_MILLENNIUM_COMET              0x277
 #define FLAG_TRAVELLED_TO_SPACE                         0x278
 #define FLAG_WITNESSED_MILLENNIUM_COMET                 0x279
-#define FLAG_CAPTURED_JIRACHI                           0x27A
+#define FLAG_CAUGHT_JIRACHI                             0x27A
 #define FLAG_UNUSED_0x27B  0x27B // Unused Flag
 #define FLAG_UNUSED_0x27C  0x27C // Unused Flag
 #define FLAG_UNUSED_0x27D  0x27D // Unused Flag

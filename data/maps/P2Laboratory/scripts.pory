@@ -6,7 +6,7 @@ mapscripts P2Laboratory_MapScripts {
         VAR_TEMP_LOADED, 0: P2Laboratory_GenesectEvent
     ]
     MAP_SCRIPT_ON_TRANSITION {
-        if (flag(FLAG_CAPTURED_GENESECT) || !flag(FLAG_DEFEATED_P2_SCIENTIST)) {
+        if (flag(FLAG_CAUGHT_GENESECT) || !flag(FLAG_DEFEATED_P2_SCIENTIST)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
         }
         else {
@@ -110,7 +110,7 @@ script P2Laboratory_Genesect {
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            setflag(FLAG_CAPTURED_GENESECT)
+            setflag(FLAG_CAUGHT_GENESECT)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             fadescreenswapbuffers(FADE_TO_BLACK)
             removeobject(VAR_LAST_TALKED)
@@ -200,7 +200,7 @@ script P2Laboratory_ScientistSwapDrive {
 script P2Laboratory_Scientist {
     lock
     faceplayer
-    if (!flag(FLAG_CAPTURED_GENESECT)) {
+    if (!flag(FLAG_CAUGHT_GENESECT)) {
         msgbox(format("Despite Genesect being a lab experiment, it still needs a home - a partner...\p"
         "You should show it what it means to be with a trustworthy trainer."))
     } 

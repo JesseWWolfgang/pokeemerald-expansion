@@ -3,7 +3,7 @@ LunarSummit_MapScripts::
 	.byte 0
 
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD:
-	goto_if_set FLAG_CAPTURED_JIRACHI, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
+	goto_if_set FLAG_CAUGHT_JIRACHI, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
 	goto_if_unset FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_1:
@@ -573,7 +573,7 @@ LunarSummit_Jirachi_1:
 	end
 
 LunarSummit_Jirachi_3:
-	setflag FLAG_CAPTURED_JIRACHI
+	setflag FLAG_CAUGHT_JIRACHI
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	call Common_EventScript_RemoveStaticPokemon
 	goto LunarSummit_Jirachi_1
