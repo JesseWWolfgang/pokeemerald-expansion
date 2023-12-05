@@ -31,13 +31,16 @@ script LunarSummit_Scientist1 {
     lock
     faceplayer
     if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
-
-        if (flag(FLAG_CAUGHT_JIRACHI))
-        msgbox(format("Ready to leave?"), MSGBOX_YESNO)
-        if (var(VAR_RESULT) == YES) {
-            msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
-            closemessage
-            call(LunarSummit_PrepareTakeOff)
+        if (flag(FLAG_CAUGHT_JIRACHI)) {
+            msgbox(format("Ready to leave?"), MSGBOX_YESNO)
+            if (var(VAR_RESULT) == YES) {
+                msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
+                closemessage
+                call(LunarSummit_PrepareTakeOff)
+            }
+        }
+        else {
+            msgbox(format("We're set up and monitoring. Give it your all {PLAYER}!"), MSGBOX_NPC)
         }
     }
     else {
@@ -48,24 +51,37 @@ script LunarSummit_Scientist1 {
 }
 
 script LunarSummit_Scientist2 {
-    // lock
-    // faceplayer
-    // if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
-    //     // if (!flag(FLAG_TEMP_SPOKEN_ABOUT_MILLENNIUM_COMET)) {
-    //     //     msgbox(format("Ready to leave?"), MSGBOX_YESNO)
-    //     // }
-    //     msgbox(format("Ready to leave?"), MSGBOX_YESNO)
-    //     if (var(VAR_RESULT) == YES) {
-    //         msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
-    //         closemessage
-    //         call(LunarSummit_PrepareTakeOff)
-    //     }
-    // }
-    // else {
-    //     msgbox(format("We haven't finished conducting our research here just yet.\p"
-    //     "You could try and find the highest point around here to get a clear view of the comet."), MSGBOX_DEFAULT)
-    // }
-    // release
+    lock
+    faceplayer
+    if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+        if (flag(FLAG_CAUGHT_JIRACHI)) {
+            msgbox(format("That was really something up there wasn't it?\p"
+            "I do hope your wish comes true..."), MSGBOX_NPC)
+        }
+        else {
+            callnative(HasAtLeastOnePokeball)
+            if (var(VAR_RESULT) == FALSE) {
+                msgbox(format("It seems like you're out of Pokéballs...\p"
+                "Here, take these!"), MSGBOX_NPC)
+                giveitem(ITEM_MOON_BALL, 20)
+            }
+        }
+    }
+    else {
+        msgbox(format("Hi {PLAYER}, I'm pretty busy taking sample data at the moment... can't stop for long."), MSGBOX_DEFAULT)
+    }
+    msgbox(format("Would you like me to restore the health of your Pokémon?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(format("Let me take your Pokémon for a moment..."), MSGBOX_DEFAULT)
+        fadescreen(FADE_TO_BLACK)
+        playfanfare(MUS_HEAL)
+        waitfanfare
+        special(HealPlayerParty)
+        fadescreen(FADE_FROM_BLACK)
+        delay(30)
+        msgbox(format("Fully healed and ready to go!"), MSGBOX_DEFAULT)
+    }
+    release
 }
 
 script LunarSummit_PrepareTakeOff {
@@ -368,12 +384,6 @@ script LunarSummit_WitnessMillenniumComet {
     waitmovement(OBJECT_SCIENTIST1)
     waitmovement(OBJECT_SCIENTIST2)
     call(LunarSummit_SetScientistsToWatchJirachi)
-    // setweather(WEATHER_NONE)
-    // doweather
-    // special(WaitWeather)
-    // waitstate
-    // setvar(VAR_LAST_TALKED, OBJECT_JIRACHI)
-    // goto(LunarSummit_Jirachi)
 }
 
 script LunarSummit_SetScientistsToWatchJirachi {
@@ -514,10 +524,14 @@ script LunarSummit_Jirachi {
         case B_OUTCOME_RAN:
             msgbox(format("Jirachi is watching carefully."), MSGBOX_DEFAULT)
         default:
-            fadescreenswapbuffers(FADE_TO_BLACK)
-            removeobject(OBJECT_JIRACHI)
-            fadescreenswapbuffers(FADE_FROM_BLACK)
-            msgbox(format("Jirachi fled into a crater..."), MSGBOX_DEFAULT)
+            fadescreenswapbuffers(FADE_TO_WHITE)
+            playse(SE_M_COSMIC_POWER)
+            waitse
+            playse(SE_SHINY)
+            waitse
+            fadescreenswapbuffers(FADE_FROM_WHITE)
+            msgbox(format("Jirachi was enveloped by a sheen of light, and fully recovered."), MSGBOX_DEFAULT)
+            closemessage
     }
     release
     end

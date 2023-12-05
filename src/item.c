@@ -995,3 +995,19 @@ u32 GetItemStatus2Mask(u16 itemId)
     else
         return 0;
 }
+
+bool8 HasAtLeastOnePokeball(void)
+{
+    u16 i;
+
+    for (i = FIRST_BALL; i <= LAST_BALL; i++)
+    {
+        if (CheckBagHasItem(i, 1) == TRUE)
+        {
+            gSpecialVar_Result = TRUE;
+            return TRUE;
+        }
+    }
+    gSpecialVar_Result = FALSE;
+    return FALSE;
+}

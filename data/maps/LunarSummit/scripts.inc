@@ -6,6 +6,7 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD:
 	goto_if_set FLAG_CAUGHT_JIRACHI, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
 	goto_if_unset FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	call LunarSummit_SetScientistsToWatchJirachi
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_1:
 	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7
 	setvar VAR_TEMP_0, 0
@@ -20,26 +21,72 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
 	return
 
 
-LunarSummit_ScientistAtRocket::
+LunarSummit_Scientist1::
 	lock
 	faceplayer
-	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_ScientistAtRocket_2
-	msgbox LunarSummit_ScientistAtRocket_Text_2, MSGBOX_DEFAULT
-LunarSummit_ScientistAtRocket_1:
+	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_Scientist1_2
+	msgbox LunarSummit_Scientist1_Text_3, MSGBOX_DEFAULT
+LunarSummit_Scientist1_1:
 	release
 	return
 
-LunarSummit_ScientistAtRocket_2:
-	msgbox LunarSummit_ScientistAtRocket_Text_0, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq LunarSummit_ScientistAtRocket_5
-	goto LunarSummit_ScientistAtRocket_1
+LunarSummit_Scientist1_2:
+	goto_if_set FLAG_CAUGHT_JIRACHI, LunarSummit_Scientist1_5
+	msgbox LunarSummit_Scientist1_Text_2, MSGBOX_NPC
+	goto LunarSummit_Scientist1_1
 
-LunarSummit_ScientistAtRocket_5:
-	msgbox LunarSummit_ScientistAtRocket_Text_1, MSGBOX_DEFAULT
+LunarSummit_Scientist1_5:
+	msgbox LunarSummit_Scientist1_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_Scientist1_8
+	goto LunarSummit_Scientist1_1
+
+LunarSummit_Scientist1_8:
+	msgbox LunarSummit_Scientist1_Text_1, MSGBOX_DEFAULT
 	closemessage
 	call LunarSummit_PrepareTakeOff
-	goto LunarSummit_ScientistAtRocket_1
+	goto LunarSummit_Scientist1_1
+
+
+LunarSummit_Scientist2::
+	lock
+	faceplayer
+	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_Scientist2_2
+	msgbox LunarSummit_Scientist2_Text_2, MSGBOX_DEFAULT
+LunarSummit_Scientist2_1:
+	msgbox LunarSummit_Scientist2_Text_3, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_Scientist2_6
+LunarSummit_Scientist2_5:
+	release
+	return
+
+LunarSummit_Scientist2_2:
+	goto_if_set FLAG_CAUGHT_JIRACHI, LunarSummit_Scientist2_8
+	callnative HasAtLeastOnePokeball
+	compare VAR_RESULT, FALSE
+	goto_if_eq LunarSummit_Scientist2_11
+	goto LunarSummit_Scientist2_1
+
+LunarSummit_Scientist2_6:
+	msgbox LunarSummit_Scientist2_Text_4, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	playfanfare MUS_HEAL
+	waitfanfare
+	special HealPlayerParty
+	fadescreen FADE_FROM_BLACK
+	delay 30
+	msgbox LunarSummit_Scientist2_Text_5, MSGBOX_DEFAULT
+	goto LunarSummit_Scientist2_5
+
+LunarSummit_Scientist2_8:
+	msgbox LunarSummit_Scientist2_Text_0, MSGBOX_NPC
+	goto LunarSummit_Scientist2_1
+
+LunarSummit_Scientist2_11:
+	msgbox LunarSummit_Scientist2_Text_1, MSGBOX_NPC
+	giveitem ITEM_MOON_BALL, 20
+	goto LunarSummit_Scientist2_1
 
 
 LunarSummit_PrepareTakeOff::
@@ -334,7 +381,7 @@ LunarSummit_WitnessMillenniumComet::
 	dofieldeffectsparkle 44, 5, 0
 	dofieldeffectsparkle 43, 4, 0
 	dofieldeffectsparkle 45, 4, 0
-	setweather WEATHER_SHADE
+	setweather WEATHER_NONE
 	doweather
 	special FadeOutOrbEffect
 	delay 10
@@ -407,12 +454,15 @@ LunarSummit_WitnessMillenniumComet::
 	applymovement 4, LunarSummit_Comet_Scientist2WalkToSideline
 	waitmovement 2
 	waitmovement 4
+	call LunarSummit_SetScientistsToWatchJirachi
+	return
+
+
+LunarSummit_SetScientistsToWatchJirachi::
 	setobjectxyperm 2, 46, 10
 	setobjectxyperm 4, 46, 9
-	setweather WEATHER_NONE
-	doweather
-	special WaitWeather
-	waitstate
+	setobjectmovementtype 2, MOVEMENT_TYPE_FACE_LEFT
+	setobjectmovementtype 4, MOVEMENT_TYPE_FACE_LEFT
 	return
 
 
@@ -564,10 +614,14 @@ LunarSummit_Jirachi::
 	switch VAR_RESULT
 	case B_OUTCOME_CAUGHT, LunarSummit_Jirachi_3
 	case B_OUTCOME_RAN, LunarSummit_Jirachi_4
-	fadescreenswapbuffers FADE_TO_BLACK
-	removeobject 1
-	fadescreenswapbuffers FADE_FROM_BLACK
+	fadescreenswapbuffers FADE_TO_WHITE
+	playse SE_M_COSMIC_POWER
+	waitse
+	playse SE_SHINY
+	waitse
+	fadescreenswapbuffers FADE_FROM_WHITE
 	msgbox LunarSummit_Jirachi_Text_2, MSGBOX_DEFAULT
+	closemessage
 LunarSummit_Jirachi_1:
 	release
 	end
@@ -583,19 +637,47 @@ LunarSummit_Jirachi_4:
 	goto LunarSummit_Jirachi_1
 
 
-LunarSummit_ScientistAtRocket_Text_0:
+LunarSummit_Scientist1_Text_0:
 	.string "Ready to leave?$"
 
-LunarSummit_ScientistAtRocket_Text_1:
+LunarSummit_Scientist1_Text_1:
 	.string "Please board the shuttle and wait for\n"
 	.string "lift off.$"
 
-LunarSummit_ScientistAtRocket_Text_2:
+LunarSummit_Scientist1_Text_2:
+	.string "We're set up and monitoring. Give it your\n"
+	.string "all {PLAYER}!$"
+
+LunarSummit_Scientist1_Text_3:
 	.string "We haven't finished conducting our\n"
 	.string "research here just yet.\p"
 	.string "You could try and find the highest\n"
 	.string "point around here to get a clear view\l"
 	.string "of the comet.$"
+
+LunarSummit_Scientist2_Text_0:
+	.string "That was really something up there\n"
+	.string "wasn't it?\p"
+	.string "I do hope your wish comes true...$"
+
+LunarSummit_Scientist2_Text_1:
+	.string "It seems like you're out of Pokéballs...\p"
+	.string "Here, take these!$"
+
+LunarSummit_Scientist2_Text_2:
+	.string "Hi {PLAYER}, I'm pretty busy taking\n"
+	.string "sample data at the moment... can't stop\l"
+	.string "for long.$"
+
+LunarSummit_Scientist2_Text_3:
+	.string "Would you like me to restore the health\n"
+	.string "of your Pokémon?$"
+
+LunarSummit_Scientist2_Text_4:
+	.string "Let me take your Pokémon for a moment...$"
+
+LunarSummit_Scientist2_Text_5:
+	.string "Fully healed and ready to go!$"
 
 LunarSummit_PrepareTakeOff_Text_0:
 	.string "Take off.$"
@@ -658,4 +740,5 @@ LunarSummit_Jirachi_Text_1:
 	.string "Jirachi is watching carefully.$"
 
 LunarSummit_Jirachi_Text_2:
-	.string "Jirachi fled into a crater...$"
+	.string "Jirachi was enveloped by a sheen of\n"
+	.string "light, and fully recovered.$"
