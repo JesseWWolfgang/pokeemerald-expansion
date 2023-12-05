@@ -131,6 +131,11 @@
             "file": "include/constants/field_weather.h"
         },
         {
+            "expression": "^\\s*#define\\s+(MOVEMENT_TYPE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/event_object_movement.h"
+        },
+        {
             "expression": "^\\s*(B_TRANSITION_\\w+),",
             "type": "define",
             "file": "include/battle_transition.h"

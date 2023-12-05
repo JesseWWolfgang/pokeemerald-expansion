@@ -15,6 +15,7 @@ mapscripts LunarSummit_MapScripts {
         }
         else {
             clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+            call(LunarSummit_SetScientistsToWatchJirachi)
         }
 
         if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
@@ -26,13 +27,12 @@ mapscripts LunarSummit_MapScripts {
     }
 }
 
-script LunarSummit_ScientistAtRocket {
+script LunarSummit_Scientist1 {
     lock
     faceplayer
     if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
-        // if (!flag(FLAG_TEMP_SPOKEN_ABOUT_MILLENNIUM_COMET)) {
-        //     msgbox(format("Ready to leave?"), MSGBOX_YESNO)
-        // }
+
+        if (flag(FLAG_CAPTURED_JIRACHI))
         msgbox(format("Ready to leave?"), MSGBOX_YESNO)
         if (var(VAR_RESULT) == YES) {
             msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
@@ -45,6 +45,27 @@ script LunarSummit_ScientistAtRocket {
         "You could try and find the highest point around here to get a clear view of the comet."), MSGBOX_DEFAULT)
     }
     release
+}
+
+script LunarSummit_Scientist2 {
+    // lock
+    // faceplayer
+    // if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
+    //     // if (!flag(FLAG_TEMP_SPOKEN_ABOUT_MILLENNIUM_COMET)) {
+    //     //     msgbox(format("Ready to leave?"), MSGBOX_YESNO)
+    //     // }
+    //     msgbox(format("Ready to leave?"), MSGBOX_YESNO)
+    //     if (var(VAR_RESULT) == YES) {
+    //         msgbox(format("Please board the shuttle and wait for lift off."), MSGBOX_DEFAULT)
+    //         closemessage
+    //         call(LunarSummit_PrepareTakeOff)
+    //     }
+    // }
+    // else {
+    //     msgbox(format("We haven't finished conducting our research here just yet.\p"
+    //     "You could try and find the highest point around here to get a clear view of the comet."), MSGBOX_DEFAULT)
+    // }
+    // release
 }
 
 script LunarSummit_PrepareTakeOff {
@@ -254,7 +275,9 @@ script LunarSummit_WitnessMillenniumComet {
     dofieldeffectsparkle(43, 4, 0)
     dofieldeffectsparkle(45, 4, 0)
 
-    // Fade out the orb and lower the sparkling.
+    // Fade out the orb and lower the sparkling. (Also fade out the drought weather)
+    setweather(WEATHER_NONE)
+    doweather
     special(FadeOutOrbEffect)
     delay(10)
     dofieldeffectsparkle(43, 6, 0)
@@ -297,19 +320,69 @@ script LunarSummit_WitnessMillenniumComet {
     delay(20)
     playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
     waitmoncry
-    delay(60)
 
-    // Approach the player and start the battle
+    // The scientists are surprised
+    playse(SE_PIN)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_ExclamationMark)
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_ExclamationMark)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    waitse
+    delay(80)
+    
+    // Approach the player
     applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveFromComet)
-    waitmovement(0)
-    delay(20)
     applymovement(OBJECT_JIRACHI, LunarSummit_Comet_JirachiMovesToBattle)
-    waitmovement(0)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    waitmovement(OBJECT_JIRACHI)
     special(RemoveCameraObject)
     delay(20)
-    setvar(VAR_LAST_TALKED, OBJECT_JIRACHI)
-    goto(LunarSummit_Jirachi)
+
+    // Scientist mentions it wants to play with you
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Is that... a Pokémon?!"), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_ExcitedScientist)
+    waitmovement(0)
+    msgbox(format("Simply incredible!\p"
+    "It's Jirachi!"), MSGBOX_DEFAULT)
+    delay(20)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    msgbox(format("We were right to bring you on this journey {PLAYER}.\p"
+    "Jirachi is rumoured to grant a single wish each time it awakens every 1000 years...\p"
+    "...and it looks like it may have chosen you..."), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceDown)
+    waitmovement(0)
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    msgbox(format("We will observe from the side and collect as much data as we can of this historical moment.\p"
+    "Good luck {PLAYER}!"), MSGBOX_DEFAULT)
+    closemessage
+
+    // Scientists walk to their sideline positions
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1WalkToSideline)
+    applymovement(OBJECT_SCIENTIST2, LunarSummit_Comet_Scientist2WalkToSideline)
+    waitmovement(OBJECT_SCIENTIST1)
+    waitmovement(OBJECT_SCIENTIST2)
+    call(LunarSummit_SetScientistsToWatchJirachi)
+    // setweather(WEATHER_NONE)
+    // doweather
+    // special(WaitWeather)
+    // waitstate
+    // setvar(VAR_LAST_TALKED, OBJECT_JIRACHI)
+    // goto(LunarSummit_Jirachi)
 }
+
+script LunarSummit_SetScientistsToWatchJirachi {
+    setobjectxyperm(OBJECT_SCIENTIST1, 46, 10)
+    setobjectxyperm(OBJECT_SCIENTIST2, 46, 9)
+    setobjectmovementtype(OBJECT_SCIENTIST1, MOVEMENT_TYPE_FACE_LEFT)
+    setobjectmovementtype(OBJECT_SCIENTIST2, MOVEMENT_TYPE_FACE_LEFT)
+}
+
 
 script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
     applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1)
@@ -324,33 +397,35 @@ script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
     addobject(OBJECT_SCIENTIST1)
     addobject(OBJECT_SCIENTIST2)
 
+    // Scientists approach
     applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1ApproachPlayer)
     applymovement(OBJECT_SCIENTIST2, LunarSummit_Comet_Scientist2ApproachPlayer)
     waitmovement(OBJECT_SCIENTIST1)
     waitmovement(OBJECT_SCIENTIST2)
     delay(30)
 
+    // Scientists mention how beautiful the comet it.
     applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
     waitmovement(0)
     msgbox(format("Would you look at that..."), MSGBOX_DEFAULT)
     closemessage
     delay(100)
-
     msgbox(format("This truly is a once in a lifetime view.\p"
         "I used to read books about this sort of thing when I was just a kid.\p"
-        "...but seeing something like this first-hand...\nNothing truly prepares you."), MSGBOX_DEFAULT)
+        "...but seeing something like this first-hand...\lNothing truly prepares you."), MSGBOX_DEFAULT)
     closemessage
     delay(60)
-    
     applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
     waitmovement(0)
     msgbox(format("Look how bright the comet shines. Simply magnificent."), MSGBOX_DEFAULT)
     closemessage
     delay(40)
 
+    // Rock in bag shines
     dofieldeffectsparkle(44, 7, 0)
 	waitfieldeffect(FLDEFF_SPARKLE)
 
+    // Scientists are surprised
     playse(SE_PIN)
     applymovement(OBJECT_SCIENTIST1, Common_Movement_ExclamationMark)
     delay(15)
@@ -359,30 +434,41 @@ script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
     waitmovement(OBJECT_SCIENTIST1)
     waitmovement(OBJECT_SCIENTIST2)
     delay(30)
-
     applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
     waitmovement(0)
     msgbox(format("Hey {PLAYER}...!\p"
     "The rock! In your bag!\lIt's shining!"), MSGBOX_DEFAULT)
+    closemessage
 
+    // Player pulls out the rock as it shines
     applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown)
     delay(10)
     callnative(NativePlayerPullOutBall)
     delay(60)
-    dofieldeffectsparkle(43, 6, 0)
+    dofieldeffectsparkle(44, 7, 0)
 	waitfieldeffect(FLDEFF_SPARKLE)
     delay(20)
     callnative(NativePlayerPutAwayBall)
     delay(30)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Amazing!\nWhat could this possibly mean?"), MSGBOX_DEFAULT)
+    closemessage
+
+    // Comet begins to shine brightly
+    setweather(WEATHER_DROUGHT)
+    doweather
+    special(WaitWeather)
+    waitstate
+    delay(60)
     playse(SE_PIN)
     applymovement(OBJECT_SCIENTIST1, Common_Movement_ExclamationMark)
     waitmovement(OBJECT_SCIENTIST1)
-    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
-    waitmovement(0)
-    setweather(WEATHER_DROUGHT)
-    msgbox(format("The light from the comet is getting bright!"), MSGBOX_DEFAULT)
+    msgbox(format("Hold on...\p"
+    "The light from the comet... it's getting brighter!"), MSGBOX_DEFAULT)
     closemessage
 
+    // Everyone watches the comet
     delay(20)
     applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
     waitmovement(0)
@@ -400,6 +486,10 @@ movement LunarSummit_Comet_Scientist2ApproachPlayer { walk_up * 5 }
 
 movement LunarSummit_Comet_CameraMoveFromComet { walk_slow_down * 3 }
 movement LunarSummit_Comet_JirachiMovesToBattle { walk_slow_down * 2 }
+
+movement LunarSummit_Comet_ExcitedScientist { walk_in_place_fast_right * 3 }
+movement LunarSummit_Comet_Scientist1WalkToSideline { walk_down * 2 walk_right * 2 face_left }
+movement LunarSummit_Comet_Scientist2WalkToSideline { walk_down walk_right face_left }
 
 
 script LunarSummit_Jirachi {

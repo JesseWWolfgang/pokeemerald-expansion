@@ -334,6 +334,8 @@ LunarSummit_WitnessMillenniumComet::
 	dofieldeffectsparkle 44, 5, 0
 	dofieldeffectsparkle 43, 4, 0
 	dofieldeffectsparkle 45, 4, 0
+	setweather WEATHER_SHADE
+	doweather
 	special FadeOutOrbEffect
 	delay 10
 	dofieldeffectsparkle 43, 6, 0
@@ -370,16 +372,47 @@ LunarSummit_WitnessMillenniumComet::
 	delay 20
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
 	waitmoncry
-	delay 60
+	playse SE_PIN
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
+	applymovement 2, Common_Movement_ExclamationMark
+	applymovement 4, Common_Movement_ExclamationMark
+	waitmovement OBJ_EVENT_ID_PLAYER
+	waitse
+	delay 80
 	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveFromComet
-	waitmovement 0
-	delay 20
 	applymovement 1, LunarSummit_Comet_JirachiMovesToBattle
-	waitmovement 0
+	waitmovement OBJ_EVENT_ID_CAMERA
+	waitmovement 1
 	special RemoveCameraObject
 	delay 20
-	setvar VAR_LAST_TALKED, 1
-	goto LunarSummit_Jirachi
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox LunarSummit_WitnessMillenniumComet_Text_0, MSGBOX_DEFAULT
+	closemessage
+	applymovement 2, LunarSummit_Comet_ExcitedScientist
+	waitmovement 0
+	msgbox LunarSummit_WitnessMillenniumComet_Text_1, MSGBOX_DEFAULT
+	delay 20
+	applymovement 2, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox LunarSummit_WitnessMillenniumComet_Text_2, MSGBOX_DEFAULT
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceDown
+	waitmovement 0
+	applymovement 4, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox LunarSummit_WitnessMillenniumComet_Text_3, MSGBOX_DEFAULT
+	closemessage
+	applymovement 2, LunarSummit_Comet_Scientist1WalkToSideline
+	applymovement 4, LunarSummit_Comet_Scientist2WalkToSideline
+	waitmovement 2
+	waitmovement 4
+	setobjectxyperm 2, 46, 10
+	setobjectxyperm 4, 46, 9
+	setweather WEATHER_NONE
+	doweather
+	special WaitWeather
+	waitstate
 	return
 
 
@@ -424,22 +457,29 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore::
 	applymovement 2, Common_Movement_WalkInPlace
 	waitmovement 0
 	msgbox LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_3, MSGBOX_DEFAULT
+	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	delay 10
 	callnative NativePlayerPullOutBall
 	delay 60
-	dofieldeffectsparkle 43, 6, 0
+	dofieldeffectsparkle 44, 7, 0
 	waitfieldeffect FLDEFF_SPARKLE
 	delay 20
 	callnative NativePlayerPutAwayBall
 	delay 30
+	applymovement 2, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_4, MSGBOX_DEFAULT
+	closemessage
+	setweather WEATHER_DROUGHT
+	doweather
+	special WaitWeather
+	waitstate
+	delay 60
 	playse SE_PIN
 	applymovement 2, Common_Movement_ExclamationMark
 	waitmovement 2
-	applymovement 2, Common_Movement_WalkInPlace
-	waitmovement 0
-	setweather WEATHER_DROUGHT
-	msgbox LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_4, MSGBOX_DEFAULT
+	msgbox LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_5, MSGBOX_DEFAULT
 	closemessage
 	delay 20
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
@@ -486,6 +526,26 @@ LunarSummit_Comet_CameraMoveFromComet:
 LunarSummit_Comet_JirachiMovesToBattle:
 	walk_slow_down
 	walk_slow_down
+	step_end
+
+LunarSummit_Comet_ExcitedScientist:
+	walk_in_place_fast_right
+	walk_in_place_fast_right
+	walk_in_place_fast_right
+	step_end
+
+LunarSummit_Comet_Scientist1WalkToSideline:
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	face_left
+	step_end
+
+LunarSummit_Comet_Scientist2WalkToSideline:
+	walk_down
+	walk_right
+	face_left
 	step_end
 
 LunarSummit_Jirachi::
@@ -540,6 +600,28 @@ LunarSummit_ScientistAtRocket_Text_2:
 LunarSummit_PrepareTakeOff_Text_0:
 	.string "Take off.$"
 
+LunarSummit_WitnessMillenniumComet_Text_0:
+	.string "Is that... a Pokémon?!$"
+
+LunarSummit_WitnessMillenniumComet_Text_1:
+	.string "Simply incredible!\p"
+	.string "It's Jirachi!$"
+
+LunarSummit_WitnessMillenniumComet_Text_2:
+	.string "We were right to bring you on this\n"
+	.string "journey {PLAYER}.\p"
+	.string "Jirachi is rumoured to grant a single\n"
+	.string "wish each time it awakens every 1000\l"
+	.string "years...\p"
+	.string "...and it looks like it may have chosen\n"
+	.string "you...$"
+
+LunarSummit_WitnessMillenniumComet_Text_3:
+	.string "We will observe from the side and\n"
+	.string "collect as much data as we can of this\l"
+	.string "historical moment.\p"
+	.string "Good luck {PLAYER}!$"
+
 LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_0:
 	.string "Would you look at that...$"
 
@@ -548,7 +630,7 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_1:
 	.string "I used to read books about this sort of\n"
 	.string "thing when I was just a kid.\p"
 	.string "...but seeing something like this\n"
-	.string "first-hand...\n"
+	.string "first-hand...\l"
 	.string "Nothing truly prepares you.$"
 
 LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_2:
@@ -561,8 +643,13 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_3:
 	.string "It's shining!$"
 
 LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_4:
-	.string "The light from the comet is getting\n"
-	.string "bright!$"
+	.string "Amazing!\n"
+	.string "What could this possibly mean?$"
+
+LunarSummit_WitnessMillenniumComet_ScientistsBefore_Text_5:
+	.string "Hold on...\p"
+	.string "The light from the comet... it's getting\n"
+	.string "brighter!$"
 
 LunarSummit_Jirachi_Text_0:
 	.string "Wishah wishah!$"
