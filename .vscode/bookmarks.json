@@ -1,0 +1,299 @@
+{
+	"files": [
+		{
+			"path": "src/overworld.c",
+			"bookmarks": [
+				{
+					"line": 1108,
+					"column": 8,
+					"label": "Get location music"
+				},
+				{
+					"line": 1526,
+					"column": 10,
+					"label": "New Game"
+				}
+			]
+		},
+		{
+			"path": "src/new_game.c",
+			"bookmarks": [
+				{
+					"line": 90,
+					"column": 14,
+					"label": "Set default options"
+				},
+				{
+					"line": 128,
+					"column": 17,
+					"label": "Game Start Position"
+				},
+				{
+					"line": 149,
+					"column": 8,
+					"label": "New game init data"
+				}
+			]
+		},
+		{
+			"path": "src/main_menu.c",
+			"bookmarks": [
+				{
+					"line": 1058,
+					"column": 26,
+					"label": "Skip Birch Intro"
+				},
+				{
+					"line": 1774,
+					"column": 15,
+					"label": "Set Default Name"
+				}
+			]
+		},
+		{
+			"path": "include/constants/flags.h",
+			"bookmarks": [
+				{
+					"line": 9,
+					"column": 3,
+					"label": "Flags"
+				}
+			]
+		},
+		{
+			"path": "src/pokemon.c",
+			"bookmarks": [
+				{
+					"line": 7433,
+					"column": 7,
+					"label": "Get Battle BGM"
+				}
+			]
+		},
+		{
+			"path": "include/constants/vars.h",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 1,
+					"label": "Vars"
+				}
+			]
+		},
+		{
+			"path": "include/data.h",
+			"bookmarks": [
+				{
+					"line": 83,
+					"column": 11,
+					"label": "The trainer Uber Pokemon struct"
+				}
+			]
+		},
+		{
+			"path": "src/battle_main.c",
+			"bookmarks": [
+				{
+					"line": 1873,
+					"column": 10,
+					"label": "Create Trainer Party"
+				}
+			]
+		},
+		{
+			"path": "src/data/trainers.h",
+			"bookmarks": [
+				{
+					"line": 0,
+					"column": 1,
+					"label": "Trainers"
+				},
+				{
+					"line": 4023,
+					"column": 20,
+					"label": "Wallace trainer"
+				}
+			]
+		},
+		{
+			"path": "src/battle_transition.c",
+			"bookmarks": [
+				{
+					"line": 538,
+					"column": 25,
+					"label": "Mugshot Definition Tables"
+				},
+				{
+					"line": 905,
+					"column": 21,
+					"label": "Custom mugshot colours"
+				}
+			]
+		},
+		{
+			"path": "include/config/battle.h",
+			"bookmarks": [
+				{
+					"line": 185,
+					"column": 9,
+					"label": "Obedience Toggle"
+				}
+			]
+		},
+		{
+			"path": "src/script_pokemon_util.c",
+			"bookmarks": [
+				{
+					"line": 60,
+					"column": 11,
+					"label": "Give Party to Player"
+				}
+			]
+		},
+		{
+			"path": "src/start_menu.c",
+			"bookmarks": [
+				{
+					"line": 1058,
+					"column": 13,
+					"label": "Hide save confirmation"
+				}
+			]
+		},
+		{
+			"path": "src/battle_anim_effects_3.c",
+			"bookmarks": [
+				{
+					"line": 2332,
+					"column": 7,
+					"label": "TransformMon code"
+				}
+			]
+		},
+		{
+			"path": "src/battle_setup.c",
+			"bookmarks": [
+				{
+					"line": 851,
+					"column": 11,
+					"label": "Get trainer transition"
+				},
+				{
+					"line": 970,
+					"column": 22,
+					"label": "Give starter pokemon"
+				}
+			]
+		},
+		{
+			"path": "src/data/trainer_parties.h",
+			"bookmarks": [
+				{
+					"line": 4416,
+					"column": 13,
+					"label": "Wallace party"
+				}
+			]
+		},
+		{
+			"path": "include/constants/trainers.h",
+			"bookmarks": [
+				{
+					"line": 112,
+					"column": 3,
+					"label": "Custom trainer class"
+				}
+			]
+		},
+		{
+			"path": "src/data/trainer_graphics/front_pic_anims.h",
+			"bookmarks": [
+				{
+					"line": 372,
+					"column": 3,
+					"label": "Custom trainer animations"
+				}
+			]
+		},
+		{
+			"path": "src/data/trainer_graphics/front_pic_tables.h",
+			"bookmarks": [
+				{
+					"line": 0,
+					"column": 16,
+					"label": "Custom trainer graphics tables"
+				}
+			]
+		},
+		{
+			"path": "include/graphics.h",
+			"bookmarks": [
+				{
+					"line": 7184,
+					"column": 14,
+					"label": "Custom trainer sprites and palettes"
+				}
+			]
+		},
+		{
+			"path": "src/data/graphics/trainers.h",
+			"bookmarks": [
+				{
+					"line": 279,
+					"column": 32,
+					"label": "Custom trainer graphics paths"
+				}
+			]
+		},
+		{
+			"path": "include/config/debug.h",
+			"bookmarks": [
+				{
+					"line": 0,
+					"column": 16,
+					"label": "Debug menu"
+				}
+			]
+		},
+		{
+			"path": "src/map_preview.c",
+			"bookmarks": [
+				{
+					"line": 103,
+					"column": 16,
+					"label": "Map preview array"
+				}
+			]
+		},
+		{
+			"path": "src/pokemon_summary_screen.c",
+			"bookmarks": [
+				{
+					"line": 488,
+					"column": 8,
+					"label": "Summary Text Cols"
+				}
+			]
+		},
+		{
+			"path": "include/constants/pokemon.h",
+			"bookmarks": [
+				{
+					"line": 94,
+					"column": 4,
+					"label": "Shiny Odds"
+				}
+			]
+		},
+		{
+			"path": "src/battle_message.c",
+			"bookmarks": [
+				{
+					"line": 3970,
+					"column": 12,
+					"label": "Trainer slides"
+				}
+			]
+		}
+	]
+}
