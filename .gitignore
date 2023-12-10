@@ -34,6 +34,7 @@ build/
 *.ddump
 .idea/
 porymap.*.cfg
+!porymap.project.cfg
 prefabs.json
 !.vscode/
 *.a
@@ -42,3 +43,4 @@ prefabs.json
 *.diff
 *.sym
 *.js
+src/data/map_group_count.h
