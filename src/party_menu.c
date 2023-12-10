@@ -2710,7 +2710,7 @@ void DisplayPartyMenuStdMessage(u32 stringId)
                        stringId = PARTY_MSG_CHOOSE_MON_2;  // No species on the other side, show the default text.
                }
                if (stringId == PARTY_MSG_CHOOSE_MON)
-                   StringCopy(gStringVar2, gSpeciesNames[species]);
+                   StringCopy(gStringVar2, GetSpeciesName(species));
             }
             else
                 stringId = PARTY_MSG_CHOOSE_MON_2;
