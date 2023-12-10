@@ -27,7 +27,7 @@ DOUBLE_BATTLE_TEST("Mega Evolution's order is determined by Speed - opponent fas
     } WHEN {
         TURN { MOVE(opponentLeft, MOVE_CELEBRATE, megaEvolve: TRUE); MOVE(playerLeft, MOVE_CELEBRATE, megaEvolve: TRUE); }
     } SCENE {
-        MESSAGE("Foe Gardevoir's Gardevoirite is reacting to 's Mega Ring!");
+        MESSAGE("Foe Gardevoir's Gardevoirite is reacting to 2's Mega Ring!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_MEGA_EVOLUTION, opponentLeft);
         MESSAGE("Foe Gardevoir has Mega Evolved into Mega Gardevoir!");
         MESSAGE("Venusaur's Venusaurite is reacting to 1's Mega Ring!");
@@ -49,7 +49,7 @@ DOUBLE_BATTLE_TEST("Mega Evolution's order is determined by Speed - player faste
         MESSAGE("Venusaur's Venusaurite is reacting to 1's Mega Ring!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_MEGA_EVOLUTION, playerLeft);
         MESSAGE("Venusaur has Mega Evolved into Mega Venusaur!");
-        MESSAGE("Foe Gardevoir's Gardevoirite is reacting to 's Mega Ring!");
+        MESSAGE("Foe Gardevoir's Gardevoirite is reacting to 2's Mega Ring!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_MEGA_EVOLUTION, opponentLeft);
         MESSAGE("Foe Gardevoir has Mega Evolved into Mega Gardevoir!");
     }
@@ -74,7 +74,7 @@ SINGLE_BATTLE_TEST("Rayquaza can Mega Evolve knowing Dragon Ascent")
 SINGLE_BATTLE_TEST("Mega Evolution affects turn order")
 {
     GIVEN {
-        ASSUME(B_MEGA_EVO_TURN_ORDER);
+        ASSUME(B_MEGA_EVO_TURN_ORDER >= GEN_7);
         PLAYER(SPECIES_GARDEVOIR) { Item(ITEM_GARDEVOIRITE); Speed(105); }
         OPPONENT(SPECIES_WOBBUFFET) { Speed(106); }
     } WHEN {
@@ -90,7 +90,7 @@ SINGLE_BATTLE_TEST("Mega Evolution affects turn order")
 SINGLE_BATTLE_TEST("Abilities replaced by Mega Evolution do not affect turn order")
 {
     GIVEN {
-        ASSUME(B_MEGA_EVO_TURN_ORDER);
+        ASSUME(B_MEGA_EVO_TURN_ORDER >= GEN_7);
         ASSUME(gSpeciesInfo[SPECIES_SABLEYE_MEGA].abilities[0] != ABILITY_STALL
             && gSpeciesInfo[SPECIES_SABLEYE_MEGA].abilities[1] != ABILITY_STALL);
         PLAYER(SPECIES_SABLEYE) { Item(ITEM_SABLENITE); Ability(ABILITY_STALL); Speed(105); }
@@ -145,7 +145,7 @@ SINGLE_BATTLE_TEST("Regular Mega Evolution and Fervent Wish Mega Evolution can h
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_MEGA_EVOLUTION, player);
         MESSAGE("Rayquaza has Mega Evolved into Mega Rayquaza!");
 
-        MESSAGE("Foe Gardevoir's Gardevoirite is reacting to 's Mega Ring!");
+        MESSAGE("Foe Gardevoir's Gardevoirite is reacting to 2's Mega Ring!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_MEGA_EVOLUTION, opponent);
         MESSAGE("Foe Gardevoir has Mega Evolved into Mega Gardevoir!");
     } THEN {
