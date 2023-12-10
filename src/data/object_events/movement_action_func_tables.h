@@ -426,6 +426,8 @@ u8 (*const gMovementActionFuncs_StopLevitateAtTop[])(struct ObjectEvent *, struc
 u8 (*const gMovementActionFuncs_Figure8[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FlyUp[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FlyDown[])(struct ObjectEvent *, struct Sprite *);
+u8 (*const gMovementActionFuncs_EmoteX[])(struct ObjectEvent *, struct Sprite *);
+u8 (*const gMovementActionFuncs_EmoteDoubleExclMark[])(struct ObjectEvent *, struct Sprite *);
 //run slow
 u8 (*const gMovementActionFuncs_RunDownSlow[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_RunUpSlow[])(struct ObjectEvent *, struct Sprite *);
@@ -591,6 +593,8 @@ u8 (*const *const gMovementActionFuncs[])(struct ObjectEvent *, struct Sprite *)
     [MOVEMENT_ACTION_FIGURE_8] = gMovementActionFuncs_Figure8,
     [MOVEMENT_ACTION_FLY_UP] = gMovementActionFuncs_FlyUp,
     [MOVEMENT_ACTION_FLY_DOWN] = gMovementActionFuncs_FlyDown,
+    [MOVEMENT_ACTION_EMOTE_X] = gMovementActionFuncs_EmoteX,
+    [MOVEMENT_ACTION_EMOTE_DOUBLE_EXCL_MARK] = gMovementActionFuncs_EmoteDoubleExclMark,
     //run slow
     [MOVEMENT_ACTION_RUN_DOWN_SLOW] = gMovementActionFuncs_RunDownSlow,
     [MOVEMENT_ACTION_RUN_UP_SLOW] = gMovementActionFuncs_RunUpSlow,
@@ -1533,6 +1537,16 @@ u8 (*const gMovementActionFuncs_StopLevitate[])(struct ObjectEvent *, struct Spr
 
 u8 (*const gMovementActionFuncs_StopLevitateAtTop[])(struct ObjectEvent *, struct Sprite *) = {
     MovementAction_StopLevitateAtTop_Step0,
+    MovementAction_Finish,
+};
+
+u8 (*const gMovementActionFuncs_EmoteX[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_EmoteX_Step0,
+    MovementAction_Finish,
+};
+
+u8 (*const gMovementActionFuncs_EmoteDoubleExclMark[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_EmoteDoubleExclamationMark_Step0,
     MovementAction_Finish,
 };
 
