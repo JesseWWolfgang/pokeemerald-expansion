@@ -120,6 +120,7 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace::
 	goto_if_eq MossdeepCity_SpaceCenter_1F_ReadyForSpace_2
 	msgbox MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2, MSGBOX_DEFAULT
 	warp MAP_LUNAR_SUMMIT, 0
+	waitstate
 	return
 
 MossdeepCity_SpaceCenter_1F_ReadyForSpace_2:

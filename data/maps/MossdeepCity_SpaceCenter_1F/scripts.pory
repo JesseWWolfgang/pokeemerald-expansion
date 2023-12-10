@@ -122,6 +122,7 @@ script MossdeepCity_SpaceCenter_1F_ReadyForSpace {
 
 	msgbox(format("Take off"), MSGBOX_DEFAULT)
 	warp(MAP_LUNAR_SUMMIT, 0)
+	waitstate
 }
 
 raw `
