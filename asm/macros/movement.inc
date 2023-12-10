@@ -162,6 +162,8 @@
 	create_movement_action figure_8, MOVEMENT_ACTION_FIGURE_8
 	create_movement_action fly_up, MOVEMENT_ACTION_FLY_UP
 	create_movement_action fly_down, MOVEMENT_ACTION_FLY_DOWN
+	create_movement_action emote_double_exclamation_mark, MOVEMENT_ACTION_EMOTE_DOUBLE_EXCL_MARK
+	create_movement_action emote_x, MOVEMENT_ACTION_EMOTE_X
 	create_movement_action force_face_down, MOVEMENT_ACTION_FORCE_FACE_DOWN
 	create_movement_action force_face_up, MOVEMENT_ACTION_FORCE_FACE_UP
 	create_movement_action force_face_left, MOVEMENT_ACTION_FORCE_FACE_LEFT
