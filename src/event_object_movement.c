@@ -10988,53 +10988,6 @@ bool8 MovementType_ForceRotateClockwise_Step3(struct ObjectEvent *objectEvent, s
     return TRUE;
 }
 
-// running slow
-static void StartSlowRunningAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction)
-{
-    InitNpcForWalkSlow(objectEvent, sprite, direction);
-    SetStepAnimHandleAlternation(objectEvent, sprite, GetRunningDirectionAnimNum(objectEvent->facingDirection));
-}
-
-bool8 MovementActionFunc_RunSlowDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    StartSlowRunningAnim(objectEvent, sprite, DIR_SOUTH);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlowUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    StartSlowRunningAnim(objectEvent, sprite, DIR_NORTH);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlowLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    if (objectEvent->directionOverwrite)
-        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
-    else
-        StartSlowRunningAnim(objectEvent, sprite, DIR_WEST);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlowRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    if (objectEvent->directionOverwrite)
-        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
-    else
-        StartSlowRunningAnim(objectEvent, sprite, DIR_EAST);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlow_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    if (UpdateMovementNormal(objectEvent, sprite))
-    {
-        sprite->sActionFuncId = 2;
-        return TRUE;
-    }
-    return FALSE;
-}
-
 bool8 MovementAction_FaceObject_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     u16 targetLocalId = VarGet(VAR_TARGET_OBJECT_EVENT);
@@ -11108,4 +11061,51 @@ bool8 MovementAction_WalkInPlace_Step0(struct ObjectEvent *objectEvent, struct S
 {
     InitMoveInPlace(objectEvent, sprite, objectEvent->facingDirection, GetMoveDirectionAnimNum(objectEvent->facingDirection), 16);
     return MovementAction_WalkInPlace_Step1(objectEvent, sprite);
+}
+
+// running slow
+static void StartSlowRunningAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction)
+{
+    InitNpcForWalkSlow(objectEvent, sprite, direction);
+    SetStepAnimHandleAlternation(objectEvent, sprite, GetRunningDirectionAnimNum(objectEvent->facingDirection));
+}
+
+bool8 MovementActionFunc_RunSlowDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    StartSlowRunningAnim(objectEvent, sprite, DIR_SOUTH);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlowUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    StartSlowRunningAnim(objectEvent, sprite, DIR_NORTH);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlowLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (objectEvent->directionOverwrite)
+        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
+    else
+        StartSlowRunningAnim(objectEvent, sprite, DIR_WEST);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlowRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (objectEvent->directionOverwrite)
+        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
+    else
+        StartSlowRunningAnim(objectEvent, sprite, DIR_EAST);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlow_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (UpdateMovementNormal(objectEvent, sprite))
+    {
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
 }
