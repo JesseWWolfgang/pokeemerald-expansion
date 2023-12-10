@@ -19,7 +19,7 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Dynamax increases HP and max HP by 1.5x", u16 hp)
         }
         MESSAGE("Foe Wobbuffet used Celebrate!");
     } THEN {
-        results[i].hp = player->hp;        
+        results[i].hp = player->hp;
     } FINALLY {
         EXPECT_MUL_EQ(results[0].hp, Q_4_12(1.5), results[1].hp);
     }
@@ -49,7 +49,7 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Dynamax expires after three turns", u16 hp)
         if (dynamax) // Expect to have visual reversion at the end.
             ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_FORM_CHANGE, player);
     } THEN {
-        results[i].hp = player->hp;        
+        results[i].hp = player->hp;
     } FINALLY {
         EXPECT_EQ(results[0].hp, results[1].hp);
     }
@@ -155,6 +155,24 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon are not affected by phazing move
     }
 }
 
+SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon are not affected by phazing moves but no block message is printed if they faint")
+{
+    GIVEN {
+        ASSUME(gBattleMoves[MOVE_DRAGON_TAIL].effect == EFFECT_HIT_SWITCH_TARGET);
+        PLAYER(SPECIES_WOBBUFFET) { HP(1); };
+        PLAYER(SPECIES_WYNAUT);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(opponent, MOVE_DRAGON_TAIL); MOVE(player, MOVE_TACKLE, dynamax: TRUE); SEND_OUT(player, 1); }
+    } SCENE {
+        MESSAGE("Wobbuffet used Max Strike!");
+        MESSAGE("Foe Wobbuffet used Dragon Tail!");
+        HP_BAR(player);
+        MESSAGE("Wobbuffet fainted!");
+        NOT MESSAGE("The move was blocked by the power of Dynamax!");
+    }
+}
+
 SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon are not affected by Red Card")
 {
     GIVEN {
@@ -195,7 +213,6 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon can be switched out by Eject But
 SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon cannot have their ability swapped to another Pokemon's")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         PLAYER(SPECIES_MILTANK) { Ability(ABILITY_SCRAPPY); }
         OPPONENT(SPECIES_RUNERIGUS) { Ability(ABILITY_WANDERING_SPIRIT); }
     } WHEN {
@@ -250,7 +267,7 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon can be encored immediately after
         TURN { MOVE(player, MOVE_ARM_THRUST, dynamax: TRUE); }
         TURN { MOVE(player, MOVE_ARM_THRUST); }
         TURN { MOVE(player, MOVE_ARM_THRUST); }
-        TURN { MOVE(opponent, MOVE_ENCORE); MOVE(player, MOVE_TACKLE); } 
+        TURN { MOVE(opponent, MOVE_ENCORE); MOVE(player, MOVE_TACKLE); }
     } SCENE {
         MESSAGE("Wobbuffet used Max Knuckle!");
         MESSAGE("Wobbuffet used Max Knuckle!");
@@ -322,7 +339,7 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Dynamaxed Pokemon are not immune to Knock Off")
         MESSAGE("Wobbuffet used Max Strike!");
         MESSAGE("Foe Wobbuffet used Knock Off!");
         MESSAGE("Foe Wobbuffet knocked off Wobbuffet's Potion!");
-    } THEN { 
+    } THEN {
         EXPECT_EQ(player->item, ITEM_NONE);
     }
 }
@@ -852,7 +869,6 @@ SINGLE_BATTLE_TEST("(DYNAMAX) Max Starfall sets up Misty Terrain")
 SINGLE_BATTLE_TEST("(DYNAMAX) G-Max Stonesurge sets up Stealth Rocks")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_STONESURGE].argument == MAX_EFFECT_STEALTH_ROCK);
         PLAYER(SPECIES_DREDNAW);
         OPPONENT(SPECIES_WOBBUFFET);
@@ -873,7 +889,6 @@ SINGLE_BATTLE_TEST("(DYNAMAX) G-Max Stonesurge sets up Stealth Rocks")
 SINGLE_BATTLE_TEST("(DYNAMAX) G-Max Steelsurge sets up sharp steel")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_STEELSURGE].argument == MAX_EFFECT_STEELSURGE);
         PLAYER(SPECIES_COPPERAJAH);
         OPPONENT(SPECIES_WOBBUFFET);
@@ -905,7 +920,6 @@ SINGLE_BATTLE_TEST("(DYNAMAX) G-Max Hydrosnipe has fixed power and ignores abili
     PARAMETRIZE { move = MOVE_WATER_GUN; }
     PARAMETRIZE { move = MOVE_HYDRO_CANNON; }
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_HYDROSNIPE].argument == MAX_EFFECT_FIXED_POWER);
         PLAYER(SPECIES_INTELEON);
         OPPONENT(SPECIES_ARCTOVISH) { Ability(ABILITY_WATER_ABSORB); }
@@ -949,7 +963,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Stun Shock paralyzes or poisons both opponen
     PARAMETRIZE { statusAnim = B_ANIM_STATUS_PRZ; rng = STATUS1_PARALYSIS; }
     PARAMETRIZE { statusAnim = B_ANIM_STATUS_PSN; rng = STATUS1_POISON; }
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_STUN_SHOCK].argument == MAX_EFFECT_POISON_PARALYZE_FOES);
         PLAYER(SPECIES_TOXTRICITY);
         PLAYER(SPECIES_TOXEL);
@@ -987,7 +1000,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Stun Shock paralyzes or poisons both opponen
 DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Stun Shock chooses statuses before considering immunities")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_STUN_SHOCK].argument == MAX_EFFECT_POISON_PARALYZE_FOES);
         PLAYER(SPECIES_TOXTRICITY);
         PLAYER(SPECIES_TOXEL);
@@ -1085,7 +1097,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Gold Rush confuses both opponents and genera
 DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Smite confuses both opponents")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_SMITE].argument == MAX_EFFECT_CONFUSE_FOES);
         PLAYER(SPECIES_HATTERENE);
         PLAYER(SPECIES_HATENNA);
@@ -1145,7 +1156,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Terror traps both opponents")
 DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Meltdown torments both opponents for 3 turns")
 {
     GIVEN {
-        ASSUME(P_GEN_7_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_MELTDOWN].argument == MAX_EFFECT_TORMENT_FOES);
         PLAYER(SPECIES_MELMETAL);
         PLAYER(SPECIES_MELTAN);
@@ -1216,7 +1226,7 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Wildfire sets a field effect that damages no
         MESSAGE("Foe Wynaut is burning up within G-Max Wildfire's flames!");
         HP_BAR(opponentRight);
         // turn 5
-        NONE_OF { 
+        NONE_OF {
             HP_BAR(opponentRight);
             MESSAGE("Foe Wynaut is burning up within G-Max Wildfire's flames!");
         }
@@ -1257,7 +1267,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Snooze makes only the target drowsy")
 {
     PASSES_RANDOMLY(1, 2, RNG_G_MAX_SNOOZE);
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_SNOOZE].argument == MAX_EFFECT_YAWN_FOE);
         PLAYER(SPECIES_GRIMMSNARL);
         PLAYER(SPECIES_IMPIDIMP);
@@ -1281,7 +1290,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Finale heals allies by 1/6 of their health")
 {
     s16 damage1, damage2;
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_FINALE].argument == MAX_EFFECT_HEAL_TEAM);
         PLAYER(SPECIES_ALCREMIE) { HP(1); }
         PLAYER(SPECIES_MILCERY) { HP(1); }
@@ -1294,15 +1302,14 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Finale heals allies by 1/6 of their health")
         HP_BAR(playerLeft, captureDamage: &damage1);
         HP_BAR(playerRight, captureDamage: &damage2);
     } THEN {
-        EXPECT_MUL_EQ(playerLeft->hp - 1, Q_4_12(6), playerLeft->maxHP); // heals based on Dynamax HP
-        EXPECT_MUL_EQ(playerRight->hp - 1, Q_4_12(6), playerRight->maxHP);
+        EXPECT_MUL_EQ(-damage1, Q_4_12(6), playerLeft->maxHP); // heals based on Dynamax HP
+        EXPECT_MUL_EQ(-damage2, Q_4_12(6), playerRight->maxHP);
     }
 }
 
 DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Sweetness cures allies' status conditions")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_SWEETNESS].argument == MAX_EFFECT_AROMATHERAPY);
         PLAYER(SPECIES_APPLETUN) { Status1(STATUS1_POISON); }
         PLAYER(SPECIES_APPLIN)  { Status1(STATUS1_POISON); }
@@ -1323,7 +1330,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Sweetness cures allies' status conditions")
 DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Centiferno traps both opponents in Fire Spin")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_CENTIFERNO].argument == MAX_EFFECT_FIRE_SPIN_FOES);
         PLAYER(SPECIES_CENTISKORCH);
         PLAYER(SPECIES_SIZZLIPEDE);
@@ -1382,12 +1388,11 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Chi Strike boosts allies' crit chance")
 DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max Depletion takes away 2 PP from the target's last move")
 {
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_DEPLETION].argument == MAX_EFFECT_SPITE);
         PLAYER(SPECIES_DURALUDON);
         PLAYER(SPECIES_WYNAUT);
         // Dynamax behaves weird with test turn order because stats are recalculated.
-        OPPONENT(SPECIES_SABLEYE) { Ability(ABILITY_PRANKSTER); } 
+        OPPONENT(SPECIES_SABLEYE) { Ability(ABILITY_PRANKSTER); }
         OPPONENT(SPECIES_WYNAUT);
     } WHEN {
         TURN { MOVE(playerLeft, MOVE_DRAGON_CLAW, target: opponentLeft, dynamax: TRUE); }
@@ -1405,7 +1410,6 @@ DOUBLE_BATTLE_TEST("(DYNAMAX) G-Max One Blow bypasses Max Guard for full damage"
     PARAMETRIZE { protect = TRUE; }
     PARAMETRIZE { protect = FALSE; }
     GIVEN {
-        ASSUME(P_GEN_8_POKEMON == TRUE);
         ASSUME(gBattleMoves[MOVE_G_MAX_ONE_BLOW].argument == MAX_EFFECT_BYPASS_PROTECT);
         PLAYER(SPECIES_URSHIFU);
         PLAYER(SPECIES_KUBFU);
