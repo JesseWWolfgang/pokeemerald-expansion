@@ -1080,7 +1080,7 @@ static void AnimTask_CurseStretchingBlackBg_Step1(u8 taskId)
         top = 0;
         bottom = 112;
         selectedPalettes = GetBattlePalettesMask(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
-        BeginNormalPaletteFade(selectedPalettes, 0, 16, 16, RGB(0, 0, 0));
+        BeginNormalPaletteFade(selectedPalettes, 0, 16, 16, RGB_BLACK);
         gTasks[taskId].func = AnimTask_CurseStretchingBlackBg_Step2;
     }
 
@@ -1447,7 +1447,6 @@ static void AnimPoltergeistItem(struct Sprite *sprite)
 void AnimTask_PulverizingPancakeWhiteShadow(u8 taskId)
 {
     struct Task *task;
-    s16 battler;
     u8 spriteId;
     s16 baseX, baseY;
     s16 x, y;
