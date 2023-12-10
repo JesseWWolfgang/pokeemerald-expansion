@@ -5,7 +5,7 @@
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/pokeemerald_modern.elf",
+            "program": "${workspaceRoot}/pokeemerald.elf",
             "args": [
                 "target remote ${env:TODAYSIP}:2345"
             ],
@@ -14,7 +14,7 @@
             "environment": [],
             "externalConsole": false,
             "miDebuggerServerAddress": "${env:TODAYSIP}:2345",
-            "debugServerArgs": "\"${workspaceRoot}/pokeemerald_modern.elf\" -g",
+            "debugServerArgs": "\"${workspaceRoot}/pokeemerald.elf\" -g",
             "serverStarted": "started",
             "preLaunchTask": "${defaultBuildTask}",
             "logging": {
