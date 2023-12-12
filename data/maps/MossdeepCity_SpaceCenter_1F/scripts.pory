@@ -114,7 +114,9 @@ movement MossdeepCity_SpaceCenter_1F_PlayerMoveToScientist2 { walk_down walk_lef
 
 script MossdeepCity_SpaceCenter_1F_ReadyForSpace {
 	msgbox(format("Have you prepared yourself for the trip to the moon?\p"
-	"Once we take off, you won't be able to come back until we have completed the expedition.\lAre you ready?"), MSGBOX_YESNO)
+	"Once we take off, we won't be returning until we have completed the expedition or the mission is cancelled.\p"
+	"Additionally, we will have NO connection to the Pokémon Storage System, so make sure you have your best team with you.\p"
+	"Are you ready?"), MSGBOX_YESNO)
 	if (var(VAR_RESULT) == NO) {
 		msgbox(format("Please get yourself ready and return ASAP, you won't want to miss this."), MSGBOX_DEFAULT)
 		return
