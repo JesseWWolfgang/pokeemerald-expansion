@@ -1532,10 +1532,10 @@ static const struct SubspriteTable sOamTables_88x32[] = {
 
 // Extended mystery gift
 
-static const struct Subsprite sOamTable_32x80_0[] = {
+static const struct Subsprite sOamTable_32x128_0[] = {
     {
         .x = -16,
-        .y = -24,
+        .y = -32,
         .shape = SPRITE_SHAPE(32x64),
         .size = SPRITE_SIZE(32x64),
         .tileOffset = 0,
@@ -1543,18 +1543,18 @@ static const struct Subsprite sOamTable_32x80_0[] = {
     },
     {
         .x = -16,
-        .y = 40,
-        .shape = SPRITE_SHAPE(32x16),
-        .size = SPRITE_SIZE(32x16),
+        .y = 32,
+        .shape = SPRITE_SHAPE(32x64),
+        .size = SPRITE_SIZE(32x64),
         .tileOffset = 32,
         .priority = 2
     },
 };
 
-static const struct Subsprite sOamTable_32x80_1[] = {
+static const struct Subsprite sOamTable_32x128_1[] = {
     {
         .x = -16,
-        .y = -24,
+        .y = -32,
         .shape = SPRITE_SHAPE(32x64),
         .size = SPRITE_SIZE(32x64),
         .tileOffset = 0,
@@ -1562,9 +1562,9 @@ static const struct Subsprite sOamTable_32x80_1[] = {
     },
     {
         .x = -16,
-        .y = 40,
-        .shape = SPRITE_SHAPE(32x16),
-        .size = SPRITE_SIZE(32x16),
+        .y = 32,
+        .shape = SPRITE_SHAPE(32x64),
+        .size = SPRITE_SIZE(32x64),
         .tileOffset = 32,
         .priority = 2
     },
@@ -1855,11 +1855,11 @@ static const struct Subsprite sOamTable_32x80_1[] = {
 // };
 
 // Used by Rocket
-static const struct SubspriteTable sOamTables_32x80[] = {
-    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0},
-    {ARRAY_COUNT(sOamTable_32x80_1), sOamTable_32x80_1},
-    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0},
-    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0},
-    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0},
-    {ARRAY_COUNT(sOamTable_32x80_0), sOamTable_32x80_0}
+static const struct SubspriteTable sOamTables_32x128[] = {
+    {ARRAY_COUNT(sOamTable_32x128_0), sOamTable_32x128_0},
+    {ARRAY_COUNT(sOamTable_32x128_1), sOamTable_32x128_1},
+    {ARRAY_COUNT(sOamTable_32x128_0), sOamTable_32x128_0},
+    {ARRAY_COUNT(sOamTable_32x128_0), sOamTable_32x128_0},
+    {ARRAY_COUNT(sOamTable_32x128_0), sOamTable_32x128_0},
+    {ARRAY_COUNT(sOamTable_32x128_0), sOamTable_32x128_0}
 };

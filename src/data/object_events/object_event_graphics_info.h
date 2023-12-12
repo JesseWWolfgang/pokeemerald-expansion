@@ -244,7 +244,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RubySapphireMay = 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lugia = {0xFFFF, OBJ_EVENT_PAL_TAG_LUGIA, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_Standard, sPicTable_Lugia, gDummySpriteAffineAnimTable};
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoOh = {0xFFFF, OBJ_EVENT_PAL_TAG_HO_OH, OBJ_EVENT_PAL_TAG_NONE, 512, 32, 32, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_FOOT, &gObjectEventBaseOam_32x32, sOamTables_32x32, sAnimTable_HoOh, sPicTable_HoOh, gDummySpriteAffineAnimTable};
 // Extended mystery gift
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Rocket = {0xFFFF, OBJ_EVENT_PAL_TAG_ROCKET, OBJ_EVENT_PAL_TAG_NONE, 2560, 96, 80, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_NONE, &gObjectEventBaseOam_32x32, sOamTables_32x80, sAnimTable_Rocket, sPicTable_Rocket, gDummySpriteAffineAnimTable};
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Rocket = {0xFFFF, OBJ_EVENT_PAL_TAG_ROCKET, OBJ_EVENT_PAL_TAG_NONE, 6144, 96, 128, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_NONE, &gObjectEventBaseOam_32x32, sOamTables_32x128, sAnimTable_Rocket, sPicTable_Rocket, gDummySpriteAffineAnimTable};
 //const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSTida = {0xFFFF, OBJ_EVENT_PAL_TAG_SSTIDAL, OBJ_EVENT_PAL_TAG_NONE, 1920, 96, 40, 10, SHADOW_SIZE_M, FALSE, FALSE, TRACKS_NONE, &gObjectEventBaseOam_8x8, sOamTables_96x40, sAnimTable_Standard, sPicTable_SSTidal, gDummySpriteAffineAnimTable};
 
 

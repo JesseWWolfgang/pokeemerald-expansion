@@ -105,12 +105,17 @@ LunarSummit_PrepareTakeOff::
 	hideobjectat 2, MAP_LUNAR_SUMMIT
 	playse SE_EXIT
 	delay 30
+	special SpawnCameraObject
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_PrepareTakeOffCameraToRocket
+	waitmovement 0
+	delay 30
 	msgbox LunarSummit_PrepareTakeOff_Text_0, MSGBOX_DEFAULT
 	closemessage
 	delay 60
 	call LunarSummit_RocketTakeOff
 	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
 	waitstate
+	special RemoveCameraObject
 	return
 
 
@@ -130,7 +135,6 @@ LunarSummit_RocketTakeOff::
 	setvar VAR_0x8006, 50
 	setvar VAR_0x8007, 2
 	special ShakeCamera
-	special SpawnCameraObject
 	applymovement 3, LunarSummit_TakeOffRocketMovement
 	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_TakeOffCameraMovement
 	waitstate
@@ -196,6 +200,11 @@ LunarSummit_PrepareTakeOffScientist2Board:
 
 LunarSummit_PrepareTakeOffScientist1Board:
 	walk_left
+	walk_up
+	step_end
+
+LunarSummit_PrepareTakeOffCameraToRocket:
+	walk_up
 	walk_up
 	step_end
 
@@ -301,11 +310,11 @@ LunarSummit_TakeOffCameraMovement:
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_up
-	walk_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
 	step_end
 
 LunarSummit_WitnessMillenniumComet::
@@ -680,7 +689,10 @@ LunarSummit_Scientist2_Text_5:
 	.string "Fully healed and ready to go!$"
 
 LunarSummit_PrepareTakeOff_Text_0:
-	.string "Take off.$"
+	.string "3...\p"
+	.string "2...\p"
+	.string "1...\p"
+	.string "Lift off!$"
 
 LunarSummit_WitnessMillenniumComet_Text_0:
 	.string "Is that... a Pokémon?!$"

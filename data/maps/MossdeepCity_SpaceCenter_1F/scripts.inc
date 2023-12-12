@@ -651,9 +651,13 @@ MossdeepCity_SpaceCenter_1F_ShowWhiteRock_Text_8:
 MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_0:
 	.string "Have you prepared yourself for the trip\n"
 	.string "to the moon?\p"
-	.string "Once we take off, you won't be able to\n"
-	.string "come back until we have completed the\l"
-	.string "expedition.\l"
+	.string "Once we take off, we won't be returning\n"
+	.string "until we have completed the expedition\l"
+	.string "or the mission is cancelled.\p"
+	.string "Additionally, we will have NO connection\n"
+	.string "to the Pokémon Storage System, so\l"
+	.string "make sure you have your best team with\l"
+	.string "you.\p"
 	.string "Are you ready?$"
 
 MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_1:

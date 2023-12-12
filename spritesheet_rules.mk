@@ -471,7 +471,7 @@ $(OBJEVENTGFXDIR)/pokemon/zigzagoon.4bpp: %.4bpp: %.png
 # Extended mystery gift
 
 $(OBJEVENTGFXDIR)/misc/rocket.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 4 -mheight 10
+	$(GFX) $< $@ -mwidth 4 -mheight 16
 	
 
 

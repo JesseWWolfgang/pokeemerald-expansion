@@ -104,12 +104,20 @@ script LunarSummit_PrepareTakeOff {
     hideobjectat(OBJECT_SCIENTIST1, MAP_LUNAR_SUMMIT)
     playse(SE_EXIT)
     delay(30)
-    msgbox(format("Take off."), MSGBOX_DEFAULT)
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_PrepareTakeOffCameraToRocket)
+    waitmovement(0)
+    delay(30)
+    msgbox(format("3...\p"
+    "2...\p"
+    "1...\p"
+    "Lift off!"), MSGBOX_DEFAULT)
     closemessage
     delay(60)
     call(LunarSummit_RocketTakeOff)
     warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
 	waitstate
+    special(RemoveCameraObject)
 }
 
 script LunarSummit_RocketTakeOff {
@@ -135,7 +143,7 @@ script LunarSummit_RocketTakeOff {
     special(ShakeCamera)
 
     // Begin lift off animation
-    special(SpawnCameraObject)
+    //special(SpawnCameraObject)
     applymovement(OBJECT_ROCKET, LunarSummit_TakeOffRocketMovement)
     applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_TakeOffCameraMovement)
     
@@ -189,6 +197,8 @@ movement LunarSummit_PrepareTakeOffScientist1Board {
     walk_up
 }
 
+movement LunarSummit_PrepareTakeOffCameraToRocket { walk_up * 2}
+
 movement LunarSummit_TakeOffRocketWarmUp {
     walk_in_place_up * 5
 }
@@ -204,9 +214,7 @@ movement LunarSummit_TakeOffCameraMovement {
     walk_slow_up * 5
     walk_up * 8
     walk_fast_up * 16
-    walk_faster_up * 10
-    walk_fast_up * 3
-    walk_up * 2
+    walk_faster_up * 15
 }
 
 script LunarSummit_WitnessMillenniumComet {
