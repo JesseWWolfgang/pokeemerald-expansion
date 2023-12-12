@@ -4530,6 +4530,16 @@
       "secondary_tileset": "gTileset_LunarSummit",
       "border_filepath": "data/layouts/LunarSummit_Cave_B1F/border.bin",
       "blockdata_filepath": "data/layouts/LunarSummit_Cave_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_SPACE_CENTER_PAD",
+      "name": "MossdeepCity_SpaceCenter_Pad_Layout",
+      "width": 28,
+      "height": 28,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Mossdeep",
+      "border_filepath": "data/layouts/MossdeepCity_SpaceCenter_Pad/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_SpaceCenter_Pad/map.bin"
     }
   ]
 }
