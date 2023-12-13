@@ -122,8 +122,8 @@ script MossdeepCity_SpaceCenter_1F_ReadyForSpace {
 		return
 	}
 
-	msgbox(format("Take off"), MSGBOX_DEFAULT)
-	warp(MAP_LUNAR_SUMMIT, 0)
+	msgbox(format("Please follow me to the launch pad."), MSGBOX_DEFAULT)
+	warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 0)
 	waitstate
 }
 

@@ -1,1 +1,40 @@
-mapscripts MossdeepCity_SpaceCenter_Pad_MapScripts {}
+const WARP_BACK_OF_BUILDING_X = 14
+const WARP_BACK_OF_BUILDING_Y = 33
+const WARP_MOSSDEEP_SPACE_CENTER_X = 7
+const WARP_MOSSDEEP_SPACE_CENTER_Y = 3
+
+mapscripts MossdeepCity_SpaceCenter_Pad_MapScripts {
+    // MAP_SCRIPT_ON_FRAME_TABLE [
+    //     VAR_TEMP_LOADED, FALSE {
+    //         setvar(VAR_TEMP_0, TRUE)
+    //         getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    //         if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
+    //             turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    //             setob
+    //         }
+    //     }
+    // ]
+    // MAP_SCRIPT_ON_TRANSITION {
+    //     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+    //     if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
+    //         // applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
+    //         // waitmovement(0)
+    //         turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    //         createvobject()
+    //     }
+    // }
+}
+
+script MossdeepCity_SpaceCenter_Pad_Sign { msgbox(format("Mossdeep Space Center Launch Pad"), MSGBOX_SIGN) }
+
+script MossdeepCity_SpaceCenter_Pad_GuideLady {
+    lock
+    faceplayer
+    msgbox(format("Are you not prepared? Would you like to return inside?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(format("Okay, but please don't dawdle, you are due to leave imminently."), MSGBOX_DEFAULT)
+        warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_SPACE_CENTER_X, WARP_MOSSDEEP_SPACE_CENTER_Y)
+	    waitstate
+    }
+    release
+}

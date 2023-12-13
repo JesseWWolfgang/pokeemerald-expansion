@@ -119,7 +119,7 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace::
 	compare VAR_RESULT, NO
 	goto_if_eq MossdeepCity_SpaceCenter_1F_ReadyForSpace_2
 	msgbox MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2, MSGBOX_DEFAULT
-	warp MAP_LUNAR_SUMMIT, 0
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 0
 	waitstate
 	return
 
@@ -665,4 +665,4 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_1:
 	.string "ASAP, you won't want to miss this.$"
 
 MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2:
-	.string "Take off$"
+	.string "Please follow me to the launch pad.$"
