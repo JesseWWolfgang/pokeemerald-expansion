@@ -1,3 +1,4 @@
+- Shift every note forward by 20 ticks (960 tpqn), unless using -X flag
 - Delete all CC 16 and CC 20 events
 
 - Executing midfix4agb

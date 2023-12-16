@@ -2353,7 +2353,7 @@ $(MID_SUBDIR)/mus_bw_new_game_2.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V090
 
 $(MID_SUBDIR)/mus_bw_evolution_intro.s: %.s: %.mid
-	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V068 -X
+	$(MID) $< $@ -E -R$(STD_REVERB) -G275 -V068 -X
 
 $(MID_SUBDIR)/mus_bw_evolution.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V076
@@ -2413,7 +2413,7 @@ $(MID_SUBDIR)/mus_bw_icirrus.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V064
 
 $(MID_SUBDIR)/mus_bw_opelucid_black.s: %.s: %.mid
-	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V058
+	$(MID) $< $@ -E -R$(STD_REVERB) -G275 -V058
 
 $(MID_SUBDIR)/mus_bw_opelucid_white.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V080 -X
@@ -2512,7 +2512,7 @@ $(MID_SUBDIR)/mus_bw_gear_station.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V057
 
 $(MID_SUBDIR)/mus_bw_battle_subway.s: %.s: %.mid
-	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V071
+	$(MID) $< $@ -E -R$(STD_REVERB) -G275 -V071
 
 $(MID_SUBDIR)/mus_bw_poke_transfer_lab.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G274 -V077
