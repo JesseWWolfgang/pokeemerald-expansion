@@ -859,6 +859,8 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_SWIFT_MOCHI] =  {gItemIcon_Mochi, gItemIconPalette_SwiftMochi},
     [ITEM_FRESH_START_MOCHI] =  {gItemIcon_Mochi, gItemIconPalette_FreshStartMochi},
     [ITEM_GLIMMERING_CHARM] = {gItemIcon_GlimmeringCharm, gItemIconPalette_GlimmeringCharm},
+    [ITEM_METAL_ALLOY] =  {gItemIcon_MetalAlloy, gItemIconPalette_MetalAlloy},
+    [ITEM_STELLAR_TERA_SHARD] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark}, //{gItemIcon_TeraShard, gItemIconPalette_StellarTeraShard},
     // Extended Mystery Gift
     [ITEM_LIBERTY_PASS] = {gItemIcon_LibertyPass, gItemIconPalette_LibertyPass},
     [ITEM_WHITE_ROCK] = {gItemIcon_OvalStone, gItemIconPalette_OvalStone},
