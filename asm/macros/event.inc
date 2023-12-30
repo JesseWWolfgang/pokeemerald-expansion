@@ -2063,6 +2063,65 @@
 	trainerbattle_no_intro \trainer2, NULL
 	.endm
 
+	@ Sets VAR_RESULT to TRUE if stat can be hyper trained, or to
+	@ FALSE otherwise.
+	.macro canhypertrain stat:req, slot:req
+	callnative CanHyperTrain
+	.byte \stat
+	.2byte \slot
+	.endm
+
+	@ Hyper Trains a stat.
+	.macro hypertrain stat:req, slot:req
+	callnative HyperTrain
+	.byte \stat
+	.2byte \slot
+	.endm
+
+	@ Sets VAR_RESULT to TRUE if the Pokemon has the Gigantamax Factor,
+	@ or to FALSE otherwise.
+	.macro hasgigantamaxfactor slot:req
+	callnative HasGigantamaxFactor
+	.2byte \slot
+	.endm
+
+	@ Toggles the Gigantamax Factor for a Pokemon.
+	@ Fails for Melmetal (vanilla behavior).
+	@ Sets VAR_RESULT to TRUE if it succeeds, and FALSE otherwise.
+	.macro togglegigantamaxfactor slot:req
+	callnative ToggleGigantamaxFactor
+	.2byte \slot
+	.endm
+
+	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
+	.macro callfunc func:req var1, var2, var3, var4
+	.byte 0xe7
+	.4byte \func
+	.ifb \var1
+		.byte 0
+	.else
+	.ifb \var2
+		.byte 1
+		.2byte \var1
+	.else
+	.ifb \var3
+		.byte 2
+		.2byte \var1
+		.2byte \var2
+	.else
+	.ifb \var4
+		.byte 3
+		.2byte \var1
+		.2byte \var2
+		.2byte \var3
+	.else
+		.byte 4
+		.2byte \var1
+		.2byte \var2
+		.2byte \var3
+		.2byte \var4
+	.endif
+	.endm
 
 	@ Enhanced Movement
 
@@ -2098,36 +2157,6 @@
 			applymovement \localId, \west
 			goto .e\@
 		.e\@:
-	.endm
-	
-	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
-	.macro callfunc func:req var1, var2, var3, var4
-	.byte 0xe7
-	.4byte \func
-	.ifb \var1
-		.byte 0
-	.else
-	.ifb \var2
-		.byte 1
-		.2byte \var1
-	.else
-	.ifb \var3
-		.byte 2
-		.2byte \var1
-		.2byte \var2
-	.else
-	.ifb \var4
-		.byte 3
-		.2byte \var1
-		.2byte \var2
-		.2byte \var3
-	.else
-		.byte 4
-		.2byte \var1
-		.2byte \var2
-		.2byte \var3
-		.2byte \var4
-	.endif
 	.endm
 
 	@ Turns the specified object to face the direction of the specified target.
