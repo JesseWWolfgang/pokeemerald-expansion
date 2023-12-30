@@ -25,6 +25,11 @@ mapscripts MossdeepCity_SpaceCenter_Pad_MapScripts {
     // }
 }
 
+script TEST_Warp_to_Castelia {
+    warp(MAP_CASTELIA_CITY_LIBERTY_PIER, 0)
+    waitstate
+}
+
 script MossdeepCity_SpaceCenter_Pad_Sign { msgbox(format("Mossdeep Space Center Launch Pad"), MSGBOX_SIGN) }
 
 script MossdeepCity_SpaceCenter_Pad_GuideLady {

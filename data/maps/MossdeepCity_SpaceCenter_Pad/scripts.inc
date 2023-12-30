@@ -2,6 +2,12 @@ MossdeepCity_SpaceCenter_Pad_MapScripts::
 	.byte 0
 
 
+TEST_Warp_to_Castelia::
+	warp MAP_CASTELIA_CITY_LIBERTY_PIER, 0
+	waitstate
+	return
+
+
 MossdeepCity_SpaceCenter_Pad_Sign::
 	msgbox MossdeepCity_SpaceCenter_Pad_Sign_Text_0, MSGBOX_SIGN
 	return
