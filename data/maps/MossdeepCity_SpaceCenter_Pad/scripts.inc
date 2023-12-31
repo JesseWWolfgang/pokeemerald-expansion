@@ -1,5 +1,10 @@
 MossdeepCity_SpaceCenter_Pad_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_LOAD
 	.byte 0
+
+MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_LOAD:
+	setflag FLAG_TEMP_1
+	return
 
 
 TEST_Warp_to_Castelia::
