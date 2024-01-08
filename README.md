@@ -2,6 +2,8 @@
 
 Adds extra features related to event object movement.
 
+Uses feature/general-improvements for the `callfunc` implementation.
+
 ## Elevation Locking
 
 Adds 2 script commands for locking the elevation of event objects to the desired elevation and resetting.
