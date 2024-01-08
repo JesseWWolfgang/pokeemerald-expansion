@@ -96,3 +96,7 @@ This will make the object always face the player.
 - `Common_Movement_WalkInPlace`
 
 These are the same as the existing walk in place actions but use the object's current direction.
+
+## Warp with Facing Direction
+
+Adds the script command `warpdirection` which accepts a facing direction to set the player's initial facing direction after warping.

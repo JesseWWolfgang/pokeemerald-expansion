@@ -2159,25 +2159,33 @@
 	@ Turns the specified object to face the direction of the specified target.
 	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
 	.macro faceobject localId:req, targetLocalId:req
-	setvar VAR_TARGET_OBJECT_EVENT, \targetLocalId
-	applymovement \localId, Common_Movement_FaceObject
-	waitmovement 0
+		setvar VAR_TARGET_OBJECT_EVENT, \targetLocalId
+		applymovement \localId, Common_Movement_FaceObject
+		waitmovement 0
 	.endm
 
 	@ Turns the player to face the direction of the specified target.
 	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
 	.macro playerfaceobject targetLocalId:req
-	faceobject OBJ_EVENT_ID_PLAYER, \targetLocalId
+		faceobject OBJ_EVENT_ID_PLAYER, \targetLocalId
 	.endm
 
 	@ Turns the object the player last talked with to face the direction of the specified target.
 	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
 	.macro lasttalkedfaceobject targetLocalId:req
-	faceobject VAR_LAST_TALKED, \targetLocalId
+		faceobject VAR_LAST_TALKED, \targetLocalId
 	.endm
 
 	@ Turns the specified object to face the direction of the player.
 	.macro objectfaceplayer localId:req
-	applymovement \localId, Common_Movement_FacePlayer
-	waitmovement 0
+		applymovement \localId, Common_Movement_FacePlayer
+		waitmovement 0
+	.endm
+
+	@ Warps the player to the specified map and sets the players initial facing direction to the specified direction.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro warpdirection direction:req map:req, a, b, c
+		callfunc SetOverrideWarpDirection, \direction
+		warp \map, \a, \b, \c
 	.endm
