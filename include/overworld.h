@@ -155,4 +155,7 @@ bool32 Overworld_SendKeysToLinkIsRunning(void);
 bool32 IsSendingKeysOverCable(void);
 void ClearLinkPlayerObjectEvents(void);
 
+// Enhanced movement
+void SetOverrideWarpDirection(u8 direction);
+
 #endif // GUARD_OVERWORLD_H

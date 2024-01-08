@@ -203,6 +203,10 @@ EWRAM_DATA static u16 sAmbientCrySpecies = 0;
 EWRAM_DATA static bool8 sIsAmbientCryWaterMon = FALSE;
 EWRAM_DATA struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4] = {0};
 
+// Enhanced movement
+// When anything other than DIR_NONE, will override only the NEXT player warp direction (and then resets back to DIR_NONE).
+EWRAM_DATA static u8 sOverrideWarpDirection = DIR_NONE;
+
 static const struct WarpData sDummyWarpData =
 {
     .mapGroup = MAP_GROUP(UNDEFINED),
@@ -960,6 +964,14 @@ static u8 GetAdjustedInitialTransitionFlags(struct InitialPlayerAvatarState *pla
 
 static u8 GetAdjustedInitialDirection(struct InitialPlayerAvatarState *playerStruct, u8 transitionFlags, u16 metatileBehavior, u8 mapType)
 {
+    // Enhanced movement
+    if (sOverrideWarpDirection != DIR_NONE)
+    {
+        u8 dir = sOverrideWarpDirection;
+        sOverrideWarpDirection = DIR_NONE;
+        return dir;
+    }
+
     if (FlagGet(FLAG_SYS_CRUISE_MODE) && mapType == MAP_TYPE_OCEAN_ROUTE)
         return DIR_EAST;
     else if (MetatileBehavior_IsDeepSouthWarp(metatileBehavior) == TRUE)
@@ -3266,4 +3278,10 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
         sprite->invisible = ((sprite->data[7] & 4) >> 2);
         sprite->data[7]++;
     }
+}
+
+// Enhanced movement
+void SetOverrideWarpDirection(u8 direction)
+{
+    sOverrideWarpDirection = direction;
 }

@@ -1310,7 +1310,7 @@
 
 	@ Gets the current weather type in VAR_RESULT.
 	.macro getweather
-	.byte 0xe7
+	.byte 0xe5
 	.endm
 
 	@ Executes the weather change queued with resetweather or setweather. The current weather will smoothly fade into the queued weather.
@@ -2095,7 +2095,7 @@
 
 	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
 	.macro callfunc func:req var1, var2, var3, var4
-	.byte 0xe7
+	.byte 0xe6
 	.4byte \func
 	.ifb \var1
 		.byte 0
@@ -2127,15 +2127,12 @@
 
 	@ Locks the elevation of the specified (localId) object to the given elevation.
 	.macro lockelevation localId:req, elevation:req
-		.byte 0xe5
-		.2byte \localId
-		.2byte \elevation
+		callfunc ScrFunc_lockelevation, \localId, \elevation
 	.endm
 
 	@ Resets the elevation of the specified (localId) object to what it was before lockelevation was called.
 	.macro resetelevation localId:req
-		.byte 0xe6
-		.2byte \localId
+		callfunc ScrFunc_resetelevation, \localId
 	.endm
 
 	@ Applies movements to the specified (localId) object depending on facing direction of the player.
@@ -2162,25 +2159,33 @@
 	@ Turns the specified object to face the direction of the specified target.
 	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
 	.macro faceobject localId:req, targetLocalId:req
-	setvar VAR_TARGET_OBJECT_EVENT, \targetLocalId
-	applymovement \localId, Common_Movement_FaceObject
-	waitmovement 0
+		setvar VAR_TARGET_OBJECT_EVENT, \targetLocalId
+		applymovement \localId, Common_Movement_FaceObject
+		waitmovement 0
 	.endm
 
 	@ Turns the player to face the direction of the specified target.
 	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
 	.macro playerfaceobject targetLocalId:req
-	faceobject OBJ_EVENT_ID_PLAYER, \targetLocalId
+		faceobject OBJ_EVENT_ID_PLAYER, \targetLocalId
 	.endm
 
 	@ Turns the object the player last talked with to face the direction of the specified target.
 	@ This updates the VAR_TARGET_OBJECT_EVENT object to targetLocalId.
 	.macro lasttalkedfaceobject targetLocalId:req
-	faceobject VAR_LAST_TALKED, \targetLocalId
+		faceobject VAR_LAST_TALKED, \targetLocalId
 	.endm
 
 	@ Turns the specified object to face the direction of the player.
 	.macro objectfaceplayer localId:req
-	applymovement \localId, Common_Movement_FacePlayer
-	waitmovement 0
+		applymovement \localId, Common_Movement_FacePlayer
+		waitmovement 0
+	.endm
+
+	@ Warps the player to the specified map and sets the players initial facing direction to the specified direction.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro warpdirection direction:req map:req, a, b, c
+		callfunc SetOverrideWarpDirection, \direction
+		warp \map, \a, \b, \c
 	.endm

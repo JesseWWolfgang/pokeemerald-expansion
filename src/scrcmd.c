@@ -2433,24 +2433,6 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
     return TRUE;
 }
 
-
-bool8 ScrCmd_lockelevation(struct ScriptContext *ctx)
-{
-    u16 localId = VarGet(ScriptReadHalfword(ctx));
-    u8 elevation = ScriptReadByte(ctx);
-
-    LockObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, elevation);
-    return FALSE;
-}
-
-bool8 ScrCmd_resetelevation(struct ScriptContext *ctx)
-{
-    u16 localId = VarGet(ScriptReadHalfword(ctx));
-
-    ResetObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
-    return FALSE;
-}
-
 // https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160
 bool8 ScrCmd_callfunc(struct ScriptContext *ctx)
 {
@@ -2485,4 +2467,15 @@ bool8 ScrCmd_callfunc(struct ScriptContext *ctx)
         break;
     }
     return FALSE;
+}
+
+// Enhanced movement
+void ScrFunc_lockelevation(u16 localId, u16 elevation)
+{
+    LockObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, elevation);
+}
+
+void ScrFunc_resetelevation(u16 localId)
+{
+    ResetObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
 }
