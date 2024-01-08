@@ -277,7 +277,6 @@ u8 MovementAction_WalkFastDiagonalDownRight_Step1(struct ObjectEvent *, struct S
 u8 MovementAction_FaceObject_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FaceAwayObject_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlace_Step0(struct ObjectEvent *, struct Sprite *);
-//slow running
 u8 MovementActionFunc_RunSlowDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 u8 MovementActionFunc_RunSlowUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 u8 MovementActionFunc_RunSlowLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
@@ -1652,7 +1651,6 @@ u8 (*const gMovementActionFuncs_WalkInPlace[])(struct ObjectEvent *, struct Spri
     MovementAction_PauseSpriteAnim,
 };
 
-//slow running
 u8 (*const gMovementActionFuncs_RunDownSlow[])(struct ObjectEvent *, struct Sprite *) = {
     MovementActionFunc_RunSlowDown_Step0,
     MovementActionFunc_RunSlow_Step1,
