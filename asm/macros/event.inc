@@ -2121,6 +2121,9 @@
 		.2byte \var3
 		.2byte \var4
 	.endif
+	.endif
+	.endif
+	.endif
 	.endm
 
 	@ Enhanced Movement
