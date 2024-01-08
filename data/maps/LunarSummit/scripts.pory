@@ -30,6 +30,11 @@ mapscripts LunarSummit_MapScripts {
 script LunarSummit_Scientist1 {
     lock
     faceplayer
+
+    call(LunarSummit_PrepareTakeOff)
+    end
+
+
     if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
         if (flag(FLAG_CAUGHT_JIRACHI)) {
             msgbox(format("Ready to leave?"), MSGBOX_YESNO)
@@ -108,14 +113,19 @@ script LunarSummit_PrepareTakeOff {
     applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_PrepareTakeOffCameraToRocket)
     waitmovement(0)
     delay(30)
-    msgbox(format("3...\p"
-    "2...\p"
-    "1...\p"
-    "Lift off!"), MSGBOX_DEFAULT)
+    
+    special(StopMapMusic)
+    delay(10)
+    playbgm(MUS_EVOLUTION_INTRO, FALSE)
+    messageautoscroll(format("T-minus-5...\p4...\p3...\p2...\p1...\pLift off!"))
+    waitmessage
+    //playbgm(MUS_RG_ENCOUNTER_DEOXYS, FALSE)
+    delay(30)
     closemessage
-    delay(60)
+
+    delay(30)
     call(LunarSummit_RocketTakeOff)
-    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
+    warpwhitefade(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
 	waitstate
     special(RemoveCameraObject)
 }

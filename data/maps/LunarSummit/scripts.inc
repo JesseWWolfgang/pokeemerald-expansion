@@ -24,6 +24,8 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
 LunarSummit_Scientist1::
 	lock
 	faceplayer
+	call LunarSummit_PrepareTakeOff
+	end
 	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_Scientist1_2
 	msgbox LunarSummit_Scientist1_Text_3, MSGBOX_DEFAULT
 LunarSummit_Scientist1_1:
@@ -109,11 +111,16 @@ LunarSummit_PrepareTakeOff::
 	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_PrepareTakeOffCameraToRocket
 	waitmovement 0
 	delay 30
-	msgbox LunarSummit_PrepareTakeOff_Text_0, MSGBOX_DEFAULT
+	special StopMapMusic
+	delay 10
+	playbgm MUS_EVOLUTION_INTRO, FALSE
+	messageautoscroll LunarSummit_PrepareTakeOff_Text_0
+	waitmessage
+	delay 30
 	closemessage
-	delay 60
+	delay 30
 	call LunarSummit_RocketTakeOff
-	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	warpwhitefade MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
 	waitstate
 	special RemoveCameraObject
 	return
@@ -689,6 +696,8 @@ LunarSummit_Scientist2_Text_5:
 	.string "Fully healed and ready to go!$"
 
 LunarSummit_PrepareTakeOff_Text_0:
+	.string "T-minus-5...\p"
+	.string "4...\p"
 	.string "3...\p"
 	.string "2...\p"
 	.string "1...\p"

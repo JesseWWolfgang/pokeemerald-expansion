@@ -290,10 +290,15 @@ script MossdeepCity_SpaceCenter_Pad_RocketTakeOff {
     // Exit atmosphere
     delay(140)
     playse(SE_INTRO_BLAST)
+    fadescreenspeed(FADE_TO_BLACK, 18)
 
     // Wait until the animation has finished
     waitmovement(OBJECT_ROCKET)
     waitmovement(OBJ_EVENT_ID_CAMERA)
+
+    playse(SE_EXIT)
+    delay(120)
+    msgbox(format("After a number of long days in space flight..."))
 }
 
 movement MossdeepCity_SpaceCenter_Pad_PrepareTakeOffCameraToRocket { walk_up * 2 }
