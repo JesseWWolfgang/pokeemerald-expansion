@@ -1,8 +1,12 @@
 const OBJECT_BIRCH = 11
 const OBJECT_MOM = 12
+const OBJECT_SCIENTIST1 = 4
+const OBJECT_SCIENTIST2 = 3
+const OBJECT_GUIDE_LADY = 13
+const OBJECT_ROCKET = 1
 
-const WARP_BACK_OF_BUILDING_X = 14
-const WARP_BACK_OF_BUILDING_Y = 33
+const WARP_BACK_OF_BUILDING_X = 19
+const WARP_BACK_OF_BUILDING_Y = 43
 const WARP_MOSSDEEP_SPACE_CENTER_X = 7
 const WARP_MOSSDEEP_SPACE_CENTER_Y = 3
 
@@ -12,25 +16,15 @@ mapscripts MossdeepCity_SpaceCenter_Pad_MapScripts {
     MAP_SCRIPT_ON_LOAD {
         setflag(FLAG_HIDE_BIRCH)
     }
-    // MAP_SCRIPT_ON_FRAME_TABLE [
-    //     VAR_TEMP_LOADED, FALSE {
-    //         setvar(VAR_TEMP_0, TRUE)
-    //         getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-    //         if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
-    //             turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
-    //             setob
-    //         }
-    //     }
-    // ]
-    // MAP_SCRIPT_ON_TRANSITION {
-    //     getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-    //     if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
-    //         // applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp)
-    //         // waitmovement(0)
-    //         turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
-    //         createvobject()
-    //     }
-    // }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_LOADED, FALSE {
+            setvar(VAR_TEMP_LOADED, TRUE)
+            getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+            if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
+                call(MossdeepCity_SpaceCenter_Pad_GuideLady_Entrance)
+            }
+        }
+    ]
 }
 
 script TEST_Warp_to_Castelia {
@@ -50,4 +44,274 @@ script MossdeepCity_SpaceCenter_Pad_GuideLady {
 	    waitstate
     }
     release
+}
+
+script MossdeepCity_SpaceCenter_Pad_GuideLady_Entrance {
+    lock
+    objectfaceplayer(OBJECT_GUIDE_LADY)
+    msgbox(format("Here is the launch pad for the Mossdeep Space Shuttle. Your crew are up ahead.\p"
+    "I wish you the best of luck!"), MSGBOX_DEFAULT)
+    release
+}
+
+script MossdeepCity_SpaceCenter_Pad_Scientist2 {
+    msgbox(format("How are you feeling {PLAYER}? I'm excited to see what this journey holds in store for us."), MSGBOX_NPC)
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_FaceDown)
+    waitmovement(0)
+}
+
+script MossdeepCity_SpaceCenter_Pad_Scientist1 {
+    lock
+    faceplayer
+    msgbox(format("Here we are {PLAYER}!\p"
+    "You're absolutely sure you're all set to leave?"), MSGBOX_YESNO)
+    closemessage
+    if (var(VAR_RESULT) == NO) {
+        msgbox(format("Take a brief moment to collect yourself, we will be waiting here."), MSGBOX_DEFAULT)
+        applymovement(OBJECT_SCIENTIST1, Common_Movement_FaceDown)
+        waitmovement(0)
+        closemessage
+        release
+        end
+    }
+
+    if (var(VAR_FACING) == DIR_WEST) {
+        applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_MoveInFrontOfScientist)
+        waitmovement(0)
+        applymovement(OBJECT_SCIENTIST1, Common_Movement_FaceDown)
+        waitmovement(0)
+    }
+    msgbox(format("Our ground team has already briefed you and your Pokémon on our spaceship travel protocol.\p"
+    "You will be responsible for them during the journey.\p"
+    "I'm also sure they will do their absolute best for you, should you need them."), MSGBOX_DEFAULT)
+    closemessage
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Hey {PLAYER}, looks like there are some people here to see you..."), MSGBOX_DEFAULT)
+    closemessage
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown)
+    waitmovement(0)
+    delay(20)
+
+    // Spawn birch and mom
+    clearflag(FLAG_HIDE_BIRCH)
+    addobject(OBJECT_BIRCH, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    addobject(OBJECT_MOM, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    applymovement(OBJECT_BIRCH, MossdeepCity_SpaceCenter_Pad_BirchMoveToPlayer)
+    applymovement(OBJECT_MOM, MossdeepCity_SpaceCenter_Pad_MomMoveToPlayer)
+    waitmovement(OBJECT_BIRCH)
+    waitmovement(OBJECT_MOM)
+
+    // Birch talks
+    applymovement(OBJECT_BIRCH, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Would you look at this. I'd never have imagined our own {PLAYER} being invited to the moon!"), MSGBOX_DEFAULT)
+    closemessage
+
+    // Scientists talks
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Well if it isn't Professor Birch.\p"
+    "Pleasure to see you sir."), MSGBOX_DEFAULT)
+    closemessage
+
+    // Mom talks
+    applymovement(OBJECT_MOM, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    playerfaceobject(OBJECT_MOM)
+    msgbox(format("You didn't think you were just gonna go up and leave to space without saying goodbye did you?\p"
+    "I'm so proud of you {PLAYER}! Your father also sends his best wishes too. Go get em!"), MSGBOX_DEFAULT)
+    closemessage
+
+    // Birch talks
+    applymovement(OBJECT_BIRCH, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    playerfaceobject(OBJECT_BIRCH)
+    msgbox(format("I wish I got the chance to come with you.\p"
+    "Give it your all and good luck with your mission!\p"
+    "We will be watching the news coverage and waiting for you back down here at home!\p"
+    "I hope you uncover the mystery of the Millennium Comet!"), MSGBOX_DEFAULT)
+    closemessage
+
+    // Scientists 2 talks
+    applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    playerfaceobject(OBJECT_SCIENTIST2)
+    msgbox(format("I'm sure there will be a next time Professor. You're always welcome."), MSGBOX_DEFAULT)
+    closemessage
+
+    // Scientists 1 talks
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    playerfaceobject(OBJECT_SCIENTIST1)
+    msgbox(format("Alright {PLAYER}.\p"
+    "It's time to board the space shuttle.\nPlease follow us."), MSGBOX_DEFAULT)
+    closemessage
+
+    call(MossdeepCity_SpaceCenter_Pad_PrepareTakeOff)
+}
+
+movement MossdeepCity_SpaceCenter_Pad_MoveInFrontOfScientist {
+    walk_down
+    walk_left
+    face_up
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BirchMoveToPlayer {
+    walk_up * 5
+}
+
+movement MossdeepCity_SpaceCenter_Pad_MomMoveToPlayer {
+    walk_up * 6
+    face_left
+}
+
+movement MossdeepCity_SpaceCenter_Pad_Scientist1BoardRocket {
+    walk_slow_up * 2
+}
+
+movement MossdeepCity_SpaceCenter_Pad_Scientist2BoardRocket {
+    walk_right
+    walk_slow_up * 2
+}
+
+movement MossdeepCity_SpaceCenter_Pad_PlayerBoardRocket {
+    walk_up
+    walk_slow_up * 2
+}
+
+script MossdeepCity_SpaceCenter_Pad_PrepareTakeOff {
+    applymovement(OBJECT_SCIENTIST1, MossdeepCity_SpaceCenter_Pad_Scientist1BoardRocket)
+    waitmovement(0)
+    hideobjectat(OBJECT_SCIENTIST1, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    playse(SE_EXIT)
+
+    applymovement(OBJECT_SCIENTIST2, MossdeepCity_SpaceCenter_Pad_Scientist2BoardRocket)
+    waitmovement(0)
+    hideobjectat(OBJECT_SCIENTIST2, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    playse(SE_EXIT)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_PlayerBoardRocket)
+
+    messageautoscroll(format("Good luck and farewell {PLAYER}!"))
+    waitmovement(0)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    playse(SE_EXIT)
+    waitmessage
+    delay(40)
+    closemessage
+
+    delay(30)
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_PrepareTakeOffCameraToRocket)
+    waitmovement(0)
+    delay(30)
+
+    special(StopMapMusic)
+    delay(10)
+    playbgm(MUS_EVOLUTION_INTRO, FALSE)
+
+    messageautoscroll(format("T-minus-5...\p4...\p3...\p2...\p1...\pLift off!"))
+    waitmessage
+    playbgm(MUS_RG_HALL_OF_FAME, FALSE)
+    delay(60)
+    closemessage
+
+    delay(30)
+    call(MossdeepCity_SpaceCenter_Pad_RocketTakeOff)
+    warpwhitefade(MAP_LUNAR_SUMMIT, 0)
+	waitstate
+    special(RemoveCameraObject)
+}
+
+script MossdeepCity_SpaceCenter_Pad_RocketTakeOff {
+    // Engine Startup
+    playse(SE_M_EARTHQUAKE)
+    setvar(VAR_0x8004, 0)  // vertical pan
+	setvar(VAR_0x8005, 2)  // horizontal pan
+	setvar(VAR_0x8006, 32) // num shakes
+	setvar(VAR_0x8007, 2)  // shake delay
+	special(ShakeCamera)
+    delay(32)
+
+    // Ignition
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_TakeOffRocketWarmUp)
+    waitmovement(OBJECT_ROCKET)
+
+    // Lift off
+    playse(SE_M_EARTHQUAKE)
+    setvar(VAR_0x8004, 0)  // vertical pan
+	setvar(VAR_0x8005, 2)  // horizontal pan
+	setvar(VAR_0x8006, 50) // num shakes
+	setvar(VAR_0x8007, 2)  // shake delay
+    special(ShakeCamera)
+
+    // Begin lift off animation
+    //special(SpawnCameraObject)
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_TakeOffRocketMovement)
+    applymovement(OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement)
+    
+    // Wait until lift off shake finishes
+    waitstate
+
+    // Continue heavy vibrations and speed up
+    playse(SE_INTRO_BLAST)
+    setvar(VAR_0x8004, 1)  // vertical pan
+	setvar(VAR_0x8005, 1)  // horizontal pan
+	setvar(VAR_0x8006, 40) // num shakes
+	setvar(VAR_0x8007, 2)  // shake delay
+    special(ShakeCamera)
+    waitstate
+
+    // Continue light vibrations
+    setvar(VAR_0x8004, 1)  // vertical pan
+	setvar(VAR_0x8005, 1)  // horizontal pan
+	setvar(VAR_0x8006, 80) // num shakes
+	setvar(VAR_0x8007, 1)  // shake delay
+    special(ShakeCamera)
+
+    // Wait for speed up sound to complete and play rain sound (since it sounds similar to wind)
+    delay(30) 
+    playse(SE_RAIN)
+    
+    // Sonic boom 1
+    delay(160)
+    fadescreen(FADE_TO_WHITE)
+    playse(SE_M_SKY_UPPERCUT)
+    fadescreen(FADE_FROM_WHITE)
+
+    // Sonic boom 2
+    delay(80)
+    fadescreen(FADE_TO_WHITE)
+    playse(SE_M_SKY_UPPERCUT)
+    fadescreen(FADE_FROM_WHITE)
+
+    // Exit atmosphere
+    delay(140)
+    playse(SE_INTRO_BLAST)
+
+    // Wait until the animation has finished
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+}
+
+movement MossdeepCity_SpaceCenter_Pad_PrepareTakeOffCameraToRocket { walk_up * 2 }
+
+movement MossdeepCity_SpaceCenter_Pad_TakeOffRocketWarmUp {
+    walk_in_place_up * 5
+}
+
+movement MossdeepCity_SpaceCenter_Pad_TakeOffRocketMovement {
+    walk_slow_up * 5
+    walk_up * 8
+    walk_fast_up * 16
+    walk_faster_up * 95
+}
+
+movement MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement {
+    walk_slow_up * 5
+    walk_up * 8
+    walk_fast_up * 16
+    walk_faster_up * 85
 }

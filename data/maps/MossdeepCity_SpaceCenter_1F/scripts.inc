@@ -119,7 +119,7 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace::
 	compare VAR_RESULT, NO
 	goto_if_eq MossdeepCity_SpaceCenter_1F_ReadyForSpace_2
 	msgbox MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2, MSGBOX_DEFAULT
-	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 0
+	warpdirection DIR_NORTH, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 0
 	waitstate
 	return
 
@@ -665,4 +665,6 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_1:
 	.string "ASAP, you won't want to miss this.$"
 
 MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2:
-	.string "Please follow me to the launch pad.$"
+	.string "I will go and find one of our guides,\n"
+	.string "they will show you to the launch pad.\l"
+	.string "Please wait here a moment.$"
