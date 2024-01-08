@@ -2127,12 +2127,12 @@
 
 	@ Locks the elevation of the specified (localId) object to the given elevation.
 	.macro lockelevation localId:req, elevation:req
-		callfunc ScrFunc_lockelevation \localId \elevation
+		callfunc ScrFunc_lockelevation, \localId, \elevation
 	.endm
 
 	@ Resets the elevation of the specified (localId) object to what it was before lockelevation was called.
 	.macro resetelevation localId:req
-		callfunc ScrFunc_resetelevation \localId
+		callfunc ScrFunc_resetelevation, \localId
 	.endm
 
 	@ Applies movements to the specified (localId) object depending on facing direction of the player.
