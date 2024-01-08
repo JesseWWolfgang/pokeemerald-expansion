@@ -286,6 +286,7 @@ static void (*const sMovementTypeCallbacks[])(struct Sprite *) =
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_UP] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_LEFT] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = MovementType_WalkSlowlyInPlace,
+    // Enhanced movement
     [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = MovementType_ForceRotateCounterclockwise,
     [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = MovementType_ForceRotateClockwise,
     [MOVEMENT_TYPE_FACE_PLAYER] = MovementType_FacePlayer,
@@ -417,6 +418,10 @@ const u8 gInitialMovementTypeFacingDirections[] = {
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_UP] = DIR_NORTH,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_LEFT] = DIR_WEST,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = DIR_EAST,
+    // Enhanced movement
+    [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = DIR_SOUTH,
+    [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = DIR_SOUTH,
+    [MOVEMENT_TYPE_FACE_PLAYER] = DIR_SOUTH,
 };
 
 #define OBJ_EVENT_PAL_TAG_BRENDAN                 0x1100
@@ -10792,6 +10797,8 @@ bool8 MovementAction_EmoteDoubleExclamationMark_Step0(struct ObjectEvent *object
     return TRUE;
 }
 
+// Enhanced movement
+
 void LockObjectElevation(u8 localId, u8 mapNum, u8 mapGroup, u8 elevation)
 {
     u8 objectEventId;
@@ -10851,6 +10858,52 @@ bool8 MovementAction_WalkFastDiagonalUpLeft_Step0(struct ObjectEvent *objectEven
 }
 
 bool8 MovementAction_WalkFastDiagonalUpLeft_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (UpdateMovementNormal(objectEvent, sprite))
+    {
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static void StartSlowRunningAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction)
+{
+    InitNpcForWalkSlow(objectEvent, sprite, direction);
+    SetStepAnimHandleAlternation(objectEvent, sprite, GetRunningDirectionAnimNum(objectEvent->facingDirection));
+}
+
+bool8 MovementActionFunc_RunSlowDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    StartSlowRunningAnim(objectEvent, sprite, DIR_SOUTH);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlowUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    StartSlowRunningAnim(objectEvent, sprite, DIR_NORTH);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlowLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (objectEvent->directionOverwrite)
+        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
+    else
+        StartSlowRunningAnim(objectEvent, sprite, DIR_WEST);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlowRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (objectEvent->directionOverwrite)
+        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
+    else
+        StartSlowRunningAnim(objectEvent, sprite, DIR_EAST);
+    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
+}
+
+bool8 MovementActionFunc_RunSlow_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     if (UpdateMovementNormal(objectEvent, sprite))
     {
@@ -11061,51 +11114,4 @@ bool8 MovementAction_WalkInPlace_Step0(struct ObjectEvent *objectEvent, struct S
 {
     InitMoveInPlace(objectEvent, sprite, objectEvent->facingDirection, GetMoveDirectionAnimNum(objectEvent->facingDirection), 16);
     return MovementAction_WalkInPlace_Step1(objectEvent, sprite);
-}
-
-// running slow
-static void StartSlowRunningAnim(struct ObjectEvent *objectEvent, struct Sprite *sprite, u8 direction)
-{
-    InitNpcForWalkSlow(objectEvent, sprite, direction);
-    SetStepAnimHandleAlternation(objectEvent, sprite, GetRunningDirectionAnimNum(objectEvent->facingDirection));
-}
-
-bool8 MovementActionFunc_RunSlowDown_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    StartSlowRunningAnim(objectEvent, sprite, DIR_SOUTH);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlowUp_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    StartSlowRunningAnim(objectEvent, sprite, DIR_NORTH);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlowLeft_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    if (objectEvent->directionOverwrite)
-        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
-    else
-        StartSlowRunningAnim(objectEvent, sprite, DIR_WEST);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlowRight_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    if (objectEvent->directionOverwrite)
-        StartSlowRunningAnim(objectEvent, sprite, objectEvent->directionOverwrite);
-    else
-        StartSlowRunningAnim(objectEvent, sprite, DIR_EAST);
-    return MovementActionFunc_RunSlow_Step1(objectEvent, sprite);
-}
-
-bool8 MovementActionFunc_RunSlow_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
-{
-    if (UpdateMovementNormal(objectEvent, sprite))
-    {
-        sprite->sActionFuncId = 2;
-        return TRUE;
-    }
-    return FALSE;
 }
