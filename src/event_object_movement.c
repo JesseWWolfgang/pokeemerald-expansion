@@ -288,6 +288,7 @@ static void (*const sMovementTypeCallbacks[])(struct Sprite *) =
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_UP] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_LEFT] = MovementType_WalkSlowlyInPlace,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = MovementType_WalkSlowlyInPlace,
+    // Enhanced movement
     [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = MovementType_ForceRotateCounterclockwise,
     [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = MovementType_ForceRotateClockwise,
     [MOVEMENT_TYPE_FACE_PLAYER] = MovementType_FacePlayer,
@@ -419,6 +420,10 @@ const u8 gInitialMovementTypeFacingDirections[] = {
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_UP] = DIR_NORTH,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_LEFT] = DIR_WEST,
     [MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT] = DIR_EAST,
+    // Enhanced movement
+    [MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE] = DIR_SOUTH,
+    [MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE] = DIR_SOUTH,
+    [MOVEMENT_TYPE_FACE_PLAYER] = DIR_SOUTH,
 };
 
 #define OBJ_EVENT_PAL_TAG_BRENDAN                 0x1100
