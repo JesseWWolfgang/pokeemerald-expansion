@@ -1416,6 +1416,9 @@ void Task_HandleChooseMonInput(u8 taskId)
         case B_BUTTON: // Selected Cancel / pressed B
             HandleChooseMonCancel(taskId, slotPtr);
             break;
+        case SELECT_BUTTON: // Quick Swap
+            DestroyTask(taskId);
+            break;
         case START_BUTTON:
             if (sPartyMenuInternal->chooseHalf)
             {
@@ -1617,6 +1620,22 @@ static void Task_HandleCancelChooseMonYesNoInput(u8 taskId)
     }
 }
 
+static bool8 IsInvalidPartyMenuActionType(u8 partyMenuType)
+{
+    return (partyMenuType == PARTY_ACTION_SEND_OUT
+        || partyMenuType == PARTY_ACTION_CANT_SWITCH
+        || partyMenuType == PARTY_ACTION_USE_ITEM
+        || partyMenuType == PARTY_ACTION_ABILITY_PREVENTS
+        || partyMenuType == PARTY_ACTION_GIVE_ITEM
+        || partyMenuType == PARTY_ACTION_GIVE_PC_ITEM
+        || partyMenuType == PARTY_ACTION_GIVE_MAILBOX_MAIL
+        || partyMenuType == PARTY_ACTION_SOFTBOILED
+        || partyMenuType == PARTY_ACTION_CHOOSE_AND_CLOSE
+        || partyMenuType == PARTY_ACTION_MOVE_TUTOR
+        || partyMenuType == PARTY_ACTION_MINIGAME
+        || partyMenuType == PARTY_ACTION_REUSABLE_ITEM);
+}
+
 static u16 PartyMenuButtonHandler(s8 *slotPtr)
 {
     s8 movementDir;
@@ -1653,6 +1672,22 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
 
     if (JOY_NEW(START_BUTTON))
         return START_BUTTON;
+
+    if (JOY_NEW(SELECT_BUTTON) && CalculatePlayerPartyCount() >= 2 && !IsInvalidPartyMenuActionType(gPartyMenu.action))
+    {
+        if (gPartyMenu.menuType != PARTY_MENU_TYPE_FIELD)
+            return 0;
+        if (*slotPtr == PARTY_SIZE + 1)
+            return 0;
+        if (gPartyMenu.action != PARTY_ACTION_SWITCH)
+        {
+            CreateTask(CursorCb_Switch, 1);
+            return SELECT_BUTTON;
+        }
+        return A_BUTTON; // Select is allowed to act as the A Button while CursorCb_Switch is active.
+    }
+
+
 
     if (movementDir)
     {
@@ -2622,6 +2657,8 @@ static void PartyMenuRemoveWindow(u8 *ptr)
 void DisplayPartyMenuStdMessage(u32 stringId)
 {
     u8 *windowPtr = &sPartyMenuInternal->windowId[1];
+    u8 enemyNextMonID;
+    u16 species;
 
     if (*windowPtr != WINDOW_NONE)
         PartyMenuRemoveWindow(windowPtr);
@@ -2656,10 +2693,26 @@ void DisplayPartyMenuStdMessage(u32 stringId)
 
         if (stringId == PARTY_MSG_CHOOSE_MON)
         {
+            enemyNextMonID = *(gBattleStruct->monToSwitchIntoId + B_SIDE_OPPONENT);
+            species = GetMonData(&gEnemyParty[enemyNextMonID], MON_DATA_SPECIES);
             if (sPartyMenuInternal->chooseHalf)
                 stringId = PARTY_MSG_CHOOSE_MON_AND_CONFIRM;
             else if (!ShouldUseChooseMonText())
                 stringId = PARTY_MSG_CHOOSE_MON_OR_CANCEL;
+            else if (gMain.inBattle)
+            {
+               // Checks if the opponent is sending out a new pokemon.
+               if (species >= NUM_SPECIES ||  species == SPECIES_NONE){
+                   species = gBattleMons[B_SIDE_OPPONENT].species;
+                   // Now tries to check if there's any opposing pokemon on the field
+                   if (species >= NUM_SPECIES ||  species == SPECIES_NONE || gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                       stringId = PARTY_MSG_CHOOSE_MON_2;  // No species on the other side, show the default text.
+               }
+               if (stringId == PARTY_MSG_CHOOSE_MON)
+                   StringCopy(gStringVar2, GetSpeciesName(species));
+            }
+            else
+                stringId = PARTY_MSG_CHOOSE_MON_2;
         }
         DrawStdFrameWithCustomTileAndPalette(*windowPtr, FALSE, 0x4F, 13);
         StringExpandPlaceholders(gStringVar4, sActionStringTable[stringId]);

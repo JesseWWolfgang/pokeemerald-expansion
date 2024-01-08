@@ -4,12 +4,12 @@
 			"path": "src/overworld.c",
 			"bookmarks": [
 				{
-					"line": 1108,
+					"line": 1110,
 					"column": 8,
 					"label": "Get location music"
 				},
 				{
-					"line": 1526,
+					"line": 1540,
 					"column": 10,
 					"label": "New Game"
 				}
@@ -94,7 +94,7 @@
 			"path": "src/battle_main.c",
 			"bookmarks": [
 				{
-					"line": 1873,
+					"line": 1874,
 					"column": 10,
 					"label": "Create Trainer Party"
 				}
@@ -199,7 +199,7 @@
 			"path": "include/constants/trainers.h",
 			"bookmarks": [
 				{
-					"line": 112,
+					"line": 120,
 					"column": 3,
 					"label": "Custom trainer class"
 				}
@@ -209,7 +209,7 @@
 			"path": "src/data/trainer_graphics/front_pic_anims.h",
 			"bookmarks": [
 				{
-					"line": 372,
+					"line": 376,
 					"column": 3,
 					"label": "Custom trainer animations"
 				}
@@ -239,7 +239,7 @@
 			"path": "src/data/graphics/trainers.h",
 			"bookmarks": [
 				{
-					"line": 279,
+					"line": 282,
 					"column": 32,
 					"label": "Custom trainer graphics paths"
 				}
@@ -282,16 +282,6 @@
 					"line": 94,
 					"column": 4,
 					"label": "Shiny Odds"
-				}
-			]
-		},
-		{
-			"path": "src/battle_message.c",
-			"bookmarks": [
-				{
-					"line": 3970,
-					"column": 12,
-					"label": "Trainer slides"
 				}
 			]
 		}

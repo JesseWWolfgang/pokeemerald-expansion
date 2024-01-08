@@ -95,11 +95,11 @@
 #define VAR_POKELOT_RND1                                 0x404B
 #define VAR_POKELOT_RND2                                 0x404C
 #define VAR_POKELOT_PRIZE_PLACE                          0x404D
-#define VAR_TARGET_OBJECT_EVENT                          0x404E // Part of enhanced movement. Specifies the target when using face_object and face_away_object. Is empty when it equals OBJ_EVENT_ID_NONE (0xFE).
+#define VAR_MAP_MUSIC_OVERRIDE                           0x404E // Used to override the map music whenever it is attempted to be played.
 #define VAR_LOTAD_SIZE_RECORD                            0x404F
 #define VAR_LITTLEROOT_TOWN_STATE                        0x4050
 #define VAR_OLDALE_TOWN_STATE                            0x4051
-#define VAR_DEWFORD_TOWN_STATE                           0x4052 // Unused Var
+#define VAR_TARGET_OBJECT_EVENT                          0x4052 // Part of enhanced movement. Specifies the target when using face_object and face_away_object. Is empty when it equals OBJ_EVENT_ID_NONE (0xFE).
 #define VAR_LAVARIDGE_TOWN_STATE                         0x4053
 #define VAR_CURRENT_SECRET_BASE                          0x4054 // was probably allocated for VAR_FALLARBOR_TOWN_STATE at one point
 #define VAR_VERDANTURF_TOWN_STATE                        0x4055 // Unused Var

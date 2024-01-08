@@ -1308,6 +1308,11 @@
 	.2byte \type
 	.endm
 
+	@ Gets the current weather type in VAR_RESULT.
+	.macro getweather
+	.byte 0xe5
+	.endm
+
 	@ Executes the weather change queued with resetweather or setweather. The current weather will smoothly fade into the queued weather.
 	.macro doweather
 	.byte 0xa5
@@ -2088,18 +2093,48 @@
 	.2byte \slot
 	.endm
 
+	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
+	.macro callfunc func:req var1, var2, var3, var4
+	.byte 0xe6
+	.4byte \func
+	.ifb \var1
+		.byte 0
+	.else
+	.ifb \var2
+		.byte 1
+		.2byte \var1
+	.else
+	.ifb \var3
+		.byte 2
+		.2byte \var1
+		.2byte \var2
+	.else
+	.ifb \var4
+		.byte 3
+		.2byte \var1
+		.2byte \var2
+		.2byte \var3
+	.else
+		.byte 4
+		.2byte \var1
+		.2byte \var2
+		.2byte \var3
+		.2byte \var4
+	.endif
+	.endm
+
 	@ Enhanced Movement
 
 	@ Locks the elevation of the specified (localId) object to the given elevation.
 	.macro lockelevation localId:req, elevation:req
-		.byte 0xe5
+		.byte 0xe7
 		.2byte \localId
 		.2byte \elevation
 	.endm
 
 	@ Resets the elevation of the specified (localId) object to what it was before lockelevation was called.
 	.macro resetelevation localId:req
-		.byte 0xe6
+		.byte 0xe8
 		.2byte \localId
 	.endm
 
