@@ -2,7 +2,9 @@
 
 Adds extra features related to event object movement.
 
-Uses feature/general-improvements for the `callfunc` implementation.
+Includes:
+- feature/general-improvements for the `callfunc` implementation.
+- merge/sideways-stairs
 
 ## Elevation Locking
 
