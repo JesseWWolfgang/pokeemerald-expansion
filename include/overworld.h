@@ -40,6 +40,21 @@ struct LinkPlayerObjectEvent
     u8 movementMode;
 };
 
+// Enhanced movement
+struct WarpOverride
+{
+    // When anything other than DIR_NONE, will override only the player warp direction.
+    u8 direction: 3; 
+    // Prevents the regular fade out to black/white before warping if TRUE.
+    bool8 preventFadeOut: 1;
+    // Prevents the regular fade in from black/white after warping if TRUE.
+    bool8 preventFadeIn: 1;
+    u8 padding: 3;
+};
+
+extern struct WarpOverride gWarpOverride;
+
+
 extern struct WarpData gLastUsedWarp;
 extern struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4];
 
@@ -156,6 +171,8 @@ bool32 IsSendingKeysOverCable(void);
 void ClearLinkPlayerObjectEvents(void);
 
 // Enhanced movement
-void SetOverrideWarpDirection(u8 direction);
+void SetWarpOverrideDirection(u8 direction);
+void SetWarpPreventFadeOut(void);
+void SetWarpPreventFadeIn(void);
 
 #endif // GUARD_OVERWORLD_H
