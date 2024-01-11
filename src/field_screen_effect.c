@@ -77,6 +77,9 @@ static void FillPalBufferBlack(void)
 
 void WarpFadeInScreen(void)
 {
+    if (gWarpOverride.preventFadeIn)
+        return;
+
     u8 previousMapType = GetLastUsedWarpMapType();
     switch (GetMapPairFadeFromType(previousMapType, GetCurrentMapType()))
     {
@@ -104,6 +107,9 @@ void FadeInFromBlack(void)
 
 void WarpFadeOutScreen(void)
 {
+    if (gWarpOverride.preventFadeOut)
+        return;
+
     u8 currentMapType = GetCurrentMapType();
     switch (GetMapPairFadeToType(currentMapType, GetDestinationWarpMapHeader()->mapType))
     {

@@ -2189,6 +2189,14 @@
 	@ Warp commands can be given either the id of which warp location to go to on the destination map
 	@ or a pair of x/y coordinates to go to directly on the destination map.
 	.macro warpdirection direction:req map:req, a, b, c
-		callfunc SetOverrideWarpDirection, \direction
+		callfunc SetWarpOverrideDirection, \direction
 		warp \map, \a, \b, \c
+	.endm
+
+	.macro preventwarpfadeout
+		callnative SetWarpPreventFadeOut
+	.endm
+
+	.macro preventwarpfadein
+		callnative SetWarpPreventFadeIn
 	.endm

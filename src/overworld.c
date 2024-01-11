@@ -204,8 +204,16 @@ EWRAM_DATA static bool8 sIsAmbientCryWaterMon = FALSE;
 EWRAM_DATA struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4] = {0};
 
 // Enhanced movement
-// When anything other than DIR_NONE, will override only the NEXT player warp direction (and then resets back to DIR_NONE).
-EWRAM_DATA static u8 sOverrideWarpDirection = DIR_NONE;
+// Overrides for ONLY the next warp. This gets reset after each warp.
+EWRAM_DATA struct WarpOverride gWarpOverride = {0};
+
+static const struct WarpOverride sDefaultWarpOverride =
+{
+    .direction = DIR_NONE,
+    .preventFadeOut = FALSE,
+    .preventFadeIn = FALSE,
+    .padding = 0,
+};
 
 static const struct WarpData sDummyWarpData =
 {
@@ -656,6 +664,10 @@ void WarpIntoMap(void)
     ApplyCurrentWarp();
     LoadCurrentMapData();
     SetPlayerCoordsFromWarp();
+
+    // Enhanced movement
+    // Reset the warp overrides
+    gWarpOverride = sDefaultWarpOverride;
 }
 
 void SetWarpDestination(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
@@ -965,12 +977,8 @@ static u8 GetAdjustedInitialTransitionFlags(struct InitialPlayerAvatarState *pla
 static u8 GetAdjustedInitialDirection(struct InitialPlayerAvatarState *playerStruct, u8 transitionFlags, u16 metatileBehavior, u8 mapType)
 {
     // Enhanced movement
-    if (sOverrideWarpDirection != DIR_NONE)
-    {
-        u8 dir = sOverrideWarpDirection;
-        sOverrideWarpDirection = DIR_NONE;
-        return dir;
-    }
+    if (gWarpOverride.direction != DIR_NONE)
+        return gWarpOverride.direction;
 
     if (FlagGet(FLAG_SYS_CRUISE_MODE) && mapType == MAP_TYPE_OCEAN_ROUTE)
         return DIR_EAST;
@@ -3281,7 +3289,17 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
 }
 
 // Enhanced movement
-void SetOverrideWarpDirection(u8 direction)
+void SetWarpOverrideDirection(u8 direction)
 {
-    sOverrideWarpDirection = direction;
+    gWarpOverride.direction = direction;
+}
+
+void SetWarpPreventFadeOut(void)
+{
+    gWarpOverride.preventFadeOut = TRUE;
+}
+
+void SetWarpPreventFadeIn(void)
+{
+    gWarpOverride.preventFadeIn = TRUE;
 }
