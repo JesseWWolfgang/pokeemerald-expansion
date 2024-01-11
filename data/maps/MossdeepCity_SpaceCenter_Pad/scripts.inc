@@ -218,7 +218,8 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff::
 	closemessage
 	delay 30
 	call MossdeepCity_SpaceCenter_Pad_RocketTakeOff
-	warpwhitefade MAP_LUNAR_SUMMIT, 0
+	preventwarpfadeout
+	warp MAP_LUNAR_SUMMIT, 0
 	waitstate
 	special RemoveCameraObject
 	return
