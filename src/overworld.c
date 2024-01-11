@@ -205,14 +205,6 @@ EWRAM_DATA struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4] = {0};
 // Overrides for ONLY the next warp. This gets reset after each warp.
 EWRAM_DATA struct WarpOverride gWarpOverride = {0};
 
-static const struct WarpOverride sDefaultWarpOverride =
-{
-    .direction = DIR_NONE,
-    .preventFadeOut = FALSE,
-    .preventFadeIn = FALSE,
-    .padding = 0,
-};
-
 static const struct WarpData sDummyWarpData =
 {
     .mapGroup = MAP_GROUP(UNDEFINED),
@@ -660,10 +652,6 @@ void WarpIntoMap(void)
     ApplyCurrentWarp();
     LoadCurrentMapData();
     SetPlayerCoordsFromWarp();
-
-    // Enhanced movement
-    // Reset the warp overrides
-    gWarpOverride = sDefaultWarpOverride;
 }
 
 void SetWarpDestination(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
@@ -974,7 +962,11 @@ static u8 GetAdjustedInitialDirection(struct InitialPlayerAvatarState *playerStr
 {
     // Enhanced movement
     if (gWarpOverride.direction != DIR_NONE)
-        return gWarpOverride.direction;
+    {
+        u8 dir = gWarpOverride.direction;
+        gWarpOverride.direction = DIR_NONE;
+        return dir;
+    }
 
     if (FlagGet(FLAG_SYS_CRUISE_MODE) && mapType == MAP_TYPE_OCEAN_ROUTE)
         return DIR_EAST;

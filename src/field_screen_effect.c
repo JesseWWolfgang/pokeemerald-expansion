@@ -74,7 +74,10 @@ static void FillPalBufferBlack(void)
 void WarpFadeInScreen(void)
 {
     if (gWarpOverride.preventFadeIn)
+    {
+        gWarpOverride.preventFadeIn = FALSE;
         return;
+    }
 
     u8 previousMapType = GetLastUsedWarpMapType();
     switch (GetMapPairFadeFromType(previousMapType, GetCurrentMapType()))
@@ -104,7 +107,10 @@ void FadeInFromBlack(void)
 void WarpFadeOutScreen(void)
 {
     if (gWarpOverride.preventFadeOut)
+    {
+        gWarpOverride.preventFadeOut = FALSE;
         return;
+    }
 
     u8 currentMapType = GetCurrentMapType();
     switch (GetMapPairFadeToType(currentMapType, GetDestinationWarpMapHeader()->mapType))
@@ -287,7 +293,12 @@ void FieldCB_DefaultWarpExit(void)
 void FieldCB_WarpExitFadeFromWhite(void)
 {
     Overworld_PlaySpecialMapMusic();
-    FadeInFromWhite();
+
+    if (gWarpOverride.preventFadeIn)
+        gWarpOverride.preventFadeIn = FALSE;
+    else
+        FadeInFromWhite();
+        
     SetUpWarpExitTask();
     LockPlayerFieldControls();
 }
@@ -512,7 +523,12 @@ void DoWhiteFadeWarp(void)
 {
     LockPlayerFieldControls();
     TryFadeOutOldMapMusic();
-    FadeScreen(FADE_TO_WHITE, 8);
+
+    if (gWarpOverride.preventFadeOut)
+        gWarpOverride.preventFadeOut = FALSE;
+    else
+        FadeScreen(FADE_TO_WHITE, 8);
+
     PlayRainStoppingSoundEffect();
     gFieldCallback = FieldCB_WarpExitFadeFromWhite;
     CreateTask(Task_WarpAndLoadMap, 10);
