@@ -221,6 +221,7 @@ script MossdeepCity_SpaceCenter_Pad_PrepareTakeOff {
     delay(30)
     call(MossdeepCity_SpaceCenter_Pad_RocketTakeOff)
     preventwarpfadeout
+    preventwarpfadein
     warp(MAP_LUNAR_SUMMIT, 0)
 	waitstate
     special(RemoveCameraObject)
@@ -276,30 +277,45 @@ script MossdeepCity_SpaceCenter_Pad_RocketTakeOff {
     delay(30) 
     playse(SE_RAIN)
     
+    // Wait until the slower movement completes and go fast
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast)
+    applymovement(OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast)
+
     // Sonic boom 1
-    delay(160)
     fadescreen(FADE_TO_WHITE)
     playse(SE_M_SKY_UPPERCUT)
     fadescreen(FADE_FROM_WHITE)
+
+    // Keep going fast
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast)
+    applymovement(OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast)
 
     // Sonic boom 2
-    delay(80)
     fadescreen(FADE_TO_WHITE)
     playse(SE_M_SKY_UPPERCUT)
     fadescreen(FADE_FROM_WHITE)
 
+    // More fast
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_TakeOffRocketExit)
+    applymovement(OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast)
+
     // Exit atmosphere
-    delay(140)
     playse(SE_INTRO_BLAST)
     fadescreenspeed(FADE_TO_BLACK, 18)
 
-    // Wait until the animation has finished
+    // Wait until the last fast section finishes
     waitmovement(OBJECT_ROCKET)
     waitmovement(OBJ_EVENT_ID_CAMERA)
 
-    playse(SE_EXIT)
-    delay(120)
-    msgbox(format("After a number of long days in space flight..."))
+    // playse(SE_EXIT)
+    // delay(120)
+    // msgbox(format("After a number of long days in space flight..."))
 }
 
 movement MossdeepCity_SpaceCenter_Pad_PrepareTakeOffCameraToRocket { walk_up * 2 }
@@ -312,12 +328,18 @@ movement MossdeepCity_SpaceCenter_Pad_TakeOffRocketMovement {
     walk_slow_up * 5
     walk_up * 8
     walk_fast_up * 16
-    walk_faster_up * 95
+}
+
+movement MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast {
+    walk_faster_up * 30
+}
+
+movement MossdeepCity_SpaceCenter_Pad_TakeOffRocketExit {
+    walk_faster_up * 40
 }
 
 movement MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement {
     walk_slow_up * 5
     walk_up * 8
     walk_fast_up * 16
-    walk_faster_up * 85
 }

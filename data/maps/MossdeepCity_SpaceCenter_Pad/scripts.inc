@@ -258,15 +258,24 @@ MossdeepCity_SpaceCenter_Pad_RocketTakeOff::
 	special ShakeCamera
 	delay 30
 	playse SE_RAIN
-	delay 160
+	waitmovement 1
+	waitmovement OBJ_EVENT_ID_CAMERA
+	applymovement 1, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast
+	applymovement OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast
 	fadescreen FADE_TO_WHITE
 	playse SE_M_SKY_UPPERCUT
 	fadescreen FADE_FROM_WHITE
-	delay 80
+	waitmovement 1
+	waitmovement OBJ_EVENT_ID_CAMERA
+	applymovement 1, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast
+	applymovement OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast
 	fadescreen FADE_TO_WHITE
 	playse SE_M_SKY_UPPERCUT
 	fadescreen FADE_FROM_WHITE
-	delay 140
+	waitmovement 1
+	waitmovement OBJ_EVENT_ID_CAMERA
+	applymovement 1, MossdeepCity_SpaceCenter_Pad_TakeOffRocketExit
+	applymovement OBJ_EVENT_ID_CAMERA, MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast
 	playse SE_INTRO_BLAST
 	fadescreenspeed FADE_TO_BLACK, 18
 	waitmovement 1
@@ -320,6 +329,9 @@ MossdeepCity_SpaceCenter_Pad_TakeOffRocketMovement:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_TakeOffRocketFast:
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
@@ -350,31 +362,9 @@ MossdeepCity_SpaceCenter_Pad_TakeOffRocketMovement:
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_TakeOffRocketExit:
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
@@ -447,91 +437,6 @@ MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
-	walk_faster_up
 	step_end
 
 MossdeepCity_SpaceCenter_Pad_Sign_Text_0:

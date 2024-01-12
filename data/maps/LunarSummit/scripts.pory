@@ -8,6 +8,9 @@ const OBJECT_SCIENTIST2 = 4
 const WARP_MOSSDEEP_X = 7
 const WARP_MOSSDEEP_Y = 3
 
+const WARP_IN_X = 65
+const WARP_IN_Y = 1
+
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
         if (flag(FLAG_CAUGHT_JIRACHI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
@@ -25,6 +28,16 @@ mapscripts LunarSummit_MapScripts {
             setvar(VAR_TEMP_WITNESSED_MILLENNIUM_COMET, 0)
         }
     }
+
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_LOADED, FALSE {
+            setvar(VAR_TEMP_LOADED, TRUE)
+            getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+            if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
+                call(MossdeepCity_SpaceCenter_Pad_GuideLady_Entrance)
+            }
+        }
+    ]
 }
 
 script LunarSummit_Scientist1 {
