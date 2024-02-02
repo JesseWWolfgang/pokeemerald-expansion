@@ -256,7 +256,7 @@ void ReducePlayerPartyToSelectedMons(void)
 
     CpuFill32(0, party, sizeof party);
 
-    // copy the selected pokemon according to the order.
+    // copy the selected Pokémon according to the order.
     for (i = 0; i < MAX_FRONTIER_PARTY_SIZE; i++)
         if (gSelectedOrderFromParty[i]) // as long as the order keeps going (did the player select 1 mon? 2? 3?), do not stop
             party[i] = gPlayerParty[gSelectedOrderFromParty[i] - 1]; // index is 0 based, not literal
@@ -308,16 +308,9 @@ void HasGigantamaxFactor(struct ScriptContext *ctx)
         gSpecialVar_Result = FALSE;
 }
 
-static const u16 sGigantaxFactorLockedSpecies[] =
-{
-    SPECIES_MELMETAL,
-};
-
 void ToggleGigantamaxFactor(struct ScriptContext *ctx)
 {
-    u32 i;
     u32 partyIndex = VarGet(ScriptReadHalfword(ctx));
-    u32 species;
 
     gSpecialVar_Result = FALSE;
 
@@ -325,12 +318,8 @@ void ToggleGigantamaxFactor(struct ScriptContext *ctx)
     {
         bool32 gigantamaxFactor;
 
-        species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES);
-        for (i = 0; i < ARRAY_COUNT(sGigantaxFactorLockedSpecies); i++)
-        {
-            if (species == sGigantaxFactorLockedSpecies[i])
-                return;
-        }
+        if (gSpeciesInfo[SanitizeSpeciesId(GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES))].isMythical)
+            return;
 
         gigantamaxFactor = GetMonData(&gPlayerParty[partyIndex], MON_DATA_GIGANTAMAX_FACTOR);
         gigantamaxFactor = !gigantamaxFactor;
