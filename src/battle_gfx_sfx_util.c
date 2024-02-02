@@ -25,6 +25,8 @@
 #include "constants/songs.h"
 #include "constants/rgb.h"
 #include "constants/battle_palace.h"
+#include "constants/battle_move_effects.h"
+
 
 extern const u8 gBattlePalaceNatureToMoveTarget[];
 extern const struct CompressedSpriteSheet gSpriteSheet_EnemyShadow;
@@ -103,7 +105,7 @@ void FreeBattleSpritesData(void)
     FREE_AND_SET_NULL(gBattleSpritesDataPtr);
 }
 
-// Pokemon chooses move to use in Battle Palace rather than player
+// Pokémon chooses move to use in Battle Palace rather than player
 u16 ChooseMoveAndTargetInBattlePalace(u32 battler)
 {
     s32 i, var1, var2;
@@ -163,7 +165,7 @@ u16 ChooseMoveAndTargetInBattlePalace(u32 battler)
         chosenMoveId = BattleAI_ChooseMoveOrAction();
     }
 
-    // If no moves matched the selected group, pick a new move from groups the pokemon has
+    // If no moves matched the selected group, pick a new move from groups the Pokémon has
     // In this case the AI is not checked again, so the choice may be worse
     // If a move is chosen this way, there's a 50% chance that it will be unable to use it anyway
     if (chosenMoveId == -1 || chosenMoveId >= MAX_MON_MOVES)
@@ -356,7 +358,7 @@ static u16 GetBattlePalaceTarget(u32 battler)
     return BATTLE_OPPOSITE(battler) << 8;
 }
 
-// Wait for the pokemon to finish appearing out from the pokeball on send out
+// Wait for the Pokémon to finish appearing out from the Poké Ball on send out
 void SpriteCB_WaitForBattlerBallReleaseAnim(struct Sprite *sprite)
 {
     u8 spriteId = sprite->data[1];
@@ -635,8 +637,12 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, u32 battler)
     // dynamax tint
     if (IsDynamaxed(battler))
     {
-        BlendPalette(paletteOffset, 16, 4, RGB(31, 0, 12));
-        CpuCopy32(gPlttBufferFaded + paletteOffset, gPlttBufferUnfaded + paletteOffset, 32);
+        // Calyrex and its forms have a blue dynamax aura instead of red.
+        if (GET_BASE_SPECIES_ID(species) == SPECIES_CALYREX)
+            BlendPalette(paletteOffset, 16, 4, RGB(12, 0, 31));
+        else
+            BlendPalette(paletteOffset, 16, 4, RGB(31, 0, 12));
+        CpuCopy32(gPlttBufferFaded + paletteOffset, gPlttBufferUnfaded + paletteOffset, PLTT_SIZEOF(16));
     }
 }
 
@@ -996,7 +1002,7 @@ void LoadBattleMonGfxAndAnimate(u8 battler, bool8 loadMonSprite, u8 spriteId)
 
 void TrySetBehindSubstituteSpriteBit(u8 battler, u16 move)
 {
-    if (move == MOVE_SUBSTITUTE)
+    if (gMovesInfo[move].effect == EFFECT_SUBSTITUTE || gMovesInfo[move].effect == EFFECT_SHED_TAIL)
         gBattleSpritesDataPtr->battlerData[battler].behindSubstitute = 1;
 }
 

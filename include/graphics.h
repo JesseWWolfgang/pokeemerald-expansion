@@ -62,7 +62,7 @@ extern const u32 gBallGfx_Cherish[];
 extern const u32 gBallPal_Cherish[];
 extern const u32 gOpenPokeballGfx[];
 
-// pokemon gfx
+// Pokémon gfx
 extern const u16 gMonIconPalettes[][16];
 
 // pokeblock
@@ -278,7 +278,7 @@ extern const u32 gBattleTerrainPalette_StadiumGlacia[];
 extern const u32 gBattleTerrainPalette_StadiumDrake[];
 extern const u32 gBattleTerrainPalette_StadiumWallace[];
 
-// pokedex
+// Pokédex
 extern const u32 gPokedexInterface_Gfx[];
 extern const u16 gPokedexBgHoenn_Pal[];
 extern const u32 gPokedexMenu_Gfx[];
@@ -1709,6 +1709,23 @@ extern const u32 gItemIconPalette_HearthflameMask[];
 extern const u32 gItemIcon_CornerstoneMask[];
 extern const u32 gItemIconPalette_CornerstoneMask[];
 
+extern const u32 gItemIcon_Remedy[];
+extern const u32 gItemIconPalette_Remedy[];
+extern const u32 gItemIcon_FineRemedy[];
+extern const u32 gItemIconPalette_FineRemedy[];
+extern const u32 gItemIcon_SuperbRemedy[];
+extern const u32 gItemIconPalette_SuperbRemedy[];
+extern const u32 gItemIcon_ChoiceDumpling[];
+extern const u32 gItemIconPalette_ChoiceDumpling[];
+extern const u32 gItemIcon_JubilifeMuffin[];
+extern const u32 gItemIconPalette_JubilifeMuffin[];
+extern const u32 gItemIcon_PokeshiDoll[];
+extern const u32 gItemIconPalette_PokeshiDoll[];
+extern const u32 gItemIcon_SwapSnack[];
+extern const u32 gItemIconPalette_SwapSnack[];
+extern const u32 gItemIcon_TwiceSpicedRadish[];
+extern const u32 gItemIconPalette_TwiceSpicedRadish[];
+
 extern const u32 gItemIcon_ReturnToFieldArrow[];
 extern const u32 gItemIconPalette_ReturnToFieldArrow[];
 
@@ -1911,7 +1928,7 @@ extern const u32 gBerryPalette_Rowap[];
 extern const u32 gBerryPalette_Kee[];
 extern const u32 gBerryPalette_Maranga[];
 
-//pokenav
+//PokéNav
 extern const u16 gPokenavCondition_Pal[];
 extern const u32 gPokenavCondition_Gfx[];
 extern const u32 gPokenavCondition_Tilemap[];
@@ -3133,11 +3150,11 @@ extern const u32 gBattleAnimBgImage_Rainbow[];
 extern const u32 gBattleAnimBGPalette_Rainbow[];
 extern const u32 gBattleAnimBgTilemap_Rainbow[];
 
-// Pokedex Area Screen
+// Pokédex Area Screen
 extern const u32 gPokedexAreaScreenAreaUnknown_Gfx[];
 extern const u16 gPokedexAreaScreenAreaUnknown_Pal[];
 
-// Pokemon Storage System
+// Pokémon Storage System
 extern const u32 gStorageSystemMenu_Gfx[];
 extern const u16 gStorageSystemPartyMenu_Pal[];
 extern const u32 gStorageSystemPartyMenu_Tilemap[];
@@ -3265,7 +3282,7 @@ extern const u32 gBerryCrush_Crusher_Gfx[];
 extern const u16 gBerryCrush_Crusher_Pal[];
 extern const u32 gBerryCrush_TextWindows_Tilemap[];
 
-// Pokenav
+// PokéNav
 extern const u32 gPokenavMessageBox_Gfx[];
 extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];

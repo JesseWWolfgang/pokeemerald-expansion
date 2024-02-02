@@ -625,7 +625,7 @@ static void Task_Hof_TryDisplayAnotherMon(u8 taskId)
     else
     {
         sHofFadePalettes |= (0x10000 << gSprites[gTasks[taskId].tMonSpriteId(currPokeID)].oam.paletteNum);
-        if (gTasks[taskId].tDisplayedMonId < PARTY_SIZE - 1 && currMon[1].species != SPECIES_NONE) // there is another pokemon to display
+        if (gTasks[taskId].tDisplayedMonId < PARTY_SIZE - 1 && currMon[1].species != SPECIES_NONE) // there is another Pokémon to display
         {
             gTasks[taskId].tDisplayedMonId++;
             BeginNormalPaletteFade(sHofFadePalettes, 0, 12, 12, RGB(16, 29, 24));
@@ -1132,6 +1132,12 @@ static void HallOfFame_PrintMonInfo(struct HallofFameMon* currMon, u8 unused1, u
         dexNumber = SpeciesToPokedexNum(currMon->species);
         if (dexNumber != 0xFFFF)
         {
+            if (IsNationalPokedexEnabled())
+            {
+                stringPtr[0] = (dexNumber / 1000) + CHAR_0;
+                stringPtr++;
+                dexNumber %= 1000;
+            }
             stringPtr[0] = (dexNumber / 100) + CHAR_0;
             stringPtr++;
             dexNumber %= 100;

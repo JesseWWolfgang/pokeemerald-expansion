@@ -188,8 +188,6 @@ u32 ScriptPeekWord(struct ScriptContext *ctx)
     return (((((value3 << 8) + value2) << 8) + value1) << 8) + value0;
 }
 
-
-
 void LockPlayerFieldControls(void)
 {
     sLockFieldControls = TRUE;
@@ -478,9 +476,4 @@ void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize)
     if (scriptSize > sizeof(gSaveBlock1Ptr->ramScript.data.script))
         scriptSize = sizeof(gSaveBlock1Ptr->ramScript.data.script);
     InitRamScript(script, scriptSize, MAP_GROUP(UNDEFINED), MAP_NUM(UNDEFINED), NO_OBJECT);
-}
-
-void GetObjectEventTrainerRangeFromTemplate(void)
-{
-    gSpecialVar_Result = gMapHeader.events->objectEvents[gSpecialVar_LastTalked - 1].trainerRange_berryTreeId;
 }
