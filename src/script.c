@@ -188,8 +188,6 @@ u32 ScriptPeekWord(struct ScriptContext *ctx)
     return (((((value3 << 8) + value2) << 8) + value1) << 8) + value0;
 }
 
-
-
 void LockPlayerFieldControls(void)
 {
     sLockFieldControls = TRUE;
