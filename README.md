@@ -13,7 +13,6 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Move Pokemon as first PC option   | https://www.pokecommunity.com/showpost.php?p=10065761
 | Swap party slots with select      | https://www.pokecommunity.com/showpost.php?p=10420662
 | Show species switching for in party menu | https://github.com/pret/pokeemerald/wiki/Show-Species-That-You're-Switching-For-in-the-Party-Menu
-| Common FindItem script            | https://github.com/pret/pokeemerald/wiki/Set-Up-Item-Balls-on-a-Map-Without-Needing-New-Scripts
 | Bulk Premier Balls                | https://github.com/pret/pokeemerald/wiki/LGPE-Style-Bonus-Premier-Balls
 | Berries no longer disappear       | https://www.pokecommunity.com/showpost.php?p=10142996&postcount=63
 | Disable union room check          | https://github.com/pret/pokeemerald/wiki/Disabling-Union-Room-check-when-entering-Pok%C3%A9mon-Centers
@@ -23,3 +22,8 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Extend trainer slide in message time | Adds a small delay after a trainer slide in message.
 | Enable HGSS Pokedex               | Enables the HGSS style Pokedex by default.
 | ScrCmd_callfunc                   | Script function to call a C function with a number of arguments. https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160
+
+## Changes
+
+- 1.7.3
+    - Removed the Common FindItem script as it was merged into upstream expansion.
