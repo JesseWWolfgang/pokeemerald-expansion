@@ -99,10 +99,25 @@ This will make the object always face the player.
 
 These are the same as the existing walk in place actions but use the object's current direction.
 
+## Move Object into View from Offscreen
+
+Adds `movefromoffscreen` macro.
+
+This is shorthand for:
+```
+removeobject obj
+setobjectxyperm obj, x, y
+addobject obj
+```
+
 ## Warp with Overrides
 
-**Facing Direction**
+**Facing Direction:**
 Adds the script command `warpdirection` which accepts a facing direction to set the player's initial facing direction after warping.
 
-**Prevent Fading in and Out**
+**Prevent Fading in and Out:**
 Adds commands `preventwarpfadeout` and `preventwarpfadein` to do these respectively.
+
+When performing complex scene setup while in a faded out state, you may need to move objects from outside the screen or add new objects.
+Doing this loads their palettes and will break the fade. To counter this, `FillPalBufferBlack` and `FillPalBufferWhite` have been made non-static so that
+they can be used with `callnative` immediately after adding the object.
