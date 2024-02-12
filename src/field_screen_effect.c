@@ -77,22 +77,22 @@ static void FillPalBufferBlack(void)
 
 void WarpFadeInScreen(void)
 {
-    if (gWarpOverride.preventFadeIn)
-    {
-        gWarpOverride.preventFadeIn = FALSE;
-        return;
-    }
-
     u8 previousMapType = GetLastUsedWarpMapType();
     switch (GetMapPairFadeFromType(previousMapType, GetCurrentMapType()))
     {
     case 0:
         FillPalBufferBlack();
-        FadeScreen(FADE_FROM_BLACK, 0);
+        if (gWarpOverride.preventFadeIn)
+            gWarpOverride.preventFadeIn = FALSE;
+        else
+            FadeScreen(FADE_FROM_BLACK, 0);
         break;
     case 1:
         FillPalBufferWhite();
-        FadeScreen(FADE_FROM_WHITE, 0);
+        if (gWarpOverride.preventFadeIn)
+            gWarpOverride.preventFadeIn = FALSE;
+        else
+            FadeScreen(FADE_FROM_WHITE, 0);
     }
 }
 
@@ -299,9 +299,14 @@ void FieldCB_WarpExitFadeFromWhite(void)
     Overworld_PlaySpecialMapMusic();
 
     if (gWarpOverride.preventFadeIn)
+    {
         gWarpOverride.preventFadeIn = FALSE;
+        FillPalBufferWhite();
+    }
     else
+    {
         FadeInFromWhite();
+    }
         
     SetUpWarpExitTask();
     LockPlayerFieldControls();
@@ -311,7 +316,17 @@ void FieldCB_WarpExitFadeFromBlack(void)
 {
     if (!OnTrainerHillEReaderChallengeFloor()) // always false
         Overworld_PlaySpecialMapMusic();
-    FadeInFromBlack();
+    
+    if (gWarpOverride.preventFadeIn)
+    {
+        gWarpOverride.preventFadeIn = FALSE;
+        FillPalBufferBlack();
+    }
+    else
+    {
+        FadeInFromBlack();
+    }
+
     SetUpWarpExitTask();
     LockPlayerFieldControls();
 }
