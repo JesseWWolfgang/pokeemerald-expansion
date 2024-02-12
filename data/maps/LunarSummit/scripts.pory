@@ -9,10 +9,10 @@ const WARP_MOSSDEEP_X = 7
 const WARP_MOSSDEEP_Y = 3
 
 const WARP_IN_X = 65
-const WARP_IN_Y = 59
+const WARP_IN_Y = 0
 
 const FLIGHT_START_X = 65
-const FLIGHT_START_Y = 0
+const FLIGHT_START_Y = 2
 
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
@@ -574,24 +574,42 @@ script LunarSummit_Jirachi {
 script LunarSummit_FlightIn {
     lock
     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
-    special(SpawnCameraObject)
+
+    // Moving objects from offscreen requires removing them, updating their template XY positions (setobjectxyperm), then re-adding.
+    removeobject(OBJECT_ROCKET)
     setobjectxyperm(OBJECT_ROCKET, FLIGHT_START_X, FLIGHT_START_Y)
-    setobjectxyperm(OBJ_EVENT_ID_CAMERA, FLIGHT_START_X, FLIGHT_START_Y)
+    addobject(OBJECT_ROCKET)
+    callnative(FillPalBufferBlack) // Required to not flash the rocket before fading out since addobject also loads its palette.
+
     applymovement(OBJECT_ROCKET, LunarSummit_FlightIn_DownFast)
-    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_FlightIn_DownFast)
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownFast)
     fadescreenspeed(FADE_FROM_BLACK, 18)
     waitmovement(OBJECT_ROCKET)
-    waitmovement(OBJ_EVENT_ID_CAMERA)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
     delay(60)
     msgbox(format("We're here!"), MSGBOX_DEFAULT)
     closemessage
+
+    // Player exits rocket
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit1)
+    waitmovement(0)
     showobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit2)
+    waitmovement(0)
     release
 }
 
 movement LunarSummit_FlightIn_DownFast {
-    walk_faster_down * 5
-    walk_fast_down * 25
-    walk_down * 15
-    walk_slow_down * 15
+    walk_faster_down * 10
+    walk_fast_down * 20
+    walk_down * 18
+    walk_slow_down * 8
+}
+
+movement LunarSummit_FlightIn_PlayerExit1 {
+    walk_down * 2
+}
+
+movement LunarSummit_FlightIn_PlayerExit2 {
+    walk_slow_down
 }

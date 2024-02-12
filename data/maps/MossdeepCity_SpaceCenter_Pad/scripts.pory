@@ -32,7 +32,14 @@ script TEST_Warp_to_Castelia {
     waitstate
 }
 
-script MossdeepCity_SpaceCenter_Pad_Sign { msgbox(format("Mossdeep Space Center Launch Pad"), MSGBOX_SIGN) }
+script MossdeepCity_SpaceCenter_Pad_Sign { 
+    fadescreen(FADE_TO_BLACK)
+    preventwarpfadeout
+    preventwarpfadein
+    warp(MAP_LUNAR_SUMMIT, 0)
+	waitstate
+    // msgbox(format("Mossdeep Space Center Launch Pad"), MSGBOX_SIGN) 
+}
 
 script MossdeepCity_SpaceCenter_Pad_GuideLady {
     lock

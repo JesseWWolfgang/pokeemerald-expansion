@@ -35,7 +35,11 @@ TEST_Warp_to_Castelia::
 
 
 MossdeepCity_SpaceCenter_Pad_Sign::
-	msgbox MossdeepCity_SpaceCenter_Pad_Sign_Text_0, MSGBOX_SIGN
+	fadescreen FADE_TO_BLACK
+	preventwarpfadeout
+	preventwarpfadein
+	warp MAP_LUNAR_SUMMIT, 0
+	waitstate
 	return
 
 
@@ -436,9 +440,6 @@ MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement:
 	walk_fast_up
 	walk_fast_up
 	step_end
-
-MossdeepCity_SpaceCenter_Pad_Sign_Text_0:
-	.string "Mossdeep Space Center Launch Pad$"
 
 MossdeepCity_SpaceCenter_Pad_GuideLady_Text_0:
 	.string "Are you not prepared? Would you like to\n"

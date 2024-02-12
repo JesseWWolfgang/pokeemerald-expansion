@@ -26205,7 +26205,6 @@ static const u16 sMeloettaTeachableLearnset[] = {
     MOVE_SWORDS_DANCE,
     MOVE_THUNDER_PUNCH,
     MOVE_THUNDER_WAVE,
-    MOVE_RELIC_SONG,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_MELOETTA

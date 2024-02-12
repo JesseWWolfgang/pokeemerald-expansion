@@ -37,7 +37,7 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
 	return
 
 LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
-	compare VAR_TEMP_3, 59
+	compare VAR_TEMP_3, 0
 	goto_if_eq LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
 	return
 
@@ -677,18 +677,23 @@ LunarSummit_Jirachi_4:
 LunarSummit_FlightIn::
 	lock
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
-	special SpawnCameraObject
-	setobjectxyperm 3, 65, 0
-	setobjectxyperm OBJ_EVENT_ID_CAMERA, 65, 0
+	removeobject 3
+	setobjectxyperm 3, 65, 2
+	addobject 3
+	callnative FillPalBufferBlack
 	applymovement 3, LunarSummit_FlightIn_DownFast
-	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_FlightIn_DownFast
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownFast
 	fadescreenspeed FADE_FROM_BLACK, 18
 	waitmovement 3
-	waitmovement OBJ_EVENT_ID_CAMERA
+	waitmovement OBJ_EVENT_ID_PLAYER
 	delay 60
 	msgbox LunarSummit_FlightIn_Text_0, MSGBOX_DEFAULT
 	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit1
+	waitmovement 0
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit2
+	waitmovement 0
 	release
 	return
 
@@ -699,6 +704,11 @@ LunarSummit_FlightIn_DownFast:
 	walk_faster_down
 	walk_faster_down
 	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
@@ -719,11 +729,9 @@ LunarSummit_FlightIn_DownFast:
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
+	walk_down
+	walk_down
+	walk_down
 	walk_down
 	walk_down
 	walk_down
@@ -747,12 +755,14 @@ LunarSummit_FlightIn_DownFast:
 	walk_slow_down
 	walk_slow_down
 	walk_slow_down
-	walk_slow_down
-	walk_slow_down
-	walk_slow_down
-	walk_slow_down
-	walk_slow_down
-	walk_slow_down
+	step_end
+
+LunarSummit_FlightIn_PlayerExit1:
+	walk_down
+	walk_down
+	step_end
+
+LunarSummit_FlightIn_PlayerExit2:
 	walk_slow_down
 	step_end
 
