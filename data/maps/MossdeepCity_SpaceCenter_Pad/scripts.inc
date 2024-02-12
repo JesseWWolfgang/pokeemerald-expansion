@@ -219,6 +219,7 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff::
 	delay 30
 	call MossdeepCity_SpaceCenter_Pad_RocketTakeOff
 	preventwarpfadeout
+	preventwarpfadein
 	warp MAP_LUNAR_SUMMIT, 0
 	waitstate
 	special RemoveCameraObject
@@ -280,9 +281,6 @@ MossdeepCity_SpaceCenter_Pad_RocketTakeOff::
 	fadescreenspeed FADE_TO_BLACK, 18
 	waitmovement 1
 	waitmovement OBJ_EVENT_ID_CAMERA
-	playse SE_EXIT
-	delay 120
-	msgbox MossdeepCity_SpaceCenter_Pad_RocketTakeOff_Text_0
 	return
 
 
@@ -529,7 +527,3 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff_Text_1:
 	.string "2...\p"
 	.string "1...\p"
 	.string "Lift off!$"
-
-MossdeepCity_SpaceCenter_Pad_RocketTakeOff_Text_0:
-	.string "After a number of long days in space\n"
-	.string "flight...$"
