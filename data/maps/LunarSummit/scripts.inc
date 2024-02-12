@@ -507,12 +507,8 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore::
 	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1
 	waitmovement 0
 	delay 120
-	removeobject 2
-	removeobject 4
-	setobjectxyperm 2, 44, 14
-	setobjectxyperm 4, 45, 13
-	addobject 2
-	addobject 4
+	movefromoffscreen 2, 44, 14
+	movefromoffscreen 2, 45, 13
 	applymovement 2, LunarSummit_Comet_Scientist1ApproachPlayer
 	applymovement 4, LunarSummit_Comet_Scientist2ApproachPlayer
 	waitmovement 2
@@ -677,9 +673,7 @@ LunarSummit_Jirachi_4:
 LunarSummit_FlightIn::
 	lock
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
-	removeobject 3
-	setobjectxyperm 3, 65, 2
-	addobject 3
+	movefromoffscreen 3, 65, 2
 	callnative FillPalBufferBlack
 	applymovement 3, LunarSummit_FlightIn_DownFast
 	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownFast

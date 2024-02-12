@@ -433,13 +433,8 @@ script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
     waitmovement(0)
     delay(120)
 
-    // Moving objects from offscreen requires removing them, updating their template XY positions (setobjectxyperm), then re-adding.
-    removeobject(OBJECT_SCIENTIST1)
-    removeobject(OBJECT_SCIENTIST2)
-    setobjectxyperm(OBJECT_SCIENTIST1, 44, 14)
-    setobjectxyperm(OBJECT_SCIENTIST2, 45, 13)
-    addobject(OBJECT_SCIENTIST1)
-    addobject(OBJECT_SCIENTIST2)
+    movefromoffscreen(OBJECT_SCIENTIST1, 44, 14)
+    movefromoffscreen(OBJECT_SCIENTIST1, 45, 13)
 
     // Scientists approach
     applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1ApproachPlayer)
@@ -574,12 +569,8 @@ script LunarSummit_Jirachi {
 script LunarSummit_FlightIn {
     lock
     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
-
-    // Moving objects from offscreen requires removing them, updating their template XY positions (setobjectxyperm), then re-adding.
-    removeobject(OBJECT_ROCKET)
-    setobjectxyperm(OBJECT_ROCKET, FLIGHT_START_X, FLIGHT_START_Y)
-    addobject(OBJECT_ROCKET)
-    callnative(FillPalBufferBlack) // Required to not flash the rocket before fading out since addobject also loads its palette.
+    movefromoffscreen(OBJECT_ROCKET, FLIGHT_START_X, FLIGHT_START_Y)
+    callnative(FillPalBufferBlack) // Required to not flash the rocket before fading out since movefromoffscreen/addobject also loads its palette.
 
     applymovement(OBJECT_ROCKET, LunarSummit_FlightIn_DownFast)
     applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownFast)
