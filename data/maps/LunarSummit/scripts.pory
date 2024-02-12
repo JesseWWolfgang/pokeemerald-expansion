@@ -9,7 +9,10 @@ const WARP_MOSSDEEP_X = 7
 const WARP_MOSSDEEP_Y = 3
 
 const WARP_IN_X = 65
-const WARP_IN_Y = 1
+const WARP_IN_Y = 59
+
+const FLIGHT_START_X = 65
+const FLIGHT_START_Y = 0
 
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
@@ -32,9 +35,9 @@ mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TEMP_LOADED, FALSE {
             setvar(VAR_TEMP_LOADED, TRUE)
-            getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-            if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
-                call(MossdeepCity_SpaceCenter_Pad_GuideLady_Entrance)
+            getplayerxy(VAR_TEMP_2, VAR_TEMP_3)
+            if (var(VAR_TEMP_2) == WARP_IN_X && var(VAR_TEMP_3) == WARP_IN_Y) {
+                call(LunarSummit_FlightIn)
             }
         }
     ]
@@ -566,4 +569,29 @@ script LunarSummit_Jirachi {
     }
     release
     end
+}
+
+script LunarSummit_FlightIn {
+    lock
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
+    special(SpawnCameraObject)
+    setobjectxyperm(OBJECT_ROCKET, FLIGHT_START_X, FLIGHT_START_Y)
+    setobjectxyperm(OBJ_EVENT_ID_CAMERA, FLIGHT_START_X, FLIGHT_START_Y)
+    applymovement(OBJECT_ROCKET, LunarSummit_FlightIn_DownFast)
+    applymovement(OBJ_EVENT_ID_CAMERA, LunarSummit_FlightIn_DownFast)
+    fadescreenspeed(FADE_FROM_BLACK, 18)
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_CAMERA)
+    delay(60)
+    msgbox(format("We're here!"), MSGBOX_DEFAULT)
+    closemessage
+    showobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
+    release
+}
+
+movement LunarSummit_FlightIn_DownFast {
+    walk_faster_down * 5
+    walk_fast_down * 25
+    walk_down * 15
+    walk_slow_down * 15
 }

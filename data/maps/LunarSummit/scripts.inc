@@ -1,5 +1,6 @@
 LunarSummit_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD:
@@ -18,6 +19,26 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_2:
 
 LunarSummit_MapScripts_MAP_SCRIPT_ON_LOAD_7:
 	setvar VAR_TEMP_0, 1
+	return
+
+LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_TEMP_LOADED, FALSE, LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
+	.2byte 0
+
+LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
+	setvar VAR_TEMP_LOADED, TRUE
+	getplayerxy VAR_TEMP_2, VAR_TEMP_3
+	compare VAR_TEMP_2, 65
+	goto_if_eq LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2
+	return
+
+LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
+	call LunarSummit_FlightIn
+	return
+
+LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
+	compare VAR_TEMP_3, 59
+	goto_if_eq LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
 	return
 
 
@@ -653,6 +674,88 @@ LunarSummit_Jirachi_4:
 	goto LunarSummit_Jirachi_1
 
 
+LunarSummit_FlightIn::
+	lock
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
+	special SpawnCameraObject
+	setobjectxyperm 3, 65, 0
+	setobjectxyperm OBJ_EVENT_ID_CAMERA, 65, 0
+	applymovement 3, LunarSummit_FlightIn_DownFast
+	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_FlightIn_DownFast
+	fadescreenspeed FADE_FROM_BLACK, 18
+	waitmovement 3
+	waitmovement OBJ_EVENT_ID_CAMERA
+	delay 60
+	msgbox LunarSummit_FlightIn_Text_0, MSGBOX_DEFAULT
+	closemessage
+	showobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
+	release
+	return
+
+
+LunarSummit_FlightIn_DownFast:
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_faster_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	step_end
+
 LunarSummit_Scientist1_Text_0:
 	.string "Ready to leave?$"
 
@@ -763,3 +866,6 @@ LunarSummit_Jirachi_Text_1:
 LunarSummit_Jirachi_Text_2:
 	.string "Jirachi was enveloped by a sheen of\n"
 	.string "light, and fully recovered.$"
+
+LunarSummit_FlightIn_Text_0:
+	.string "We're here!$"
