@@ -42,7 +42,6 @@
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
 static void Task_DoContestHallWarp(u8);
-static void FillPalBufferWhite(void);
 static void Task_ExitDoor(u8);
 static bool32 WaitForWeatherFadeIn(void);
 static void Task_SpinEnterWarp(u8 taskId);
@@ -65,12 +64,12 @@ static const struct ScanlineEffectParams sFlashEffectParams =
 };
 
 // code
-static void FillPalBufferWhite(void)
+void FillPalBufferWhite(void)
 {
     CpuFastFill16(RGB_WHITE, gPlttBufferFaded, PLTT_SIZE);
 }
 
-static void FillPalBufferBlack(void)
+void FillPalBufferBlack(void)
 {
     CpuFastFill16(RGB_BLACK, gPlttBufferFaded, PLTT_SIZE);
 }

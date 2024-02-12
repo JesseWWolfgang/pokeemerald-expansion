@@ -2246,3 +2246,10 @@
 	.macro preventwarpfadein
 		callnative SetWarpPreventFadeIn
 	.endm
+
+	@ Quick way to move objects. Moving objects from offscreen requires removing them, updating their template XY positions (setobjectxyperm), then re-adding.
+	.macro movefromoffscreen localId:req x:req y:req
+		removeobject \localId
+		setobjectxyperm \localId, \x, \y
+		addobject \localId
+	.endm
