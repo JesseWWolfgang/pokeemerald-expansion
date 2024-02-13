@@ -673,20 +673,42 @@ LunarSummit_Jirachi_4:
 LunarSummit_FlightIn::
 	lock
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
+	setobjectxyperm 2, 0, 0
+	setobjectxyperm 4, 0, 0
 	movefromoffscreen 3, 65, 2
 	callnative FillPalBufferBlack
+	playse SE_DOWNPOUR
 	applymovement 3, LunarSummit_FlightIn_DownFast
 	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownFast
 	fadescreenspeed FADE_FROM_BLACK, 18
 	waitmovement 3
 	waitmovement OBJ_EVENT_ID_PLAYER
-	delay 60
-	msgbox LunarSummit_FlightIn_Text_0, MSGBOX_DEFAULT
+	playse SE_DOWNPOUR_STOP
+	applymovement 3, LunarSummit_FlightIn_DownSlow
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownSlow
+	waitmovement 3
+	waitmovement OBJ_EVENT_ID_PLAYER
+	playse SE_LAVARIDGE_FALL_WARP
+	waitse
+	delay 90
+	playfanfare MUS_EVOLVED
+	messageautoscroll LunarSummit_FlightIn_Text_0
+	waitmessage
+	waitfanfare
+	delay 40
 	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit1
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_CameraToPlayer
+	waitmovement 0
+	movefromoffscreen 2, 65, 58
+	applymovement 2, LunarSummit_FlightIn_Scientist1Exit
+	waitmovement 0
+	movefromoffscreen 4, 65, 58
+	applymovement 4, LunarSummit_FlightIn_Scientist2Exit
 	waitmovement 0
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
-	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit2
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit
+	playse SE_TRUCK_DOOR
+	waitse
 	waitmovement 0
 	release
 	return
@@ -741,6 +763,9 @@ LunarSummit_FlightIn_DownFast:
 	walk_down
 	walk_down
 	walk_down
+	step_end
+
+LunarSummit_FlightIn_DownSlow:
 	walk_slow_down
 	walk_slow_down
 	walk_slow_down
@@ -751,12 +776,24 @@ LunarSummit_FlightIn_DownFast:
 	walk_slow_down
 	step_end
 
-LunarSummit_FlightIn_PlayerExit1:
+LunarSummit_FlightIn_CameraToPlayer:
 	walk_down
 	walk_down
 	step_end
 
-LunarSummit_FlightIn_PlayerExit2:
+LunarSummit_FlightIn_Scientist1Exit:
+	walk_slow_down
+	walk_left
+	face_right
+	step_end
+
+LunarSummit_FlightIn_Scientist2Exit:
+	walk_slow_down
+	walk_right
+	face_left
+	step_end
+
+LunarSummit_FlightIn_PlayerExit:
 	walk_slow_down
 	step_end
 
@@ -872,4 +909,4 @@ LunarSummit_Jirachi_Text_2:
 	.string "light, and fully recovered.$"
 
 LunarSummit_FlightIn_Text_0:
-	.string "We're here!$"
+	.string "Successful landing number 101!$"

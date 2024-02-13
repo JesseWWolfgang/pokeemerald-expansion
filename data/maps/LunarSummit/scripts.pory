@@ -569,23 +569,58 @@ script LunarSummit_Jirachi {
 script LunarSummit_FlightIn {
     lock
     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
+
+    // Hide these guys
+    setobjectxyperm(OBJECT_SCIENTIST1, 0, 0)
+    setobjectxyperm(OBJECT_SCIENTIST2, 0, 0)
+
     movefromoffscreen(OBJECT_ROCKET, FLIGHT_START_X, FLIGHT_START_Y)
     callnative(FillPalBufferBlack) // Required to not flash the rocket before fading out since movefromoffscreen/addobject also loads its palette.
 
+    // Fast landing
+    playse(SE_DOWNPOUR)
     applymovement(OBJECT_ROCKET, LunarSummit_FlightIn_DownFast)
     applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownFast)
     fadescreenspeed(FADE_FROM_BLACK, 18)
     waitmovement(OBJECT_ROCKET)
     waitmovement(OBJ_EVENT_ID_PLAYER)
-    delay(60)
-    msgbox(format("We're here!"), MSGBOX_DEFAULT)
+
+    // Slow landing
+    playse(SE_DOWNPOUR_STOP)
+    applymovement(OBJECT_ROCKET, LunarSummit_FlightIn_DownSlow)
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownSlow)
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+
+    playse(SE_LAVARIDGE_FALL_WARP)
+    waitse
+    delay(90)
+
+    playfanfare(MUS_EVOLVED)
+    messageautoscroll(format("Successful landing number 101!"))
+    waitmessage
+    waitfanfare
+    delay(40)
     closemessage
 
-    // Player exits rocket
-    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit1)
+    // Move camera down to player pos
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_CameraToPlayer)
     waitmovement(0)
+
+    // Scientists exit
+    movefromoffscreen(OBJECT_SCIENTIST1, 65, 58)
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_FlightIn_Scientist1Exit)
+    waitmovement(0)
+
+    movefromoffscreen(OBJECT_SCIENTIST2, 65, 58)
+    applymovement(OBJECT_SCIENTIST2, LunarSummit_FlightIn_Scientist2Exit)
+    waitmovement(0)
+
+    // Player exits
     showobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
-    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit2)
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit)
+    playse(SE_TRUCK_DOOR)
+    waitse
     waitmovement(0)
     release
 }
@@ -594,13 +629,28 @@ movement LunarSummit_FlightIn_DownFast {
     walk_faster_down * 10
     walk_fast_down * 20
     walk_down * 18
+}
+
+movement LunarSummit_FlightIn_DownSlow {
     walk_slow_down * 8
 }
 
-movement LunarSummit_FlightIn_PlayerExit1 {
+movement LunarSummit_FlightIn_CameraToPlayer {
     walk_down * 2
 }
 
-movement LunarSummit_FlightIn_PlayerExit2 {
+movement LunarSummit_FlightIn_Scientist1Exit {
+    walk_slow_down
+    walk_left
+    face_right
+}
+
+movement LunarSummit_FlightIn_Scientist2Exit {
+    walk_slow_down
+    walk_right
+    face_left
+}
+
+movement LunarSummit_FlightIn_PlayerExit {
     walk_slow_down
 }
