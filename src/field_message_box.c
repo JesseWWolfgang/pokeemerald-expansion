@@ -39,6 +39,10 @@ static void Task_DrawFieldMessage(u8 taskId)
         case 2:
             if (RunTextPrintersAndIsPrinter0Active() != TRUE)
             {
+                // Bugfix, prevent messageautoscroll from persisting after its use.
+                gTextFlags.autoScroll = FALSE;
+                gTextFlags.forceMidTextSpeed = FALSE;
+
                 sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
                 DestroyTask(taskId);
             }
