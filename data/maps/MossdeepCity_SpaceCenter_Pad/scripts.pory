@@ -199,10 +199,11 @@ script MossdeepCity_SpaceCenter_Pad_PrepareTakeOff {
     hideobjectat(OBJECT_SCIENTIST2, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
     playse(SE_EXIT)
 
+    applymovement(OBJECT_MOM, Common_Movement_FaceUp)
     applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_PlayerBoardRocket)
 
     messageautoscroll(format("Good luck and farewell {PLAYER}!"))
-    waitmovement(0)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
     playse(SE_EXIT)
     waitmessage
@@ -231,7 +232,7 @@ script MossdeepCity_SpaceCenter_Pad_PrepareTakeOff {
     preventwarpfadein
     warp(MAP_LUNAR_SUMMIT, 0)
 	waitstate
-    special(RemoveCameraObject)
+    // special(RemoveCameraObject)
 }
 
 script MossdeepCity_SpaceCenter_Pad_RocketTakeOff {
@@ -320,9 +321,16 @@ script MossdeepCity_SpaceCenter_Pad_RocketTakeOff {
     waitmovement(OBJECT_ROCKET)
     waitmovement(OBJ_EVENT_ID_CAMERA)
 
-    // playse(SE_EXIT)
-    // delay(120)
-    // msgbox(format("After a number of long days in space flight..."))
+    playse(SE_RAIN_STOP)
+    waitse
+    playse(SE_EXIT)
+    waitse
+    delay(100)
+    fadeoutbgm(0)
+    delay(60)
+    special(StopMapMusic)
+    msgbox(format("After a number of long days in space flight..."), MSGBOX_DEFAULT)
+    closemessage
 }
 
 movement MossdeepCity_SpaceCenter_Pad_PrepareTakeOffCameraToRocket { walk_up * 2 }

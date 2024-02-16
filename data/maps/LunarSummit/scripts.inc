@@ -45,8 +45,6 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
 LunarSummit_Scientist1::
 	lock
 	faceplayer
-	call LunarSummit_PrepareTakeOff
-	end
 	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_Scientist1_2
 	msgbox LunarSummit_Scientist1_Text_3, MSGBOX_DEFAULT
 LunarSummit_Scientist1_1:
@@ -508,7 +506,7 @@ LunarSummit_WitnessMillenniumComet_ScientistsBefore::
 	waitmovement 0
 	delay 120
 	movefromoffscreen 2, 44, 14
-	movefromoffscreen 2, 45, 13
+	movefromoffscreen 4, 45, 13
 	applymovement 2, LunarSummit_Comet_Scientist1ApproachPlayer
 	applymovement 4, LunarSummit_Comet_Scientist2ApproachPlayer
 	waitmovement 2
@@ -688,6 +686,11 @@ LunarSummit_FlightIn::
 	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_DownSlow
 	waitmovement 3
 	waitmovement OBJ_EVENT_ID_PLAYER
+	setvar VAR_0x8004, 0
+	setvar VAR_0x8005, 2
+	setvar VAR_0x8006, 3
+	setvar VAR_0x8007, 4
+	special ShakeCamera
 	playse SE_LAVARIDGE_FALL_WARP
 	waitse
 	delay 90
@@ -701,17 +704,53 @@ LunarSummit_FlightIn::
 	waitmovement 0
 	movefromoffscreen 2, 65, 58
 	applymovement 2, LunarSummit_FlightIn_Scientist1Exit
+	playse SE_TRUCK_DOOR
+	waitse
 	waitmovement 0
 	movefromoffscreen 4, 65, 58
 	applymovement 4, LunarSummit_FlightIn_Scientist2Exit
 	waitmovement 0
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT
 	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit
-	playse SE_TRUCK_DOOR
-	waitse
 	waitmovement 0
+	playerfaceobject 2
+	delay 20
+	applymovement 2, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox LunarSummit_FlightIn_Text_1, MSGBOX_DEFAULT
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, LunarSummit_Landed_PlayerWalkIn
+	delay 30
+	applymovement 4, LunarSummit_Landed_Scientist2WalkIn
+	delay 30
+	applymovement 2, LunarSummit_Landed_Scientist1WalkIn
+	delay 30
+	waitmovement OBJ_EVENT_ID_PLAYER
+	waitmovement 2
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	delay 30
+	msgbox LunarSummit_FlightIn_Text_2, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_FlightIn_2
+	msgbox LunarSummit_FlightIn_Text_4, MSGBOX_DEFAULT
+LunarSummit_FlightIn_1:
+	closemessage
+	waitmovement 4
+	fadescreen FADE_TO_BLACK
+	setobjectxyperm 3, 65, 58
+	setobjectxyperm 2, 63, 61
+	setobjectxyperm 4, 61, 65
+	setobjectxy 2, 63, 61
+	setobjectxy 4, 61, 65
+	turnobject 2, DIR_SOUTH
+	turnobject 4, DIR_SOUTH
+	fadescreen FADE_FROM_BLACK
 	release
 	return
+
+LunarSummit_FlightIn_2:
+	msgbox LunarSummit_FlightIn_Text_3, MSGBOX_DEFAULT
+	goto LunarSummit_FlightIn_1
 
 
 LunarSummit_FlightIn_DownFast:
@@ -795,6 +834,32 @@ LunarSummit_FlightIn_Scientist2Exit:
 
 LunarSummit_FlightIn_PlayerExit:
 	walk_slow_down
+	step_end
+
+LunarSummit_Landed_PlayerWalkIn:
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+LunarSummit_Landed_Scientist1WalkIn:
+	walk_right
+	walk_down
+	walk_down
+	step_end
+
+LunarSummit_Landed_Scientist2WalkIn:
+	walk_left
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
 	step_end
 
 LunarSummit_Scientist1_Text_0:
@@ -910,3 +975,30 @@ LunarSummit_Jirachi_Text_2:
 
 LunarSummit_FlightIn_Text_0:
 	.string "Successful landing number 101!$"
+
+LunarSummit_FlightIn_Text_1:
+	.string "Here we are {PLAYER}.\n"
+	.string "Please, after you...$"
+
+LunarSummit_FlightIn_Text_2:
+	.string "We are going to spend some time setting\n"
+	.string "up and collecting data for the mission.\p"
+	.string "Why don't you take a bit of a moonwalk\n"
+	.string "in the meantime?\p"
+	.string "See if you can get to the highest point\n"
+	.string "around here. It should be the best\l"
+	.string "place to view the Millennium Comet!\p"
+	.string "Can we depend on you for this\n"
+	.string "{PLAYER}?$"
+
+LunarSummit_FlightIn_Text_3:
+	.string "I knew we could! We will catch up to you\n"
+	.string "soon okay?\p"
+	.string "If you ever need to restore your team's\n"
+	.string "health, come see us. Good luck!$"
+
+LunarSummit_FlightIn_Text_4:
+	.string "It's okay to be nervous. Don't worry, we\n"
+	.string "have your back.\p"
+	.string "If you ever need to restore your team's\n"
+	.string "health, come see us. Good luck!$"

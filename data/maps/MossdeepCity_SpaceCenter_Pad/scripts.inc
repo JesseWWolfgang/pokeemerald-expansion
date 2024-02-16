@@ -199,9 +199,10 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff::
 	waitmovement 0
 	hideobjectat 3, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
 	playse SE_EXIT
+	applymovement 12, Common_Movement_FaceUp
 	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_PlayerBoardRocket
 	messageautoscroll MossdeepCity_SpaceCenter_Pad_PrepareTakeOff_Text_0
-	waitmovement 0
+	waitmovement OBJ_EVENT_ID_PLAYER
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
 	playse SE_EXIT
 	waitmessage
@@ -226,7 +227,6 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff::
 	preventwarpfadein
 	warp MAP_LUNAR_SUMMIT, 0
 	waitstate
-	special RemoveCameraObject
 	return
 
 
@@ -285,6 +285,16 @@ MossdeepCity_SpaceCenter_Pad_RocketTakeOff::
 	fadescreenspeed FADE_TO_BLACK, 18
 	waitmovement 1
 	waitmovement OBJ_EVENT_ID_CAMERA
+	playse SE_RAIN_STOP
+	waitse
+	playse SE_EXIT
+	waitse
+	delay 100
+	fadeoutbgm 0
+	delay 60
+	special StopMapMusic
+	msgbox MossdeepCity_SpaceCenter_Pad_RocketTakeOff_Text_0, MSGBOX_DEFAULT
+	closemessage
 	return
 
 
@@ -528,3 +538,7 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff_Text_1:
 	.string "2...\p"
 	.string "1...\p"
 	.string "Lift off!$"
+
+MossdeepCity_SpaceCenter_Pad_RocketTakeOff_Text_0:
+	.string "After a number of long days in space\n"
+	.string "flight...$"

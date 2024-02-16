@@ -47,8 +47,8 @@ script LunarSummit_Scientist1 {
     lock
     faceplayer
 
-    call(LunarSummit_PrepareTakeOff)
-    end
+    // call(LunarSummit_PrepareTakeOff)
+    // end
 
 
     if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
@@ -434,7 +434,7 @@ script LunarSummit_WitnessMillenniumComet_ScientistsBefore {
     delay(120)
 
     movefromoffscreen(OBJECT_SCIENTIST1, 44, 14)
-    movefromoffscreen(OBJECT_SCIENTIST1, 45, 13)
+    movefromoffscreen(OBJECT_SCIENTIST2, 45, 13)
 
     // Scientists approach
     applymovement(OBJECT_SCIENTIST1, LunarSummit_Comet_Scientist1ApproachPlayer)
@@ -592,10 +592,17 @@ script LunarSummit_FlightIn {
     waitmovement(OBJECT_ROCKET)
     waitmovement(OBJ_EVENT_ID_PLAYER)
 
+    // Hit ground
+    setvar(VAR_0x8004, 0)  // vertical pan
+	setvar(VAR_0x8005, 2)  // horizontal pan
+	setvar(VAR_0x8006, 3) // num shakes
+	setvar(VAR_0x8007, 4)  // shake delay
+    special(ShakeCamera)
     playse(SE_LAVARIDGE_FALL_WARP)
     waitse
     delay(90)
 
+    // Success!
     playfanfare(MUS_EVOLVED)
     messageautoscroll(format("Successful landing number 101!"))
     waitmessage
@@ -610,6 +617,8 @@ script LunarSummit_FlightIn {
     // Scientists exit
     movefromoffscreen(OBJECT_SCIENTIST1, 65, 58)
     applymovement(OBJECT_SCIENTIST1, LunarSummit_FlightIn_Scientist1Exit)
+    playse(SE_TRUCK_DOOR)
+    waitse
     waitmovement(0)
 
     movefromoffscreen(OBJECT_SCIENTIST2, 65, 58)
@@ -619,9 +628,58 @@ script LunarSummit_FlightIn {
     // Player exits
     showobjectat(OBJ_EVENT_ID_PLAYER, MAP_LUNAR_SUMMIT)
     applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_FlightIn_PlayerExit)
-    playse(SE_TRUCK_DOOR)
-    waitse
     waitmovement(0)
+
+    // Talk to scientist 1
+    playerfaceobject(OBJECT_SCIENTIST1)
+    delay(20)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Here we are {PLAYER}.\nPlease, after you..."), MSGBOX_DEFAULT)
+    closemessage
+
+    // Walk to intended positions
+    applymovement(OBJ_EVENT_ID_PLAYER, LunarSummit_Landed_PlayerWalkIn)
+    delay(30)
+    applymovement(OBJECT_SCIENTIST2, LunarSummit_Landed_Scientist2WalkIn)
+    delay(30)
+    applymovement(OBJECT_SCIENTIST1, LunarSummit_Landed_Scientist1WalkIn)
+    delay(30)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    waitmovement(OBJECT_SCIENTIST1)
+
+    // Talk to scientist again
+    applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp)
+    delay(30)
+    msgbox(format("We are going to spend some time setting up and collecting data for the mission.\p"
+    "Why don't you take a bit of a moonwalk in the meantime?\p"
+    "See if you can get to the highest point around here. It should be the best place to view the Millennium Comet!\p"
+    "Can we depend on you for this {PLAYER}?"), MSGBOX_YESNO)
+    
+    //msgbox(format("Can we depend on you for this {PLAYER}?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == YES) {
+        msgbox(format("I knew we could! We will catch up to you soon okay?\p"
+        "If you ever need to restore your team's health, come see us. Good luck!"), MSGBOX_DEFAULT)
+    } 
+    else {
+        msgbox(format("It's okay to be nervous. Don't worry, we have your back.\p"
+        "If you ever need to restore your team's health, come see us. Good luck!"), MSGBOX_DEFAULT)
+    }
+    closemessage
+    waitmovement(OBJECT_SCIENTIST2)
+
+    // Set objects to their final positions.
+    fadescreen(FADE_TO_BLACK)
+    setobjectxyperm(OBJECT_ROCKET, 65, 58)
+    setobjectxyperm(OBJECT_SCIENTIST1, 63, 61)
+    setobjectxyperm(OBJECT_SCIENTIST2, 61, 65)
+    setobjectxy(OBJECT_SCIENTIST1, 63, 61)
+    setobjectxy(OBJECT_SCIENTIST2, 61, 65)
+    turnobject(OBJECT_SCIENTIST1, DIR_SOUTH)
+    turnobject(OBJECT_SCIENTIST2, DIR_SOUTH)
+    fadescreen(FADE_FROM_BLACK)
+
     release
 }
 
@@ -653,4 +711,20 @@ movement LunarSummit_FlightIn_Scientist2Exit {
 
 movement LunarSummit_FlightIn_PlayerExit {
     walk_slow_down
+}
+
+movement LunarSummit_Landed_PlayerWalkIn {
+    walk_down * 3
+}
+
+movement LunarSummit_Landed_Scientist1WalkIn {
+    walk_right
+    walk_down * 2
+}
+
+movement LunarSummit_Landed_Scientist2WalkIn {
+    walk_left
+    walk_down * 2
+    walk_left * 4
+    walk_down * 4
 }
