@@ -22,6 +22,7 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Extend trainer slide in message time | Adds a small delay after a trainer slide in message.
 | Enable HGSS Pokedex               | Enables the HGSS style Pokedex by default.
 | ScrCmd_callfunc                   | Script function to call a C function with a number of arguments. https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160
+| Bugfix messageautoscroll persist  | Bugfix to prevent messageautoscroll from persisting after its use.
 
 ## Changes
 
