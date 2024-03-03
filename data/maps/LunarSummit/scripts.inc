@@ -809,11 +809,14 @@ LunarSummit_JirachiGrantWish_Shiny_3:
 	compare VAR_RESULT, TRUE
 	goto_if_eq LunarSummit_JirachiGrantWish_Shiny_6
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
-	getmondataforpartymon VAR_0x8004, 11
+	getmondataforpartymon VAR_0x8004, M_MON_DATA_IS_SHINY
 	compare VAR_RESULT, TRUE
 	goto_if_eq LunarSummit_JirachiGrantWish_Shiny_9
 	copyvar VAR_0x8000, VAR_0x8004
 	msgbox LunarSummit_JirachiGrantWish_Shiny_Text_2, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_JirachiGrantWish_Shiny_13
+LunarSummit_JirachiGrantWish_Shiny_12:
 	return
 
 LunarSummit_JirachiGrantWish_Shiny_6:
@@ -825,6 +828,10 @@ LunarSummit_JirachiGrantWish_Shiny_9:
 	msgbox LunarSummit_JirachiGrantWish_Shiny_Text_1, MSGBOX_DEFAULT
 	closemessage
 	goto LunarSummit_JirachiGrantWish_Shiny_1
+
+LunarSummit_JirachiGrantWish_Shiny_13:
+	setmondataforpartymon VAR_0x8004, M_MON_DATA_IS_SHINY, TRUE
+	goto LunarSummit_JirachiGrantWish_Shiny_12
 
 
 LunarSummit_JirachiGrantWish_Power::
@@ -880,19 +887,19 @@ LunarSummit_JirachiGrantWish_TeachSketch_3:
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	buffermovename STR_VAR_2, MOVE_SKETCH
 	clearflag FLAG_TEMP_10
-	getmondataforpartymon VAR_0x8004, 18
+	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE1
 	compare VAR_RESULT, MOVE_SKETCH
 	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_10
 LunarSummit_JirachiGrantWish_TeachSketch_9:
-	getmondataforpartymon VAR_0x8004, 19
+	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE2
 	compare VAR_RESULT, MOVE_SKETCH
 	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_13
 LunarSummit_JirachiGrantWish_TeachSketch_12:
-	getmondataforpartymon VAR_0x8004, 20
+	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE3
 	compare VAR_RESULT, MOVE_SKETCH
 	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_16
 LunarSummit_JirachiGrantWish_TeachSketch_15:
-	getmondataforpartymon VAR_0x8004, 21
+	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE4
 	compare VAR_RESULT, MOVE_SKETCH
 	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_19
 LunarSummit_JirachiGrantWish_TeachSketch_18:

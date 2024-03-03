@@ -24,12 +24,6 @@ const WISH_CHOICE_SHINY = 6 // Turns 1 Pokemon into a Shiny.
 const WISH_CHOICE_TEACH_SKETCH = 7 // Teaches the move Sketch to any Pokemon.
 const WISH_CHOICE_PERFECT_BIDOOF = 8 // A perfect Bidoof arrives immediately following the battle with Jirachi.
 
-const MMON_DATA_IS_SHINY = 11
-const MMON_DATA_MOVE1 = 18
-const MMON_DATA_MOVE2 = 19
-const MMON_DATA_MOVE3 = 20
-const MMON_DATA_MOVE4 = 21
-
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
         if (flag(FLAG_CAUGHT_JIRACHI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
@@ -684,7 +678,7 @@ script LunarSummit_JirachiGrantWish_Shiny {
             }
             else {
                 bufferpartymonnick(STR_VAR_1, VAR_0x8004)
-                getmondataforpartymon(VAR_0x8004, MMON_DATA_IS_SHINY)
+                getmondataforpartymon(VAR_0x8004, M_MON_DATA_IS_SHINY)
                 if (var(VAR_RESULT) == TRUE) {
                     msgbox(format("{STR_VAR_1} is already shiny."), MSGBOX_DEFAULT)
                     closemessage
@@ -692,6 +686,9 @@ script LunarSummit_JirachiGrantWish_Shiny {
                 else {
                     copyvar(VAR_0x8000, VAR_0x8004) // Set chosen Pokemon var for later
                     msgbox(format("You want to make your {STR_VAR_1} shiny? This cannot be undone. Are you sure?"), MSGBOX_YESNO)
+                    if (var(VAR_RESULT) == YES) {
+                        setmondataforpartymon(VAR_0x8004, M_MON_DATA_IS_SHINY, TRUE)
+                    } 
                     break
                 }
             }
@@ -755,13 +752,13 @@ script LunarSummit_JirachiGrantWish_TeachSketch {
                 buffermovename(STR_VAR_2, MOVE_SKETCH)
 
                 clearflag(FLAG_TEMP_10) // Knows Sketch already?
-                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE1)
+                getmondataforpartymon(VAR_0x8004, M_MON_DATA_MOVE1)
                 if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
-                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE2)
+                getmondataforpartymon(VAR_0x8004, M_MON_DATA_MOVE2)
                 if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
-                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE3)
+                getmondataforpartymon(VAR_0x8004, M_MON_DATA_MOVE3)
                 if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
-                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE4)
+                getmondataforpartymon(VAR_0x8004, M_MON_DATA_MOVE4)
                 if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
                 
                 if (flag(FLAG_TEMP_10)) {
