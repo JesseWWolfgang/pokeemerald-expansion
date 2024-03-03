@@ -23,6 +23,7 @@
 #include "field_weather.h"
 #include "fieldmap.h"
 #include "item.h"
+#include "item_menu.h"
 #include "lilycove_lady.h"
 #include "main.h"
 #include "menu.h"
@@ -42,6 +43,7 @@
 #include "shop.h"
 #include "slot_machine.h"
 #include "sound.h"
+#include "strings.h"
 #include "string_util.h"
 #include "text.h"
 #include "text_window.h"
@@ -2450,4 +2452,28 @@ bool8 ScrCmd_callfunc(struct ScriptContext *ctx)
         break;
     }
     return FALSE;
+}
+
+void ScrNative_ChooseBagItem(struct ScriptContext *ctx)
+{
+    bool8 allowKeyItems = ScriptReadByte(ctx); 
+    u8 pocket = ScriptReadByte(ctx);
+    bool8 restrictPocket = ScriptReadByte(ctx);
+
+    u8 *nameBuffer = Alloc(100);
+    u8 *namePtr = (u8*) ScriptReadWord(ctx);
+    const u8 *name = namePtr == NULL ? gMenuText_Confirm : namePtr;
+    StringExpandPlaceholders(nameBuffer, name);
+
+    u16 flags = 0;
+    if (allowKeyItems)
+        flags |= (1 << 0);
+    if (restrictPocket)
+        flags |= (1 << 1);
+
+    VarSet(VAR_0x8004, flags);
+    VarSet(VAR_0x8005, pocket);
+    StringCopy(gStringVar3, nameBuffer);
+
+    SetMainCallback2(CB2_ChooseBagItem);
 }

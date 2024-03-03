@@ -2171,3 +2171,24 @@
 	.endif
 	.endif
 	.endm
+
+	@ Gets the specified mon data for the given party mon and stores it in VAR_RESULT.
+	.macro getmondataforpartymon partyMonIndex:req monData:req
+		callfunc GetMonDataForPartyMon, \partyMonIndex, \monData
+	.endm
+
+	@ Shows the player's bag and returns the selected item in VAR_ITEM_ID.
+	.macro choosebagitem allowKeyItems:req pocket:req restrictPocket:req confirmText
+		fadescreen FADE_TO_BLACK
+		closemessage
+		callnative ScrNative_ChooseBagItem
+		.byte \allowKeyItems
+		.byte \pocket
+		.byte \restrictPocket
+		.ifb \confirmText
+			.4byte NULL
+		.else
+			.4byte \confirmText
+		.endif
+		waitstate
+	.endm
