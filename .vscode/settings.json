@@ -115,6 +115,41 @@
             "type": "special",
             "file": "src/scrcmd.h"
         },
+        {
+            "expression": "^\\s*#define\\s+(M_MON_DATA_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/pokemon.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(NATURE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/pokemon.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(TYPE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/pokemon.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(POCKET_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/item.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(MOVE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/moves.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(ABILITY_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/abilities.h"
+        },
+        {
+            "expression": "^\\s*(STR_VAR_\\w+).*",
+            "type": "define",
+            "file": "charmap.txt"
+        },
     ],
     "bookmarks.saveBookmarksInProject": true,
     "cmake.configureOnOpen": false,

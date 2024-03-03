@@ -89,6 +89,7 @@ enum {
     ACTION_SHOW,
     ACTION_GIVE_FAVOR_LADY,
     ACTION_CONFIRM_QUIZ_LADY,
+    ACTION_CONFIRM_CUSTOM,
     ACTION_DUMMY,
 };
 
@@ -280,6 +281,7 @@ static const struct MenuAction sItemMenuActions[] = {
     [ACTION_SHOW]              = {gMenuText_Show,     {ItemMenu_Show}},
     [ACTION_GIVE_FAVOR_LADY]   = {gMenuText_Give2,    {ItemMenu_GiveFavorLady}},
     [ACTION_CONFIRM_QUIZ_LADY] = {gMenuText_Confirm,  {ItemMenu_ConfirmQuizLady}},
+    [ACTION_CONFIRM_CUSTOM]    = {gStringVar3,        {Task_FadeAndCloseBagMenu}},
     [ACTION_DUMMY]             = {gText_EmptyString2, {NULL}}
 };
 
@@ -340,6 +342,11 @@ static const u8 sContextMenuItems_QuizLady[] = {
     ACTION_CONFIRM_QUIZ_LADY, ACTION_CANCEL
 };
 
+static const u8 sContextMenuItems_Script[] = {
+    ACTION_CONFIRM_CUSTOM, ACTION_CANCEL
+};
+
+
 static const TaskFunc sContextMenuFuncs[] = {
     [ITEMMENULOCATION_FIELD] =                  Task_ItemContext_Normal,
     [ITEMMENULOCATION_BATTLE] =                 Task_ItemContext_Normal,
@@ -354,6 +361,8 @@ static const TaskFunc sContextMenuFuncs[] = {
     [ITEMMENULOCATION_WALLY] =                  NULL,
     [ITEMMENULOCATION_PCBOX] =                  Task_ItemContext_GiveToPC,
     [ITEMMENULOCATION_BERRY_TREE_MULCH] =       Task_FadeAndCloseBagMenuIfMulch,
+    [ITEMMENULOCATION_SCRIPT_NONKEYITEM] =      Task_ItemContext_Normal,
+    [ITEMMENULOCATION_SCRIPT_ANY] =             Task_ItemContext_Normal,
 };
 
 static const struct YesNoFuncTable sYesNoTossFunctions = {ConfirmToss, CancelToss};
@@ -1600,6 +1609,30 @@ static void OpenContextMenu(u8 taskId)
             gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Cancel);
         }
         break;
+    case ITEMMENULOCATION_SCRIPT_NONKEYITEM:
+        if (GetPocketByItemId(gSpecialVar_ItemId) != POCKET_KEY_ITEMS && !ItemId_GetImportance(gSpecialVar_ItemId) && gSpecialVar_ItemId != ITEM_ENIGMA_BERRY_E_READER)
+        {
+            gBagMenu->contextMenuItemsPtr = sContextMenuItems_Script;
+            gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Script);
+        }
+        else
+        {
+            gBagMenu->contextMenuItemsPtr = sContextMenuItems_Cancel;
+            gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Cancel);
+        }
+        break;
+    case ITEMMENULOCATION_SCRIPT_ANY:
+        if (gSpecialVar_ItemId != ITEM_ENIGMA_BERRY_E_READER)
+        {
+            gBagMenu->contextMenuItemsPtr = sContextMenuItems_Script;
+            gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Script);
+        }
+        else
+        {
+            gBagMenu->contextMenuItemsPtr = sContextMenuItems_Cancel;
+            gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Cancel);
+        }
+        break;
     case ITEMMENULOCATION_PARTY:
     case ITEMMENULOCATION_SHOP:
     case ITEMMENULOCATION_BERRY_TREE:
@@ -2620,4 +2653,47 @@ static void PrintTMHMMoveData(u16 itemId)
 
         CopyWindowToVram(WIN_TMHM_INFO, COPYWIN_GFX);
     }
+}
+
+// This should be a copy of GoToBagMenu with additional options
+void GoToBagMenu_WithOptions(u8 location, u8 pocket, bool8 restrictPocket, void ( *exitCallback)())
+{
+    gBagMenu = AllocZeroed(sizeof(*gBagMenu));
+    if (gBagMenu == NULL)
+    {
+        // Alloc failed, exit
+        SetMainCallback2(exitCallback);
+    }
+    else
+    {
+        if (location != ITEMMENULOCATION_LAST)
+            gBagPosition.location = location;
+        if (exitCallback)
+            gBagPosition.exitCallback = exitCallback;
+        if (pocket < POCKETS_COUNT)
+            gBagPosition.pocket = pocket;
+        if (restrictPocket ||
+            gBagPosition.location == ITEMMENULOCATION_BERRY_TREE ||
+            gBagPosition.location == ITEMMENULOCATION_BERRY_BLENDER_CRUSH ||
+            gBagPosition.location == ITEMMENULOCATION_BERRY_TREE_MULCH)
+            gBagMenu->pocketSwitchDisabled = TRUE;
+        gBagMenu->newScreenCallback = NULL;
+        gBagMenu->toSwapPos = NOT_SWAPPING;
+        gBagMenu->pocketScrollArrowsTask = TASK_NONE;
+        gBagMenu->pocketSwitchArrowsTask = TASK_NONE;
+        memset(gBagMenu->spriteIds, SPRITE_NONE, sizeof(gBagMenu->spriteIds));
+        memset(gBagMenu->windowIds, WINDOW_NONE, sizeof(gBagMenu->windowIds));
+        SetMainCallback2(CB2_Bag);
+    }
+}
+
+void CB2_ChooseBagItem(void)
+{
+    u16 flags = VarGet(VAR_0x8004);
+    bool8 allowKeyItems = (flags & (1 >> 0)) == 1;
+    bool8 restrictPocket = (flags & (1 >> 1)) == 1;
+
+    u8 pocket = VarGet(VAR_0x8005); // e.g ITEMS_POCKET
+    u8 location = allowKeyItems ? ITEMMENULOCATION_SCRIPT_ANY : ITEMMENULOCATION_SCRIPT_NONKEYITEM;
+    GoToBagMenu_WithOptions(location, pocket, restrictPocket, CB2_ReturnToFieldContinueScript);
 }
