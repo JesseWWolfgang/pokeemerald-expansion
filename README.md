@@ -23,7 +23,8 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | Enable HGSS Pokedex                   | Enables the HGSS style Pokedex by default.
 | `ScrCmd_callfunc`                     | Script function to call a C function with a number of arguments. https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160
 | Bugfix messageautoscroll persist      | Bugfix to prevent messageautoscroll from persisting after its use.
-| `getmondataforpartymon`               | Script for obtaining MON_DATA from a party pokemon.
+| `getmondataforpartymon`               | Script for obtaining MON_DATA of a party pokemon.
+| `setmondataforpartymon`               | Script for setting MON_DATA of a party pokemon.
 | `choosebagitem`                       | Script for opening the player's bag and choosing an item with customisable parameters.
 
 ## Changes
