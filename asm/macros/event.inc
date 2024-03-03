@@ -2172,6 +2172,36 @@
 	.endif
 	.endm
 
+	@ Gets the specified mon data for the given party mon and stores it in VAR_RESULT.
+	@ Since script vars are only 16 bit, this cannot be used to request 32 bit values such as EXP or PID.
+	@ Use a C function if that is required.
+	.macro getmondataforpartymon partyMonIndex:req monData:req
+		callfunc GetMonDataForPartyMon, \partyMonIndex, \monData
+	.endm
+
+	@ Sets the specified mon data for the given party mon.
+	@ Since script vars are only 16 bit, this cannot be used to set 32 bit values such as EXP or PID to meaningful values.
+	@ Use a C function if that is required.
+	.macro setmondataforpartymon partyMonIndex:req monData:req value:req
+		callfunc SetMonDataForPartyMon, \partyMonIndex, \monData, \value
+	.endm
+
+	@ Shows the player's bag and returns the selected item in VAR_ITEM_ID.
+	.macro choosebagitem allowKeyItems:req pocket:req restrictPocket:req confirmText
+		fadescreen FADE_TO_BLACK
+		closemessage
+		callnative ScrNative_ChooseBagItem
+		.byte \allowKeyItems
+		.byte \pocket
+		.byte \restrictPocket
+		.ifb \confirmText
+			.4byte NULL
+		.else
+			.4byte \confirmText
+		.endif
+		waitstate
+	.endm
+
 	@ Enhanced Movement
 
 	@ Locks the elevation of the specified (localId) object to the given elevation.

@@ -7800,3 +7800,13 @@ void IsLastMonThatKnowsSurf(void)
             gSpecialVar_Result = TRUE;
     }
 }
+
+u16 GetMonDataForPartyMon(u16 partyIndex, u16 monData)
+{
+    return GetMonData(&gPlayerParty[partyIndex], monData);
+}
+
+void SetMonDataForPartyMon(u16 partyIndex, u16 monData, u16 value)
+{
+    SetMonData(&gPlayerParty[partyIndex], monData, &value);
+}
