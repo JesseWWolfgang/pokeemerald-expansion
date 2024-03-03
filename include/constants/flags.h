@@ -675,9 +675,9 @@
 #define FLAG_TRAVELLED_TO_SPACE                         0x278
 #define FLAG_WITNESSED_MILLENNIUM_COMET                 0x279
 #define FLAG_CAUGHT_JIRACHI                             0x27A
-#define FLAG_UNUSED_0x27B  0x27B // Unused Flag
-#define FLAG_UNUSED_0x27C  0x27C // Unused Flag
-#define FLAG_UNUSED_0x27D  0x27D // Unused Flag
+#define FLAG_JIRACHI_WISH_GRANTED                       0x27B
+#define FLAG_JIRACHI_WISH_MONEY_ACTIVE                  0x27C
+#define FLAG_JIRACHI_WISH_PERFECT_BIDOOF                0x27D
 #define FLAG_UNUSED_0x27E  0x27E // Unused Flag
 #define FLAG_UNUSED_0x27F  0x27F // Unused Flag
 #define FLAG_UNUSED_0x280  0x280 // Unused Flag

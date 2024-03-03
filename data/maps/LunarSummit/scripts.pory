@@ -14,6 +14,22 @@ const WARP_IN_Y = 0
 const FLIGHT_START_X = 65
 const FLIGHT_START_Y = 2
 
+const WISH_CHOICE_MONEY = 0 // Items cost no money in shops.
+const WISH_CHOICE_MASTER_BALLS = 1 // Given 20 Master Balls.
+const WISH_CHOICE_ITEMS = 2 // Given 99x of a given Item in your Bag.
+const WISH_CHOICE_POWER = 3 // Given the option to Min/Max 2 Pokemon's EVs/IVs.
+const WISH_CHOICE_REPEL = 4 // Given a permanent repel under Key Items.
+const WISH_CHOICE_POKERUS = 5 // Infects your entire team with Pokerus.
+const WISH_CHOICE_SHINY = 6 // Turns 1 Pokemon into a Shiny.
+const WISH_CHOICE_TEACH_SKETCH = 7 // Teaches the move Sketch to any Pokemon.
+const WISH_CHOICE_PERFECT_BIDOOF = 8 // A perfect Bidoof arrives immediately following the battle with Jirachi.
+
+const MMON_DATA_IS_SHINY = 11
+const MMON_DATA_MOVE1 = 18
+const MMON_DATA_MOVE2 = 19
+const MMON_DATA_MOVE3 = 20
+const MMON_DATA_MOVE4 = 21
+
 mapscripts LunarSummit_MapScripts {
     MAP_SCRIPT_ON_LOAD {
         if (flag(FLAG_CAUGHT_JIRACHI) || !flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
@@ -533,6 +549,17 @@ movement LunarSummit_Comet_Scientist2WalkToSideline { walk_down walk_right face_
 
 script LunarSummit_Jirachi {
     lock
+    if (!flag(FLAG_JIRACHI_WISH_GRANTED)) {
+        call(LunarSummit_JirachiGrantWish)
+    }
+    if (var(VAR_RESULT)) { // Only start the battle if a wish was granted.
+        call(LunarSummit_JirachiBattle)
+    }
+    release
+    end
+}
+
+script LunarSummit_JirachiBattle {
     objectfaceplayer(OBJECT_JIRACHI)
     waitse
     playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
@@ -562,8 +589,208 @@ script LunarSummit_Jirachi {
             msgbox(format("Jirachi was enveloped by a sheen of light, and fully recovered."), MSGBOX_DEFAULT)
             closemessage
     }
-    release
-    end
+}
+
+script LunarSummit_JirachiGrantWish {
+    objectfaceplayer(OBJECT_JIRACHI)
+    waitse
+    playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
+    msgbox(format("Wishah wishah!"), MSGBOX_DEFAULT)
+    closemessage
+    delay(20)
+    waitmoncry
+    delay(30)
+
+    // Jirachi does a speeen
+    playse(SE_M_HEAL_BELL)
+    applymovement(OBJECT_JIRACHI, LunarSummit_JirachiGrantWishSpin)
+    waitmovement(0)
+    waitse
+    delay(60)
+
+    // Jirachi waits for your wish
+    msgbox(format("It looks as though Jirachi is waiting to hear your wish."), MSGBOX_DEFAULT)
+    while
+    {
+        msgbox(format("What do you wish for?"), MSGBOX_DEFAULT)
+
+        dynmultipush("Lots of money!", WISH_CHOICE_MONEY)
+        dynmultipush("Lots of Master Balls!", WISH_CHOICE_MASTER_BALLS)
+        dynmultipush("Make more of an item!", WISH_CHOICE_ITEMS)
+        dynmultipush("Maximise a Pokémon's power!", WISH_CHOICE_POWER)
+        dynmultipush("Unlimited repel! I hate grass!", WISH_CHOICE_REPEL)
+        dynmultipush("Pokérus!", WISH_CHOICE_POKERUS)
+        dynmultipush("Make a Pokémon shiny!", WISH_CHOICE_SHINY)
+        dynmultipush("Teach me Sketch!", WISH_CHOICE_TEACH_SKETCH)
+        dynmultipush("Surprise me!", WISH_CHOICE_PERFECT_BIDOOF)
+        dynmultipush("Wait, let me think...", MULTI_B_PRESSED)
+        dynmultistack(1, 1, FALSE, 5, FALSE, WISH_CHOICE_MONEY, DYN_MULTICHOICE_CB_NONE)
+
+        if (var(VAR_RESULT) == MULTI_B_PRESSED) {
+            setvar(VAR_RESULT, FALSE)
+            return
+        }
+
+        setvar(VAR_0x8000, 0) // Item / Pokemon party slot
+        setvar(VAR_0x8001, 0) // Pokemon Max EV+IV stat 1
+        setvar(VAR_0x8002, 0) // Pokemon Max EV+IV stat 2
+        copyvar(VAR_TEMP_8, VAR_RESULT) // The result of the dynamic choice
+        setvar(VAR_RESULT, NO) // Whether the player is sure of their choice
+        switch (var(VAR_TEMP_8)) {
+            case WISH_CHOICE_MONEY: msgbox(format("You wish to be able to buy anything you wish? Are you sure?"), MSGBOX_YESNO)
+            case WISH_CHOICE_MASTER_BALLS: msgbox(format("You wish to have lots of Master Balls? Are you sure?"), MSGBOX_YESNO)
+            case WISH_CHOICE_REPEL: msgbox(format("You wish to be able to have a never-ending supply of repel? Are you sure?"), MSGBOX_YESNO)
+            case WISH_CHOICE_POKERUS: msgbox(format("You wish to have your party contract Pokérus? Are you sure?"), MSGBOX_YESNO)
+            case WISH_CHOICE_PERFECT_BIDOOF: msgbox(format("A surprise? That seems kind of risky... Are you absolutely sure about this?"), MSGBOX_YESNO)
+
+            case WISH_CHOICE_ITEMS: call(LunarSummit_JirachiGrantWish_Item)
+            case WISH_CHOICE_POWER: call(LunarSummit_JirachiGrantWish_Power)
+            case WISH_CHOICE_SHINY: call(LunarSummit_JirachiGrantWish_Shiny)
+            case WISH_CHOICE_TEACH_SKETCH: call(LunarSummit_JirachiGrantWish_TeachSketch)
+        }
+
+        if (var(VAR_RESULT) == YES) {
+            break
+        }
+    }
+
+    
+
+    setflag(FLAG_JIRACHI_WISH_GRANTED)
+    msgbox(format(".............."), MSGBOX_DEFAULT)
+    closemessage
+    playse(SE_M_HEAL_BELL)
+    applymovement(OBJECT_JIRACHI, LunarSummit_JirachiGrantWishSpin)
+    waitmovement(0)
+    waitse
+    delay(60)
+    playmoncry(SPECIES_JIRACHI, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    delay(30)
+    msgbox(format("You feel your body become light momentarily..."), MSGBOX_DEFAULT)
+    closemessage
+    delay(60)
+}
+
+script LunarSummit_JirachiGrantWish_Shiny {
+    while {
+        special(ChoosePartyMon)
+        waitstate
+        if (var(VAR_0x8004) < PARTY_SIZE) {
+            special(IsSelectedMonEgg)
+            if (var(VAR_RESULT) == TRUE) {
+                msgbox(format("An egg cannot be turned into a shiny."), MSGBOX_DEFAULT)
+                closemessage
+            }
+            else {
+                bufferpartymonnick(STR_VAR_1, VAR_0x8004)
+                getmondataforpartymon(VAR_0x8004, MMON_DATA_IS_SHINY)
+                if (var(VAR_RESULT) == TRUE) {
+                    msgbox(format("{STR_VAR_1} is already shiny."), MSGBOX_DEFAULT)
+                    closemessage
+                }
+                else {
+                    copyvar(VAR_0x8000, VAR_0x8004) // Set chosen Pokemon var for later
+                    msgbox(format("You want to make your {STR_VAR_1} shiny? This cannot be undone. Are you sure?"), MSGBOX_YESNO)
+                    break
+                }
+            }
+        }
+        else {
+            setvar(VAR_RESULT, NO) // Clean up, we have not decided a wish.
+            break
+        }
+    }
+}
+
+script LunarSummit_JirachiGrantWish_Power {
+    while {
+        special(ChoosePartyMon)
+        waitstate
+        if (var(VAR_0x8004) < PARTY_SIZE) {
+            special(IsSelectedMonEgg)
+            if (var(VAR_RESULT) == TRUE) {
+                msgbox(format("An egg cannot have its power improved."), MSGBOX_DEFAULT)
+                closemessage
+            }
+            else {
+                bufferpartymonnick(STR_VAR_1, VAR_0x8004)
+                
+                copyvar(VAR_0x8000, VAR_0x8004) // Set chosen Pokemon var for later
+                msgbox(format("You want to perfect the power of your {STR_VAR_1}? This cannot be undone. Are you sure?"), MSGBOX_YESNO)
+                break
+            }
+        }
+        else {
+            setvar(VAR_RESULT, NO) // Clean up, we have not decided a wish.
+            break
+        }
+    }
+}
+
+
+script LunarSummit_JirachiGrantWish_Item {
+    choosebagitem(FALSE, POCKET_ITEMS, FALSE)
+    if (var(VAR_ITEM_ID) != ITEM_NONE) {
+        bufferitemnameplural(STR_VAR_1, VAR_ITEM_ID, 2)
+        msgbox(format("You wish to make more {STR_VAR_1}? Are you sure?"), MSGBOX_YESNO)
+    }
+    else {
+        setvar(VAR_RESULT, NO) // Clean up, we have not decided a wish.
+    }
+}
+
+script LunarSummit_JirachiGrantWish_TeachSketch {
+    while {
+        special(ChoosePartyMon)
+        waitstate
+        if (var(VAR_0x8004) < PARTY_SIZE) {
+            special(IsSelectedMonEgg)
+            if (var(VAR_RESULT) == TRUE) {
+                msgbox(format("An egg cannot learn moves."), MSGBOX_DEFAULT)
+                closemessage
+            }
+            else {
+                bufferpartymonnick(STR_VAR_1, VAR_0x8004)
+                buffermovename(STR_VAR_2, MOVE_SKETCH)
+
+                clearflag(FLAG_TEMP_10) // Knows Sketch already?
+                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE1)
+                if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
+                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE2)
+                if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
+                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE3)
+                if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
+                getmondataforpartymon(VAR_0x8004, MMON_DATA_MOVE4)
+                if (var(VAR_RESULT) == MOVE_SKETCH) { setflag(FLAG_TEMP_10) }
+                
+                if (flag(FLAG_TEMP_10)) {
+                    msgbox(format("{STR_VAR_1} already knows {STR_VAR_2}."), MSGBOX_DEFAULT)
+                    closemessage
+                }
+                else {
+                    copyvar(VAR_0x8000, VAR_0x8004) // Set chosen Pokemon var for later
+                    msgbox(format("You want to teach {STR_VAR_2} to {STR_VAR_1}? Are you sure?"), MSGBOX_YESNO)
+                    break
+                }
+            }
+        }
+        else {
+            setvar(VAR_RESULT, NO) // Clean up, we have not decided a wish.
+            break
+        }
+    }
+}
+
+
+movement LunarSummit_JirachiGrantWishSpin {
+    face_left
+    delay_16
+    face_up
+    delay_16
+    face_right
+    delay_16
+    face_down
 }
 
 script LunarSummit_FlightIn {
