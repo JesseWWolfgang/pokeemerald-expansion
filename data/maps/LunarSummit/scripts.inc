@@ -742,6 +742,7 @@ LunarSummit_JirachiGrantWish_1:
 	applymovement 1, LunarSummit_JirachiGrantWishSpin
 	waitmovement 0
 	waitse
+	call LunarSummit_JirachiApplyWishEffect
 	delay 60
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
 	waitmoncry
@@ -795,6 +796,93 @@ LunarSummit_JirachiGrantWish_18:
 	goto LunarSummit_JirachiGrantWish_1
 
 
+LunarSummit_JirachiApplyWishEffect::
+	compare VAR_TEMP_8, 0
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_2
+LunarSummit_JirachiApplyWishEffect_1:
+	compare VAR_TEMP_8, 1
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_5
+LunarSummit_JirachiApplyWishEffect_4:
+	compare VAR_TEMP_8, 4
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_8
+LunarSummit_JirachiApplyWishEffect_7:
+	compare VAR_TEMP_8, 5
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_11
+LunarSummit_JirachiApplyWishEffect_10:
+	compare VAR_TEMP_8, 2
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_14
+LunarSummit_JirachiApplyWishEffect_13:
+	compare VAR_TEMP_8, 3
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_17
+LunarSummit_JirachiApplyWishEffect_16:
+	compare VAR_TEMP_8, 6
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_19
+	return
+
+LunarSummit_JirachiApplyWishEffect_2:
+	playse SE_M_PAY_DAY
+	fadescreenspeed FADE_TO_WHITE, 1
+	fadescreenspeed FADE_FROM_WHITE, 1
+	waitse
+	addmoney 1000000
+	goto LunarSummit_JirachiApplyWishEffect_1
+
+LunarSummit_JirachiApplyWishEffect_5:
+	giveitem ITEM_MASTER_BALL, 50
+	goto LunarSummit_JirachiApplyWishEffect_4
+
+LunarSummit_JirachiApplyWishEffect_8:
+	giveitem ITEM_MAX_REPEL, 99
+	goto LunarSummit_JirachiApplyWishEffect_7
+
+LunarSummit_JirachiApplyWishEffect_11:
+	playse SE_M_BARRIER
+	fadescreenspeed FADE_TO_WHITE, 1
+	fadescreenspeed FADE_FROM_WHITE, 1
+	setmondataforpartymon 0, M_MON_DATA_POKERUS, TRUE
+	setmondataforpartymon 1, M_MON_DATA_POKERUS, TRUE
+	setmondataforpartymon 2, M_MON_DATA_POKERUS, TRUE
+	setmondataforpartymon 3, M_MON_DATA_POKERUS, TRUE
+	setmondataforpartymon 4, M_MON_DATA_POKERUS, TRUE
+	setmondataforpartymon 5, M_MON_DATA_POKERUS, TRUE
+	goto LunarSummit_JirachiApplyWishEffect_10
+
+LunarSummit_JirachiApplyWishEffect_14:
+	giveitem VAR_0x8000, 99
+	goto LunarSummit_JirachiApplyWishEffect_13
+
+LunarSummit_JirachiApplyWishEffect_17:
+	setpartymonstat VAR_0x8000, STAT_HP, 31, TRUE
+	setpartymonstat VAR_0x8000, STAT_ATK, 31, TRUE
+	setpartymonstat VAR_0x8000, STAT_DEF, 31, TRUE
+	setpartymonstat VAR_0x8000, STAT_SPATK, 31, TRUE
+	setpartymonstat VAR_0x8000, STAT_SPDEF, 31, TRUE
+	setpartymonstat VAR_0x8000, STAT_SPEED, 31, TRUE
+	setpartymonstat VAR_0x8000, STAT_HP, 0, FALSE
+	setpartymonstat VAR_0x8000, STAT_ATK, 0, FALSE
+	setpartymonstat VAR_0x8000, STAT_DEF, 0, FALSE
+	setpartymonstat VAR_0x8000, STAT_SPATK, 0, FALSE
+	setpartymonstat VAR_0x8000, STAT_SPDEF, 0, FALSE
+	setpartymonstat VAR_0x8000, STAT_SPEED, 0, FALSE
+	setpartymonstat VAR_0x8000, VAR_0x8001, 252, FALSE
+	setpartymonstat VAR_0x8000, VAR_0x8002, 252, FALSE
+	playse SE_SUPER_EFFECTIVE
+	fadescreenspeed FADE_TO_WHITE, 1
+	fadescreenspeed FADE_FROM_WHITE, 1
+	waitse
+	showpartymonfieldmove VAR_0x8000
+	goto LunarSummit_JirachiApplyWishEffect_16
+
+LunarSummit_JirachiApplyWishEffect_19:
+	setmondataforpartymon VAR_0x8000, M_MON_DATA_IS_SHINY, TRUE
+	playse SE_SHINY
+	fadescreenspeed FADE_TO_WHITE, 1
+	fadescreenspeed FADE_FROM_WHITE, 1
+	waitse
+	showpartymonfieldmove VAR_0x8000
+	return
+
+
 LunarSummit_JirachiGrantWish_Shiny::
 LunarSummit_JirachiGrantWish_Shiny_1:
 	special ChoosePartyMon
@@ -814,9 +902,6 @@ LunarSummit_JirachiGrantWish_Shiny_3:
 	goto_if_eq LunarSummit_JirachiGrantWish_Shiny_9
 	copyvar VAR_0x8000, VAR_0x8004
 	msgbox LunarSummit_JirachiGrantWish_Shiny_Text_2, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq LunarSummit_JirachiGrantWish_Shiny_13
-LunarSummit_JirachiGrantWish_Shiny_12:
 	return
 
 LunarSummit_JirachiGrantWish_Shiny_6:
@@ -828,10 +913,6 @@ LunarSummit_JirachiGrantWish_Shiny_9:
 	msgbox LunarSummit_JirachiGrantWish_Shiny_Text_1, MSGBOX_DEFAULT
 	closemessage
 	goto LunarSummit_JirachiGrantWish_Shiny_1
-
-LunarSummit_JirachiGrantWish_Shiny_13:
-	setmondataforpartymon VAR_0x8004, M_MON_DATA_IS_SHINY, TRUE
-	goto LunarSummit_JirachiGrantWish_Shiny_12
 
 
 LunarSummit_JirachiGrantWish_Power::
@@ -849,13 +930,49 @@ LunarSummit_JirachiGrantWish_Power_3:
 	goto_if_eq LunarSummit_JirachiGrantWish_Power_6
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	copyvar VAR_0x8000, VAR_0x8004
-	msgbox LunarSummit_JirachiGrantWish_Power_Text_1, MSGBOX_YESNO
-	return
+	msgbox LunarSummit_JirachiGrantWish_Power_Text_1, MSGBOX_DEFAULT
+	call LunarSummit_JirachiGrantWish_Power_StatSelect
+	compare VAR_RESULT, MULTI_B_PRESSED
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_9
+	goto LunarSummit_JirachiGrantWish_Power_1
 
 LunarSummit_JirachiGrantWish_Power_6:
 	msgbox LunarSummit_JirachiGrantWish_Power_Text_0, MSGBOX_DEFAULT
 	closemessage
 	goto LunarSummit_JirachiGrantWish_Power_1
+
+LunarSummit_JirachiGrantWish_Power_9:
+	closemessage
+	copyvar VAR_0x8001, VAR_RESULT
+	msgbox LunarSummit_JirachiGrantWish_Power_Text_2, MSGBOX_DEFAULT
+	call LunarSummit_JirachiGrantWish_Power_StatSelect
+	compare VAR_RESULT, MULTI_B_PRESSED
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_11
+	goto LunarSummit_JirachiGrantWish_Power_1
+
+LunarSummit_JirachiGrantWish_Power_11:
+	closemessage
+	copyvar VAR_0x8002, VAR_RESULT
+	bufferstatname STR_VAR_2, VAR_0x8001
+	bufferstatname STR_VAR_3, VAR_0x8002
+	msgbox LunarSummit_JirachiGrantWish_Power_Text_3, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_JirachiGrantWish_Power_13
+	goto LunarSummit_JirachiGrantWish_Power_1
+
+LunarSummit_JirachiGrantWish_Power_13:
+	return
+
+
+LunarSummit_JirachiGrantWish_Power_StatSelect::
+	dynmultipush gText_HP3, STAT_HP
+	dynmultipush gText_Attack, STAT_ATK
+	dynmultipush gText_Defense, STAT_DEF
+	dynmultipush gText_SpAtk, STAT_SPATK
+	dynmultipush gText_SpDef, STAT_SPDEF
+	dynmultipush gText_Speed, STAT_SPEED
+	dynmultistack 1, 1, FALSE, 6, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE
+	return
 
 
 LunarSummit_JirachiGrantWish_Item::
@@ -868,71 +985,23 @@ LunarSummit_JirachiGrantWish_Item::
 LunarSummit_JirachiGrantWish_Item_1:
 	bufferitemnameplural STR_VAR_1, VAR_ITEM_ID, 2
 	msgbox LunarSummit_JirachiGrantWish_Item_Text_0, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_JirachiGrantWish_Item_4
+	return
+
+LunarSummit_JirachiGrantWish_Item_4:
+	copyvar VAR_0x8000, VAR_ITEM_ID
 	return
 
 
 LunarSummit_JirachiGrantWish_TeachSketch::
-LunarSummit_JirachiGrantWish_TeachSketch_1:
-	special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	setflag FLAG_ANY_MOVE_TEACHABLE
+	setvar VAR_0x8005, MOVE_SKETCH
+	special ChooseMonForMoveTutor
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_lt LunarSummit_JirachiGrantWish_TeachSketch_3
-	setvar VAR_RESULT, NO
+	clearflag FLAG_ANY_MOVE_TEACHABLE
 	return
-
-LunarSummit_JirachiGrantWish_TeachSketch_3:
-	special IsSelectedMonEgg
-	compare VAR_RESULT, TRUE
-	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_6
-	bufferpartymonnick STR_VAR_1, VAR_0x8004
-	buffermovename STR_VAR_2, MOVE_SKETCH
-	clearflag FLAG_TEMP_10
-	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE1
-	compare VAR_RESULT, MOVE_SKETCH
-	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_10
-LunarSummit_JirachiGrantWish_TeachSketch_9:
-	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE2
-	compare VAR_RESULT, MOVE_SKETCH
-	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_13
-LunarSummit_JirachiGrantWish_TeachSketch_12:
-	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE3
-	compare VAR_RESULT, MOVE_SKETCH
-	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_16
-LunarSummit_JirachiGrantWish_TeachSketch_15:
-	getmondataforpartymon VAR_0x8004, M_MON_DATA_MOVE4
-	compare VAR_RESULT, MOVE_SKETCH
-	goto_if_eq LunarSummit_JirachiGrantWish_TeachSketch_19
-LunarSummit_JirachiGrantWish_TeachSketch_18:
-	goto_if_set FLAG_TEMP_10, LunarSummit_JirachiGrantWish_TeachSketch_21
-	copyvar VAR_0x8000, VAR_0x8004
-	msgbox LunarSummit_JirachiGrantWish_TeachSketch_Text_2, MSGBOX_YESNO
-	return
-
-LunarSummit_JirachiGrantWish_TeachSketch_6:
-	msgbox LunarSummit_JirachiGrantWish_TeachSketch_Text_0, MSGBOX_DEFAULT
-	closemessage
-	goto LunarSummit_JirachiGrantWish_TeachSketch_1
-
-LunarSummit_JirachiGrantWish_TeachSketch_10:
-	setflag FLAG_TEMP_10
-	goto LunarSummit_JirachiGrantWish_TeachSketch_9
-
-LunarSummit_JirachiGrantWish_TeachSketch_13:
-	setflag FLAG_TEMP_10
-	goto LunarSummit_JirachiGrantWish_TeachSketch_12
-
-LunarSummit_JirachiGrantWish_TeachSketch_16:
-	setflag FLAG_TEMP_10
-	goto LunarSummit_JirachiGrantWish_TeachSketch_15
-
-LunarSummit_JirachiGrantWish_TeachSketch_19:
-	setflag FLAG_TEMP_10
-	goto LunarSummit_JirachiGrantWish_TeachSketch_18
-
-LunarSummit_JirachiGrantWish_TeachSketch_21:
-	msgbox LunarSummit_JirachiGrantWish_TeachSketch_Text_1, MSGBOX_DEFAULT
-	closemessage
-	goto LunarSummit_JirachiGrantWish_TeachSketch_1
 
 
 LunarSummit_JirachiGrantWishSpin:
@@ -1330,24 +1399,20 @@ LunarSummit_JirachiGrantWish_Power_Text_0:
 	.string "An egg cannot have its power improved.$"
 
 LunarSummit_JirachiGrantWish_Power_Text_1:
-	.string "You want to perfect the power of your\n"
+	.string "Choose the first stat to maximise.$"
+
+LunarSummit_JirachiGrantWish_Power_Text_2:
+	.string "Choose the second stat to maximise.$"
+
+LunarSummit_JirachiGrantWish_Power_Text_3:
+	.string "You want to perfect the {STR_VAR_2}\n"
+	.string "and {STR_VAR_3} of your\l"
 	.string "{STR_VAR_1}? This cannot be\l"
 	.string "undone. Are you sure?$"
 
 LunarSummit_JirachiGrantWish_Item_Text_0:
 	.string "You wish to make more {STR_VAR_1}?\n"
 	.string "Are you sure?$"
-
-LunarSummit_JirachiGrantWish_TeachSketch_Text_0:
-	.string "An egg cannot learn moves.$"
-
-LunarSummit_JirachiGrantWish_TeachSketch_Text_1:
-	.string "{STR_VAR_1} already knows\n"
-	.string "{STR_VAR_2}.$"
-
-LunarSummit_JirachiGrantWish_TeachSketch_Text_2:
-	.string "You want to teach {STR_VAR_2} to\n"
-	.string "{STR_VAR_1}? Are you sure?$"
 
 LunarSummit_FlightIn_Text_0:
 	.string "Successful landing number 101!$"
