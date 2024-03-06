@@ -138,6 +138,10 @@ Debug_EventScript_Text_DefensiveIV:
 	.string "HP IV: {STR_VAR_1}, DEF IV: {STR_VAR_2}, SPDEF IV: {STR_VAR_3}$"
 
 Debug_EventScript_Script_1::
+	setflag FLAG_FORCE_SHINY
+	setwildbattle SPECIES_BIDOOF_PERFECT, 50, ITEM_CHERISH_BALL
+	dowildbattle
+	clearflag FLAG_FORCE_SHINY
 	end
 
 Debug_EventScript_Script_2::

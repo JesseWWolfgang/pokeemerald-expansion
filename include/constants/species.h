@@ -1506,7 +1506,11 @@
 #define SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL           FORMS_START + 382
 #define SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL           FORMS_START + 383
 
-#define GEN9_START                                      SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL
+
+#define SPECIES_BIDOOF_PERFECT                          FORMS_START + 384
+
+
+#define GEN9_START                                      SPECIES_BIDOOF_PERFECT
 
 #define SPECIES_SPRIGATITO                              GEN9_START + 1
 #define SPECIES_FLORAGATO                               GEN9_START + 2

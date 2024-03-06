@@ -5747,6 +5747,17 @@ const u8 gMonFootprint_QuestionMark[] = INCBIN_U8("graphics/pokemon/question_mar
     const u32 gMonFrontPic_BidoofF[] = INCBIN_U32("graphics/pokemon/bidoof/anim_frontf.4bpp.lz");
     const u32 gMonBackPic_BidoofF[] = INCBIN_U32("graphics/pokemon/bidoof/backf.4bpp.lz");
 
+
+const u32 gMonFrontPic_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/anim_front.4bpp.lz");
+    const u32 gMonPalette_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/normal.gbapal.lz");
+    const u32 gMonBackPic_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/back.4bpp.lz");
+    const u32 gMonShinyPalette_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/shiny.gbapal.lz");
+    const u8 gMonIcon_BidoofPerfect[] = INCBIN_U8("graphics/pokemon/bidoof/perfect/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_BidoofPerfect[] = INCBIN_U8("graphics/pokemon/bidoof/perfect/footprint.1bpp");
+#endif //P_FOOTPRINTS
+
+
     const u32 gMonFrontPic_Bibarel[] = INCBIN_U32("graphics/pokemon/bibarel/anim_front.4bpp.lz");
     const u32 gMonPalette_Bibarel[] = INCBIN_U32("graphics/pokemon/bibarel/normal.gbapal.lz");
     const u32 gMonBackPic_Bibarel[] = INCBIN_U32("graphics/pokemon/bibarel/back.4bpp.lz");

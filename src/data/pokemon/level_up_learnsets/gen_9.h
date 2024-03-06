@@ -10285,6 +10285,22 @@ static const struct LevelUpMove sBidoofLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
+static const struct LevelUpMove sBidoofPerfectLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_THUNDERBOLT),
+    LEVEL_UP_MOVE( 5, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE( 9, MOVE_ICE_BEAM),
+    LEVEL_UP_MOVE(13, MOVE_SECRET_SWORD),
+    LEVEL_UP_MOVE(17, MOVE_SUPERPOWER),
+    LEVEL_UP_MOVE(21, MOVE_PERISH_SONG),
+    LEVEL_UP_MOVE(25, MOVE_DARK_VOID),
+    LEVEL_UP_MOVE(29, MOVE_NASTY_PLOT),
+    LEVEL_UP_MOVE(33, MOVE_SLUDGE_WAVE),
+    LEVEL_UP_MOVE(37, MOVE_DARK_PULSE),
+    LEVEL_UP_MOVE(41, MOVE_SACRED_FIRE),
+    LEVEL_UP_MOVE(45, MOVE_JUDGMENT),
+    LEVEL_UP_END
+};
+
 static const struct LevelUpMove sBibarelLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_WATER_GUN),
     LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),

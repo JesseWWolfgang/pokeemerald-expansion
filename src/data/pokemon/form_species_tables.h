@@ -1770,3 +1770,11 @@ static const u16 sTerapagosFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_TERAPAGOS
+
+#if P_FAMILY_BIDOOF
+static const u16 sBidoofFormSpeciesIdTable[] = {
+    SPECIES_BIDOOF,
+    SPECIES_BIDOOF_PERFECT,
+    FORM_SPECIES_END,
+};
+#endif //P_FAMILY_BIDOOF

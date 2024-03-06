@@ -683,6 +683,65 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         FOOTPRINT(Bidoof)
         LEARNSETS(Bidoof),
         .evolutions = EVOLUTION({EVO_LEVEL, 15, SPECIES_BIBAREL}),
+        .formSpeciesIdTable = sBidoofFormSpeciesIdTable, 
+    },
+
+    [SPECIES_BIDOOF_PERFECT] =
+    {
+        .baseHP        = 210,
+        .baseAttack    = 160,
+        .baseDefense   = 100,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 130,
+        .baseSpDefense = 100,
+        .types = MON_TYPES(TYPE_MYSTERY),
+
+        .catchRate = 3,                                           
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 300 : 270,  
+        .evYield_HP = 3,                                    
+        .genderRatio = MON_GENDERLESS,                            
+        .eggCycles = 120,                                         
+        .growthRate = GROWTH_SLOW,                                
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_MOXIE, ABILITY_NONE },          
+        .bodyColor = BODY_COLOR_YELLOW,                           
+        .speciesName = _("P. Bidoof"),                                
+        .natDexNum = NATIONAL_DEX_BIDOOF,                          
+        FOOTPRINT(Bidoof)                                          
+        .formSpeciesIdTable = sBidoofFormSpeciesIdTable,             
+        .isMythical = TRUE,
+
+
+        .friendship = STANDARD_FRIENDSHIP,
+        .cryId = CRY_HOOPA_UNBOUND,
+        .categoryName = _("Compassion"),
+        .height = 65,
+        .weight = 490,
+        // .description = COMPOUND_STRING(
+        //     "It is the true form of Hoopa, which has had\n"
+        //     "its power sealed away. The rings it carries\n"
+        //     "have the power to bend dimensions and are\n"
+        //     "able to seize anything in the world."),
+        .description = COMPOUND_STRING(
+            "The single most powerful Pokémon.\n"
+            "It was created after numerous attempts\n"
+            "at obscene witchcraft and breeding.\n"
+            "Beware the doof. It is already too late..."),
+        .pokemonScale = 432,
+        .pokemonOffset = 13,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        FRONT_PIC(BidoofPerfect, 64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_BidoofPerfect,
+        .frontAnimId = ANIM_GROW_IN_STAGES,
+        .enemyMonElevation = 3,
+        BACK_PIC(BidoofPerfect, 64, 64),
+        .backPicYOffset = 0,
+        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        PALETTES(BidoofPerfect),
+        ICON(BidoofPerfect, 0),
+        LEARNSETS(BidoofPerfect),
     },
 
     [SPECIES_BIBAREL] =
