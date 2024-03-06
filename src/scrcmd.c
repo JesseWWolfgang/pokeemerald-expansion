@@ -1,6 +1,7 @@
 #include "global.h"
 #include "frontier_util.h"
 #include "battle_setup.h"
+#include "battle_main.h"
 #include "berry.h"
 #include "clock.h"
 #include "coins.h"
@@ -32,6 +33,7 @@
 #include "palette.h"
 #include "party_menu.h"
 #include "pokemon_storage_system.h"
+#include "pokemon_summary_screen.h"
 #include "random.h"
 #include "overworld.h"
 #include "rotating_tile_puzzle.h"
@@ -2478,6 +2480,104 @@ void ScrNative_ChooseBagItem(struct ScriptContext *ctx)
     StringCopy(gStringVar3, nameBuffer);
 
     SetMainCallback2(CB2_ChooseBagItem);
+}
+
+void ScrNative_BufferStatName(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    u16 statType = VarGet(ScriptReadHalfword(ctx));
+    
+    const u8* text = (const u8*)&gText_HP3;
+    switch (statType)
+    {
+    case STAT_HP:
+        text = (const u8*)&gText_HP3;
+        break;
+    case STAT_ATK:
+        text = (const u8*)&gText_Attack;
+        break;
+    case STAT_DEF:
+        text = (const u8*)&gText_Defense;
+        break;
+    case STAT_SPATK:
+        text = (const u8*)&gText_SpAtk;
+        break;
+    case STAT_SPDEF:
+        text = (const u8*)&gText_SpDef;
+        break;
+    case STAT_SPEED:
+        text = (const u8*)&gText_Speed;
+        break;
+    default:
+        break;
+    }
+    StringCopy(sScriptStringVars[stringVarIndex], text);
+}
+
+void ScrNative_BufferNatureName(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    u16 nature = VarGet(ScriptReadHalfword(ctx));
+    
+    StringCopy(sScriptStringVars[stringVarIndex], gNatureNamePointers[nature]);
+}
+
+void ScrFunc_SetPartyMonStat(u16 partyIndex, u16 statType, u16 value, bool8 isIV)
+{
+    u16 monData = MON_DATA_HP_EV;
+    switch (statType)
+    {
+    case STAT_HP:
+        monData = isIV ? MON_DATA_HP_IV : MON_DATA_HP_EV;
+        break;
+    case STAT_ATK:
+        monData = isIV ? MON_DATA_ATK_IV : MON_DATA_ATK_EV;
+        break;
+    case STAT_DEF:
+        monData = isIV ? MON_DATA_DEF_IV : MON_DATA_DEF_EV;
+        break;
+    case STAT_SPATK:
+        monData = isIV ? MON_DATA_SPATK_IV : MON_DATA_SPATK_EV;
+        break;
+    case STAT_SPDEF:
+        monData = isIV ? MON_DATA_SPDEF_IV : MON_DATA_SPDEF_EV;
+        break;
+    case STAT_SPEED:
+        monData = isIV ? MON_DATA_SPEED_IV : MON_DATA_SPEED_EV;
+        break;
+    default:
+        break;
+    }
+    SetMonDataForPartyMon(partyIndex, monData, value);
+}
+
+void ScrFunc_SetPartyMonNature(u16 partyIndex, u8 nature)
+{
+    struct Pokemon* mon = &gPlayerParty[partyIndex];
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
+    ModifyPersonalityForNature(&personality, nature);
+    SetMonData(mon, MON_DATA_PERSONALITY, &personality);
+}
+
+void ScrFunc_RecalculatePartyMonStats(u16 partyIndex)
+{
+    CalculateMonStats(&gPlayerParty[partyIndex]);
+}
+
+void ScrNative_Increment(struct ScriptContext *ctx)
+{
+    u16 var = ScriptReadHalfword(ctx);
+    u16 varValue = VarGet(var);
+    if (varValue < UINT16_MAX)
+        VarSet(var, varValue + 1);
+}
+
+void ScrNative_Decrement(struct ScriptContext *ctx)
+{
+    u16 var = ScriptReadHalfword(ctx);
+    u16 varValue = VarGet(var);
+    if (varValue > 0)
+        VarSet(var, varValue - 1);
 }
 
 // Enhanced movement

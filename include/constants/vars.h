@@ -324,11 +324,27 @@
 
 #define VAR_TEMP_TRANSFERRED_SPECIES  VAR_TEMP_1
 
-// Mystery gift tickets
-#define VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT     VAR_TEMP_0
+// This var can be used as the condition for executing on-load script events using MAP_SCRIPT_ON_FRAME_TABLE.
+#define VAR_TEMP_LOADED         VAR_TEMP_F
 
-#define VAR_TEMP_LOADED                     VAR_TEMP_F
+/**
+ * This can be used as an iterator variable in while loops.
+ * E.g.
+```
+setvar(VAR_TEMP_ITERATOR, 0)
+while (var(VAR_TEMP_ITERATOR) < 10)
+{
+    dosomething(VAR_TEMP_ITERATOR)
+    increment(VAR_TEMP_ITERATOR)
+}
+```
+ */
+#define VAR_TEMP_ITERATOR       VAR_TEMP_E 
+
 #define VAR_TEMP_CUSTOM_BATTLE_MUSIC        VAR_TEMP_E
 #define VAR_TEMP_CUSTOM_TRANSITION          VAR_TEMP_D
+
+// Mystery gift tickets
+#define VAR_TEMP_SSTIDAL_EVENT_TICKET_COUNT     VAR_TEMP_0
 
 #endif // GUARD_CONSTANTS_VARS_H
