@@ -628,6 +628,7 @@ script LunarSummit_JirachiGrantWish {
         setvar(VAR_0x8000, 0) // Item / Pokemon party slot
         setvar(VAR_0x8001, 0) // Pokemon Max EV+IV stat 1
         setvar(VAR_0x8002, 0) // Pokemon Max EV+IV stat 2
+        setvar(VAR_0x8003, 0) // Pokemon Nature
         copyvar(VAR_TEMP_8, VAR_RESULT) // The result of the dynamic choice
         setvar(VAR_RESULT, NO) // Whether the player is sure of their choice
         switch (var(VAR_TEMP_8)) {
@@ -701,7 +702,6 @@ script LunarSummit_JirachiApplyWishEffect {
         giveitem(VAR_0x8000, 99)
     }
 
-    // NOT YET WORKING
     if (var(VAR_TEMP_8) == WISH_CHOICE_POWER) {
         // Set all IVs max
         setpartymonstat(VAR_0x8000, STAT_HP, 31, TRUE)
@@ -711,17 +711,15 @@ script LunarSummit_JirachiApplyWishEffect {
         setpartymonstat(VAR_0x8000, STAT_SPDEF, 31, TRUE)
         setpartymonstat(VAR_0x8000, STAT_SPEED, 31, TRUE)
 
-        // Set all EVs zero
-        setpartymonstat(VAR_0x8000, STAT_HP, 0, FALSE)
-        setpartymonstat(VAR_0x8000, STAT_ATK, 0, FALSE)
-        setpartymonstat(VAR_0x8000, STAT_DEF, 0, FALSE)
-        setpartymonstat(VAR_0x8000, STAT_SPATK, 0, FALSE)
-        setpartymonstat(VAR_0x8000, STAT_SPDEF, 0, FALSE)
-        setpartymonstat(VAR_0x8000, STAT_SPEED, 0, FALSE)
-
         // Maximise chosen EVs
+        clearpartymonEVs(VAR_0x8000)
         setpartymonstat(VAR_0x8000, VAR_0x8001, 252, FALSE)
         setpartymonstat(VAR_0x8000, VAR_0x8002, 252, FALSE)
+
+        // Set nature
+        setpartymonnature(VAR_0x8000, VAR_0x8003)
+
+        recalculatepartymonstats(VAR_0x8000)
 
         playse(SE_SUPER_EFFECTIVE)
         fadescreenspeed(FADE_TO_WHITE, 1)
@@ -785,21 +783,32 @@ script LunarSummit_JirachiGrantWish_Power {
                 bufferpartymonnick(STR_VAR_1, VAR_0x8004)
                 copyvar(VAR_0x8000, VAR_0x8004) // Set chosen Pokemon var for later
 
-                msgbox(format("Choose the first stat to maximise."), MSGBOX_DEFAULT)
+                msgbox(format("Choose {STR_VAR_1}'s first stat to maximise."), MSGBOX_DEFAULT)
                 call(LunarSummit_JirachiGrantWish_Power_StatSelect)
                 if (var(VAR_RESULT) != MULTI_B_PRESSED) {
                     closemessage
                     copyvar(VAR_0x8001, VAR_RESULT)
-                    msgbox(format("Choose the second stat to maximise."), MSGBOX_DEFAULT)
+                    msgbox(format("Choose {STR_VAR_1}'s second stat to maximise."), MSGBOX_DEFAULT)
                     call(LunarSummit_JirachiGrantWish_Power_StatSelect)
                     if (var(VAR_RESULT) != MULTI_B_PRESSED) {
                         closemessage
                         copyvar(VAR_0x8002, VAR_RESULT)
-                        bufferstatname(STR_VAR_2, VAR_0x8001)
-                        bufferstatname(STR_VAR_3, VAR_0x8002)
-                        msgbox(format("You want to perfect the {STR_VAR_2} and {STR_VAR_3} of your {STR_VAR_1}? This cannot be undone. Are you sure?"), MSGBOX_YESNO)
-                        if (var(VAR_RESULT) == YES) {
-                            break
+                        msgbox(format("Choose {STR_VAR_1}'s new nature."), MSGBOX_DEFAULT)
+                        call(LunarSummit_JirachiGrantWish_Power_NatureSelect)
+                        if (var(VAR_RESULT) != MULTI_B_PRESSED) {
+                            closemessage
+                            copyvar(VAR_0x8003, VAR_RESULT)
+
+                            bufferpartymonnick(STR_VAR_1, VAR_0x8000)
+                            msgbox(format("You want to perfect your {STR_VAR_1}?"), MSGBOX_DEFAULT)
+                            bufferstatname(STR_VAR_1, VAR_0x8001)
+                            bufferstatname(STR_VAR_2, VAR_0x8002)
+                            buffernaturename(STR_VAR_3, VAR_0x8003)
+                            msgbox(format("This will maximise their {STR_VAR_1} and {STR_VAR_2}, and change their nature to {STR_VAR_3}.\p"
+                            "This cannot be undone. Are you sure?"), MSGBOX_YESNO)
+                            if (var(VAR_RESULT) == YES) {
+                                break
+                            }
                         }
                     }
                 }
@@ -819,7 +828,17 @@ script LunarSummit_JirachiGrantWish_Power_StatSelect {
     dynmultipush(gText_SpAtk, STAT_SPATK)
     dynmultipush(gText_SpDef, STAT_SPDEF)
     dynmultipush(gText_Speed, STAT_SPEED)
-    dynmultistack(1, 1, FALSE, 6, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE)
+    dynmultistack(1, 1, FALSE, 5, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE)
+}
+
+script LunarSummit_JirachiGrantWish_Power_NatureSelect {
+    setvar(VAR_0x800B, 0)
+    while (var(VAR_0x800B) < NUM_NATURES) {
+        buffernaturename(STR_VAR_1, VAR_0x800B)
+        dynmultipush("{STR_VAR_1}", VAR_0x800B)
+        increment(VAR_0x800B)
+    }
+    dynmultistack(1, 1, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
 }
 
 

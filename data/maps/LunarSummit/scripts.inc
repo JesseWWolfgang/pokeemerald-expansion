@@ -717,6 +717,7 @@ LunarSummit_JirachiGrantWish_2:
 	setvar VAR_0x8000, 0
 	setvar VAR_0x8001, 0
 	setvar VAR_0x8002, 0
+	setvar VAR_0x8003, 0
 	copyvar VAR_TEMP_8, VAR_RESULT
 	setvar VAR_RESULT, NO
 	switch VAR_TEMP_8
@@ -858,14 +859,11 @@ LunarSummit_JirachiApplyWishEffect_17:
 	setpartymonstat VAR_0x8000, STAT_SPATK, 31, TRUE
 	setpartymonstat VAR_0x8000, STAT_SPDEF, 31, TRUE
 	setpartymonstat VAR_0x8000, STAT_SPEED, 31, TRUE
-	setpartymonstat VAR_0x8000, STAT_HP, 0, FALSE
-	setpartymonstat VAR_0x8000, STAT_ATK, 0, FALSE
-	setpartymonstat VAR_0x8000, STAT_DEF, 0, FALSE
-	setpartymonstat VAR_0x8000, STAT_SPATK, 0, FALSE
-	setpartymonstat VAR_0x8000, STAT_SPDEF, 0, FALSE
-	setpartymonstat VAR_0x8000, STAT_SPEED, 0, FALSE
+	clearpartymonEVs VAR_0x8000
 	setpartymonstat VAR_0x8000, VAR_0x8001, 252, FALSE
 	setpartymonstat VAR_0x8000, VAR_0x8002, 252, FALSE
+	setpartymonnature VAR_0x8000, VAR_0x8003
+	recalculatepartymonstats VAR_0x8000
 	playse SE_SUPER_EFFECTIVE
 	fadescreenspeed FADE_TO_WHITE, 1
 	fadescreenspeed FADE_FROM_WHITE, 1
@@ -953,14 +951,26 @@ LunarSummit_JirachiGrantWish_Power_9:
 LunarSummit_JirachiGrantWish_Power_11:
 	closemessage
 	copyvar VAR_0x8002, VAR_RESULT
-	bufferstatname STR_VAR_2, VAR_0x8001
-	bufferstatname STR_VAR_3, VAR_0x8002
-	msgbox LunarSummit_JirachiGrantWish_Power_Text_3, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq LunarSummit_JirachiGrantWish_Power_13
+	msgbox LunarSummit_JirachiGrantWish_Power_Text_3, MSGBOX_DEFAULT
+	call LunarSummit_JirachiGrantWish_Power_NatureSelect
+	compare VAR_RESULT, MULTI_B_PRESSED
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_13
 	goto LunarSummit_JirachiGrantWish_Power_1
 
 LunarSummit_JirachiGrantWish_Power_13:
+	closemessage
+	copyvar VAR_0x8003, VAR_RESULT
+	bufferpartymonnick STR_VAR_1, VAR_0x8000
+	msgbox LunarSummit_JirachiGrantWish_Power_Text_4, MSGBOX_DEFAULT
+	bufferstatname STR_VAR_1, VAR_0x8001
+	bufferstatname STR_VAR_2, VAR_0x8002
+	buffernaturename STR_VAR_3, VAR_0x8003
+	msgbox LunarSummit_JirachiGrantWish_Power_Text_5, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq LunarSummit_JirachiGrantWish_Power_15
+	goto LunarSummit_JirachiGrantWish_Power_1
+
+LunarSummit_JirachiGrantWish_Power_15:
 	return
 
 
@@ -971,8 +981,23 @@ LunarSummit_JirachiGrantWish_Power_StatSelect::
 	dynmultipush gText_SpAtk, STAT_SPATK
 	dynmultipush gText_SpDef, STAT_SPDEF
 	dynmultipush gText_Speed, STAT_SPEED
-	dynmultistack 1, 1, FALSE, 6, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE
+	dynmultistack 1, 1, FALSE, 5, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE
 	return
+
+
+LunarSummit_JirachiGrantWish_Power_NatureSelect::
+	setvar VAR_0x800B, 0
+LunarSummit_JirachiGrantWish_Power_NatureSelect_2:
+	compare VAR_0x800B, NUM_NATURES
+	goto_if_lt LunarSummit_JirachiGrantWish_Power_NatureSelect_3
+	dynmultistack 1, 1, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	return
+
+LunarSummit_JirachiGrantWish_Power_NatureSelect_3:
+	buffernaturename STR_VAR_1, VAR_0x800B
+	dynmultipush LunarSummit_JirachiGrantWish_Power_NatureSelect_Text_0, VAR_0x800B
+	increment VAR_0x800B
+	goto LunarSummit_JirachiGrantWish_Power_NatureSelect_2
 
 
 LunarSummit_JirachiGrantWish_Item::
@@ -1399,16 +1424,28 @@ LunarSummit_JirachiGrantWish_Power_Text_0:
 	.string "An egg cannot have its power improved.$"
 
 LunarSummit_JirachiGrantWish_Power_Text_1:
-	.string "Choose the first stat to maximise.$"
+	.string "Choose {STR_VAR_1}'s first stat to\n"
+	.string "maximise.$"
 
 LunarSummit_JirachiGrantWish_Power_Text_2:
-	.string "Choose the second stat to maximise.$"
+	.string "Choose {STR_VAR_1}'s second stat\n"
+	.string "to maximise.$"
 
 LunarSummit_JirachiGrantWish_Power_Text_3:
-	.string "You want to perfect the {STR_VAR_2}\n"
-	.string "and {STR_VAR_3} of your\l"
-	.string "{STR_VAR_1}? This cannot be\l"
-	.string "undone. Are you sure?$"
+	.string "Choose {STR_VAR_1}'s new nature.$"
+
+LunarSummit_JirachiGrantWish_Power_Text_4:
+	.string "You want to perfect your\n"
+	.string "{STR_VAR_1}?$"
+
+LunarSummit_JirachiGrantWish_Power_Text_5:
+	.string "This will maximise their {STR_VAR_1}\n"
+	.string "and {STR_VAR_2}, and change their\l"
+	.string "nature to {STR_VAR_3}.\p"
+	.string "This cannot be undone. Are you sure?$"
+
+LunarSummit_JirachiGrantWish_Power_NatureSelect_Text_0:
+	.string "{STR_VAR_1}$"
 
 LunarSummit_JirachiGrantWish_Item_Text_0:
 	.string "You wish to make more {STR_VAR_1}?\n"
