@@ -324,4 +324,18 @@
 
 #define VAR_TEMP_TRANSFERRED_SPECIES  VAR_TEMP_1
 
+/**
+ * This can be used as an iterator variable in while loops.
+ * E.g.
+```
+setvar(VAR_TEMP_ITERATOR, 0)
+while (var(VAR_TEMP_ITERATOR) < 10)
+{
+    dosomething(VAR_TEMP_ITERATOR)
+    increment(VAR_TEMP_ITERATOR)
+}
+```
+ */
+#define VAR_TEMP_ITERATOR   VAR_TEMP_F 
+
 #endif // GUARD_CONSTANTS_VARS_H

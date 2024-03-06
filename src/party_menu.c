@@ -7808,5 +7808,7 @@ u16 GetMonDataForPartyMon(u16 partyIndex, u16 monData)
 
 void SetMonDataForPartyMon(u16 partyIndex, u16 monData, u16 value)
 {
+    if (partyIndex >= gPlayerPartyCount)
+        return;
     SetMonData(&gPlayerParty[partyIndex], monData, &value);
 }
