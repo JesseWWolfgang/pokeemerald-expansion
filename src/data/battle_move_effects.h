@@ -384,6 +384,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectTwoTurnsAttack,
         .battleTvScore = 3,
+        .twoTurnEffect = TRUE,
     },
 
     [EFFECT_SUBSTITUTE] =
@@ -569,6 +570,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectProtect,
         .battleTvScore = 5,
         .encourageEncore = TRUE,
+        .usesProtectCounter = TRUE,
     },
 
     [EFFECT_SPIKES] =
@@ -603,6 +605,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectEndure,
         .battleTvScore = 3,
         .encourageEncore = TRUE,
+        .usesProtectCounter = TRUE,
     },
 
     [EFFECT_ROLLOUT] =
@@ -765,6 +768,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectTwoTurnsAttack,
         .battleTvScore = 1,
+        .twoTurnEffect = TRUE,
     },
 
     [EFFECT_THUNDER] =
@@ -789,6 +793,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectTwoTurnsAttack,
         .battleTvScore = 3,
+        .twoTurnEffect = TRUE,
         .semiInvulnerableEffect = TRUE,
     },
 
@@ -1052,12 +1057,6 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 1,
     },
 
-    [EFFECT_TEETER_DANCE] =
-    {
-        .battleScript = BattleScript_EffectTeeterDance,
-        .battleTvScore = 6,
-    },
-
     [EFFECT_HIT_ESCAPE] =
     {
         .battleScript = BattleScript_EffectHitEscape,
@@ -1145,7 +1144,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .encourageEncore = TRUE,
     },
 
-    [EFFECT_WRING_OUT] =
+    [EFFECT_VARY_POWER_BASED_ON_HP] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
@@ -1797,6 +1796,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectGeomancy,
         .battleTvScore = 0, // TODO: Assign points
+        .twoTurnEffect = TRUE,
     },
 
     [EFFECT_FAIRY_LOCK] =
@@ -1999,6 +1999,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectSkyDrop,
         .battleTvScore = 0, // TODO: Assign points
+        .twoTurnEffect = TRUE,
         .semiInvulnerableEffect = TRUE,
     },
 
@@ -2200,12 +2201,14 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectShedTail,
         .battleTvScore = 0, // TODO: Assign points
+        .encourageEncore = TRUE,
     },
 
     [EFFECT_UPPER_HAND] =
     {
         .battleScript = BattleScript_EffectUpperHand,
         .battleTvScore = 0, // TODO: Assign points
+        .encourageEncore = TRUE,
     },
 
     [EFFECT_DRAGON_CHEER] =
@@ -2219,5 +2222,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
+    },
+
+    [EFFECT_TIDY_UP] =
+    {
+        .battleScript = BattleScript_EffectTidyUp,
+        .battleTvScore = 0, // TODO: Assign points
+        .encourageEncore = TRUE,
     },
 };
