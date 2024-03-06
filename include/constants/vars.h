@@ -324,6 +324,9 @@
 
 #define VAR_TEMP_TRANSFERRED_SPECIES  VAR_TEMP_1
 
+// This var can be used as the condition for executing on-load script events using MAP_SCRIPT_ON_FRAME_TABLE.
+#define VAR_TEMP_LOADED         VAR_TEMP_F
+
 /**
  * This can be used as an iterator variable in while loops.
  * E.g.
@@ -336,6 +339,7 @@ while (var(VAR_TEMP_ITERATOR) < 10)
 }
 ```
  */
-#define VAR_TEMP_ITERATOR   VAR_TEMP_F 
+#define VAR_TEMP_ITERATOR       VAR_TEMP_E 
+
 
 #endif // GUARD_CONSTANTS_VARS_H
