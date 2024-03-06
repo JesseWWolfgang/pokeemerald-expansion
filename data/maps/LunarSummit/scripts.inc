@@ -715,8 +715,8 @@ LunarSummit_JirachiGrantWish_2:
 	compare VAR_RESULT, MULTI_B_PRESSED
 	goto_if_eq LunarSummit_JirachiGrantWish_5
 	setvar VAR_0x8000, 0
-	setvar VAR_0x8001, 0
-	setvar VAR_0x8002, 0
+	setvar VAR_0x8001, 0xFF
+	setvar VAR_0x8002, 0xFF
 	setvar VAR_0x8003, 0
 	copyvar VAR_TEMP_8, VAR_RESULT
 	setvar VAR_RESULT, NO
@@ -915,6 +915,9 @@ LunarSummit_JirachiGrantWish_Shiny_9:
 
 LunarSummit_JirachiGrantWish_Power::
 LunarSummit_JirachiGrantWish_Power_1:
+	setvar VAR_0x8001, 0xFF
+	setvar VAR_0x8002, 0xFF
+	setvar VAR_0x8003, 0
 	special ChoosePartyMon
 	waitstate
 	compare VAR_0x8004, PARTY_SIZE
@@ -975,28 +978,64 @@ LunarSummit_JirachiGrantWish_Power_15:
 
 
 LunarSummit_JirachiGrantWish_Power_StatSelect::
-	dynmultipush gText_HP3, STAT_HP
-	dynmultipush gText_Attack, STAT_ATK
-	dynmultipush gText_Defense, STAT_DEF
-	dynmultipush gText_SpAtk, STAT_SPATK
-	dynmultipush gText_SpDef, STAT_SPDEF
-	dynmultipush gText_Speed, STAT_SPEED
+	compare VAR_0x8001, STAT_HP
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_StatSelect_2
+LunarSummit_JirachiGrantWish_Power_StatSelect_1:
+	compare VAR_0x8001, STAT_ATK
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_StatSelect_5
+LunarSummit_JirachiGrantWish_Power_StatSelect_4:
+	compare VAR_0x8001, STAT_DEF
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_StatSelect_8
+LunarSummit_JirachiGrantWish_Power_StatSelect_7:
+	compare VAR_0x8001, STAT_SPATK
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_StatSelect_11
+LunarSummit_JirachiGrantWish_Power_StatSelect_10:
+	compare VAR_0x8001, STAT_SPDEF
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_StatSelect_14
+LunarSummit_JirachiGrantWish_Power_StatSelect_13:
+	compare VAR_0x8001, STAT_SPEED
+	goto_if_ne LunarSummit_JirachiGrantWish_Power_StatSelect_17
+LunarSummit_JirachiGrantWish_Power_StatSelect_16:
 	dynmultistack 1, 1, FALSE, 5, FALSE, STAT_HP, DYN_MULTICHOICE_CB_NONE
 	return
 
+LunarSummit_JirachiGrantWish_Power_StatSelect_2:
+	dynmultipush gText_HP3, STAT_HP
+	goto LunarSummit_JirachiGrantWish_Power_StatSelect_1
+
+LunarSummit_JirachiGrantWish_Power_StatSelect_5:
+	dynmultipush gText_Attack, STAT_ATK
+	goto LunarSummit_JirachiGrantWish_Power_StatSelect_4
+
+LunarSummit_JirachiGrantWish_Power_StatSelect_8:
+	dynmultipush gText_Defense, STAT_DEF
+	goto LunarSummit_JirachiGrantWish_Power_StatSelect_7
+
+LunarSummit_JirachiGrantWish_Power_StatSelect_11:
+	dynmultipush gText_SpAtk, STAT_SPATK
+	goto LunarSummit_JirachiGrantWish_Power_StatSelect_10
+
+LunarSummit_JirachiGrantWish_Power_StatSelect_14:
+	dynmultipush gText_SpDef, STAT_SPDEF
+	goto LunarSummit_JirachiGrantWish_Power_StatSelect_13
+
+LunarSummit_JirachiGrantWish_Power_StatSelect_17:
+	dynmultipush gText_Speed, STAT_SPEED
+	goto LunarSummit_JirachiGrantWish_Power_StatSelect_16
+
 
 LunarSummit_JirachiGrantWish_Power_NatureSelect::
-	setvar VAR_0x800B, 0
+	setvar VAR_TEMP_ITERATOR, 0
 LunarSummit_JirachiGrantWish_Power_NatureSelect_2:
-	compare VAR_0x800B, NUM_NATURES
+	compare VAR_TEMP_ITERATOR, NUM_NATURES
 	goto_if_lt LunarSummit_JirachiGrantWish_Power_NatureSelect_3
 	dynmultistack 1, 1, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	return
 
 LunarSummit_JirachiGrantWish_Power_NatureSelect_3:
-	buffernaturename STR_VAR_1, VAR_0x800B
-	dynmultipush LunarSummit_JirachiGrantWish_Power_NatureSelect_Text_0, VAR_0x800B
-	increment VAR_0x800B
+	buffernaturename STR_VAR_1, VAR_TEMP_ITERATOR
+	dynmultipush LunarSummit_JirachiGrantWish_Power_NatureSelect_Text_0, VAR_TEMP_ITERATOR
+	increment VAR_TEMP_ITERATOR
 	goto LunarSummit_JirachiGrantWish_Power_NatureSelect_2
 
 

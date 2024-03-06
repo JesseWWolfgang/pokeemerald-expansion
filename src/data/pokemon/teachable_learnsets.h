@@ -85,6 +85,7 @@
 // - MOVE_ROCK_SLIDE                                   //
 // - MOVE_ROLLOUT                                      //
 // - MOVE_SEISMIC_TOSS                                 //
+// - MOVE_SKETCH                                       //
 // - MOVE_SLEEP_TALK                                   //
 // - MOVE_SNORE                                        //
 // - MOVE_SOFT_BOILED                                  //
@@ -11934,6 +11935,7 @@ static const u16 sWyrdeerTeachableLearnset[] = {
 
 #if P_FAMILY_SMEARGLE
 static const u16 sSmeargleTeachableLearnset[] = {
+    MOVE_SKETCH,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_SMEARGLE
