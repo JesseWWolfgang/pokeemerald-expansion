@@ -2201,3 +2201,82 @@
 		.endif
 		waitstate
 	.endm
+
+	@ Shows the field move effect popup for a given mon species.
+	.macro showmonfieldmove species:req shiny personality
+		setfieldeffectargument 0, \species
+		.ifb \shiny
+			setfieldeffectargument 1, FALSE
+		.else
+			setfieldeffectargument 1, TRUE
+		.endif
+		.ifb \personality
+			setfieldeffectargument 2, 0
+		.else
+			setfieldeffectargument 2, \personality
+		.endif
+        dofieldeffect FLDEFF_FIELD_MOVE_SHOW_MON
+        waitfieldeffect FLDEFF_FIELD_MOVE_SHOW_MON
+	.endm
+
+	@ Shows the field move effect popup for a given party mon.
+	.macro showpartymonfieldmove partyIndex:req
+		setfieldeffectargument 0, \partyIndex
+        dofieldeffect FLDEFF_FIELD_MOVE_SHOW_MON_INIT
+        waitfieldeffect FLDEFF_FIELD_MOVE_SHOW_MON
+	.endm
+
+	@ Buffers the name of the specified stat.
+	.macro bufferstatname stringVarId:req stat:req
+		callnative ScrNative_BufferStatName
+		stringvar \stringVarId
+		.2byte \stat
+	.endm
+
+	@ Buffers the name of the specified nature.
+	.macro buffernaturename stringVarId:req nature:req
+		callnative ScrNative_BufferNatureName
+		stringvar \stringVarId
+		.2byte \nature
+	.endm
+
+	@ Sets the party mon's given stat's EV or IV to the specified value. 
+	@ This does not recalculate mon stats. Use recalculatepartymonstats for this.
+	.macro setpartymonstat partyIndex:req, stat:req, value:req, isIV:req
+		callfunc ScrFunc_SetPartyMonStat, \partyIndex, \stat, \value, \isIV
+	.endm
+
+	@ Sets the party mon's nature to the specified value. 
+	@ This does not recalculate mon stats. Use recalculatepartymonstats for this.
+	@ NOTE: This will only work if mon encryption and substruct randomization are disabled.
+	@ Otherwise, this will produce a bad egg.
+	.macro setpartymonnature partyIndex:req, nature:req
+		callfunc ScrFunc_SetPartyMonNature, \partyIndex, \nature
+	.endm
+
+	@ Recalculates a given party mon's stats.
+	.macro recalculatepartymonstats partyIndex:req
+		callfunc ScrFunc_RecalculatePartyMonStats, \partyIndex
+	.endm
+
+	@ Resets all EVs for a party mon back to zero.
+	.macro clearpartymonEVs partyIndex:req
+		setpartymonstat \partyIndex, STAT_HP, 0, FALSE
+		setpartymonstat \partyIndex, STAT_ATK, 0, FALSE
+		setpartymonstat \partyIndex, STAT_DEF, 0, FALSE
+		setpartymonstat \partyIndex, STAT_SPATK, 0, FALSE
+		setpartymonstat \partyIndex, STAT_SPDEF, 0, FALSE
+		setpartymonstat \partyIndex, STAT_SPEED, 0, FALSE
+	.endm
+
+	@ Increments the given var. This does not overflow UINT16_MAX.
+	.macro increment var:req
+		callnative ScrNative_Increment
+		.2byte \var
+	.endm
+
+	@ Decrements the given var. This does not underflow zero.
+	.macro decrement var:req
+		callnative ScrNative_Decrement
+		.2byte \var
+	.endm

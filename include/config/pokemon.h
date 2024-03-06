@@ -54,6 +54,10 @@
 #define P_FLAG_FORCE_SHINY      FLAG_FORCE_SHINY     // If this flag is set, all wild and gift Pokémon will forced into being Shiny.
 #define P_FLAG_FORCE_NO_SHINY   FLAG_FORCE_NO_SHINY  // If this flag is set, all wild and gift Pokémon will forced into NOT being Shiny.
 
+// To be able to modify a mon's personality after creation, both of these must be FALSE.
+#define P_BOX_MON_ENCRYPTION                FALSE // If true, box mon will be encrypted and decrypted based on mon personality and otId.
+#define P_BOX_MON_SUBSTRUCT_RANDOMIZATION   FALSE // If true, box mon substructs will be ordered randomly based on mon personality.
+
 // Go here if you want to disable specific families of Pokémon.
 #include "config/species_enabled.h"
 

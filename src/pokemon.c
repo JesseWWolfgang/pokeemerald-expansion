@@ -1964,22 +1964,26 @@ void SetMultiuseSpriteTemplateToTrainerFront(u16 trainerPicId, u8 battlerPositio
 
 static void EncryptBoxMon(struct BoxPokemon *boxMon)
 {
+#if P_BOX_MON_ENCRYPTION
     u32 i;
     for (i = 0; i < ARRAY_COUNT(boxMon->secure.raw); i++)
     {
         boxMon->secure.raw[i] ^= boxMon->personality;
         boxMon->secure.raw[i] ^= boxMon->otId;
     }
+#endif
 }
 
 static void DecryptBoxMon(struct BoxPokemon *boxMon)
 {
+#if P_BOX_MON_ENCRYPTION
     u32 i;
     for (i = 0; i < ARRAY_COUNT(boxMon->secure.raw); i++)
     {
         boxMon->secure.raw[i] ^= boxMon->otId;
         boxMon->secure.raw[i] ^= boxMon->personality;
     }
+#endif
 }
 
 #define SUBSTRUCT_CASE(n, v1, v2, v3, v4)                               \
@@ -2007,6 +2011,7 @@ case n:                                                                 \
 
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType)
 {
+#if P_BOX_MON_SUBSTRUCT_RANDOMIZATION
     union PokemonSubstruct *substruct = NULL;
 
     switch (personality % 24)
@@ -2038,6 +2043,9 @@ static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 perso
     }
 
     return substruct;
+#else
+    return &boxMon->secure.substructs[substructType];
+#endif
 }
 
 /* GameFreak called GetMonData with either 2 or 3 arguments, for type
@@ -5165,6 +5173,10 @@ u8 CanLearnTeachableMove(u16 species, u16 move)
     if (species == SPECIES_EGG)
     {
         return FALSE;
+    }
+    else if (FlagGet(FLAG_ANY_MOVE_TEACHABLE))
+    {
+        return TRUE;
     }
     else if (species == SPECIES_MEW)
     {

@@ -21,11 +21,19 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | `getweather`                          | Adds a script command `getweather` which stores the current weather in VAR_RESULT.
 | Extend trainer slide in message time  | Adds a small delay after a trainer slide in message.
 | Enable HGSS Pokedex                   | Enables the HGSS style Pokedex by default.
-| `ScrCmd_callfunc`                     | Script function to call a C function with a number of arguments. https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160
+| `ScrCmd_callfunc`                     | Script function to call a C function with a number of arguments. https://discord.com/channels/419213663107416084/419214240277200898/1168386523163525160  - credit: merrp
 | Bugfix messageautoscroll persist      | Bugfix to prevent messageautoscroll from persisting after its use.
 | `getmondataforpartymon`               | Script for obtaining MON_DATA of a party pokemon.
 | `setmondataforpartymon`               | Script for setting MON_DATA of a party pokemon.
 | `choosebagitem`                       | Script for opening the player's bag and choosing an item with customisable parameters.
+| `showmonfieldmove` and `showpartymonfieldmove`    | Script for showing the 'use field move' animation (such as when using Cut or Rock Smash).
+| `bufferstatname` and `buffernaturename`           | Script for buffering names of stats or natures to string vars.
+| `setpartymonstat`, `setpartymonnature` and `clearpartymonEVs` | Scripts for settings the IVs, EVs and nature of a party mon.
+| `recalculatepartymonstats`            | Script to recalculate party mon stats on the fly out of battle.
+| `increment` and `decrement`           | Script to increment and decrement vars.
+| VAR_TEMP_ITERATOR                     | Temp var that can be used as an iterator in combination with increment or decrement in script while loops.
+| FLAG_ANY_MOVE_TEACHABLE               | Flag that can be set to allow all Pokemon to learn any move via tutor, TM, etc.
+| Disable Boxmon Decryption and Substruct Randomisation | P_BOX_MON_ENCRYPTION and P_BOX_MON_SUBSTRUCT_RANDOMIZATION config options disable these respectively. FALSE by default.
 
 ## Changes
 
