@@ -713,8 +713,8 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
 
 
         .friendship = STANDARD_FRIENDSHIP,
-        .cryId = CRY_HOOPA_UNBOUND,
-        .categoryName = _("Compassion"),
+        .cryId = CRY_BIDOOF,
+        .categoryName = _("Perfect"),
         .height = 65,
         .weight = 490,
         // .description = COMPOUND_STRING(
@@ -734,11 +734,11 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         FRONT_PIC(BidoofPerfect, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_BidoofPerfect,
-        .frontAnimId = ANIM_GROW_IN_STAGES,
-        .enemyMonElevation = 3,
-        BACK_PIC(BidoofPerfect, 64, 64),
-        .backPicYOffset = 0,
-        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        .frontAnimId = ANIM_SHAKE_GLOW_WHITE_SLOW,
+        .enemyMonElevation = 0,
+        BACK_PIC(BidoofPerfect, 62, 47),
+        .backPicYOffset = 13,
+        .backAnimId = BACK_ANIM_SHAKE_FLASH_YELLOW,
         PALETTES(BidoofPerfect),
         ICON(BidoofPerfect, 0),
         LEARNSETS(BidoofPerfect),
