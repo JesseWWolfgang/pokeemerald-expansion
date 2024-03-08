@@ -15,3 +15,4 @@ Functions are defined in:
 Uses:
 
 - feature/multi-region: Allows specifying regions for each Mapsec.
+- feature/default-legendary-music: The wild battle music call is routed through the new legendary music list.
