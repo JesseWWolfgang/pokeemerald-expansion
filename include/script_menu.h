@@ -1,6 +1,7 @@
 #ifndef GUARD_SCRIPT_MENU_H
 #define GUARD_SCRIPT_MENU_H
 
+#include "list_menu.h"
 #include "constants/script_menu.h"
 #include "list_menu.h"
 #include "menu.h"

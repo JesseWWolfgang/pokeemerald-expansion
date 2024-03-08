@@ -890,7 +890,6 @@ bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCa
     return ListMenuChangeSelectionFull(list, updateCursorAndCallCallback, updateCursorAndCallCallback, count, movingDown);
 }
 
-
 static void ListMenuCallSelectionChangedCallback(struct ListMenu *list, u8 onInit)
 {
     if (list->template.moveCursorFunc != NULL)
