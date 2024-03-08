@@ -810,4 +810,6 @@ void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
 const u8 *GetMoveName(u16 moveId);
 
+u16 GetBattleBGMForMon(u32 species);
+
 #endif // GUARD_POKEMON_H
