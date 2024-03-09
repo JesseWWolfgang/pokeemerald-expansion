@@ -5429,8 +5429,12 @@ u16 GetBattleBGMForMon(u32 species)
 #define MUS_B2_VS_BLACK_WHITE_KYUREM    MUS_VS_RAYQUAZA
 
 #endif
-#ifndef MUSIC_EXPANSION_GEN6_UP
+#ifndef MUSIC_EXPANSION_EXTRA_DEFINES
 
+#define MUS_HG_VS_CELEBI                MUS_VS_MEW
+#define MUS_DP_VS_MANAPHY               MUS_VS_MEW
+#define MUS_DP_VS_SHAYMIN               MUS_VS_MEW
+#define MUS_BW_VS_GENESECT              MUS_RG_VS_MEWTWO
 #define MUS_XY_VS_AURA_TRIO             MUS_VS_KYOGRE_GROUDON
 #define MUS_XY_VS_MYTHICAL              MUS_RG_VS_LEGEND
 #define MUS_SM_VS_WILD                  MUS_RG_VS_LEGEND
@@ -5486,7 +5490,7 @@ u16 GetBattleBGMForMon(u32 species)
     case SPECIES_HO_OH:
         return MUS_HG_VS_HO_OH;
     case SPECIES_CELEBI:
-        return MUS_HG_VS_WILD;
+        return MUS_HG_VS_CELEBI;
 
     // Gen 3
     case SPECIES_REGIROCK:
@@ -5531,17 +5535,18 @@ u16 GetBattleBGMForMon(u32 species)
     case SPECIES_ROTOM_FAN:
     case SPECIES_ROTOM_MOW:
     case SPECIES_HEATRAN:
-    case SPECIES_MANAPHY:
+    case SPECIES_CRESSELIA:
     case SPECIES_DARKRAI:
         return MUS_DP_VS_LEGEND;
     case SPECIES_GIRATINA:
     case SPECIES_GIRATINA_ORIGIN:
         return MUS_PL_VS_GIRATINA;
-    case SPECIES_CRESSELIA:
+    case SPECIES_MANAPHY:
     case SPECIES_PHIONE:
+        return MUS_DP_VS_MANAPHY;
     case SPECIES_SHAYMIN:
     case SPECIES_SHAYMIN_SKY:
-        return MUS_DP_VS_WILD;
+        return MUS_DP_VS_SHAYMIN;
     case SPECIES_ARCEUS:
     case SPECIES_ARCEUS_FIGHTING:
     case SPECIES_ARCEUS_FLYING:
@@ -5579,12 +5584,13 @@ u16 GetBattleBGMForMon(u32 species)
     case SPECIES_KELDEO_RESOLUTE:
     case SPECIES_MELOETTA:
     case SPECIES_MELOETTA_PIROUETTE:
+            return MUS_BW_VS_LEGEND;
     case SPECIES_GENESECT:
     case SPECIES_GENESECT_DOUSE_DRIVE:
     case SPECIES_GENESECT_SHOCK_DRIVE:
     case SPECIES_GENESECT_BURN_DRIVE:
     case SPECIES_GENESECT_CHILL_DRIVE:
-        return MUS_BW_VS_LEGEND;
+            return MUS_BW_VS_GENESECT;
     case SPECIES_RESHIRAM:
     case SPECIES_ZEKROM:
         return MUS_BW_VS_RESHIRAM_ZEKROM;
