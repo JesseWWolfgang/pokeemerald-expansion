@@ -695,7 +695,6 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .baseSpAttack  = 130,
         .baseSpDefense = 100,
         .types = MON_TYPES(TYPE_MYSTERY),
-
         .catchRate = 3,                                           
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 300 : 270,  
         .evYield_HP = 3,                                    
@@ -709,26 +708,18 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .natDexNum = NATIONAL_DEX_BIDOOF,                          
         FOOTPRINT(Bidoof)                                          
         .formSpeciesIdTable = sBidoofFormSpeciesIdTable,             
-        .isMythical = TRUE,
-
-
         .friendship = STANDARD_FRIENDSHIP,
         .cryId = CRY_BIDOOF,
         .categoryName = _("Perfect"),
         .height = 65,
         .weight = 490,
-        // .description = COMPOUND_STRING(
-        //     "It is the true form of Hoopa, which has had\n"
-        //     "its power sealed away. The rings it carries\n"
-        //     "have the power to bend dimensions and are\n"
-        //     "able to seize anything in the world."),
         .description = COMPOUND_STRING(
             "The single most powerful Pokémon.\n"
             "It was created after numerous attempts\n"
             "at obscene witchcraft and breeding.\n"
             "Beware the doof. It is already too late..."),
-        .pokemonScale = 432,
-        .pokemonOffset = 13,
+        .pokemonScale = 200,
+        .pokemonOffset = 4,
         .trainerScale = 256,
         .trainerOffset = 0,
         FRONT_PIC(BidoofPerfect, 64, 64),
@@ -740,8 +731,9 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .backPicYOffset = 13,
         .backAnimId = BACK_ANIM_SHAKE_FLASH_YELLOW,
         PALETTES(BidoofPerfect),
-        ICON(BidoofPerfect, 0),
+        ICON(BidoofPerfect, 1),
         LEARNSETS(BidoofPerfect),
+        .isMythical = TRUE,
     },
 
     [SPECIES_BIBAREL] =
