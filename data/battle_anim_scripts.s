@@ -875,6 +875,7 @@ gBattleAnims_Moves::
 	.4byte Move_PSYCHIC_NOISE
 	.4byte Move_UPPER_HAND
 	.4byte Move_MALIGNANT_CHAIN
+	.4byte Move_THIRST_FOR_VENGEANCE
 @@@@ Z MOVES
 	.4byte Move_BREAKNECK_BLITZ
 	.4byte Move_ALL_OUT_PUMMELING
@@ -34493,5 +34494,96 @@ General_DynamaxGrowth:: @ PORTED FROM CFRU
 	createvisualtask SoundTask_PlayCryWithEcho, 2, ANIM_ATTACKER, 2
 	delay 8
 	createvisualtask AnimTask_DynamaxGrowth, 0x5, 0x1, 0x0
+	waitforvisualfinish
+	end
+
+
+Move_THIRST_FOR_VENGEANCE:
+	createvisualtask AnimTask_SetAnimTargetToBattlerTarget, 2
+	loadspritegfx ANIM_TAG_EXPLOSION
+	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 0, 16, RGB_WHITE
+	waitforvisualfinish
+	delay 10
+	createvisualtask AnimTask_DoomDesireLightBeam, 5
+	delay 9
+	playsewithpan SE_M_CONFUSE_RAY, SOUND_PAN_ATTACKER
+	delay 9
+	playsewithpan SE_M_CONFUSE_RAY, 0
+	delay 9
+	playsewithpan SE_M_CONFUSE_RAY, SOUND_PAN_TARGET
+	delay 25
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 4, 28
+	delay 4
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4
+	delay 1
+
+	playsewithpan SE_INTRO_BLAST, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_TARGET, 10, 0, 16, 1
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 0, 0, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 24, -24, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -16, 16, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -24, -12, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 16, 16, 1, 1
+
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_TARGET, 15, 5, 16, 1
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 0, 0, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 24, -24, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -16, 16, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -24, -12, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 16, 16, 1, 1
+
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_TARGET, 20, 10, 16, 1
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 0, 0, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 24, -24, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -16, 16, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -24, -12, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 16, 16, 1, 1
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 0, 0, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 24, -24, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -16, 16, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, -24, -12, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_ATTACKER, 3, 16, 16, 1, 1
+
+	waitforvisualfinish
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4
+	delay 1
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 16, 0, RGB_WHITE
 	waitforvisualfinish
 	end

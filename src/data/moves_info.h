@@ -21056,4 +21056,24 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .argument = MAX_EFFECT_BYPASS_PROTECT, //EFFECT TODO
     },
 
+    [MOVE_THIRST_FOR_VENGEANCE] =
+    {
+        .name = HANDLE_EXPANDED_MOVE_NAME("GodsVengence", "God's Vengeance"),
+        .description = COMPOUND_STRING(
+            "Always goes last.\n"
+            "Beware the doof."),
+        .effect = EFFECT_HIT,
+        .power = 180,
+        .type = TYPE_MYSTERY,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = -5,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
+        .contestCategory = CONTEST_CATEGORY_COOL,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0}
+    },
 };
