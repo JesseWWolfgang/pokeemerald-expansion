@@ -4127,6 +4127,7 @@ static bool32 IsDomeComboMoveEffect(u32 effect)
     case EFFECT_ATTACK_UP:
     case EFFECT_ATTACK_UP_2:
     case EFFECT_ATTACK_SPATK_UP:
+    case EFFECT_ATTACK_DEFENSE_SPEED_UP:
     case EFFECT_SPECIAL_ATTACK_UP:
     case EFFECT_SPECIAL_ATTACK_UP_2:
     case EFFECT_SPECIAL_ATTACK_UP_3:

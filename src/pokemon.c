@@ -5465,7 +5465,7 @@ u16 GetBattleBGMForMon(u32 species)
     {    
 
     case SPECIES_BIDOOF_PERFECT:
-        return MUS_RG_VS_DEOXYS;
+        return MUS_RG_VS_MEWTWO;
 
     // Gen 1
     case SPECIES_ARTICUNO:
