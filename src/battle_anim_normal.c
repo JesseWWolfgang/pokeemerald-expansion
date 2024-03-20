@@ -832,6 +832,8 @@ void AnimTask_InvertScreenColor(u8 taskId)
         selectedPalettes |= (0x10000 << BATTLE_PARTNER(gBattleAnimTarget));
 	if (gBattleAnimArgs[0] & 0x10 && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimAttacker)))
         selectedPalettes |= (0x10000 << BATTLE_PARTNER(gBattleAnimAttacker));
+    if (gBattleAnimArgs[0] & 0x20)
+        selectedPalettes = UINT32_MAX; // Swap EVERY palette including the UI.
 
     InvertPlttBuffer(selectedPalettes);
     DestroyAnimVisualTask(taskId);

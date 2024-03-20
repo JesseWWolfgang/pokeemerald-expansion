@@ -730,6 +730,7 @@ extern const u8 BattleScript_EffectElectricTerrain[];
 extern const u8 BattleScript_EffectPsychicTerrain[];
 extern const u8 BattleScript_EffectAttackAccUp[];
 extern const u8 BattleScript_EffectAttackSpAttackUp[];
+extern const u8 BattleScript_EffectAttackDefenseSpeedUp[];
 extern const u8 BattleScript_EffectMeFirst[];
 extern const u8 BattleScript_EffectQuiverDance[];
 extern const u8 BattleScript_EffectCoil[];

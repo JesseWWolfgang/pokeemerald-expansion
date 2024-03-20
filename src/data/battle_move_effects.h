@@ -2233,7 +2233,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_ATTACK_DEFENSE_SPEED_UP] =
     {
-        .battleScript = BattleScript_EffectAttackSpAttackUp,
+        .battleScript = BattleScript_EffectAttackDefenseSpeedUp,
         .battleTvScore = 0, // TODO: Assign points
         .encourageEncore = TRUE,
     },
