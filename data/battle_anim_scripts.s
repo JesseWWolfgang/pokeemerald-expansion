@@ -34605,6 +34605,8 @@ Move_THIRST_FOR_VENGEANCE:
 Move_COMPASSION:
 	loadspritegfx ANIM_TAG_RAINBOW_RINGS
 	loadspritegfx ANIM_TAG_PINK_HEART
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_POISON_BUBBLE, 0, 15, 15, 0b111110000000000  @Blue tear
 
 	monbg ANIM_ATTACKER
 	playsewithpan SE_M_MORNING_SUN, 0
@@ -34612,22 +34614,33 @@ Move_COMPASSION:
 	waitbgfadein
 	delay 40
 
+	@ Tear
+	@ 0xfff7 is 2px negative (left for player)
+	createsprite gAppleAcidDripTemplate, ANIM_ATTACKER, 2, -2, -4, 0, 0xc, 48, 
+	playsewithpan SE_M_METRONOME, SOUND_PAN_ATTACKER
+
+	delay 60
+
 	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
 	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
 	delay 8
 	playsewithpan SE_M_BRICK_BREAK, SOUND_PAN_ATTACKER
-	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 15, 1
-	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_TARGET, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATK_PARTNER, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATK_PARTNER, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_OPPONENT_LEFT, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_OPPONENT_LEFT, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_OPPONENT_RIGHT, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_OPPONENT_RIGHT, 1
 	delay 120
 
 	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 5, 0, 15, 1
 	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATTACKER, 1
 
-	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff00, 0xffd6
-	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x80, 0xfff2
+	@ createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff00, 0xffd6
+	@ createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x80, 0xfff2
 	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x1a0, 0xffda
-	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff80, 0xffea
+	@ createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff80, 0xffea
 
 	playsewithpan SE_M_HYPER_BEAM, 0
 
