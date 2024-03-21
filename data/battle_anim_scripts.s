@@ -34604,24 +34604,36 @@ Move_THIRST_FOR_VENGEANCE:
 
 Move_COMPASSION:
 	loadspritegfx ANIM_TAG_RAINBOW_RINGS
-	monbg ANIM_TARGET
+	loadspritegfx ANIM_TAG_PINK_HEART
+
+	monbg ANIM_ATTACKER
 	playsewithpan SE_M_MORNING_SUN, 0
-	fadetobg BG_AURORA
+	fadetobg BG_MISTY_TERRAIN
 	waitbgfadein
 	delay 40
 
-	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4 | 0x20
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x2 | 0x4
 	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
 	delay 8
 	playsewithpan SE_M_BRICK_BREAK, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_TARGET, 1
 	delay 120
 
-	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4 | 0x20
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x2 | 0x4
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATTACKER, 1
+
+	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff00, 0xffd6
+	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x80, 0xfff2
+	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x1a0, 0xffda
+	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff80, 0xffea
+
 	playsewithpan SE_M_HYPER_BEAM, 0
 
 	restorebg
 	waitbgfadein
-	clearmonbg ANIM_TARGET
+	clearmonbg ANIM_ATTACKER
 	end
 
 @ Move_FLEUR_CANNON::
