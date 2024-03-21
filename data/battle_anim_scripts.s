@@ -34521,7 +34521,7 @@ Move_THIRST_FOR_VENGEANCE:
 	delay 25
 	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 4, 28
 	delay 4
-	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4 | 0x20
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_ALL
 	delay 1
 
 	playsewithpan SE_INTRO_BLAST, SOUND_PAN_ATTACKER
@@ -34593,7 +34593,7 @@ Move_THIRST_FOR_VENGEANCE:
 	createsprite gFleurCannonDischargeTemplate, ANIM_ATTACKER, 2, 0x1, 0x10, 0x10
 	delay 0x2
 	createsprite gFleurCannonDischargeTemplate, ANIM_ATTACKER, 2, 0x1, 0xfff0, 0xfff0
-	createvisualtask AnimTask_InvertScreenColor, 2, 0x1 | 0x2 | 0x4 | 0x20
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_ALL
 
 	delay 1
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 16, 0, RGB_WHITE
@@ -34612,7 +34612,7 @@ Move_COMPASSION:
 	waitbgfadein
 	delay 40
 
-	createvisualtask AnimTask_InvertScreenColor, 2, 0x2 | 0x4
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
 	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
 	delay 8
 	playsewithpan SE_M_BRICK_BREAK, SOUND_PAN_ATTACKER
@@ -34620,7 +34620,7 @@ Move_COMPASSION:
 	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_TARGET, 1
 	delay 120
 
-	createvisualtask AnimTask_InvertScreenColor, 2, 0x2 | 0x4
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 5, 0, 15, 1
 	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATTACKER, 1
 
