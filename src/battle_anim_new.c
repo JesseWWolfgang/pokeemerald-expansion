@@ -100,6 +100,9 @@ static void SpriteCB_GlacialLance_Step2(struct Sprite* sprite);
 static void SpriteCB_GlacialLance(struct Sprite* sprite);
 static void SpriteCB_TripleArrowKick(struct Sprite* sprite);
 
+static void SpriteCB_AnimLinearTranslateBasic(struct Sprite *sprite);
+
+
 // const data
 // general
 static const union AffineAnimCmd sSquishTargetAffineAnimCmds[] =
@@ -7185,6 +7188,18 @@ const struct SpriteTemplate gBitterBladeImpactTemplate =
     .callback = AnimClawSlash
 };
 
+
+const struct SpriteTemplate gCompassionTearDropTemplate =
+{
+    .tileTag = ANIM_TAG_POISON_BUBBLE,
+    .paletteTag = ANIM_TAG_SMALL_BUBBLES,
+    .oam = &gOamData_AffineDouble_ObjNormal_16x16,
+    .anims = gAnims_AcidPoisonDroplet,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_AnimLinearTranslateBasic
+};
+
 // functions
 //general
 void AnimTask_IsTargetPartner(u8 taskId)
@@ -9161,3 +9176,33 @@ void AnimTask_StickySyrup(u8 taskId)
     gBattleAnimArgs[0] = gAnimDisableStructPtr->syrupBombIsShiny;
     DestroyAnimVisualTask(taskId);
 }
+
+
+// Named Sprite data fields storing linear translation info.
+#define SpriteLinearTranslateDuration       data[0]
+#define SpriteLinearTranslateInitialXOffset data[1]
+#define SpriteLinearTranslateInitialYOffset data[3]
+#define SpriteLinearTranslateTargetXOffset  data[2]
+#define SpriteLinearTranslateTargetYOffset  data[4]
+
+// Basic ass linear translation -_-
+// arg 0: initial x pixel offset
+// arg 1: initial y pixel offset
+// arg 2: target x pixel offset
+// arg 3: target y pixel offset
+// arg 4: duration
+// arg 5: flip x on opposing side
+static void SpriteCB_AnimLinearTranslateBasic(struct Sprite *sprite)
+{
+    InitSpritePosToAnimTarget(sprite, TRUE);
+    sprite->SpriteLinearTranslateInitialXOffset = sprite->x + gBattleAnimArgs[0];
+    sprite->SpriteLinearTranslateInitialYOffset = sprite->y + gBattleAnimArgs[1];
+    sprite->SpriteLinearTranslateTargetXOffset = sprite->x + gBattleAnimArgs[2];
+    sprite->SpriteLinearTranslateTargetYOffset = sprite->y + gBattleAnimArgs[3];
+    sprite->SpriteLinearTranslateDuration = gBattleAnimArgs[4];
+    InitAnimLinearTranslation(sprite);
+    sprite->callback = AnimTranslateLinear_WithFollowup;
+    sprite->callback(sprite);
+    StoreSpriteCallbackInData6(sprite, DestroyAnimSprite);
+}
+

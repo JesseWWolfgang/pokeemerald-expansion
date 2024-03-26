@@ -34505,11 +34505,12 @@ Move_THIRST_FOR_VENGEANCE:
 	loadspritegfx ANIM_TAG_PINK_PETAL
 	loadspritegfx ANIM_TAG_ELECTRICITY
 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
-	monbg ANIM_TARGET
+	@ monbg ANIM_TARGET
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 0, 16, RGB_WHITE
 	waitforvisualfinish
 	delay 10
-		
+
+	@ createvisualtask AnimTask_SetAnimTargetToBattlerTarget, 2
 	createvisualtask AnimTask_DoomDesireLightBeam, 5
 
 	delay 9
@@ -34598,7 +34599,7 @@ Move_THIRST_FOR_VENGEANCE:
 	delay 1
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 16, 0, RGB_WHITE
 	waitforvisualfinish
-	clearmonbg ANIM_TARGET
+	@ clearmonbg ANIM_TARGET
 	end
 
 
@@ -34606,7 +34607,8 @@ Move_COMPASSION:
 	loadspritegfx ANIM_TAG_RAINBOW_RINGS
 	loadspritegfx ANIM_TAG_PINK_HEART
 	loadspritegfx ANIM_TAG_POISON_BUBBLE
-	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_POISON_BUBBLE, 0, 15, 15, 0b111110000000000  @Blue tear
+	loadspritegfx ANIM_TAG_SMALL_BUBBLES
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_SMALL_BUBBLES, 0, 15, 15, 0b111110000000000  @Blue tear
 
 	monbg ANIM_ATTACKER
 	playsewithpan SE_M_MORNING_SUN, 0
@@ -34616,7 +34618,8 @@ Move_COMPASSION:
 
 	@ Tear
 	@ 0xfff7 is 2px negative (left for player)
-	createsprite gAppleAcidDripTemplate, ANIM_ATTACKER, 2, -2, -4, 0, 0xc, 48, 
+	@ -2px left -4px up, 0?, 0xc?, 48?
+	createsprite gCompassionTearDropTemplate, ANIM_ATTACKER, 2, -3, -12, -3, 20, 64, 
 	playsewithpan SE_M_METRONOME, SOUND_PAN_ATTACKER
 
 	delay 60
