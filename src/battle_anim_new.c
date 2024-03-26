@@ -9178,13 +9178,17 @@ void AnimTask_StickySyrup(u8 taskId)
 // arg 2: target x pixel offset
 // arg 3: target y pixel offset
 // arg 4: duration
-// arg 5: flip x for specified battler
+// arg 5: anim battler
+// arg 6: flip when battler on opponent side
 static void SpriteCB_AnimLinearTranslateBasic(struct Sprite *sprite)
 {
-    // Flip if the specified battler arg is > 0 and the specified battler is on the opponent side.
-    s16 flip = gBattleAnimArgs[5] && GetBattlerSide(gBattleAnimArgs[5]) == B_SIDE_OPPONENT ? -1 : 1;
+    s16 animBattler = gBattleAnimArgs[5];
+    u8 battler = GetAnimBattlerId(animBattler);
 
-    InitSpritePosToAnimTarget(sprite, TRUE);
+    // Flip if the flip arg is true and the specified battler is on the opponent side.
+    s16 flip = (gBattleAnimArgs[6] && GetBattlerSide(battler) == B_SIDE_OPPONENT) ? -1 : 1;
+
+    InitSpritePosToAnimBattler(animBattler, sprite, TRUE);
     sprite->SpriteAnimLinearTranslateInitialXOffset = sprite->x + (gBattleAnimArgs[0] * flip);
     sprite->SpriteAnimLinearTranslateInitialYOffset = sprite->y + gBattleAnimArgs[1];
     sprite->SpriteAnimLinearTranslateTargetXOffset = sprite->x + (gBattleAnimArgs[2] * flip);
