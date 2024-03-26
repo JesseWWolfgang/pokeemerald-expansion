@@ -34608,7 +34608,10 @@ Move_COMPASSION:
 	loadspritegfx ANIM_TAG_PINK_HEART
 	loadspritegfx ANIM_TAG_POISON_BUBBLE
 	loadspritegfx ANIM_TAG_SMALL_BUBBLES
-	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_SMALL_BUBBLES, 0, 15, 15, 0b111110000000000  @Blue tear
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_SMALL_BUBBLES, 0, 15, 15, RGB(0, 0, 255)  @Blue tear
+
+	@ ensures the target is the opposite side of this mon since this is a status move.
+	createvisualtask AnimTask_SetAnimTargetToAttackerOpposite, 2
 
 	monbg ANIM_ATTACKER
 	playsewithpan SE_M_MORNING_SUN, 0
@@ -34616,12 +34619,9 @@ Move_COMPASSION:
 	waitbgfadein
 	delay 40
 
-	@ Tear
-	@ 0xfff7 is 2px negative (left for player)
-	@ -2px left -4px up, 0?, 0xc?, 48?
-	createsprite gCompassionTearDropTemplate, ANIM_ATTACKER, 2, -3, -12, -3, 20, 64, 
+	@ Teardrop
+	createsprite gCompassionTearDropTemplate, ANIM_ATTACKER, 2, 9, -16, 9, 20, 64, ANIM_ATTACKER, TRUE
 	playsewithpan SE_M_METRONOME, SOUND_PAN_ATTACKER
-
 	delay 60
 
 	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
@@ -34630,20 +34630,18 @@ Move_COMPASSION:
 	playsewithpan SE_M_BRICK_BREAK, SOUND_PAN_ATTACKER
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATK_PARTNER, 5, 0, 15, 1
 	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATK_PARTNER, 1
-	createvisualtask AnimTask_ShakeMon, 2, ANIM_OPPONENT_LEFT, 5, 0, 15, 1
-	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_OPPONENT_LEFT, 1
-	createvisualtask AnimTask_ShakeMon, 2, ANIM_OPPONENT_RIGHT, 5, 0, 15, 1
-	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_OPPONENT_RIGHT, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_TARGET, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_DEF_PARTNER, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_DEF_PARTNER, 1
 	delay 120
 
 	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
 	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 5, 0, 15, 1
 	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATTACKER, 1
 
-	@ createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff00, 0xffd6
-	@ createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x80, 0xfff2
-	createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0x1a0, 0xffda
-	@ createsprite gPinkHeartSpriteTemplate, ANIM_TARGET, 3, 0xff80, 0xffea
+	@ Need to use createspriteontargets since the heart sprite template doesnt autoset its pos to the anim mon.
+	createspriteontargets gPinkHeartSpriteTemplate, ANIM_ATTACKER, 3, ANIM_ATTACKER, 0x1a0, 0xffda
 
 	playsewithpan SE_M_HYPER_BEAM, 0
 
