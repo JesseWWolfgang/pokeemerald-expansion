@@ -17,6 +17,26 @@
 #include "battle_dynamax.h"
 #include "random.h" // for rng_value_t
 
+// Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
+//
+// For example accuracycheck is defined as:
+//
+//     .macro accuracycheck failInstr:req, move:req
+//     .byte 0x1
+//     .4byte \failInstr
+//     .2byte \move
+//     .endm
+//
+// Which corresponds to:
+//
+//     CMD_ARGS(const u8 *failInstr, u16 move);
+//
+// The arguments can be accessed as cmd->failInstr and cmd->move.
+// gBattlescriptCurrInstr = cmd->nextInstr; advances to the next instruction.
+#define CMD_ARGS(...) const struct __attribute__((packed)) { u8 opcode; RECURSIVELY(R_FOR_EACH(APPEND_SEMICOLON, __VA_ARGS__)) const u8 nextInstr[0]; } *const cmd UNUSED = (const void *)gBattlescriptCurrInstr
+#define VARIOUS_ARGS(...) CMD_ARGS(u8 battler, u8 id, ##__VA_ARGS__)
+#define NATIVE_ARGS(...) CMD_ARGS(void (*func)(void), ##__VA_ARGS__)
+
 // Used to exclude moves learned temporarily by Transform or Mimic
 #define MOVE_IS_PERMANENT(battler, moveSlot)                        \
    (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)           \
@@ -278,7 +298,8 @@ struct FieldTimer
 struct WishFutureKnock
 {
     u8 futureSightCounter[MAX_BATTLERS_COUNT];
-    u8 futureSightAttacker[MAX_BATTLERS_COUNT];
+    u8 futureSightBattlerIndex[MAX_BATTLERS_COUNT];
+    u8 futureSightPartyIndex[MAX_BATTLERS_COUNT];
     u16 futureSightMove[MAX_BATTLERS_COUNT];
     u8 wishCounter[MAX_BATTLERS_COUNT];
     u8 wishPartyId[MAX_BATTLERS_COUNT];
@@ -776,6 +797,9 @@ struct BattleStruct
     u8 dauntlessShieldBoost[NUM_BATTLE_SIDES];
     u8 supersweetSyrup[NUM_BATTLE_SIDES];
     u8 supremeOverlordCounter[MAX_BATTLERS_COUNT];
+    u8 quickClawRandom[MAX_BATTLERS_COUNT];
+    u8 quickDrawRandom[MAX_BATTLERS_COUNT];
+    u8 boosterEnergyActivates;
 };
 
 // The palaceFlags member of struct BattleStruct contains 1 flag per move to indicate which moves the AI should consider,
@@ -973,15 +997,10 @@ struct BattleSpriteData
 struct MonSpritesGfx
 {
     void *firstDecompressed; // ptr to the decompressed sprite of the first Pokémon
-    union {
-        void *ptr[MAX_BATTLERS_COUNT];
-        u8 *byte[MAX_BATTLERS_COUNT];
-    } sprites;
+    u8 *spritesGfx[MAX_BATTLERS_COUNT];
     struct SpriteTemplate templates[MAX_BATTLERS_COUNT];
     struct SpriteFrameImage frameImages[MAX_BATTLERS_COUNT][MAX_MON_PIC_FRAMES];
-    u8 unusedArr[0x80];
     u8 *barFontGfx;
-    void *unusedPtr;
     u16 *buffer;
 };
 

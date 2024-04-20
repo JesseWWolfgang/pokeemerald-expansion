@@ -370,6 +370,9 @@ static const u8 sText_HailStopped[] = _("The hail stopped.");
 static const u8 sText_StartedSnow[] = _("It started to snow!");
 static const u8 sText_SnowContinues[] = _("Snow continues to fall.");
 static const u8 sText_SnowStopped[] = _("The snow stopped.");
+static const u8 sText_FogCreptUp[] = _("Fog crept up as thick as soup!");
+static const u8 sText_FogIsDeep[] = _("The fog is deep…");
+static const u8 sText_FogLifted[] = _("The fog lifted.");
 static const u8 sText_FailedToSpitUp[] = _("But it failed to spit up\na thing!");
 static const u8 sText_FailedToSwallow[] = _("But it failed to swallow\na thing!");
 static const u8 sText_WindBecameHeatWave[] = _("The wind turned into a\nHEAT WAVE!");
@@ -783,7 +786,7 @@ static const u8 sText_AttackerExpelledThePoison[] = _("{B_ATK_NAME_WITH_PREFIX} 
 static const u8 sText_AttackerShookItselfAwake[] = _("{B_ATK_NAME_WITH_PREFIX} shook itself awake!");
 static const u8 sText_AttackerBrokeThroughParalysis[] = _("{B_ATK_NAME_WITH_PREFIX} gathered all its energy\nto overcome its paralysis!");
 static const u8 sText_AttackerHealedItsBurn[] = _("{B_ATK_NAME_WITH_PREFIX} healed its burn with\nits sheer determination!");
-static const u8 sText_AttackerHealedItsFrostbite[] = _("{B_ATK_NAME_WITH_PREFIX} healed its frostbite with\nits sheer determination!");
+static const u8 sText_AttackerHealedItsFrostbite[] = _("{B_ATK_NAME_WITH_PREFIX} healed its frostbite with\nits sheer determination!"); //not used, "melted the ice" is used instead in PLA
 static const u8 sText_AttackerMeltedTheIce[] = _("{B_ATK_NAME_WITH_PREFIX} melted the ice with\nits fiery determination!");
 static const u8 sText_TargetToughedItOut[] = _("{B_DEF_NAME_WITH_PREFIX} toughed it out\nto show you its best side!");
 static const u8 sText_AttackerLostElectricType[] = _("{B_ATK_NAME_WITH_PREFIX} used up all\nof its electricity!");
@@ -791,6 +794,7 @@ static const u8 sText_AttackerSwitchedStatWithTarget[] = _("{B_ATK_NAME_WITH_PRE
 static const u8 sText_BeingHitChargedPkmnWithPower[] = _("Being hit by {B_CURRENT_MOVE}\ncharged {B_DEF_NAME_WITH_PREFIX} with power!");
 static const u8 sText_SunlightActivatedAbility[] = _("The harsh sunlight activated\n{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_LAST_ABILITY}!");
 static const u8 sText_StatWasHeightened[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_BUFF1} was heightened!");
+static const u8 sText_BoosterEnergyActivates[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} used its Booster Energy\nto activate {B_SCR_ACTIVE_ABILITY}!");
 static const u8 sText_ElectricTerrainActivatedAbility[] = _("The Electric Terrain activated\n{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_LAST_ABILITY}!");
 static const u8 sText_AbilityWeakenedSurroundingMonsStat[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\nweakened the {B_BUFF1} of\lall surrounding Pokémon!\p");
 static const u8 sText_AttackerGainedStrengthFromTheFallen[] = _("{B_ATK_NAME_WITH_PREFIX} gained strength\nfrom the fallen!");
@@ -892,6 +896,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_ABILITYWEAKENEDFSURROUNDINGMONSSTAT - BATTLESTRINGS_TABLE_START] = sText_AbilityWeakenedSurroundingMonsStat,
     [STRINGID_ELECTRICTERRAINACTIVATEDABILITY - BATTLESTRINGS_TABLE_START] = sText_ElectricTerrainActivatedAbility,
     [STRINGID_STATWASHEIGHTENED - BATTLESTRINGS_TABLE_START] = sText_StatWasHeightened,
+    [STRINGID_BOOSTERENERGYACTIVATES - BATTLESTRINGS_TABLE_START] = sText_BoosterEnergyActivates,
     [STRINGID_SUNLIGHTACTIVATEDABILITY - BATTLESTRINGS_TABLE_START] = sText_SunlightActivatedAbility,
     [STRINGID_BEINGHITCHARGEDPKMNWITHPOWER - BATTLESTRINGS_TABLE_START] = sText_BeingHitChargedPkmnWithPower,
     [STRINGID_ATTACKERSWITCHEDSTATWITHTARGET - BATTLESTRINGS_TABLE_START] = sText_AttackerSwitchedStatWithTarget,
@@ -1228,6 +1233,9 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_STARTEDSNOW - BATTLESTRINGS_TABLE_START] = sText_StartedSnow,
     [STRINGID_SNOWCONTINUES -BATTLESTRINGS_TABLE_START] = sText_SnowContinues,
     [STRINGID_SNOWSTOPPED - BATTLESTRINGS_TABLE_START] = sText_SnowStopped,
+    [STRINGID_FOGCREPTUP - BATTLESTRINGS_TABLE_START] = sText_FogCreptUp,
+    [STRINGID_FOGISDEEP - BATTLESTRINGS_TABLE_START] = sText_FogIsDeep,
+    [STRINGID_FOGLIFTED - BATTLESTRINGS_TABLE_START] = sText_FogLifted,
     [STRINGID_FAILEDTOSPITUP - BATTLESTRINGS_TABLE_START] = sText_FailedToSpitUp,
     [STRINGID_FAILEDTOSWALLOW - BATTLESTRINGS_TABLE_START] = sText_FailedToSwallow,
     [STRINGID_WINDBECAMEHEATWAVE - BATTLESTRINGS_TABLE_START] = sText_WindBecameHeatWave,
@@ -1571,7 +1579,7 @@ const u16 gMentalHerbCureStringIds[] =
     [B_MSG_MENTALHERBCURE_DISABLE]     = STRINGID_PKMNMOVEDISABLEDNOMORE,
 };
 
-const u16 gStartingStatusStringIds[B_MSG_STARTING_STATUS_COUNT] = 
+const u16 gStartingStatusStringIds[B_MSG_STARTING_STATUS_COUNT] =
 {
     [B_MSG_TERRAIN_SET_MISTY]       = STRINGID_TERRAINBECOMESMISTY,
     [B_MSG_TERRAIN_SET_ELECTRIC]    = STRINGID_TERRAINBECOMESELECTRIC,
@@ -1671,6 +1679,7 @@ const u16 gMoveWeatherChangeStringIds[] =
     [B_MSG_STARTED_SUNLIGHT]  = STRINGID_SUNLIGHTGOTBRIGHT,
     [B_MSG_STARTED_HAIL]      = STRINGID_STARTEDHAIL,
     [B_MSG_STARTED_SNOW]      = STRINGID_STARTEDSNOW,
+    [B_MSG_STARTED_FOG]       = STRINGID_FOGCREPTUP, // Unused, can use for custom moves that set fog
 };
 
 const u16 gSandStormHailSnowContinuesStringIds[] =
@@ -1923,10 +1932,10 @@ const u16 gWeatherStartsStringIds[] =
     [WEATHER_RAIN]               = STRINGID_ITISRAINING,
     [WEATHER_SNOW]               = (B_OVERWORLD_SNOW >= GEN_9 ? STRINGID_STARTEDSNOW : STRINGID_STARTEDHAIL),
     [WEATHER_RAIN_THUNDERSTORM]  = STRINGID_ITISRAINING,
-    [WEATHER_FOG_HORIZONTAL]     = STRINGID_ITISRAINING,
+    [WEATHER_FOG_HORIZONTAL]     = STRINGID_FOGISDEEP,
     [WEATHER_VOLCANIC_ASH]       = STRINGID_ITISRAINING,
     [WEATHER_SANDSTORM]          = STRINGID_SANDSTORMISRAGING,
-    [WEATHER_FOG_DIAGONAL]       = STRINGID_ITISRAINING,
+    [WEATHER_FOG_DIAGONAL]       = STRINGID_FOGISDEEP,
     [WEATHER_UNDERWATER]         = STRINGID_ITISRAINING,
     [WEATHER_SHADE]              = STRINGID_ITISRAINING,
     [WEATHER_DROUGHT]            = STRINGID_SUNLIGHTSTRONG,
@@ -2097,31 +2106,6 @@ const u8 gText_Loss[] = _("{HIGHLIGHT TRANSPARENT}Loss");
 const u8 gText_Draw[] = _("{HIGHLIGHT TRANSPARENT}Draw");
 static const u8 sText_SpaceIs[] = _(" is");
 static const u8 sText_ApostropheS[] = _("'s");
-
-// For displaying names of invalid moves.
-// This is large enough that the text for TYPE_ELECTRIC will exceed TEXT_BUFF_ARRAY_COUNT.
-static const u8 sATypeMove_Table[NUMBER_OF_MON_TYPES][17] =
-{
-    [TYPE_NORMAL]   = _("a NORMAL move"),
-    [TYPE_FIGHTING] = _("a FIGHTING move"),
-    [TYPE_FLYING]   = _("a FLYING move"),
-    [TYPE_POISON]   = _("a POISON move"),
-    [TYPE_GROUND]   = _("a GROUND move"),
-    [TYPE_ROCK]     = _("a ROCK move"),
-    [TYPE_BUG]      = _("a BUG move"),
-    [TYPE_GHOST]    = _("a GHOST move"),
-    [TYPE_STEEL]    = _("a STEEL move"),
-    [TYPE_MYSTERY]  = _("a ??? move"),
-    [TYPE_FIRE]     = _("a FIRE move"),
-    [TYPE_WATER]    = _("a WATER move"),
-    [TYPE_GRASS]    = _("a GRASS move"),
-    [TYPE_ELECTRIC] = _("an ELECTRIC move"),
-    [TYPE_PSYCHIC]  = _("a PSYCHIC move"),
-    [TYPE_ICE]      = _("an ICE move"),
-    [TYPE_DRAGON]   = _("a DRAGON move"),
-    [TYPE_DARK]     = _("a DARK move"),
-    [TYPE_FAIRY]    = _("a FAIRY move"),
-};
 
 const u8 gText_BattleTourney[] = _("BATTLE TOURNEY");
 static const u8 sText_Round1[] = _("Round 1");
@@ -2940,7 +2924,7 @@ void BufferStringBattle(u16 stringID, u32 battler)
         if (gBattleMsgDataPtr->currentMove >= MOVES_COUNT
          && !IsZMove(gBattleMsgDataPtr->currentMove)
          && !IsMaxMove(gBattleMsgDataPtr->currentMove))
-            StringCopy(gBattleTextBuff3, sATypeMove_Table[*(&gBattleStruct->stringMoveType)]);
+            StringCopy(gBattleTextBuff3, gTypesInfo[*(&gBattleStruct->stringMoveType)].generic);
         else
             StringCopy(gBattleTextBuff3, GetMoveName(gBattleMsgDataPtr->currentMove));
         stringPtr = sText_AttackerUsedX;
@@ -3370,7 +3354,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 if (gBattleMsgDataPtr->currentMove >= MOVES_COUNT
                  && !IsZMove(gBattleMsgDataPtr->currentMove)
                  && !IsMaxMove(gBattleMsgDataPtr->currentMove))
-                    toCpy = sATypeMove_Table[gBattleStruct->stringMoveType];
+                    toCpy = gTypesInfo[gBattleStruct->stringMoveType].generic;
                 else
                     toCpy = GetMoveName(gBattleMsgDataPtr->currentMove);
                 break;
@@ -3378,7 +3362,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 if (gBattleMsgDataPtr->originallyUsedMove >= MOVES_COUNT
                  && !IsZMove(gBattleMsgDataPtr->currentMove)
                  && !IsMaxMove(gBattleMsgDataPtr->currentMove))
-                    toCpy = sATypeMove_Table[gBattleStruct->stringMoveType];
+                    toCpy = gTypesInfo[gBattleStruct->stringMoveType].generic;
                 else
                     toCpy = GetMoveName(gBattleMsgDataPtr->originallyUsedMove);
                 break;
@@ -3762,7 +3746,7 @@ void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
             srcID += 3;
             break;
         case B_BUFF_TYPE: // type name
-            StringAppend(dst, gTypeNames[src[srcID + 1]]);
+            StringAppend(dst, gTypesInfo[src[srcID + 1]].name);
             srcID += 2;
             break;
         case B_BUFF_MON_NICK_WITH_PREFIX: // poke nick with prefix
@@ -4192,7 +4176,7 @@ u32 ShouldDoTrainerSlide(u32 battler, u32 which)
             case TRAINER_SLIDE_LAST_LOW_HP:
                 if (sTrainerSlides[i].msgLastLowHp != NULL
                     && GetEnemyMonCount(firstId, lastId, TRUE) == 1
-                    && BattlerHPPercentage(battler, GREATER_THAN_OR_EQUAL, 4)
+                    && BattlerHPPercentage(battler, LESS_THAN_OR_EQUAL, 4)
                     && !gBattleStruct->trainerSlideLowHpMsgDone)
                 {
                     gBattleStruct->trainerSlideLowHpMsgDone = TRUE;
