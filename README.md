@@ -6,7 +6,6 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 
 | Feature | Link/Description |
 |---|------|
-| Surfing Dismount Ground Effects       | https://github.com/pret/pokeemerald/wiki/Surfing-Dismount-Ground-Effects
 | Keep the Camera from Making Waves     | https://github.com/pret/pokeemerald/wiki/Keep-the-Camera-from-Making-Waves
 | Better Reflection System              | https://github.com/pret/pokeemerald/wiki/Reflections
 | Automatically make the keyboard switch to lowercase after the first character | https://github.com/pret/pokeemerald/wiki/Automatically-make-the-keyboard-switch-to-lowercase-after-the-first-character/
@@ -42,3 +41,6 @@ This branch contains a number of smaller fixes that dont warrant their own branc
     
 - 8671da4
     - Removed Bulk Premier Balls as it was merged into upstream expansion.
+
+- 6c2c66b
+    - Surfing Dismount Ground Effects was merged into upstream expansion.
