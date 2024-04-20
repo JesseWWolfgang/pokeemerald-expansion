@@ -678,7 +678,7 @@
 #define FLAG_JIRACHI_WISH_GRANTED                       0x27B
 #define FLAG_JIRACHI_WISH_MONEY_ACTIVE                  0x27C
 #define FLAG_JIRACHI_WISH_PERFECT_BIDOOF                0x27D
-#define FLAG_UNUSED_0x27E  0x27E // Unused Flag
+#define FLAG_CAUGHT_PERFECT_BIDOOF                      0x27E
 #define FLAG_UNUSED_0x27F  0x27F // Unused Flag
 #define FLAG_UNUSED_0x280  0x280 // Unused Flag
 #define FLAG_UNUSED_0x281  0x281 // Unused Flag
