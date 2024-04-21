@@ -24,7 +24,6 @@ tools/poryscript
 tools/porymap
 tools/pory
 *.map
-*.ld
 *.bat
 *.dump
 *.sa*
