@@ -4,12 +4,12 @@
 			"path": "src/overworld.c",
 			"bookmarks": [
 				{
-					"line": 1116,
+					"line": 1108,
 					"column": 8,
 					"label": "Get location music"
 				},
 				{
-					"line": 1534,
+					"line": 1526,
 					"column": 10,
 					"label": "New Game"
 				}
@@ -64,7 +64,7 @@
 			"path": "src/pokemon.c",
 			"bookmarks": [
 				{
-					"line": 7448,
+					"line": 7433,
 					"column": 7,
 					"label": "Get Battle BGM"
 				}
@@ -97,21 +97,6 @@
 					"line": 1873,
 					"column": 10,
 					"label": "Create Trainer Party"
-				}
-			]
-		},
-		{
-			"path": "src/data/trainers.h",
-			"bookmarks": [
-				{
-					"line": 0,
-					"column": 1,
-					"label": "Trainers"
-				},
-				{
-					"line": 4023,
-					"column": 20,
-					"label": "Wallace trainer"
 				}
 			]
 		},
@@ -189,7 +174,7 @@
 			"path": "src/data/trainer_parties.h",
 			"bookmarks": [
 				{
-					"line": 4416,
+					"line": 4413,
 					"column": 13,
 					"label": "Wallace party"
 				}
