@@ -1,9 +1,3 @@
-static const struct TrainerMon sParty_Sawyer1[] = {
-    {
-    .lvl = 21,
-    .species = SPECIES_GEODUDE,
-    }
-};
 
 static const struct TrainerMon sParty_GruntAquaHideout1[] = {
     {
@@ -11484,6 +11478,14 @@ static const struct TrainerMon sParty_Fernando5[] = {
     .lvl = 41,
     .species = SPECIES_EXPLOUD,
     }
+};
+
+static const struct TrainerMon sParty_Sawyer1[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(1, 1, 1, 1, 1, 1),
+    .lvl = 21,
+    .species = SPECIES_GEODUDE,
+    },
 };
 
 static const struct TrainerMon sParty_Sawyer2[] = {
