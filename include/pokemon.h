@@ -5,6 +5,7 @@
 #include "constants/items.h"
 #include "constants/region_map_sections.h"
 #include "constants/map_groups.h"
+#include "contest_effect.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 #define FORM_SPECIES_END (0xffff)
@@ -112,7 +113,11 @@ enum {
     MON_DATA_DYNAMAX_LEVEL,
     MON_DATA_GIGANTAMAX_FACTOR,
     MON_DATA_TERA_TYPE,
+    MON_DATA_EVOLUTION_TRACKER,
+
+    MON_DATAS_COUNT,
 };
+STATIC_ASSERT(MON_DATAS_COUNT == M_MON_DATAS_COUNT, DefinedMonDatasNotEqualToEnum);
 
 struct PokemonSubstruct0
 {
@@ -133,9 +138,10 @@ struct PokemonSubstruct0
 struct PokemonSubstruct1
 {
     u16 move1:11; // 2047 moves.
-    u16 unused_00:5;
+    u16 evolutionTracker1:5;
     u16 move2:11; // 2047 moves.
-    u16 unused_02:5;
+    u16 evolutionTracker2:4;
+    u16 unused_02:1;
     u16 move3:11; // 2047 moves.
     u16 unused_04:5;
     u16 move4:11; // 2047 moves.
@@ -386,9 +392,9 @@ struct SpeciesInfo /*0x8C*/
  /* 0x38 */ u16 trainerScale;
  /* 0x3A */ u16 trainerOffset;
  /* 0x3C */ const u8 *description;
- /* 0x40 */ u8 bodyColor : 7;
+ /* 0x40 */ u8 bodyColor:7;
             // Graphical Data
-            u8 noFlip : 1;
+            u8 noFlip:1;
  /* 0x41 */ u8 frontAnimDelay;
  /* 0x42 */ u8 frontAnimId;
  /* 0x43 */ u8 backAnimId;
@@ -403,7 +409,9 @@ struct SpeciesInfo /*0x8C*/
  /* 0x64 */ const u32 *shinyPaletteFemale;
  /* 0x68 */ const u8 *iconSprite;
  /* 0x6C */ const u8 *iconSpriteFemale;
+#if P_FOOTPRINTS
  /* 0x70 */ const u8 *footprint;
+#endif
             // All Pokémon pics are 64x64, but this data table defines where in this 64x64 frame the sprite's non-transparent pixels actually are.
  /* 0x74 */ u8 frontPicSize; // The dimensions of this drawn pixel area.
  /* 0x74 */ u8 frontPicSizeFemale; // The dimensions of this drawn pixel area.
@@ -419,6 +427,7 @@ struct SpeciesInfo /*0x8C*/
  /* 0x7A */ u32 isLegendary:1;
             u32 isMythical:1;
             u32 isUltraBeast:1;
+            u32 isTotem:1;
             u32 isParadoxForm:1;
             u32 isMegaEvolution:1;
             u32 isPrimalReversion:1;
@@ -430,7 +439,9 @@ struct SpeciesInfo /*0x8C*/
             u32 isPaldeanForm:1;
             u32 cannotBeTraded:1;
             u32 allPerfectIVs:1;
-            u32 padding4:18;
+            u32 dexForceRequired:1; // This species will be taken into account for Pokédex ratings even if they have the "isMythical" flag set.
+            u32 tmIlliterate:1; // This species will be unable to learn the universal moves.
+            u32 padding4:15;
             // Move Data
  /* 0x80 */ const struct LevelUpMove *levelUpLearnset;
  /* 0x84 */ const u16 *teachableLearnset;
@@ -439,46 +450,46 @@ struct SpeciesInfo /*0x8C*/
  /* 0x84 */ const struct FormChange *formChangeTable;
 };
 
-struct BattleMove
+struct MoveInfo
 {
+    const u8 *name;
+    const u8 *description;
     u16 effect;
-    u8 power;
-    u8 type:5;
-    u8 category:3;
-
+    u16 type:5;
+    u16 category:2;
+    u16 power:9; // up to 511
     u16 accuracy:7;
-    u16 recoil:7;
-    u16 criticalHitStage:2;
+    u16 target:9;
     u8 pp;
-    u8 secondaryEffectChance;
-
-    u16 target;
-    s8 priority;
     union {
         u8 effect;
         u8 powerOverride;
     } zMove;
+
+    s32 priority:4;
+    u32 recoil:7;
+    u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
+    u32 criticalHitStage:2;
+    u32 alwaysCriticalHit:1;
+    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
+    // 12 bits left to complete this word - continues into flags
 
     // Flags
     u32 makesContact:1;
     u32 ignoresProtect:1;
     u32 magicCoatAffected:1;
     u32 snatchAffected:1;
-    u32 mirrorMoveBanned:1;
     u32 ignoresKingsRock:1;
-    u32 alwaysCriticalHit:1;
-    u32 twoTurnMove:1;
     u32 punchingMove:1;
-    u32 sheerForceBoost:1;
     u32 bitingMove:1;
     u32 pulseMove:1;
     u32 soundMove:1;
     u32 ballisticMove:1;
-    u32 protectionMove:1;
     u32 powderMove:1;
     u32 danceMove:1;
     u32 windMove:1;
-    u32 slicingMove:1;
+    u32 slicingMove:1; // end of word
+    u32 healingMove:1;
     u32 minimizeDoubleDamage:1;
     u32 ignoresTargetAbility:1;
     u32 ignoresTargetDefenseEvasionStages:1;
@@ -489,11 +500,12 @@ struct BattleMove
     u32 ignoreTypeIfFlyingAndUngrounded:1;
     u32 thawsUser:1;
     u32 ignoresSubstitute:1;
-    u32 strikeCount:4;  // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 forcePressure:1;
     u32 cantUseTwice:1;
+
+    // Ban flags
     u32 gravityBanned:1;
-    u32 healBlockBanned:1;
+    u32 mirrorMoveBanned:1;
     u32 meFirstBanned:1;
     u32 mimicBanned:1;
     u32 metronomeBanned:1;
@@ -506,7 +518,45 @@ struct BattleMove
     u32 skyBattleBanned:1;
     u32 sketchBanned:1;
 
-    u16 argument;
+    u32 argument;
+
+    // primary/secondary effects
+    const struct AdditionalEffect *additionalEffects;
+
+    // contest parameters
+    u8 contestEffect;
+    u8 contestCategory:3;
+    u8 contestComboStarterId;
+    u8 contestComboMoves[MAX_COMBO_MOVES];
+};
+
+#define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
+#define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
+
+// Just a hack to make a move boosted by Sheer Force despite having no secondary effects affected
+#define SHEER_FORCE_HACK { .moveEffect = 0, .chance = 100, }
+
+struct AdditionalEffect
+{
+    u16 moveEffect;
+    u8 self:1;
+    u8 onlyIfTargetRaisedStats:1;
+    u8 onChargeTurnOnly:1;
+    u8 chance; // 0% = effect certain, primary effect
+};
+
+struct Ability
+{
+    u8 name[ABILITY_NAME_LENGTH + 1];
+    const u8 *description;
+    s8 aiRating;
+    u8 cantBeCopied:1; // cannot be copied by Role Play or Doodle
+    u8 cantBeSwapped:1; // cannot be swapped with Skill Swap or Wandering Spirit
+    u8 cantBeTraced:1; // cannot be copied by Trace - same as cantBeCopied except for Wonder Guard
+    u8 cantBeSuppressed:1; // cannot be negated by Gastro Acid or Neutralizing Gas
+    u8 cantBeOverwritten:1; // cannot be overwritten by Entrainment, Worry Seed or Simple Beam (but can be by Mummy) - same as cantBeSuppressed except for Truant
+    u8 breakable:1; // can be bypassed by Mold Breaker and clones
+    u8 failsOnImposter:1; // doesn't work on an Imposter mon; when can we actually use this?
 };
 
 #define SPINDA_SPOT_WIDTH 16
@@ -563,11 +613,10 @@ extern u8 gEnemyPartyCount;
 extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern struct SpriteTemplate gMultiuseSpriteTemplate;
 
-extern const struct BattleMove gBattleMoves[];
+extern const struct MoveInfo gMovesInfo[];
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
 extern const struct SpeciesInfo gSpeciesInfo[];
-extern const u8 *const gItemEffectTable[ITEMS_COUNT];
 extern const u32 gExperienceTables[][MAX_LEVEL + 1];
 extern const u8 gPPUpGetMask[];
 extern const u8 gPPUpClearMask[];
@@ -577,6 +626,7 @@ extern const u16 gUnionRoomFacilityClasses[];
 extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const s8 gNatureStatTable[][5];
 extern const u32 sExpCandyExperienceTable[];
+extern const struct Ability gAbilitiesInfo[];
 
 void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
@@ -671,7 +721,7 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 void CopyPlayerPartyMonToBattleData(u8 battlerId, u8 partyIndex);
 bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex);
 bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, u8 e);
-bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
+bool8 HealStatusConditions(struct Pokemon *mon, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
@@ -732,8 +782,6 @@ u8 GetOpposingLinkMultiBattlerId(bool8 rightSide, u8 multiplayerId);
 u16 FacilityClassToPicIndex(u16 facilityClass);
 u16 PlayerGenderToFrontTrainerPicId(u8 playerGender);
 void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality);
-const u8 *GetTrainerClassNameFromId(u16 trainerId);
-const u8 *GetTrainerNameFromId(u16 trainerId);
 bool8 HasTwoFramesAnimation(u16 species);
 struct MonSpritesGfxManager *CreateMonSpritesGfxManager(u8 managerId, u8 mode);
 void DestroyMonSpritesGfxManager(u8 managerId);
@@ -757,5 +805,6 @@ u16 GetCryIdBySpecies(u16 species);
 u16 GetSpeciesPreEvolution(u16 species);
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
+const u8 *GetMoveName(u16 moveId);
 
 #endif // GUARD_POKEMON_H

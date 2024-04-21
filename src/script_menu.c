@@ -248,7 +248,6 @@ static void FreeListMenuItems(struct ListMenuItem* items, u32 count)
     Free(items);
 }
 
-// Unused
 static u16 UNUSED GetLengthWithExpandedPlayerName(const u8* str)
 {
     u16 length = 0;
@@ -442,7 +441,7 @@ static void DrawMultichoiceMenuDynamic(u8 left, u8 top, u8 argc, struct ListMenu
         template.secondArrowType = SCROLL_ARROW_DOWN;
         template.tileTag = 2000;
         template.palTag = 100,
-            template.palNum = 0;
+        template.palNum = 0;
 
         gTasks[taskId].data[6] = AddScrollIndicatorArrowPair(&template, &gScrollableMultichoice_ScrollOffset);
     }
