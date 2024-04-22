@@ -10569,3 +10569,14 @@ static const struct SpriteFrameImage sPicTable_RubySapphireMay[] = {
 //     overworld_frame(gObjectEventPic_Pokemon_Species_904, 4, 4, 7),
 //     overworld_frame(gObjectEventPic_Pokemon_Species_904, 4, 4, 8),
 // };
+// const struct SpriteFrameImage gObjectEventPicTable_Pokemon_Species_648_B[] = {
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 0),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 1),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 2),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 3),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 4),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 5),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 6),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 7),
+//     overworld_frame(gObjectEventPic_Pokemon_Species_648_B, 4, 4, 8),
+// };
