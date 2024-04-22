@@ -887,7 +887,6 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Spe
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_646;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_647;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_648;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_648_B;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_649;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_650;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_651;
@@ -1086,6 +1085,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Spe
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_902;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_903;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_904;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_648_B;
 
 
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Bard;

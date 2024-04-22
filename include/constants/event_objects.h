@@ -1110,7 +1110,6 @@
 #define OBJ_EVENT_GFX_POKEMON_904		(NUM_REGULAR_OBJ_EVENT_GFX + 903)
 #define OBJ_EVENT_GFX_POKEMON_648_B		(NUM_REGULAR_OBJ_EVENT_GFX + 904)
 
-
 #define NUM_OBJ_EVENT_GFX               (OBJ_EVENT_GFX_POKEMON_648_B + 1)
 
 #define species_gfx(species) ((species + (NUM_REGULAR_OBJ_EVENT_GFX - 1)))
