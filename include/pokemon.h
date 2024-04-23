@@ -392,9 +392,9 @@ struct SpeciesInfo /*0x8C*/
  /* 0x38 */ u16 trainerScale;
  /* 0x3A */ u16 trainerOffset;
  /* 0x3C */ const u8 *description;
- /* 0x40 */ u8 bodyColor : 7;
+ /* 0x40 */ u8 bodyColor:7;
             // Graphical Data
-            u8 noFlip : 1;
+            u8 noFlip:1;
  /* 0x41 */ u8 frontAnimDelay;
  /* 0x42 */ u8 frontAnimId;
  /* 0x43 */ u8 backAnimId;
@@ -427,6 +427,7 @@ struct SpeciesInfo /*0x8C*/
  /* 0x7A */ u32 isLegendary:1;
             u32 isMythical:1;
             u32 isUltraBeast:1;
+            u32 isTotem:1;
             u32 isParadoxForm:1;
             u32 isMegaEvolution:1;
             u32 isPrimalReversion:1;
@@ -440,7 +441,7 @@ struct SpeciesInfo /*0x8C*/
             u32 allPerfectIVs:1;
             u32 dexForceRequired:1; // This species will be taken into account for Pokédex ratings even if they have the "isMythical" flag set.
             u32 tmIlliterate:1; // This species will be unable to learn the universal moves.
-            u32 padding4:16;
+            u32 padding4:15;
             // Move Data
  /* 0x80 */ const struct LevelUpMove *levelUpLearnset;
  /* 0x84 */ const u16 *teachableLearnset;
@@ -470,7 +471,8 @@ struct MoveInfo
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 criticalHitStage:2;
     u32 alwaysCriticalHit:1;
-    // 14 bits left to complete this word - continues into flags
+    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
+    // 12 bits left to complete this word - continues into flags
 
     // Flags
     u32 makesContact:1;
@@ -519,7 +521,7 @@ struct MoveInfo
     u32 argument;
 
     // primary/secondary effects
-    uintptr_t additionalEffects;
+    const struct AdditionalEffect *additionalEffects;
 
     // contest parameters
     u8 contestEffect;
@@ -529,12 +531,7 @@ struct MoveInfo
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
-#define ADDITIONAL_EFFECTS(...) ((min(ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ )), 15)) << 28) + (uintptr_t)(EFFECTS_ARR( __VA_ARGS__ ))
-
-// Retrieve a move's additional effects and the count thereof
-#define GET_ADDITIONAL_EFFECTS(move) (void *)(gMovesInfo[move].additionalEffects & 0x8FFFFFF)
-#define GET_ADDITIONAL_EFFECT_COUNT(move) (gMovesInfo[move].additionalEffects >> 28)
-#define GET_ADDITIONAL_EFFECTS_AND_COUNT(move, _count, _effects) u32 _count = GET_ADDITIONAL_EFFECT_COUNT(move); const struct AdditionalEffect *_effects = GET_ADDITIONAL_EFFECTS(move)
+#define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
 
 // Just a hack to make a move boosted by Sheer Force despite having no secondary effects affected
 #define SHEER_FORCE_HACK { .moveEffect = 0, .chance = 100, }
