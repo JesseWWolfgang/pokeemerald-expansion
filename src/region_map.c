@@ -284,6 +284,7 @@ static const u8 sMapSecIdsOffMap[] =
     MAPSEC_UNOVA_ROUTE_17,
     MAPSEC_P2_LABORATORY,
     MAPSEC_LUNAR_SUMMIT,
+    MAPSEC_EARTH,
 };
 
 static const u16 sRegionMapFramePal[] = INCBIN_U16("graphics/pokenav/region_map/frame.gbapal");

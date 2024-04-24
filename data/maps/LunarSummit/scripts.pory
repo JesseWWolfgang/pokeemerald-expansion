@@ -151,7 +151,7 @@ script LunarSummit_PrepareTakeOff {
 
     delay(30)
     call(LunarSummit_RocketTakeOff)
-    warpwhitefade(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
+    warpwhitefade(MAP_ROCKET_LANDING_LOCATION, 0)
 	waitstate
     special(RemoveCameraObject)
 }
@@ -243,7 +243,7 @@ movement LunarSummit_TakeOffRocketMovement {
     walk_slow_up * 5
     walk_up * 8
     walk_fast_up * 16
-    walk_faster_up * 22
+    walk_faster_up * 28
 }
 
 movement LunarSummit_TakeOffCameraMovement {

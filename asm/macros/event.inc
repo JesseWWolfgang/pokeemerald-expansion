@@ -2402,3 +2402,9 @@
 		setobjectxyperm \localId, \x, \y
 		addobject \localId
 	.endm
+
+	@ Prints a slow ominous message.
+	.macro messageslowprint text:req
+		callnative ScrNative_messageslowprint
+		.4byte \text
+	.endm

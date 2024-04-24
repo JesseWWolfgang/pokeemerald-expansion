@@ -475,6 +475,8 @@ u32 GetPlayerTextSpeed(void)
 {
     if (gTextFlags.forceMidTextSpeed)
         return OPTIONS_TEXT_SPEED_MID;
+    else if (gTextFlags.forceSlowTextSpeed)
+        return OPTIONS_TEXT_SPEED_SLOW;
     return gSaveBlock2Ptr->optionsTextSpeed;
 }
 

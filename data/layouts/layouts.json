@@ -4540,6 +4540,16 @@
       "secondary_tileset": "gTileset_Mossdeep",
       "border_filepath": "data/layouts/MossdeepCity_SpaceCenter_Pad/border.bin",
       "blockdata_filepath": "data/layouts/MossdeepCity_SpaceCenter_Pad/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROCKET_LANDING_LOCATION",
+      "name": "RocketLandingLocation_Layout",
+      "width": 40,
+      "height": 80,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Mauville",
+      "border_filepath": "data/layouts/RocketLandingLocation/border.bin",
+      "blockdata_filepath": "data/layouts/RocketLandingLocation/map.bin"
     }
   ]
 }

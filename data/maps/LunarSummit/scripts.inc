@@ -139,7 +139,7 @@ LunarSummit_PrepareTakeOff::
 	closemessage
 	delay 30
 	call LunarSummit_RocketTakeOff
-	warpwhitefade MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	warpwhitefade MAP_ROCKET_LANDING_LOCATION, 0
 	waitstate
 	special RemoveCameraObject
 	return
@@ -272,6 +272,12 @@ LunarSummit_TakeOffRocketMovement:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
+	walk_faster_up
 	walk_faster_up
 	walk_faster_up
 	walk_faster_up
@@ -632,20 +638,19 @@ LunarSummit_Comet_Scientist2WalkToSideline:
 LunarSummit_Jirachi::
 	lock
 	goto_if_unset FLAG_JIRACHI_WISH_GRANTED, LunarSummit_Jirachi_2
+	call LunarSummit_JirachiBattle
 LunarSummit_Jirachi_1:
-	compare VAR_RESULT, 0
-	goto_if_ne LunarSummit_Jirachi_5
-LunarSummit_Jirachi_4:
 	release
 	end
 
 LunarSummit_Jirachi_2:
 	call LunarSummit_JirachiGrantWish
+	goto_if_set FLAG_JIRACHI_WISH_GRANTED, LunarSummit_Jirachi_5
 	goto LunarSummit_Jirachi_1
 
 LunarSummit_Jirachi_5:
 	call LunarSummit_JirachiBattle
-	goto LunarSummit_Jirachi_4
+	goto LunarSummit_Jirachi_1
 
 
 LunarSummit_JirachiBattle::
@@ -817,7 +822,10 @@ LunarSummit_JirachiApplyWishEffect_13:
 	goto_if_eq LunarSummit_JirachiApplyWishEffect_17
 LunarSummit_JirachiApplyWishEffect_16:
 	compare VAR_TEMP_8, 6
-	goto_if_eq LunarSummit_JirachiApplyWishEffect_19
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_20
+LunarSummit_JirachiApplyWishEffect_19:
+	compare VAR_TEMP_8, 8
+	goto_if_eq LunarSummit_JirachiApplyWishEffect_22
 	return
 
 LunarSummit_JirachiApplyWishEffect_2:
@@ -829,11 +837,11 @@ LunarSummit_JirachiApplyWishEffect_2:
 	goto LunarSummit_JirachiApplyWishEffect_1
 
 LunarSummit_JirachiApplyWishEffect_5:
-	giveitem ITEM_MASTER_BALL, 50
+	giveitem ITEM_MASTER_BALL, 100
 	goto LunarSummit_JirachiApplyWishEffect_4
 
 LunarSummit_JirachiApplyWishEffect_8:
-	giveitem ITEM_MAX_REPEL, 99
+	giveitem ITEM_MAX_REPEL, 100
 	goto LunarSummit_JirachiApplyWishEffect_7
 
 LunarSummit_JirachiApplyWishEffect_11:
@@ -871,13 +879,17 @@ LunarSummit_JirachiApplyWishEffect_17:
 	showpartymonfieldmove VAR_0x8000
 	goto LunarSummit_JirachiApplyWishEffect_16
 
-LunarSummit_JirachiApplyWishEffect_19:
+LunarSummit_JirachiApplyWishEffect_20:
 	setmondataforpartymon VAR_0x8000, M_MON_DATA_IS_SHINY, TRUE
 	playse SE_SHINY
 	fadescreenspeed FADE_TO_WHITE, 1
 	fadescreenspeed FADE_FROM_WHITE, 1
 	waitse
 	showpartymonfieldmove VAR_0x8000
+	goto LunarSummit_JirachiApplyWishEffect_19
+
+LunarSummit_JirachiApplyWishEffect_22:
+	setflag FLAG_JIRACHI_WISH_PERFECT_BIDOOF
 	return
 
 

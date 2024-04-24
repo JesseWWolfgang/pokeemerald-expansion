@@ -5542,7 +5542,7 @@ u16 GetBattleBGMForMon(u32 species)
     {    
 
     case SPECIES_BIDOOF_PERFECT:
-        return MUS_RG_VS_MEWTWO;
+        return MUS_RG_VS_CHAMPION;
 
     // Gen 1
     case SPECIES_ARTICUNO:

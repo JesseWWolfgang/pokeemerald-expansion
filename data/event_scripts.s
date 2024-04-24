@@ -1099,3 +1099,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/LunarSummit_Cave_B1F/scripts.inc"
 
 	.include "data/maps/MossdeepCity_SpaceCenter_Pad/scripts.inc"
+
+	.include "data/maps/RocketLandingLocation/scripts.inc"

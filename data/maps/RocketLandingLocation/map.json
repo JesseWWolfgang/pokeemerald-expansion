@@ -1,0 +1,274 @@
+{
+  "id": "MAP_ROCKET_LANDING_LOCATION",
+  "name": "RocketLandingLocation",
+  "layout": "LAYOUT_ROCKET_LANDING_LOCATION",
+  "music": "MUS_B_PYRAMID_TOP",
+  "region_map_section": "MAPSEC_EARTH",
+  "requires_flash": false,
+  "weather": "WEATHER_SANDSTORM",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_POKEMON_399_PERFECT",
+      "x": 21,
+      "y": 57,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "RocketLandingLocation_Perfect_Bidoof",
+      "flag": "FLAG_HIDE_SPECIAL_POKEMON_ON_MAP"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCKET",
+      "x": 17,
+      "y": 57,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "RocketLandingLocation_GoHome",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 17,
+      "y": 58,
+      "elevation": 0,
+      "dest_map": "MAP_ROCKET_LANDING_LOCATION",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 54,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_South"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 54,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_South"
+    },
+    {
+      "type": "trigger",
+      "x": 33,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_South"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 53,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_West"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 54,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_West"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 55,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_West"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 56,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_West"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 61,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_West"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 20,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 24,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 23,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 25,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 27,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 28,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 29,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 76,
+      "elevation": 0,
+      "var": "VAR_TEMP_0",
+      "var_value": "0",
+      "script": "RocketLandingLocation_GoBack_North"
+    }
+  ],
+  "bg_events": [
+
+  ]
+}
