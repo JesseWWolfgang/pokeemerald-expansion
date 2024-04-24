@@ -1309,6 +1309,7 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_POKEMON_903 (OBJ_EVENT_PAL_TAG_POKEMON_START  + 903)
 #define OBJ_EVENT_PAL_TAG_POKEMON_904 (OBJ_EVENT_PAL_TAG_POKEMON_START  + 904)
 #define OBJ_EVENT_PAL_TAG_POKEMON_648_B (OBJ_EVENT_PAL_TAG_POKEMON_START  + 905)
+#define OBJ_EVENT_PAL_TAG_POKEMON_399_PERFECT (OBJ_EVENT_PAL_TAG_POKEMON_START  + 906)
 
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -2203,6 +2204,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
 	// {gObjectEventPalette_Pokemon_Species_903, OBJ_EVENT_PAL_TAG_POKEMON_903},
 	// {gObjectEventPalette_Pokemon_Species_904, OBJ_EVENT_PAL_TAG_POKEMON_904},
     // {gObjectEventPalette_Pokemon_Species_648_B, OBJ_EVENT_PAL_TAG_POKEMON_648_B},
+    {gObjectEventPalette_Pokemon_Species_399_Perfect, OBJ_EVENT_PAL_TAG_POKEMON_399_PERFECT},
 	#ifdef BUGFIX
     {NULL,                                    OBJ_EVENT_PAL_TAG_NONE},
 #else
