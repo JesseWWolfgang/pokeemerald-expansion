@@ -100,6 +100,8 @@ static void SpriteCB_GlacialLance_Step2(struct Sprite* sprite);
 static void SpriteCB_GlacialLance(struct Sprite* sprite);
 static void SpriteCB_TripleArrowKick(struct Sprite* sprite);
 
+static void SpriteCB_AnimLinearTranslateBasic(struct Sprite *sprite);
+
 // const data
 // general
 static const union AffineAnimCmd sSquishTargetAffineAnimCmds[] =
@@ -7185,6 +7187,18 @@ const struct SpriteTemplate gBitterBladeImpactTemplate =
     .callback = AnimClawSlash
 };
 
+
+const struct SpriteTemplate gCompassionTearDropTemplate =
+{
+    .tileTag = ANIM_TAG_POISON_BUBBLE,
+    .paletteTag = ANIM_TAG_SMALL_BUBBLES,
+    .oam = &gOamData_AffineDouble_ObjNormal_16x16,
+    .anims = gAnims_AcidPoisonDroplet,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_AnimLinearTranslateBasic
+};
+
 // functions
 //general
 void AnimTask_IsTargetPartner(u8 taskId)
@@ -9160,4 +9174,40 @@ void AnimTask_StickySyrup(u8 taskId)
 {
     gBattleAnimArgs[0] = gAnimDisableStructPtr->syrupBombIsShiny;
     DestroyAnimVisualTask(taskId);
+}
+
+
+// Named Sprite data fields storing linear translation info.
+#define SpriteAnimLinearTranslateDuration       data[0]
+#define SpriteAnimLinearTranslateInitialXOffset data[1]
+#define SpriteAnimLinearTranslateInitialYOffset data[3]
+#define SpriteAnimLinearTranslateTargetXOffset  data[2]
+#define SpriteAnimLinearTranslateTargetYOffset  data[4]
+
+// Basic ass linear translation -_-
+// arg 0: initial x pixel offset
+// arg 1: initial y pixel offset
+// arg 2: target x pixel offset
+// arg 3: target y pixel offset
+// arg 4: duration
+// arg 5: anim battler
+// arg 6: flip when battler on opponent side
+static void SpriteCB_AnimLinearTranslateBasic(struct Sprite *sprite)
+{
+    s16 animBattler = gBattleAnimArgs[5];
+    u8 battler = GetAnimBattlerId(animBattler);
+
+    // Flip if the flip arg is true and the specified battler is on the opponent side.
+    s16 flip = (gBattleAnimArgs[6] && GetBattlerSide(battler) == B_SIDE_OPPONENT) ? -1 : 1;
+
+    InitSpritePosToAnimBattler(animBattler, sprite, TRUE);
+    sprite->SpriteAnimLinearTranslateInitialXOffset = sprite->x + (gBattleAnimArgs[0] * flip);
+    sprite->SpriteAnimLinearTranslateInitialYOffset = sprite->y + gBattleAnimArgs[1];
+    sprite->SpriteAnimLinearTranslateTargetXOffset = sprite->x + (gBattleAnimArgs[2] * flip);
+    sprite->SpriteAnimLinearTranslateTargetYOffset = sprite->y + gBattleAnimArgs[3];
+    sprite->SpriteAnimLinearTranslateDuration = gBattleAnimArgs[4];
+    InitAnimLinearTranslation(sprite);
+    sprite->callback = AnimTranslateLinear_WithFollowup;
+    sprite->callback(sprite);
+    StoreSpriteCallbackInData6(sprite, DestroyAnimSprite);
 }

@@ -3268,3 +3268,6 @@ $(OBJEVENTGFXDIR)/pokemon/species/649.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/species/648_B.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
+$(OBJEVENTGFXDIR)/pokemon/species/399_Perfect.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+

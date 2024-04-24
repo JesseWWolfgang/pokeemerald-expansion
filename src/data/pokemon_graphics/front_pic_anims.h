@@ -5375,6 +5375,18 @@ static const union AnimCmd sAnim_Bidoof_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_BidoofPerfect_1[] =
+{
+    ANIMCMD_FRAME(0, 5),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 5),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Bibarel_1[] =
 {
     ANIMCMD_FRAME(0, 10),
@@ -11405,6 +11417,7 @@ SINGLE_ANIMATION(Staraptor);
 #endif //P_FAMILY_STARLY
 #if P_FAMILY_BIDOOF
 SINGLE_ANIMATION(Bidoof);
+SINGLE_ANIMATION(BidoofPerfect);
 SINGLE_ANIMATION(Bibarel);
 #endif //P_FAMILY_BIDOOF
 #if P_FAMILY_KRICKETOT

@@ -1375,7 +1375,10 @@
 #define SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL           1287
 #define SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL           1288
 
-#define GEN9_START                                      SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL
+
+
+
+#define GEN9_START                                      SPECIES_BIDOOF_PERFECT
 
 #define SPECIES_SPRIGATITO                              1289
 #define SPECIES_FLORAGATO                               1290
@@ -1629,7 +1632,9 @@
 #define SPECIES_URSHIFU_RAPID_STRIKE_STYLE_GIGANTAMAX   1522
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    1523
 
-#define SPECIES_EGG SPECIES_MIMIKYU_TOTEM_BUSTED + 1
+#define SPECIES_BIDOOF_PERFECT                          SPECIES_MIMIKYU_TOTEM_BUSTED + 1
+
+#define SPECIES_EGG SPECIES_BIDOOF_PERFECT + 1
 
 #define NUM_SPECIES SPECIES_EGG
 

@@ -1201,6 +1201,13 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
              || (!HasDamagingMove(battlerAtk)))
                 ADJUST_SCORE(-10);
             break;
+        case EFFECT_ATTACK_DEFENSE_SPEED_UP:
+            if ((!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_ATK) 
+                && !BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_DEF) 
+                && !BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_SPEED))
+             || (!HasDamagingMove(battlerAtk)))
+                ADJUST_SCORE(-10);
+            break;
         case EFFECT_ROTOTILLER:
             if (isDoubleBattle)
             {
@@ -3339,6 +3346,11 @@ static u32 AI_CalcMoveScore(u32 battlerAtk, u32 battlerDef, u32 move)
         IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ATK, &score);
         IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPATK, &score);
         break;
+    case EFFECT_ATTACK_DEFENSE_SPEED_UP:
+        IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ATK, &score);
+        IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_DEF, &score);
+        IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPEED, &score);
+        break;
     case EFFECT_HAZE:
         if (AnyStatIsRaised(BATTLE_PARTNER(battlerAtk))
           || PartnerHasSameMoveEffectWithoutTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove))
@@ -4707,6 +4719,7 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
     case EFFECT_GROWTH:
     case EFFECT_QUIVER_DANCE:
     case EFFECT_ATTACK_SPATK_UP:
+    case EFFECT_ATTACK_DEFENSE_SPEED_UP:
     case EFFECT_ATTACK_ACCURACY_UP:
     case EFFECT_PSYCHIC_TERRAIN:
     case EFFECT_GRASSY_TERRAIN:

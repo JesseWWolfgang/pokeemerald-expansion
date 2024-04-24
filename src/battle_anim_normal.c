@@ -822,16 +822,31 @@ void AnimTask_InvertScreenColor(u8 taskId)
 {
     u32 selectedPalettes = 0;
 
-    if (gBattleAnimArgs[0] & 0x1)
+    if (gBattleAnimArgs[0] & INVERT_BG)
         selectedPalettes = GetBattlePalettesMask(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
-    if (gBattleAnimArgs[0] & 0x2)
+    if (gBattleAnimArgs[0] & INVERT_ATTACKER)
         selectedPalettes |= (0x10000 << gBattleAnimAttacker);
-    if (gBattleAnimArgs[0] & 0x4)
+    if (gBattleAnimArgs[0] & INVERT_TARGET)
         selectedPalettes |= (0x10000 << gBattleAnimTarget);
-    if (gBattleAnimArgs[0] & 0x8 && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimTarget)))
+    if (gBattleAnimArgs[0] & INVERT_TARGET_PARTNER && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimTarget)))
         selectedPalettes |= (0x10000 << BATTLE_PARTNER(gBattleAnimTarget));
-	if (gBattleAnimArgs[0] & 0x10 && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimAttacker)))
+	if (gBattleAnimArgs[0] & INVERT_ATTACKER_PARTNER && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimAttacker)))
         selectedPalettes |= (0x10000 << BATTLE_PARTNER(gBattleAnimAttacker));
+    
+    // Invert palette of the animations
+    if (gBattleAnimArgs[0] & INVERT_ANIMS)
+        selectedPalettes |= GetBattlePalettesMask(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE);
+
+    // Invert palette of all mons on the field except for the attacker.
+    if (gBattleAnimArgs[0] & INVERT_NON_ATTACKER_MONS)
+    {
+        u32 nonAttackerMask = GetBattleMonSpritePalettesMask(TRUE, TRUE, TRUE, TRUE) & ~(0x10000 << gBattleAnimAttacker);
+        selectedPalettes |= nonAttackerMask;
+    }
+
+    // Swap EVERY palette including the UI.
+    if (gBattleAnimArgs[0] & INVERT_ALL)
+        selectedPalettes = UINT32_MAX;
 
     InvertPlttBuffer(selectedPalettes);
     DestroyAnimVisualTask(taskId);

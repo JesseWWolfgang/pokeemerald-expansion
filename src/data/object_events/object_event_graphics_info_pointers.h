@@ -1086,6 +1086,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Spe
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_903;
 // extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_904;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_648_B;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Pokemon_Species_399_Perfect;
 
 
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Bard;
@@ -2188,6 +2189,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     // [OBJ_EVENT_GFX_POKEMON_903] = 	&gObjectEventGraphicsInfo_Pokemon_Species_903,
     // [OBJ_EVENT_GFX_POKEMON_904] = 	&gObjectEventGraphicsInfo_Pokemon_Species_904,
     [OBJ_EVENT_GFX_POKEMON_648_B] = 	&gObjectEventGraphicsInfo_Pokemon_Species_648_B,
+    [OBJ_EVENT_GFX_POKEMON_399_PERFECT] = 	&gObjectEventGraphicsInfo_Pokemon_Species_399_Perfect,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

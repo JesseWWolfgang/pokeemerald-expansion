@@ -419,6 +419,16 @@
 #define ANIM_OPPONENT_RIGHT   (MAX_BATTLERS_COUNT + 3)
 #define ANIM_ATTACKER_FORCE   (MAX_BATTLERS_COUNT + 4)
 
+// Flags for inverting specific palettes.
+#define INVERT_BG                       0x1
+#define INVERT_ATTACKER                 0x2
+#define INVERT_TARGET                   0x4
+#define INVERT_TARGET_PARTNER           0x8
+#define INVERT_ATTACKER_PARTNER         0x10
+#define INVERT_ANIMS                    0x20
+#define INVERT_NON_ATTACKER_MONS        0x40
+#define INVERT_ALL                      0x80
+
 // stereo panning constants [0-255]
 //
 //          0

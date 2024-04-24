@@ -875,6 +875,8 @@ gBattleAnims_Moves::
 	.4byte Move_PSYCHIC_NOISE
 	.4byte Move_UPPER_HAND
 	.4byte Move_MALIGNANT_CHAIN
+	.4byte Move_THIRST_FOR_VENGEANCE
+	.4byte Move_COMPASSION
 @@@@ Z MOVES
 	.4byte Move_BREAKNECK_BLITZ
 	.4byte Move_ALL_OUT_PUMMELING
@@ -34500,3 +34502,245 @@ General_DynamaxGrowth:: @ PORTED FROM CFRU
 	createvisualtask AnimTask_DynamaxGrowth, 0x5, 0x1, 0x0
 	waitforvisualfinish
 	end
+
+
+Move_THIRST_FOR_VENGEANCE:
+	loadspritegfx ANIM_TAG_EXPLOSION
+	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
+	loadspritegfx ANIM_TAG_PINK_PETAL
+	loadspritegfx ANIM_TAG_ELECTRICITY
+	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+	@ monbg ANIM_TARGET
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 0, 16, RGB_WHITE
+	waitforvisualfinish
+	delay 10
+
+	@ createvisualtask AnimTask_SetAnimTargetToBattlerTarget, 2
+	createvisualtask AnimTask_DoomDesireLightBeam, 5
+
+	delay 9
+	playsewithpan SE_M_CONFUSE_RAY, SOUND_PAN_ATTACKER
+	delay 9
+	playsewithpan SE_M_CONFUSE_RAY, 0
+	delay 9
+	playsewithpan SE_M_CONFUSE_RAY, SOUND_PAN_TARGET
+	delay 25
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 4, 28
+	delay 4
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_ALL
+	delay 1
+
+	playsewithpan SE_INTRO_BLAST, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_TARGET, 10, 0, 16, 1
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 0, 0, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 24, -24, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -16, 16, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -24, -12, 1, 1
+	delay 6
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 16, 16, 1, 1
+
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_TARGET, 15, 5, 16, 1
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 0, 0, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 24, -24, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -16, 16, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -24, -12, 1, 1
+	delay 6
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 16, 16, 1, 1
+
+	createsprite gGrowingChargeOrbSpriteTemplate, ANIM_TARGET, 2, ANIM_TARGET
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_TARGET, 20, 10, 16, 1
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 0, 0, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 24, -24, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -16, 16, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -24, -12, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 16, 16, 1, 1
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 0, 0, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 24, -24, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -16, 16, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, -24, -12, 1, 1
+	delay 3
+	playsewithpan SE_M_EXPLOSION, SOUND_PAN_TARGET
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 16, 16, 1, 1
+	waitforvisualfinish
+
+	playsewithpan SE_M_LEER, SOUND_PAN_TARGET
+	createsprite gFleurCannonDischargeTemplate, ANIM_ATTACKER, 2, 0x1, 0x10, 0x10
+	delay 0x2
+	createsprite gFleurCannonDischargeTemplate, ANIM_ATTACKER, 2, 0x1, 0xfff0, 0xfff0
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_ALL
+
+	delay 1
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 3, 16, 0, RGB_WHITE
+	waitforvisualfinish
+	@ clearmonbg ANIM_TARGET
+	end
+
+
+Move_COMPASSION:
+	loadspritegfx ANIM_TAG_RAINBOW_RINGS
+	loadspritegfx ANIM_TAG_PINK_HEART
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	loadspritegfx ANIM_TAG_SMALL_BUBBLES
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_SMALL_BUBBLES, 0, 15, 15, RGB(0, 0, 255)  @Blue tear
+
+	@ ensures the target is the opposite side of this mon since this is a status move.
+	createvisualtask AnimTask_SetAnimTargetToAttackerOpposite, 2
+
+	monbg ANIM_ATTACKER
+	playsewithpan SE_M_MORNING_SUN, 0
+	fadetobg BG_MISTY_TERRAIN
+	waitbgfadein
+	delay 40
+
+	@ Teardrop
+	createsprite gCompassionTearDropTemplate, ANIM_ATTACKER, 2, 9, -16, 9, 20, 64, ANIM_ATTACKER, TRUE
+	playsewithpan SE_M_METRONOME, SOUND_PAN_ATTACKER
+	delay 60
+
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_BRICK_BREAK, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATK_PARTNER, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATK_PARTNER, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_TARGET, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_DEF_PARTNER, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_DEF_PARTNER, 1
+	delay 120
+
+	createvisualtask AnimTask_InvertScreenColor, 2, INVERT_NON_ATTACKER_MONS
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 5, 0, 15, 1
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, -6, -6, 15, ANIM_ATTACKER, 1
+
+	@ Need to use createspriteontargets since the heart sprite template doesnt autoset its pos to the anim mon.
+	createspriteontargets gPinkHeartSpriteTemplate, ANIM_ATTACKER, 3, ANIM_ATTACKER, 0x1a0, 0xffda
+
+	playsewithpan SE_M_HYPER_BEAM, 0
+
+	restorebg
+	waitbgfadein
+	clearmonbg ANIM_ATTACKER
+	end
+
+@ Move_FLEUR_CANNON::
+@ 	loadspritegfx ANIM_TAG_ORBS @beam particles
+@ 	loadspritegfx ANIM_TAG_ELECTRICITY @discharge
+@ 	loadspritegfx ANIM_TAG_PINK_PETAL @pink color
+@ 	loadspritegfx ANIM_TAG_PINK_HEART @pink color
+@ 	setalpha 12, 8
+@ 	monbg ANIM_TARGET
+@ 	createvisualtask AnimTask_BlendBattleAnimPal, 0xa, F_PAL_BG, 0x1, 0x0, 0xF, 0x7440
+@ 	waitforvisualfinish
+@ 	panse SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 0x2, 0x0
+@ 	createvisualtask AnimTask_ShakeMon, 2, ANIM_ATTACKER, 0, 4, 50, 1
+@ 	createvisualtask AnimTask_FlashAnimTagWithColor, 2, ANIM_TAG_ORBS, 1, 12, RGB_RED, 16, 0, 0
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 4, 0, 50, 1
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	call FleurCannonBeam
+@ 	delay 0x20
+@ 	createsprite gFleurCannonDischargeTemplate, ANIM_ATTACKER, 2, 0x1, 0x10, 0x10
+@ 	delay 0x2
+@ 	createsprite gFleurCannonDischargeTemplate, ANIM_ATTACKER, 2, 0x1, 0xfff0, 0xfff0
+@ 	delay 0x5
+@ 	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 0, 5, 11, 1
+@ 	waitforvisualfinish
+@ 	createvisualtask AnimTask_BlendBattleAnimPal, 0xa, F_PAL_BG, 0x1, 0x10, 0x0, 0x7440
+@ 	waitforvisualfinish
+@ 	clearmonbg ANIM_TARGET
+@ 	blendoff
+@ 	end
+@ FleurCannonBeam:
+@ 	createsprite gFleurCannonOrbTemplate, ANIM_TARGET, 2
+@ 	createsprite gFleurCannonOrbTemplate, ANIM_TARGET, 2
+@ 	delay 0x1
+@ 	createsprite gFleurCannonOrbTemplate, ANIM_TARGET, 2
+@ 	createsprite gFleurCannonOrbTemplate, ANIM_TARGET, 2
+@ 	delay 0x1
+@ 	return
+
+@ Move_CHARGE:
+@ 	loadspritegfx ANIM_TAG_ELECTRIC_ORBS
+@ 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
+@ 	loadspritegfx ANIM_TAG_ELECTRICITY
+@ 	monbg ANIM_ATTACKER
+@ 	setalpha 12, 8
+@ 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 2, 0, 4, RGB_BLACK
+@ 	waitforvisualfinish
+@ 	createvisualtask AnimTask_ElectricChargingParticles, 2, ANIM_ATTACKER, 60, 2, 12
+@ 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+@ 	delay 30
+@ 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+@ 	delay 30
+@ 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+@ 	createsprite gGrowingChargeOrbSpriteTemplate, ANIM_ATTACKER, 2, 0
+@ 	delay 25
+@ 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+@ 	delay 20
+@ 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+@ 	delay 15
+@ 	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+@ 	delay 10
+@ 	delay 6
+@ 	loopsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER, 6, 5
+@ 	waitforvisualfinish
+@ 	createsprite gElectricPuffSpriteTemplate, ANIM_ATTACKER, 2, 0, 16, 16
+@ 	delay 2
+@ 	createsprite gElectricPuffSpriteTemplate, ANIM_ATTACKER, 2, 0, -16, -16
+@ 	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_ATTACKER
+@ 	waitforvisualfinish
+@ 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, F_PAL_BG, 4, 4, 0, RGB_BLACK
+@ 	clearmonbg ANIM_ATTACKER
+@ 	blendoff
+@ 	end
