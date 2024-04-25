@@ -1305,7 +1305,8 @@ bool8 ScrCmd_messageautoscroll(struct ScriptContext *ctx)
     if (msg == NULL)
         msg = (const u8 *)ctx->data[0];
     gTextFlags.autoScroll = TRUE;
-    gTextFlags.forceMidTextSpeed = TRUE;
+    gTextFlags.useForceTextSpeed = TRUE;
+    gTextFlags.forceTextSpeed = OPTIONS_TEXT_SPEED_MID;
     ShowFieldAutoScrollMessage(msg);
     return FALSE;
 }
@@ -2323,7 +2324,7 @@ bool8 ScrCmd_lockfortrainer(struct ScriptContext *ctx)
 }
 
 // This command will set a Pokémon's modernFatefulEncounter bit; there is no similar command to clear it.
-bool8 ScrCmd_setmonmodernfatefulencounter(struct ScriptContext *ctx)
+bool8 ScrCmd_setmodernfatefulencounter(struct ScriptContext *ctx)
 {
     bool8 isModernFatefulEncounter = TRUE;
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
@@ -2332,7 +2333,7 @@ bool8 ScrCmd_setmonmodernfatefulencounter(struct ScriptContext *ctx)
     return FALSE;
 }
 
-bool8 ScrCmd_checkmonmodernfatefulencounter(struct ScriptContext *ctx)
+bool8 ScrCmd_checkmodernfatefulencounter(struct ScriptContext *ctx)
 {
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
 
@@ -2578,6 +2579,19 @@ void ScrNative_Decrement(struct ScriptContext *ctx)
     u16 varValue = VarGet(var);
     if (varValue > 0)
         VarSet(var, varValue - 1);
+}
+
+bool8 ScrNative_MessageVerySlowPrint(struct ScriptContext *ctx)
+{
+    const u8 *msg = (const u8 *)ScriptReadWord(ctx);
+
+    if (msg == NULL)
+        msg = (const u8 *)ctx->data[0];
+    gTextFlags.autoScroll = TRUE;
+    gTextFlags.useForceTextSpeed = TRUE;
+    gTextFlags.forceTextSpeed = OPTIONS_TEXT_SPEED_VERY_SLOW;
+    ShowFieldAutoScrollMessage(msg);
+    return FALSE;
 }
 
 // Enhanced movement

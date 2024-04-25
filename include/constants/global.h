@@ -4,6 +4,7 @@
 #include "config/battle.h"
 #include "config/debug.h"
 #include "config/item.h"
+#include "config/level_caps.h"
 #include "config/pokemon.h"
 #include "config/overworld.h"
 #include "config/decap.h"
@@ -135,9 +136,11 @@
 #define OPTIONS_BUTTON_MODE_LR 1
 #define OPTIONS_BUTTON_MODE_L_EQUALS_A 2
 
-#define OPTIONS_TEXT_SPEED_SLOW 0
-#define OPTIONS_TEXT_SPEED_MID 1
-#define OPTIONS_TEXT_SPEED_FAST 2
+#define OPTIONS_TEXT_SPEED_SLOW         0
+#define OPTIONS_TEXT_SPEED_MID          1
+#define OPTIONS_TEXT_SPEED_FAST         2
+#define OPTIONS_TEXT_SPEED_VERY_SLOW    3
+#define OPTIONS_TEXT_SPEED_COUNT        OPTIONS_TEXT_SPEED_VERY_SLOW
 
 #define OPTIONS_SOUND_MONO 0
 #define OPTIONS_SOUND_STEREO 1
@@ -154,6 +157,11 @@
 #define DIR_SOUTHEAST   6
 #define DIR_NORTHWEST   7
 #define DIR_NORTHEAST   8
+#define CARDINAL_DIRECTION_COUNT DIR_SOUTHWEST
+
+#define AXIS_X     0
+#define AXIS_Y     1
+#define AXIS_COUNT 2
 
 #define CONNECTION_INVALID -1
 #define CONNECTION_NONE     0

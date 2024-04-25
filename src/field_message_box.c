@@ -17,7 +17,8 @@ void InitFieldMessageBox(void)
     gTextFlags.canABSpeedUpPrint = FALSE;
     gTextFlags.useAlternateDownArrow = FALSE;
     gTextFlags.autoScroll = FALSE;
-    gTextFlags.forceMidTextSpeed = FALSE;
+    gTextFlags.useForceTextSpeed = FALSE;
+    gTextFlags.forceTextSpeed = OPTIONS_TEXT_SPEED_MID;
 }
 
 #define tState data[0]
@@ -41,7 +42,8 @@ static void Task_DrawFieldMessage(u8 taskId)
             {
                 // Bugfix, prevent messageautoscroll from persisting after its use.
                 gTextFlags.autoScroll = FALSE;
-                gTextFlags.forceMidTextSpeed = FALSE;
+                gTextFlags.useForceTextSpeed = FALSE;
+                gTextFlags.forceTextSpeed = OPTIONS_TEXT_SPEED_MID;
 
                 sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
                 DestroyTask(taskId);
