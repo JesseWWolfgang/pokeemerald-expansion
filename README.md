@@ -33,6 +33,7 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 | FLAG_ANY_MOVE_TEACHABLE               | Flag that can be set to allow all Pokemon to learn any move via tutor, TM, etc.
 | Disable Boxmon Decryption and Substruct Randomisation | P_BOX_MON_ENCRYPTION and P_BOX_MON_SUBSTRUCT_RANDOMIZATION config options disable these respectively. FALSE by default.
 | VAR_TEMP_LOADED                       | Var that can be used as the condition for executing on-load script events using MAP_SCRIPT_ON_FRAME_TABLE.
+| `messageveryslowprint`                | Script for printing a message very slowly and ominously. Works the same way as `messageautoscroll`.
 
 ## Changes
 
