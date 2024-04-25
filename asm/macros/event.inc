@@ -2320,6 +2320,12 @@
 		.2byte \var
 	.endm
 	
+	@ Ominously prints a very slow message. Works the same way as messageautoscroll.
+	.macro messageveryslowprint text:req
+	callnative ScrNative_MessageVerySlowPrint
+	.4byte \text
+	.endm
+	
 
 	@ Enhanced Movement
 
@@ -2401,10 +2407,4 @@
 		removeobject \localId
 		setobjectxyperm \localId, \x, \y
 		addobject \localId
-	.endm
-
-	@ Prints a slow ominous message.
-	.macro messageslowprint text:req
-		callnative ScrNative_messageslowprint
-		.4byte \text
 	.endm

@@ -175,5 +175,7 @@
 	create_movement_action face_object, MOVEMENT_ACTION_FACE_OBJECT
 	create_movement_action face_away_object, MOVEMENT_ACTION_FACE_AWAY_OBJECT
 	create_movement_action walk_in_place, MOVEMENT_ACTION_WALK_IN_PLACE
+	create_movement_action walk_forward, MOVEMENT_ACTION_WALK_FORWARD
+	create_movement_action walk_backward, MOVEMENT_ACTION_WALK_BACKWARD
 
 	create_movement_action step_end, MOVEMENT_ACTION_STEP_END

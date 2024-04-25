@@ -123,3 +123,11 @@ Common_Movement_FaceAwayObject:
 Common_Movement_WalkInPlace:
 	walk_in_place
 	step_end
+
+Common_Movement_WalkForward:
+	walk_forward
+	step_end
+
+Common_Movement_WalkBackward:
+	walk_backward
+	step_end

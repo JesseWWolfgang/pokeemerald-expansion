@@ -77,7 +77,8 @@ static const u8 sTextSpeedFrameDelays[] =
 {
     [OPTIONS_TEXT_SPEED_SLOW] = 8,
     [OPTIONS_TEXT_SPEED_MID]  = 4,
-    [OPTIONS_TEXT_SPEED_FAST] = 1
+    [OPTIONS_TEXT_SPEED_FAST] = 1,
+    [OPTIONS_TEXT_SPEED_VERY_SLOW] = 16,
 };
 
 static const struct WindowTemplate sStandardTextBox_WindowTemplates[] =
@@ -473,17 +474,15 @@ void DisplayYesNoMenuWithDefault(u8 initialCursorPos)
 
 u32 GetPlayerTextSpeed(void)
 {
-    if (gTextFlags.forceMidTextSpeed)
-        return OPTIONS_TEXT_SPEED_MID;
-    else if (gTextFlags.forceSlowTextSpeed)
-        return OPTIONS_TEXT_SPEED_SLOW;
+    if (gTextFlags.useForceTextSpeed)
+        return gTextFlags.forceTextSpeed;
     return gSaveBlock2Ptr->optionsTextSpeed;
 }
 
 u8 GetPlayerTextSpeedDelay(void)
 {
     u32 speed;
-    if (gSaveBlock2Ptr->optionsTextSpeed > OPTIONS_TEXT_SPEED_FAST)
+    if (gSaveBlock2Ptr->optionsTextSpeed > OPTIONS_TEXT_SPEED_COUNT)
         gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
     speed = GetPlayerTextSpeed();
     return sTextSpeedFrameDelays[speed];

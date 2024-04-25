@@ -11129,3 +11129,35 @@ bool8 MovementAction_WalkInPlace_Step0(struct ObjectEvent *objectEvent, struct S
     InitMoveInPlace(objectEvent, sprite, objectEvent->facingDirection, GetMoveDirectionAnimNum(objectEvent->facingDirection), 16);
     return MovementAction_WalkInPlace_Step1(objectEvent, sprite);
 }
+
+bool8 MovementAction_WalkForward_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMovementNormal(objectEvent, sprite, objectEvent->facingDirection, MOVE_SPEED_NORMAL);
+    return MovementAction_WalkForward_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_WalkForward_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (UpdateMovementNormal(objectEvent, sprite))
+    {
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+bool8 MovementAction_WalkBackward_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitMovementNormal(objectEvent, sprite, GetOppositeDirection(objectEvent->facingDirection), MOVE_SPEED_NORMAL);
+    return MovementAction_WalkBackward_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_WalkBackward_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (UpdateMovementNormal(objectEvent, sprite))
+    {
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
