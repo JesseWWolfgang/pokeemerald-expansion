@@ -7,31 +7,11 @@ RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	return
 
 
-RocketLandingLocation_GoBack_South::
+RocketLandingLocation_GoBack::
 	lockall
-	msgbox RocketLandingLocation_GoBack_South_Text_0, MSGBOX_DEFAULT
+	msgbox RocketLandingLocation_GoBack_Text_0, MSGBOX_DEFAULT
 	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown
-	waitmovement 0
-	releaseall
-	return
-
-
-RocketLandingLocation_GoBack_North::
-	lockall
-	msgbox RocketLandingLocation_GoBack_South_Text_0, MSGBOX_DEFAULT
-	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
-	waitmovement 0
-	releaseall
-	return
-
-
-RocketLandingLocation_GoBack_West::
-	lockall
-	msgbox RocketLandingLocation_GoBack_South_Text_0, MSGBOX_DEFAULT
-	closemessage
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkBackward
 	waitmovement 0
 	releaseall
 	return
@@ -51,11 +31,13 @@ RocketLandingLocation_Perfect_Bidoof::
 	special Script_FadeOutMapMusic
 	delay 30
 	msgbox RocketLandingLocation_Perfect_Bidoof_Text_0, MSGBOX_DEFAULT
-	messageslowprint RocketLandingLocation_Perfect_Bidoof_Text_1
+	messageveryslowprint RocketLandingLocation_Perfect_Bidoof_Text_1
 	waitmessage
 	delay 90
 	closemessage
 	delay 40
+	playmoncry SPECIES_BIDOOF, CRY_MODE_ECHO_START
+	delay 10
 	playmoncry SPECIES_BIDOOF, CRY_MODE_ECHO_END
 	delay 60
 	waitmoncry
@@ -95,7 +77,7 @@ RocketLandingLocation_GoHome::
 	return
 
 
-RocketLandingLocation_GoBack_South_Text_0:
+RocketLandingLocation_GoBack_Text_0:
 	.string "Going any further is too dangerous. I\n"
 	.string "must turn back.$"
 

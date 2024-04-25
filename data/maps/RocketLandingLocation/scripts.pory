@@ -1,11 +1,11 @@
 mapscripts RocketLandingLocation_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
-        // if (flag(FLAG_CAUGHT_VICTINI)) {
-        //     setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
-        // }
-        // else {
+        if (flag(FLAG_CAUGHT_PERFECT_BIDOOF)) {
+            setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
+        }
+        else {
             clearflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
-        // }
+        }
     }
 }
 
@@ -14,29 +14,11 @@ const OBJECT_PERFECT_BIDOOF = 1
 const WARP_MOSSDEEP_X = 7
 const WARP_MOSSDEEP_Y = 3
 
-script RocketLandingLocation_GoBack_South {
+script RocketLandingLocation_GoBack {
     lockall
 	msgbox(format("Going any further is too dangerous. I must turn back."), MSGBOX_DEFAULT)
 	closemessage
-	applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkDown)
-	waitmovement(0)
-	releaseall
-}
-
-script RocketLandingLocation_GoBack_North {
-    lockall
-	msgbox(format("Going any further is too dangerous. I must turn back."), MSGBOX_DEFAULT)
-	closemessage
-	applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
-	waitmovement(0)
-	releaseall
-}
-
-script RocketLandingLocation_GoBack_West {
-    lockall
-	msgbox(format("Going any further is too dangerous. I must turn back."), MSGBOX_DEFAULT)
-	closemessage
-	applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkLeft)
+	applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkBackward)
 	waitmovement(0)
 	releaseall
 }
@@ -60,12 +42,14 @@ script RocketLandingLocation_Perfect_Bidoof {
     msgbox(format("At last.\p"
     "We are reunited.\p"
     "I have been searching for you for so long.\p"
-    "Come. Let us become the best..."), MSGBOX_DEFAULT)
-    messageslowprint(format("Like no one ever was..."))
+    "Come. Let us become the very best..."), MSGBOX_DEFAULT)
+    messageveryslowprint(format("Like no one ever was..."))
     waitmessage
     delay(90)
     closemessage
     delay(40)
+    playmoncry(SPECIES_BIDOOF, CRY_MODE_ECHO_START)
+    delay(10)
     playmoncry(SPECIES_BIDOOF, CRY_MODE_ECHO_END)
     delay(60)
     waitmoncry
@@ -78,7 +62,7 @@ script RocketLandingLocation_Perfect_Bidoof {
     specialvar(VAR_RESULT, GetBattleOutcome)
     switch (var(VAR_RESULT)) {
         case B_OUTCOME_CAUGHT:
-            // setflag(FLAG_CAUGHT_VICTINI)
+            setflag(FLAG_CAUGHT_PERFECT_BIDOOF)
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
             call(Common_EventScript_RemoveStaticPokemon)
             special(Overworld_PlaySpecialMapMusic)

@@ -2604,15 +2604,3 @@ void ScrFunc_resetelevation(u16 localId)
 {
     ResetObjectElevation(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
 }
-
-bool8 ScrNative_messageslowprint(struct ScriptContext *ctx)
-{
-    const u8 *msg = (const u8 *)ScriptReadWord(ctx);
-
-    if (msg == NULL)
-        msg = (const u8 *)ctx->data[0];
-    gTextFlags.autoScroll = TRUE;
-    gTextFlags.forceSlowTextSpeed = TRUE;
-    ShowFieldAutoScrollMessage(msg);
-    return FALSE;
-}

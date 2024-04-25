@@ -58,7 +58,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_South"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -67,7 +67,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_South"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -76,7 +76,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_South"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -85,7 +85,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_West"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -94,7 +94,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_West"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -103,7 +103,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_West"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -112,7 +112,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_West"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -121,7 +121,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_West"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -130,7 +130,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -139,7 +139,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -148,7 +148,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -157,7 +157,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -166,7 +166,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -175,7 +175,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -184,7 +184,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -193,7 +193,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -202,7 +202,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -211,7 +211,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -220,7 +220,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -229,7 +229,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -238,7 +238,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -247,7 +247,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -256,7 +256,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     },
     {
       "type": "trigger",
@@ -265,7 +265,7 @@
       "elevation": 0,
       "var": "VAR_TEMP_0",
       "var_value": "0",
-      "script": "RocketLandingLocation_GoBack_North"
+      "script": "RocketLandingLocation_GoBack"
     }
   ],
   "bg_events": [
