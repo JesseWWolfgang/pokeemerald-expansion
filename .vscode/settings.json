@@ -183,7 +183,7 @@
         {
             "expression": "^\\s*#define\\s+(PLAYER_AVATAR_FLAG_\\w+)\\s+(.+)",
             "type": "define",
-            "file": "include/global.fieldmap.h"
+            "file": "include/constants/fieldmap.h"
         },
         {
             "expression": "^\\s*(STR_VAR_\\w+).*",
