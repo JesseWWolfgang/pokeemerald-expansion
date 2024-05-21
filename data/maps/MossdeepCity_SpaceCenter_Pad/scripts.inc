@@ -15,7 +15,10 @@ MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
 	setvar VAR_TEMP_LOADED, TRUE
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	compare VAR_TEMP_0, 19
-	goto_if_eq MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2
+	goto_if_eq MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_6
+MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_4:
+	compare VAR_TEMP_0, 28
+	goto_if_eq MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_3
 	return
 
 MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
@@ -23,9 +26,18 @@ MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
 	return
 
 MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
+	call MossdeepCity_SpaceCenter_Pad_LandingIn
+	return
+
+MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_3:
+	compare VAR_TEMP_1, 0
+	goto_if_eq MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2
+	return
+
+MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_6:
 	compare VAR_TEMP_1, 43
 	goto_if_eq MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
-	return
+	goto MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_4
 
 
 TEST_Warp_to_Castelia::
@@ -451,6 +463,129 @@ MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement:
 	walk_fast_up
 	step_end
 
+MossdeepCity_SpaceCenter_Pad_LandingIn::
+	clearflag FLAG_MAP_MUSIC_OVERRIDE
+	lock
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
+	setobjectxyperm 4, 0, 0
+	setobjectxyperm 3, 0, 0
+	movefromoffscreen 1, 28, 2
+	callnative FillPalBufferWhite
+	playse SE_DOWNPOUR
+	applymovement 1, MossdeepCity_SpaceCenter_Pad_LandingIn_Down
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_Down
+	fadescreenspeed FADE_FROM_WHITE, 18
+	waitmovement 1
+	waitmovement OBJ_EVENT_ID_PLAYER
+	playse SE_DOWNPOUR_STOP
+	applymovement 1, MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow
+	waitmovement 1
+	waitmovement OBJ_EVENT_ID_PLAYER
+	setvar VAR_0x8004, 0
+	setvar VAR_0x8005, 2
+	setvar VAR_0x8006, 3
+	setvar VAR_0x8007, 4
+	special ShakeCamera
+	playse SE_LAVARIDGE_FALL_WARP
+	waitse
+	delay 90
+	playfanfare MUS_EVOLVED
+	messageautoscroll MossdeepCity_SpaceCenter_Pad_LandingIn_Text_0
+	waitmessage
+	waitfanfare
+	delay 40
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_CameraToPlayer
+	waitmovement 0
+	movefromoffscreen 4, 28, 39
+	applymovement 4, MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist1Exit
+	playse SE_TRUCK_DOOR
+	waitse
+	waitmovement 0
+	movefromoffscreen 3, 28, 39
+	applymovement 3, MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist2Exit
+	waitmovement 0
+	showobjectat OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_PlayerExit
+	waitmovement 0
+	playerfaceobject 4
+	delay 20
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_Pad_LandingIn_Text_1, MSGBOX_DEFAULT
+	closemessage
+	special Overworld_PlaySpecialMapMusic
+	release
+	return
+
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Down:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow:
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_CameraToPlayer:
+	walk_down
+	walk_down
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist1Exit:
+	walk_slow_down
+	walk_left
+	face_right
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist2Exit:
+	walk_slow_down
+	walk_right
+	face_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_PlayerExit:
+	walk_slow_down
+	step_end
+
 MossdeepCity_SpaceCenter_Pad_GuideLady_Text_0:
 	.string "Are you not prepared? Would you like to\n"
 	.string "return inside?$"
@@ -542,3 +677,11 @@ MossdeepCity_SpaceCenter_Pad_PrepareTakeOff_Text_1:
 MossdeepCity_SpaceCenter_Pad_RocketTakeOff_Text_0:
 	.string "After a number of long days in space\n"
 	.string "flight...$"
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Text_0:
+	.string "Successfully landed home safely!$"
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Text_1:
+	.string "We've returned in one piece {PLAYER}!\p"
+	.string "The landing party should be here soon\n"
+	.string "to take us back.$"

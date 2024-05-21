@@ -57,8 +57,8 @@ script LunarSummit_Scientist1 {
     lock
     faceplayer
 
-    // call(LunarSummit_PrepareTakeOff)
-    // end
+    call(LunarSummit_PrepareTakeOff)
+    end
 
 
     if (flag(FLAG_WITNESSED_MILLENNIUM_COMET)) {
@@ -151,7 +151,11 @@ script LunarSummit_PrepareTakeOff {
 
     delay(30)
     call(LunarSummit_RocketTakeOff)
-    warpwhitefade(MAP_PERFECT_BIDOOF_DESERT, 0)
+    setflag(FLAG_MAP_MUSIC_OVERRIDE)
+    setvar(VAR_MAP_MUSIC_OVERRIDE, MUS_NONE)
+    preventwarpfadeout
+    preventwarpfadein
+    warpwhitefade(MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 1)
 	waitstate
     special(RemoveCameraObject)
 }

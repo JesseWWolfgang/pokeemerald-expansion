@@ -4,9 +4,15 @@ const OBJECT_SCIENTIST1 = 4
 const OBJECT_SCIENTIST2 = 3
 const OBJECT_GUIDE_LADY = 13
 const OBJECT_ROCKET = 1
+const OBJECT_BOAT = 14
+
+const LANDING_START_X = 28
+const LANDING_START_Y = 2
 
 const WARP_BACK_OF_BUILDING_X = 19
 const WARP_BACK_OF_BUILDING_Y = 43
+const WARP_LANDING_IN_X = 28
+const WARP_LANDING_IN_Y = 0
 const WARP_MOSSDEEP_SPACE_CENTER_X = 7
 const WARP_MOSSDEEP_SPACE_CENTER_Y = 3
 
@@ -22,6 +28,9 @@ mapscripts MossdeepCity_SpaceCenter_Pad_MapScripts {
             getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
             if (var(VAR_TEMP_0) == WARP_BACK_OF_BUILDING_X && var(VAR_TEMP_1) == WARP_BACK_OF_BUILDING_Y) {
                 call(MossdeepCity_SpaceCenter_Pad_GuideLady_Entrance)
+            }
+            elif (var(VAR_TEMP_0) == WARP_LANDING_IN_X && var(VAR_TEMP_1) == WARP_LANDING_IN_Y) {
+                call(MossdeepCity_SpaceCenter_Pad_LandingIn)
             }
         }
     ]
@@ -357,4 +366,125 @@ movement MossdeepCity_SpaceCenter_Pad_TakeOffCameraMovement {
     walk_slow_up * 5
     walk_up * 8
     walk_fast_up * 16
+}
+
+// lands at 28, 39
+script MossdeepCity_SpaceCenter_Pad_LandingIn {
+    clearflag(FLAG_MAP_MUSIC_OVERRIDE)
+
+    lock
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+
+    // Hide these guys
+    setobjectxyperm(OBJECT_SCIENTIST1, 0, 0)
+    setobjectxyperm(OBJECT_SCIENTIST2, 0, 0)
+
+    movefromoffscreen(OBJECT_ROCKET, LANDING_START_X, LANDING_START_Y)
+    callnative(FillPalBufferWhite) // Required to not flash the rocket before fading out since movefromoffscreen/addobject also loads its palette.
+
+    // Fast landing
+    playse(SE_DOWNPOUR)
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_LandingIn_Down)
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_Down)
+    fadescreenspeed(FADE_FROM_WHITE, 18)
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+
+    // Slow landing
+    playse(SE_DOWNPOUR_STOP)
+    applymovement(OBJECT_ROCKET, MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow)
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow)
+    waitmovement(OBJECT_ROCKET)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+
+    // Hit ground
+    setvar(VAR_0x8004, 0)  // vertical pan
+	setvar(VAR_0x8005, 2)  // horizontal pan
+	setvar(VAR_0x8006, 3) // num shakes
+	setvar(VAR_0x8007, 4)  // shake delay
+    special(ShakeCamera)
+    playse(SE_LAVARIDGE_FALL_WARP)
+    waitse
+    delay(90)
+
+    // Success!
+    playfanfare(MUS_EVOLVED)
+    messageautoscroll(format("Successfully landed home safely!"))
+    waitmessage
+    waitfanfare
+    delay(40)
+    closemessage
+
+    // Move camera down to player pos
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_CameraToPlayer)
+    waitmovement(0)
+
+    // Scientists exit
+    movefromoffscreen(OBJECT_SCIENTIST1, 28, 39)
+    applymovement(OBJECT_SCIENTIST1, MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist1Exit)
+    playse(SE_TRUCK_DOOR)
+    waitse
+    waitmovement(0)
+
+    movefromoffscreen(OBJECT_SCIENTIST2, 28, 39)
+    applymovement(OBJECT_SCIENTIST2, MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist2Exit)
+    waitmovement(0)
+
+    // Player exits
+    showobjectat(OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_LandingIn_PlayerExit)
+    waitmovement(0)
+
+    // Talk to scientist 1
+    playerfaceobject(OBJECT_SCIENTIST1)
+    delay(20)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("We've returned in one piece {PLAYER}!\p"
+    "The landing party should be here soon to take us back."), MSGBOX_DEFAULT)
+    closemessage
+
+    special(Overworld_PlaySpecialMapMusic)
+
+    // Set objects to their final positions.
+    // fadescreen(FADE_TO_BLACK)
+    // setobjectxyperm(OBJECT_ROCKET, 65, 58)
+    // setobjectxyperm(OBJECT_SCIENTIST1, 63, 61)
+    // setobjectxyperm(OBJECT_SCIENTIST2, 61, 65)
+    // setobjectxy(OBJECT_SCIENTIST1, 63, 61)
+    // setobjectxy(OBJECT_SCIENTIST2, 61, 65)
+    // turnobject(OBJECT_SCIENTIST1, DIR_SOUTH)
+    // turnobject(OBJECT_SCIENTIST2, DIR_SOUTH)
+    // fadescreen(FADE_FROM_BLACK)
+
+    release
+}
+
+movement MossdeepCity_SpaceCenter_Pad_LandingIn_Down {
+    walk_fast_down * 10
+    walk_down * 20
+}
+
+movement MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow {
+    walk_slow_down * 9
+}
+
+movement MossdeepCity_SpaceCenter_Pad_LandingIn_CameraToPlayer {
+    walk_down * 2
+}
+
+movement MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist1Exit {
+    walk_slow_down
+    walk_left
+    face_right
+}
+
+movement MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist2Exit {
+    walk_slow_down
+    walk_right
+    face_left
+}
+
+movement MossdeepCity_SpaceCenter_Pad_LandingIn_PlayerExit {
+    walk_slow_down
 }

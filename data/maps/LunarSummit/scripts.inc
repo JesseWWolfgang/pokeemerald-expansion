@@ -45,6 +45,8 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
 LunarSummit_Scientist1::
 	lock
 	faceplayer
+	call LunarSummit_PrepareTakeOff
+	end
 	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_Scientist1_2
 	msgbox LunarSummit_Scientist1_Text_3, MSGBOX_DEFAULT
 LunarSummit_Scientist1_1:
@@ -139,7 +141,11 @@ LunarSummit_PrepareTakeOff::
 	closemessage
 	delay 30
 	call LunarSummit_RocketTakeOff
-	warpwhitefade MAP_PERFECT_BIDOOF_DESERT, 0
+	setflag FLAG_MAP_MUSIC_OVERRIDE
+	setvar VAR_MAP_MUSIC_OVERRIDE, MUS_NONE
+	preventwarpfadeout
+	preventwarpfadein
+	warpwhitefade MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 1
 	waitstate
 	special RemoveCameraObject
 	return

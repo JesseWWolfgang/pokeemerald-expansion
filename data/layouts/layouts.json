@@ -4535,7 +4535,7 @@
       "id": "LAYOUT_MOSSDEEP_CITY_SPACE_CENTER_PAD",
       "name": "MossdeepCity_SpaceCenter_Pad_Layout",
       "width": 38,
-      "height": 52,
+      "height": 96,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mossdeep",
       "border_filepath": "data/layouts/MossdeepCity_SpaceCenter_Pad/border.bin",
