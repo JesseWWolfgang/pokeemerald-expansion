@@ -1,3 +1,8 @@
+const OBJECT_PERFECT_BIDOOF = 1
+
+const WARP_MOSSDEEP_X = 7
+const WARP_MOSSDEEP_Y = 3
+
 mapscripts RocketLandingLocation_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         if (flag(FLAG_CAUGHT_PERFECT_BIDOOF)) {
@@ -8,11 +13,6 @@ mapscripts RocketLandingLocation_MapScripts {
         }
     }
 }
-
-const OBJECT_PERFECT_BIDOOF = 1
-
-const WARP_MOSSDEEP_X = 7
-const WARP_MOSSDEEP_Y = 3
 
 script RocketLandingLocation_GoBack {
     lockall

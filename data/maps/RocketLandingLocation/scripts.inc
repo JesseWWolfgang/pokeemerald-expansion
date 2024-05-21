@@ -3,7 +3,12 @@ RocketLandingLocation_MapScripts::
 	.byte 0
 
 RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION:
+	goto_if_set FLAG_CAUGHT_PERFECT_BIDOOF, RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
+	return
+
+RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
+	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
 
 
@@ -59,6 +64,7 @@ RocketLandingLocation_Perfect_Bidoof_1:
 	return
 
 RocketLandingLocation_Perfect_Bidoof_3:
+	setflag FLAG_CAUGHT_PERFECT_BIDOOF
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	call Common_EventScript_RemoveStaticPokemon
 	special Overworld_PlaySpecialMapMusic
@@ -86,7 +92,7 @@ RocketLandingLocation_Perfect_Bidoof_Text_0:
 	.string "We are reunited.\p"
 	.string "I have been searching for you for so\n"
 	.string "long.\p"
-	.string "Come. Let us become the best...$"
+	.string "Come. Let us become the very best...$"
 
 RocketLandingLocation_Perfect_Bidoof_Text_1:
 	.string "Like no one ever was...$"
