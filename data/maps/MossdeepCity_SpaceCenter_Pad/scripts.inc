@@ -549,8 +549,6 @@ MossdeepCity_SpaceCenter_Pad_LandingIn_Down:
 	walk_down
 	walk_down
 	walk_down
-	walk_down
-	walk_down
 	step_end
 
 MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow:

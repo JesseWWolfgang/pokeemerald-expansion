@@ -462,7 +462,7 @@ script MossdeepCity_SpaceCenter_Pad_LandingIn {
 
 movement MossdeepCity_SpaceCenter_Pad_LandingIn_Down {
     walk_fast_down * 10
-    walk_down * 20
+    walk_down * 18
 }
 
 movement MossdeepCity_SpaceCenter_Pad_LandingIn_DownSlow {
