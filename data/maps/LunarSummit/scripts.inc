@@ -139,7 +139,7 @@ LunarSummit_PrepareTakeOff::
 	closemessage
 	delay 30
 	call LunarSummit_RocketTakeOff
-	warpwhitefade MAP_ROCKET_LANDING_LOCATION, 0
+	warpwhitefade MAP_PERFECT_BIDOOF_DESERT, 0
 	waitstate
 	special RemoveCameraObject
 	return

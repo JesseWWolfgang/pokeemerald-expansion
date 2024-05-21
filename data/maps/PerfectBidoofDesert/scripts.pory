@@ -3,7 +3,7 @@ const OBJECT_PERFECT_BIDOOF = 1
 const WARP_MOSSDEEP_X = 7
 const WARP_MOSSDEEP_Y = 3
 
-mapscripts RocketLandingLocation_MapScripts {
+mapscripts PerfectBidoofDesert_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         if (flag(FLAG_CAUGHT_PERFECT_BIDOOF)) {
             setflag(FLAG_HIDE_SPECIAL_POKEMON_ON_MAP)
@@ -14,7 +14,7 @@ mapscripts RocketLandingLocation_MapScripts {
     }
 }
 
-script RocketLandingLocation_GoBack {
+script PerfectBidoofDesert_GoBack {
     lockall
 	msgbox(format("Going any further is too dangerous. I must turn back."), MSGBOX_DEFAULT)
 	closemessage
@@ -23,7 +23,7 @@ script RocketLandingLocation_GoBack {
 	releaseall
 }
 
-script RocketLandingLocation_Perfect_Bidoof {
+script PerfectBidoofDesert_Perfect_Bidoof {
     lock
     faceplayer
     waitse
@@ -81,7 +81,7 @@ script RocketLandingLocation_Perfect_Bidoof {
 	releaseall
 }
 
-script RocketLandingLocation_GoHome {
+script PerfectBidoofDesert_GoHome {
     lock
     warpwhitefade(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_X, WARP_MOSSDEEP_Y)
     waitstate

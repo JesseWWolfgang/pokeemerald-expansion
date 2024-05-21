@@ -4543,13 +4543,13 @@
     },
     {
       "id": "LAYOUT_ROCKET_LANDING_LOCATION",
-      "name": "RocketLandingLocation_Layout",
+      "name": "PerfectBidoofDesert_Layout",
       "width": 40,
       "height": 80,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mauville",
-      "border_filepath": "data/layouts/RocketLandingLocation/border.bin",
-      "blockdata_filepath": "data/layouts/RocketLandingLocation/map.bin"
+      "border_filepath": "data/layouts/PerfectBidoofDesert/border.bin",
+      "blockdata_filepath": "data/layouts/PerfectBidoofDesert/map.bin"
     }
   ]
 }

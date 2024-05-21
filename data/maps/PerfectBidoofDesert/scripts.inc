@@ -1,20 +1,20 @@
-RocketLandingLocation_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION
+PerfectBidoofDesert_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, PerfectBidoofDesert_MapScripts_MAP_SCRIPT_ON_TRANSITION
 	.byte 0
 
-RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION:
-	goto_if_set FLAG_CAUGHT_PERFECT_BIDOOF, RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+PerfectBidoofDesert_MapScripts_MAP_SCRIPT_ON_TRANSITION:
+	goto_if_set FLAG_CAUGHT_PERFECT_BIDOOF, PerfectBidoofDesert_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 	clearflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
 
-RocketLandingLocation_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
+PerfectBidoofDesert_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	return
 
 
-RocketLandingLocation_GoBack::
+PerfectBidoofDesert_GoBack::
 	lockall
-	msgbox RocketLandingLocation_GoBack_Text_0, MSGBOX_DEFAULT
+	msgbox PerfectBidoofDesert_GoBack_Text_0, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkBackward
 	waitmovement 0
@@ -22,7 +22,7 @@ RocketLandingLocation_GoBack::
 	return
 
 
-RocketLandingLocation_Perfect_Bidoof::
+PerfectBidoofDesert_Perfect_Bidoof::
 	lock
 	faceplayer
 	waitse
@@ -35,8 +35,8 @@ RocketLandingLocation_Perfect_Bidoof::
 	doweather
 	special Script_FadeOutMapMusic
 	delay 30
-	msgbox RocketLandingLocation_Perfect_Bidoof_Text_0, MSGBOX_DEFAULT
-	messageveryslowprint RocketLandingLocation_Perfect_Bidoof_Text_1
+	msgbox PerfectBidoofDesert_Perfect_Bidoof_Text_0, MSGBOX_DEFAULT
+	messageveryslowprint PerfectBidoofDesert_Perfect_Bidoof_Text_1
 	waitmessage
 	delay 90
 	closemessage
@@ -54,28 +54,28 @@ RocketLandingLocation_Perfect_Bidoof::
 	clearflag FLAG_FORCE_SHINY
 	specialvar VAR_RESULT, GetBattleOutcome
 	switch VAR_RESULT
-	case B_OUTCOME_CAUGHT, RocketLandingLocation_Perfect_Bidoof_3
-	case B_OUTCOME_RAN, RocketLandingLocation_Perfect_Bidoof_4
-	msgbox RocketLandingLocation_Perfect_Bidoof_Text_3, MSGBOX_DEFAULT
-RocketLandingLocation_Perfect_Bidoof_1:
+	case B_OUTCOME_CAUGHT, PerfectBidoofDesert_Perfect_Bidoof_3
+	case B_OUTCOME_RAN, PerfectBidoofDesert_Perfect_Bidoof_4
+	msgbox PerfectBidoofDesert_Perfect_Bidoof_Text_3, MSGBOX_DEFAULT
+PerfectBidoofDesert_Perfect_Bidoof_1:
 	setweather WEATHER_SANDSTORM
 	doweather
 	releaseall
 	return
 
-RocketLandingLocation_Perfect_Bidoof_3:
+PerfectBidoofDesert_Perfect_Bidoof_3:
 	setflag FLAG_CAUGHT_PERFECT_BIDOOF
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
 	call Common_EventScript_RemoveStaticPokemon
 	special Overworld_PlaySpecialMapMusic
-	goto RocketLandingLocation_Perfect_Bidoof_1
+	goto PerfectBidoofDesert_Perfect_Bidoof_1
 
-RocketLandingLocation_Perfect_Bidoof_4:
-	msgbox RocketLandingLocation_Perfect_Bidoof_Text_2, MSGBOX_DEFAULT
-	goto RocketLandingLocation_Perfect_Bidoof_1
+PerfectBidoofDesert_Perfect_Bidoof_4:
+	msgbox PerfectBidoofDesert_Perfect_Bidoof_Text_2, MSGBOX_DEFAULT
+	goto PerfectBidoofDesert_Perfect_Bidoof_1
 
 
-RocketLandingLocation_GoHome::
+PerfectBidoofDesert_GoHome::
 	lock
 	warpwhitefade MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
 	waitstate
@@ -83,24 +83,24 @@ RocketLandingLocation_GoHome::
 	return
 
 
-RocketLandingLocation_GoBack_Text_0:
+PerfectBidoofDesert_GoBack_Text_0:
 	.string "Going any further is too dangerous. I\n"
 	.string "must turn back.$"
 
-RocketLandingLocation_Perfect_Bidoof_Text_0:
+PerfectBidoofDesert_Perfect_Bidoof_Text_0:
 	.string "At last.\p"
 	.string "We are reunited.\p"
 	.string "I have been searching for you for so\n"
 	.string "long.\p"
 	.string "Come. Let us become the very best...$"
 
-RocketLandingLocation_Perfect_Bidoof_Text_1:
+PerfectBidoofDesert_Perfect_Bidoof_Text_1:
 	.string "Like no one ever was...$"
 
-RocketLandingLocation_Perfect_Bidoof_Text_2:
+PerfectBidoofDesert_Perfect_Bidoof_Text_2:
 	.string "Do not fear me.\p"
 	.string "I live only to sate your bloodthirst.$"
 
-RocketLandingLocation_Perfect_Bidoof_Text_3:
+PerfectBidoofDesert_Perfect_Bidoof_Text_3:
 	.string "Why do you resist?\p"
 	.string "Do not fear me.$"

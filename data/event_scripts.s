@@ -1100,4 +1100,4 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/MossdeepCity_SpaceCenter_Pad/scripts.inc"
 
-	.include "data/maps/RocketLandingLocation/scripts.inc"
+	.include "data/maps/PerfectBidoofDesert/scripts.inc"
