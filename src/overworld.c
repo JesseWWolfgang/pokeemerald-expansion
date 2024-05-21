@@ -964,6 +964,14 @@ static struct InitialPlayerAvatarState *GetInitialPlayerAvatarState(void)
 
 static u8 GetAdjustedInitialTransitionFlags(struct InitialPlayerAvatarState *playerStruct, u16 metatileBehavior, u8 mapType)
 {
+    // Enhanced movement
+    if (gWarpOverride.playerAvatarTransitionFlags != 0)
+    {
+        u8 flags = gWarpOverride.playerAvatarTransitionFlags;
+        gWarpOverride.playerAvatarTransitionFlags = 0;
+        return flags;
+    }
+
     if (mapType != MAP_TYPE_INDOOR && FlagGet(FLAG_SYS_CRUISE_MODE))
         return PLAYER_AVATAR_FLAG_ON_FOOT;
     else if (mapType == MAP_TYPE_UNDERWATER)
@@ -3299,6 +3307,11 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
 }
 
 // Enhanced movement
+void SetWarpOverridePlayerAvatarTransitionFlags(u8 flags)
+{
+    gWarpOverride.playerAvatarTransitionFlags = flags;
+}
+
 void SetWarpOverrideDirection(u8 direction)
 {
     gWarpOverride.direction = direction;

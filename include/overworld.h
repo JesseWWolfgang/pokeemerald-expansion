@@ -43,6 +43,8 @@ struct LinkPlayerObjectEvent
 // Enhanced movement
 struct WarpOverride
 {
+    // The flags present here will override whatever is calculated on map load.
+    u8 playerAvatarTransitionFlags;
     // When anything other than DIR_NONE, will override only the player warp direction.
     u8 direction: 3; 
     // Prevents the regular fade out to black/white before warping if TRUE.
@@ -171,6 +173,7 @@ bool32 IsSendingKeysOverCable(void);
 void ClearLinkPlayerObjectEvents(void);
 
 // Enhanced movement
+void SetWarpOverridePlayerAvatarTransitionFlags(u8 flags);
 void SetWarpOverrideDirection(u8 direction);
 void SetWarpPreventFadeOut(void);
 void SetWarpPreventFadeIn(void);

@@ -181,6 +181,11 @@
             "file": "include/constants/abilities.h"
         },
         {
+            "expression": "^\\s*#define\\s+(PLAYER_AVATAR_FLAG_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/global.fieldmap.h"
+        },
+        {
             "expression": "^\\s*(STR_VAR_\\w+).*",
             "type": "define",
             "file": "charmap.txt"
