@@ -145,6 +145,7 @@ LunarSummit_PrepareTakeOff::
 	setvar VAR_MAP_MUSIC_OVERRIDE, MUS_NONE
 	preventwarpfadeout
 	preventwarpfadein
+	setplayeravatartransitionflags PLAYER_AVATAR_FLAG_ON_FOOT
 	warpwhitefade MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 1
 	waitstate
 	special RemoveCameraObject
