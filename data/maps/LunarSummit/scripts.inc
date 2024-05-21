@@ -45,8 +45,6 @@ LunarSummit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
 LunarSummit_Scientist1::
 	lock
 	faceplayer
-	call LunarSummit_PrepareTakeOff
-	end
 	goto_if_set FLAG_WITNESSED_MILLENNIUM_COMET, LunarSummit_Scientist1_2
 	msgbox LunarSummit_Scientist1_Text_3, MSGBOX_DEFAULT
 LunarSummit_Scientist1_1:
@@ -146,7 +144,8 @@ LunarSummit_PrepareTakeOff::
 	preventwarpfadeout
 	preventwarpfadein
 	setplayeravatartransitionflags PLAYER_AVATAR_FLAG_ON_FOOT
-	warpwhitefade MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 1
+	fadescreenspeed FADE_TO_WHITE, 16
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD, 1
 	waitstate
 	special RemoveCameraObject
 	return
@@ -514,6 +513,26 @@ LunarSummit_SetScientistsToWatchJirachi::
 	return
 
 
+LunarSummit_SetScientistsToRocket::
+	setobjectxyperm 2, 63, 61
+	setobjectxyperm 4, 61, 65
+	setobjectxy 2, 63, 61
+	setobjectxy 4, 61, 65
+	setobjectmovementtype 2, MOVEMENT_TYPE_NONE
+	setobjectmovementtype 4, MOVEMENT_TYPE_NONE
+	return
+
+
+LunarSummit_SetScientistsToRocketForTakeoff::
+	setobjectxyperm 2, 65, 61
+	setobjectxyperm 4, 62, 65
+	setobjectxy 2, 65, 61
+	setobjectxy 4, 62, 65
+	setobjectmovementtype 2, MOVEMENT_TYPE_NONE
+	setobjectmovementtype 4, MOVEMENT_TYPE_NONE
+	return
+
+
 LunarSummit_WitnessMillenniumComet_ScientistsBefore::
 	applymovement OBJ_EVENT_ID_CAMERA, LunarSummit_Comet_CameraMoveToComet1
 	waitmovement 0
@@ -688,7 +707,10 @@ LunarSummit_JirachiBattle::
 LunarSummit_JirachiBattle_2:
 	setflag FLAG_CAUGHT_JIRACHI
 	setflag FLAG_HIDE_SPECIAL_POKEMON_ON_MAP
-	call Common_EventScript_RemoveStaticPokemon
+	fadescreenswapbuffers FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreenswapbuffers FADE_FROM_BLACK
+	call LunarSummit_JirachiCaught
 	return
 
 LunarSummit_JirachiBattle_3:
@@ -1167,10 +1189,7 @@ LunarSummit_FlightIn_1:
 	waitmovement 4
 	fadescreen FADE_TO_BLACK
 	setobjectxyperm 3, 65, 58
-	setobjectxyperm 2, 63, 61
-	setobjectxyperm 4, 61, 65
-	setobjectxy 2, 63, 61
-	setobjectxy 4, 61, 65
+	call LunarSummit_SetScientistsToRocket
 	turnobject 2, DIR_SOUTH
 	turnobject 4, DIR_SOUTH
 	fadescreen FADE_FROM_BLACK
@@ -1291,6 +1310,66 @@ LunarSummit_Landed_Scientist2WalkIn:
 	walk_down
 	step_end
 
+LunarSummit_JirachiCaught::
+	applymovement 2, LunarSummit_JirachiCaught_Scientist1WalkToPlayer
+	applymovement 4, LunarSummit_JirachiCaught_Scientist2WalkToPlayer
+	waitmovement 2
+	waitmovement 4
+	delay 16
+	playerfaceobject 2
+	delay 16
+	applymovement 2, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox LunarSummit_JirachiCaught_Text_0, MSGBOX_DEFAULT
+	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, LunarSummit_JirachiCaught_2
+	msgbox LunarSummit_JirachiCaught_Text_2, MSGBOX_DEFAULT
+LunarSummit_JirachiCaught_1:
+	closemessage
+	delay 40
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox LunarSummit_JirachiCaught_Text_3, MSGBOX_DEFAULT
+	closemessage
+	delay 20
+	applymovement 2, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox LunarSummit_JirachiCaught_Text_4, MSGBOX_DEFAULT
+	closemessage
+	delay 10
+	applymovement 2, LunarSummit_JirachiCaught_ScientistsLeave
+	applymovement 4, LunarSummit_JirachiCaught_ScientistsLeave
+	waitmovement 2
+	waitmovement 4
+	call LunarSummit_SetScientistsToRocketForTakeoff
+	return
+
+LunarSummit_JirachiCaught_2:
+	msgbox LunarSummit_JirachiCaught_Text_1, MSGBOX_DEFAULT
+	goto LunarSummit_JirachiCaught_1
+
+
+LunarSummit_JirachiCaught_Scientist1WalkToPlayer:
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	step_end
+
+LunarSummit_JirachiCaught_Scientist2WalkToPlayer:
+	walk_left
+	walk_up
+	step_end
+
+LunarSummit_JirachiCaught_ScientistsLeave:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
 LunarSummit_Scientist1_Text_0:
 	.string "Ready to leave?$"
 
@@ -1311,8 +1390,7 @@ LunarSummit_Scientist1_Text_3:
 
 LunarSummit_Scientist2_Text_0:
 	.string "That was really something up there\n"
-	.string "wasn't it?\p"
-	.string "I do hope your wish comes true...$"
+	.string "wasn't it?$"
 
 LunarSummit_Scientist2_Text_1:
 	.string "It seems like you're out of Pokéballs...\p"
@@ -1538,3 +1616,37 @@ LunarSummit_FlightIn_Text_4:
 	.string "have your back.\p"
 	.string "If you ever need to restore your team's\n"
 	.string "health, come see us. Good luck!$"
+
+LunarSummit_JirachiCaught_Text_0:
+	.string "That was truly incredible {PLAYER}...\p"
+	.string "Never in a million years did I think this\n"
+	.string "was possible.$"
+
+LunarSummit_JirachiCaught_Text_1:
+	.string "...\p"
+	.string "About that wish you requested from\n"
+	.string "Jirachi...\p"
+	.string "I'd be quite curious to see what\n"
+	.string "becomes of it. Perhaps it may come true\l"
+	.string "once we are back at home...?$"
+
+LunarSummit_JirachiCaught_Text_2:
+	.string "Seeing Jirachi grant a wish...\p"
+	.string "I hope you enjoy it to its fullest!$"
+
+LunarSummit_JirachiCaught_Text_3:
+	.string "I've recorded the whole interaction\n"
+	.string "between you and Jirachi on camera. This\l"
+	.string "will be an incredible source of\l"
+	.string "research...\p"
+	.string "{PLAYER}.\p"
+	.string "From the bottom of my heart, I thank\n"
+	.string "you.$"
+
+LunarSummit_JirachiCaught_Text_4:
+	.string "Now that we are finished here and you\n"
+	.string "have Jirachi by your side, we should\l"
+	.string "head back down to the spaceship.\p"
+	.string "Home beckons us!\p"
+	.string "Come down and meet us when you're\n"
+	.string "ready.$"
