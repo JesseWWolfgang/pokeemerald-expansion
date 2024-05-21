@@ -2394,10 +2394,19 @@
 		warp \map, \a, \b, \c
 	.endm
 
+	@ Overrides the default transition flags for the player avatar on the next warp.
+	@ This allows for example to spawn on water without starting the surfing animation.
+	@ Useful for cutscenes. e.g. PLAYER_AVATAR_FLAG_ON_FOOT
+	.macro setplayeravatartransitionflags flags:req
+		callfunc SetWarpOverridePlayerAvatarTransitionFlags, \flags
+	.endm
+
+	@ Prevents the next warp from performing its default fade out to black/while before swapping maps.
 	.macro preventwarpfadeout
 		callnative SetWarpPreventFadeOut
 	.endm
 
+	@ Prevents the next warp from performing its default fade in from black/while after swapping maps.
 	.macro preventwarpfadein
 		callnative SetWarpPreventFadeIn
 	.endm

@@ -112,16 +112,22 @@ addobject obj
 
 ## Warp with Overrides
 
-**Facing Direction:**
+### Facing Direction:
 Adds the script command `warpdirection` which accepts a facing direction to set the player's initial facing direction after warping.
 
-**Prevent Fading in and Out:**
+### Player Avatar Transition Flags:
+Adds the script command `setplayeravatartransitionflags` to completely override the transition flags that get calculated by default when warping to another map.
+
+For example, by default if a warp happens to put the player over a water tile, they will automatically be surfing. Similarly if the player warps to an underwater map type, then they will be surfing in their underwater outfit.
+If `setplayeravatartransitionflags PLAYER_AVATAR_FLAG_ON_FOOT` is used before warping however, the default player walking animation will be used instead.
+
+### Prevent Fading in and Out:
 Adds commands `preventwarpfadeout` and `preventwarpfadein` to do these respectively.
 
 When performing complex scene setup while in a faded out state, you may need to move objects from outside the screen or add new objects.
 Doing this loads their palettes and will break the fade. To counter this, `FillPalBufferBlack` and `FillPalBufferWhite` have been made non-static so that
 they can be used with `callnative` immediately after adding the object.
 
-**Walk Forward or Backward**
+### Walk Forward or Backward:
 
 Adds movement actions `walk_forward` and `walk_backward` to walk normally in the direction the object is facing and visa versa.
