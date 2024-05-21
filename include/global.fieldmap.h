@@ -1,6 +1,8 @@
 #ifndef GUARD_GLOBAL_FIELDMAP_H
 #define GUARD_GLOBAL_FIELDMAP_H
 
+#include "constants/fieldmap.h"
+
 // Masks/shifts for blocks in the map grid
 // Map grid blocks consist of a 10 bit metatile id, a 2 bit collision value, and a 4 bit elevation value
 // This is the data stored in each data/layouts/*/map.bin file
@@ -258,15 +260,6 @@ enum {
     PLAYER_AVATAR_STATE_WATERING,
     PLAYER_AVATAR_STATE_VSSEEKER,
 };
-
-#define PLAYER_AVATAR_FLAG_ON_FOOT      (1 << 0)
-#define PLAYER_AVATAR_FLAG_MACH_BIKE    (1 << 1)
-#define PLAYER_AVATAR_FLAG_ACRO_BIKE    (1 << 2)
-#define PLAYER_AVATAR_FLAG_SURFING      (1 << 3)
-#define PLAYER_AVATAR_FLAG_UNDERWATER   (1 << 4)
-#define PLAYER_AVATAR_FLAG_CONTROLLABLE (1 << 5)
-#define PLAYER_AVATAR_FLAG_FORCED_MOVE  (1 << 6)
-#define PLAYER_AVATAR_FLAG_DASH         (1 << 7)
 
 enum
 {
