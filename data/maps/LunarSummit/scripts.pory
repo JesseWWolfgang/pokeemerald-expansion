@@ -1135,3 +1135,4 @@ movement LunarSummit_JirachiCaught_Scientist2WalkToPlayer {
 movement LunarSummit_JirachiCaught_ScientistsLeave {
     walk_down * 7
 }
+

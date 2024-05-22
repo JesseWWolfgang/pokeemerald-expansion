@@ -5,6 +5,7 @@ const OBJECT_SCIENTIST2 = 3
 const OBJECT_GUIDE_LADY = 13
 const OBJECT_ROCKET = 1
 const OBJECT_BOAT = 14
+const OBJECT_STEVEN = 15
 
 const LANDING_START_X = 28
 const LANDING_START_Y = 2
@@ -17,10 +18,15 @@ const WARP_MOSSDEEP_SPACE_CENTER_X = 7
 const WARP_MOSSDEEP_SPACE_CENTER_Y = 3
 
 const FLAG_HIDE_BIRCH = FLAG_TEMP_1
+const FLAG_HIDE_BOAT = FLAG_TEMP_2
+const FLAG_HIDE_STEVEN = FLAG_TEMP_3
+
 
 mapscripts MossdeepCity_SpaceCenter_Pad_MapScripts {
     MAP_SCRIPT_ON_LOAD {
         setflag(FLAG_HIDE_BIRCH)
+        setflag(FLAG_HIDE_BOAT)
+        setflag(FLAG_HIDE_STEVEN)
     }
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_TEMP_LOADED, FALSE {
@@ -441,10 +447,75 @@ script MossdeepCity_SpaceCenter_Pad_LandingIn {
     applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
     waitmovement(0)
     msgbox(format("We've returned in one piece {PLAYER}!\p"
-    "The landing party should be here soon to take us back."), MSGBOX_DEFAULT)
+    "The landing party should be here any moment to take us back."), MSGBOX_DEFAULT)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlaceLeft)
+    msgbox(format("In fact.\p"
+    "Here they are now!"), MSGBOX_DEFAULT)
+    closemessage
+    delay(30)
+    playse(SE_RG_SS_ANNE_HORN)
+    waitse
+    delay(30)
+
+    // Player is as 28, 40
+    special(Overworld_PlaySpecialMapMusic)
+
+    delay(20)
+    clearflag(FLAG_HIDE_BOAT)
+    addobject(OBJECT_BOAT, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    applymovement(OBJECT_BOAT, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatEnter)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerToBoat)
+    delay(30)
+    applymovement(OBJECT_SCIENTIST1, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1ToBoat)
+    applymovement(OBJECT_SCIENTIST2, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2ToBoat)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    waitmovement(OBJECT_SCIENTIST1)
+    waitmovement(OBJECT_SCIENTIST2)
+    delay(60)
+
+    clearflag(FLAG_HIDE_STEVEN)
+    addobject(OBJECT_STEVEN, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    applymovement(OBJECT_STEVEN, Common_Movement_WalkRight)
+    waitmovement(0)
+    delay(30)
+
+    msgbox(format("Welcome home {PLAYER}. Enjoy your trip?"), MSGBOX_DEFAULT)
     closemessage
 
-    special(Overworld_PlaySpecialMapMusic)
+    applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Mr. Stone himself! A pleasure to see you again."), MSGBOX_DEFAULT)
+    closemessage
+
+    applymovement(OBJECT_STEVEN, Common_Movement_WalkInPlace)
+    waitmovement(0)
+    msgbox(format("Hope you had a safe journey back.\p"
+    "Let's not dwardle, and get you back to the space center.\p"
+    "All aboard!"), MSGBOX_DEFAULT)
+    closemessage
+
+    applymovement(OBJECT_STEVEN, MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard)
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard)
+    applymovement(OBJECT_SCIENTIST1, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1Board)
+    applymovement(OBJECT_SCIENTIST2, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2Board)
+    waitmovement(OBJECT_STEVEN)
+    removeobject(OBJECT_STEVEN)
+    waitmovement(OBJ_EVENT_ID_PLAYER)
+    hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
+    playse(SE_EXIT)
+    waitmovement(OBJECT_SCIENTIST1)
+    removeobject(OBJECT_SCIENTIST1)
+    waitmovement(OBJECT_SCIENTIST2)
+    removeobject(OBJECT_SCIENTIST2)
+
+    delay(60)
+    applymovement(OBJECT_BOAT, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter)
+    applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter)
+    waitmovement(0)
+
+    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_SPACE_CENTER_X, WARP_MOSSDEEP_SPACE_CENTER_Y)
+    waitstate
 
     // Set objects to their final positions.
     // fadescreen(FADE_TO_BLACK)
@@ -487,4 +558,48 @@ movement MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist2Exit {
 
 movement MossdeepCity_SpaceCenter_Pad_LandingIn_PlayerExit {
     walk_slow_down
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_BoatEnter {
+    walk_slow_right * 3
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerToBoat {
+    walk_down
+    walk_left * 4
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1ToBoat {
+    walk_left * 3
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2ToBoat {
+    walk_left * 4
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard {
+    walk_left
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard {
+    walk_left * 3
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1Board {
+    walk_down
+    walk_left
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2Board {
+    walk_down
+    walk_left * 2
+}
+
+movement MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter {
+    walk_slow_left * 2
+    walk_slow_down * 2
+    walk_down * 4
+    walk_fast_down * 18
+    walk_down * 4
+    walk_slow_down * 2
 }

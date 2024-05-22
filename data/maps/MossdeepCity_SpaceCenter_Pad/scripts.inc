@@ -5,6 +5,8 @@ MossdeepCity_SpaceCenter_Pad_MapScripts::
 
 MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_LOAD:
 	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
 	return
 
 MossdeepCity_SpaceCenter_Pad_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
@@ -514,8 +516,60 @@ MossdeepCity_SpaceCenter_Pad_LandingIn::
 	applymovement 4, Common_Movement_WalkInPlace
 	waitmovement 0
 	msgbox MossdeepCity_SpaceCenter_Pad_LandingIn_Text_1, MSGBOX_DEFAULT
+	applymovement 4, Common_Movement_WalkInPlaceLeft
+	msgbox MossdeepCity_SpaceCenter_Pad_LandingIn_Text_2, MSGBOX_DEFAULT
 	closemessage
+	delay 30
+	playse SE_RG_SS_ANNE_HORN
+	waitse
+	delay 30
 	special Overworld_PlaySpecialMapMusic
+	delay 20
+	clearflag FLAG_TEMP_2
+	addobject 14, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
+	applymovement 14, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatEnter
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerToBoat
+	delay 30
+	applymovement 4, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1ToBoat
+	applymovement 3, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2ToBoat
+	waitmovement OBJ_EVENT_ID_PLAYER
+	waitmovement 4
+	waitmovement 3
+	delay 60
+	clearflag FLAG_TEMP_3
+	addobject 15, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
+	applymovement 15, Common_Movement_WalkRight
+	waitmovement 0
+	delay 30
+	msgbox MossdeepCity_SpaceCenter_Pad_LandingIn_Text_3, MSGBOX_DEFAULT
+	closemessage
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_Pad_LandingIn_Text_4, MSGBOX_DEFAULT
+	closemessage
+	applymovement 15, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_Pad_LandingIn_Text_5, MSGBOX_DEFAULT
+	closemessage
+	applymovement 15, MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard
+	applymovement 4, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1Board
+	applymovement 3, MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2Board
+	waitmovement 15
+	removeobject 15
+	waitmovement OBJ_EVENT_ID_PLAYER
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
+	playse SE_EXIT
+	waitmovement 4
+	removeobject 4
+	waitmovement 3
+	removeobject 3
+	delay 60
+	applymovement 14, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter
+	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter
+	waitmovement 0
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	waitstate
 	release
 	return
 
@@ -581,6 +635,89 @@ MossdeepCity_SpaceCenter_Pad_LandingIn_Scientist2Exit:
 	step_end
 
 MossdeepCity_SpaceCenter_Pad_LandingIn_PlayerExit:
+	walk_slow_down
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_BoatEnter:
+	walk_slow_right
+	walk_slow_right
+	walk_slow_right
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerToBoat:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1ToBoat:
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2ToBoat:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard:
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard:
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1Board:
+	walk_down
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2Board:
+	walk_down
+	walk_left
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter:
+	walk_slow_left
+	walk_slow_left
+	walk_slow_down
+	walk_slow_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_slow_down
 	walk_slow_down
 	step_end
 
@@ -681,5 +818,23 @@ MossdeepCity_SpaceCenter_Pad_LandingIn_Text_0:
 
 MossdeepCity_SpaceCenter_Pad_LandingIn_Text_1:
 	.string "We've returned in one piece {PLAYER}!\p"
-	.string "The landing party should be here soon\n"
-	.string "to take us back.$"
+	.string "The landing party should be here any\n"
+	.string "moment to take us back.$"
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Text_2:
+	.string "In fact.\p"
+	.string "Here they are now!$"
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Text_3:
+	.string "Welcome home {PLAYER}. Enjoy your\n"
+	.string "trip?$"
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Text_4:
+	.string "Mr. Stone himself! A pleasure to see you\n"
+	.string "again.$"
+
+MossdeepCity_SpaceCenter_Pad_LandingIn_Text_5:
+	.string "Hope you had a safe journey back.\p"
+	.string "Let's not dwardle, and get you back to\n"
+	.string "the space center.\p"
+	.string "All aboard!$"
