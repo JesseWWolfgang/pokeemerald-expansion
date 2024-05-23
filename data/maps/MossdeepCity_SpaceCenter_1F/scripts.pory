@@ -1,5 +1,34 @@
 const OBJECT_LAUNCH_COUNTER_SCIENTIST = 1
 const OBJECT_SCIENTIST_2 = 2
+const OBJECT_STEVEN = 11
+const OBJECT_OLDMAN = 4
+const OBJECT_SAILOR = 3
+
+const WARP_IN_RETURN_X = 7
+const WARP_IN_RETURN_Y = 4
+
+mapscripts MossdeepCity_SpaceCenter_1F_MapScripts {
+    MAP_SCRIPT_ON_LOAD: MossdeepCity_SpaceCenter_1F_OnLoad
+	MAP_SCRIPT_ON_TRANSITION: MossdeepCity_SpaceCenter_1F_OnTransition
+	MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+		VAR_TEMP_LOADED, 0 {
+			setvar(VAR_TEMP_LOADED, 1)
+			getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+			if (var(VAR_TEMP_0) == WARP_IN_RETURN_X && var(VAR_TEMP_1) == WARP_IN_RETURN_Y) {
+				call(MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup)
+			}
+		}
+	]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_LOADED, 1 {
+            setvar(VAR_TEMP_LOADED, 2)
+            getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
+            if (var(VAR_TEMP_0) == WARP_IN_RETURN_X && var(VAR_TEMP_1) == WARP_IN_RETURN_Y) {
+                call(MossdeepCity_SpaceCenter_1F_ReturnedFromSpace)
+            }
+        }
+    ]
+}
 
 script MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter {
 	lock
@@ -127,6 +156,177 @@ script MossdeepCity_SpaceCenter_1F_ReadyForSpace {
 	waitstate
 }
 
+script MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup {
+	// If Steven is hidden, remember that he needs to be re-hidden and show him temporarily.
+	clearflag(FLAG_TEMP_1)
+	if (flag(FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN)) {
+		setflag(FLAG_TEMP_1)
+		clearflag(FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN)
+		addobject(OBJECT_STEVEN)
+	}
+
+	setobjectxy(OBJECT_STEVEN, 8, 2)
+	setobjectxy(OBJECT_SCIENTIST_2, 6, 2)
+	turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+	turnobject(OBJECT_STEVEN, DIR_SOUTH)
+	turnobject(OBJECT_SCIENTIST_2, DIR_SOUTH)
+	turnobject(OBJECT_LAUNCH_COUNTER_SCIENTIST, DIR_SOUTH)
+	turnobject(OBJECT_OLDMAN, DIR_WEST)
+	turnobject(OBJECT_SAILOR, DIR_NORTH)
+}
+
+script MossdeepCity_SpaceCenter_1F_ReturnedFromSpace {
+	lockall
+
+	msgbox(format("Well done {PLAYER} on a successful mission!\p"
+	"You played an instrumental role in our research, proving beyond a shadow of a doubt that the Millennium Comet holds amazing secrets."), MSGBOX_DEFAULT)
+	closemessage
+	delay(20)
+
+	applymovement(OBJECT_STEVEN, Common_Movement_WalkInPlace)
+	waitmovement(0)
+	if (flag(FLAG_JIRACHI_WISH_PERFECT_BIDOOF)) {
+		msgbox(format("Take good care of that Jirachi {PLAYER}.\p"
+		"I hope your wish comes true.\lI'm certain it will."), MSGBOX_DEFAULT)
+	}
+	else {
+		msgbox(format("Take good care of that Jirachi {PLAYER}.\p"
+		"I could see in the footage, your wish was beautiful.\lCherish that moment."), MSGBOX_DEFAULT)
+	}
+	closemessage
+	delay(20)
+
+	applymovement(OBJECT_LAUNCH_COUNTER_SCIENTIST, Common_Movement_WalkInPlace)
+	waitmovement(0)
+	msgbox(format("We at the institute have a few gifts for you to commemorate this significant achievement,\land of course, as a personal thank-you from us..."), MSGBOX_DEFAULT)
+	closemessage
+	delay(16)
+	applymovement(OBJECT_SCIENTIST_2, MossdeepCity_SpaceCenter_1F_Scientist2GivePlayerGift)
+	waitmovement(0)
+	delay(30)
+	giveitem(ITEM_BEAST_BALL, 20)
+	giveitem(ITEM_ABILITY_PATCH, 3)
+	giveitem(ITEM_LOADED_DICE)
+	closemessage
+	delay(20)
+	applymovement(OBJECT_SCIENTIST_2, MossdeepCity_SpaceCenter_1F_Scientist2MoveBackAfterGift)
+	waitmovement(0)
+	msgbox(format("I hope you get some good use out of these.\p"
+	"We will get back to our usual business after a well-deserved rest.\p"
+	"Thank you again {PLAYER}.\lWe hope to see you around."), MSGBOX_DEFAULT)
+	closemessage
+	
+	if (flag(FLAG_JIRACHI_WISH_PERFECT_BIDOOF)) {
+		fadeoutbgm(0)
+		playse(SE_PIN)
+		applymovement(OBJECT_OLDMAN, MossdeepCity_SpaceCenter_1F_OldManTalkOnPhone)
+		waitmovement(0)
+		delay(90)
+		applymovement(OBJECT_OLDMAN, MossdeepCity_SpaceCenter_1F_OldManMentionsHighEnergy)
+		waitmovement(0)
+
+		msgbox(format("Very sorry to interrupt..."), MSGBOX_DEFAULT)
+		closemessage
+		delay(8)
+		turnobject(OBJ_EVENT_ID_PLAYER, DIR_EAST)
+		turnobject(OBJECT_STEVEN, DIR_EAST)
+		turnobject(OBJECT_SCIENTIST_2, DIR_EAST)
+		turnobject(OBJECT_LAUNCH_COUNTER_SCIENTIST, DIR_EAST)
+
+		applymovement(OBJECT_OLDMAN, Common_Movement_WalkInPlace)
+		waitmovement(0)
+		msgbox(format("I've just received an urgent message from the weather institute.\p"
+		"A few minutes ago, radars started recording unprecedented levels of energy radiating from a landmass to the far east of Hoenn."), MSGBOX_DEFAULT)
+		closemessage
+
+		applymovement(OBJECT_SCIENTIST_2, Common_Movement_WalkInPlace)
+		waitmovement(0)
+		msgbox(format("Is that so? Is it a powerful weather system?"), MSGBOX_DEFAULT)
+		closemessage
+
+		applymovement(OBJECT_OLDMAN, Common_Movement_WalkInPlace)
+		waitmovement(0)
+		msgbox(format("No it doesn't appear so. They said it's manifesting as intense fluctuations in heat and magnetism.\p"
+		"That's not all.\lThe landmass it originates from consists mainly of a harsh desert.\p"
+		"It's restricted by governments as it is completely uninhabitable for humans and most foreign Pokémon."), MSGBOX_DEFAULT)
+		closemessage
+
+		applymovement(OBJECT_STEVEN, Common_Movement_WalkInPlace)
+		waitmovement(0)
+		msgbox(format("I'm going to presume that we will be sending out a team of researchers?"), MSGBOX_DEFAULT)
+		closemessage
+
+		applymovement(OBJECT_OLDMAN, Common_Movement_WalkInPlace)
+		waitmovement(0)
+		msgbox(format("Naturally.\nWe are coordinating with the weather institute and assembling a team to travel there."), MSGBOX_DEFAULT)
+		closemessage
+
+		applymovement(OBJECT_STEVEN, Common_Movement_WalkInPlaceDown)
+		waitmovement(0)
+		playerfaceobject(OBJECT_STEVEN)
+		msgbox(format("This sounds like another opportunity {PLAYER}!\p"
+		"You were the good luck charm for the Space Center on their mission, and it was a flawless success.\p"
+		"Why not do the same for the Weather Institute?"), MSGBOX_DEFAULT)
+		closemessage
+		
+		turnobject(OBJECT_STEVEN, DIR_EAST)
+		turnobject(OBJ_EVENT_ID_PLAYER, DIR_EAST)
+		msgbox(format("They would appreciate your presence on this mission {PLAYER}.\p"
+		"Steven could be right you know. Why don't you go and pay the Weather Institute a visit?"
+		"Do it soon, I'm sure they will be preparing as we speak."), MSGBOX_DEFAULT)
+		closemessage
+
+		playse(SE_PIN)
+		applymovement(OBJECT_STEVEN, MossdeepCity_SpaceCenter_1F_StevenConfused)
+		waitmovement(0)
+		playerfaceobject(OBJECT_STEVEN)
+		msgbox(format("This can't be just a coincedence...\p"
+		"Perhaps this is your wish coming to fruition...?"), MSGBOX_DEFAULT)
+		closemessage
+
+		fadeinbgm(0)
+	}
+
+	// If Steven is supposed to be hidden, hide him again.
+	if (flag(FLAG_TEMP_1)) {
+		setflag(FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN)
+	}
+
+	warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3)
+	waitstate
+
+	release
+}
+
+movement MossdeepCity_SpaceCenter_1F_Scientist2GivePlayerGift {
+	walk_down
+	walk_right
+	walk_in_place_down 
+}
+
+movement MossdeepCity_SpaceCenter_1F_Scientist2MoveBackAfterGift {
+	walk_left
+	walk_up
+	walk_in_place_down 
+}
+
+movement MossdeepCity_SpaceCenter_1F_OldManTalkOnPhone {
+	face_up
+	emote_exclamation_mark
+}
+
+
+movement MossdeepCity_SpaceCenter_1F_OldManMentionsHighEnergy {
+	walk_down
+	walk_left
+}
+
+movement MossdeepCity_SpaceCenter_1F_StevenConfused {
+	face_down
+	emote_question_mark
+}
+
+
 raw `
 .set LOCALID_SCIENTIST_1, 1
 .set LOCALID_SCIENTIST_2, 2
@@ -134,11 +334,6 @@ raw `
 .set LOCALID_OLD_MAN, 4
 .set LOCALID_WOMAN, 5
 .set LOCALID_STAIR_GRUNT, 9
-
-MossdeepCity_SpaceCenter_1F_MapScripts::
-	map_script MAP_SCRIPT_ON_LOAD, MossdeepCity_SpaceCenter_1F_OnLoad
-	map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_SpaceCenter_1F_OnTransition
-	.byte 0
 
 MossdeepCity_SpaceCenter_1F_OnTransition:
 	goto_if_eq VAR_MOSSDEEP_CITY_STATE, 2, MossdeepCity_SpaceCenter_1F_EventScript_MoveObjectsForTeamMagma

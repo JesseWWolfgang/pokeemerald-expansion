@@ -1,3 +1,51 @@
+MossdeepCity_SpaceCenter_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, MossdeepCity_SpaceCenter_1F_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_SpaceCenter_1F_OnTransition
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
+	.byte 0
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE:
+	map_script_2 VAR_TEMP_LOADED, 0, MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0
+	.2byte 0
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0:
+	setvar VAR_TEMP_LOADED, 1
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	compare VAR_TEMP_0, 7
+	goto_if_eq MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0_2
+	return
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0_1:
+	call MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup
+	return
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0_2:
+	compare VAR_TEMP_1, 4
+	goto_if_eq MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE_0_1
+	return
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_TEMP_LOADED, 1, MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
+	.2byte 0
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
+	setvar VAR_TEMP_LOADED, 2
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	compare VAR_TEMP_0, 7
+	goto_if_eq MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2
+	return
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
+	call MossdeepCity_SpaceCenter_1F_ReturnedFromSpace
+	return
+
+MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
+	compare VAR_TEMP_1, 4
+	goto_if_eq MossdeepCity_SpaceCenter_1F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
+	return
+
+
 MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter::
 	lock
 	faceplayer
@@ -128,17 +176,160 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace_2:
 	return
 
 
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup::
+	clearflag FLAG_TEMP_1
+	goto_if_set FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN, MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup_2
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup_1:
+	setobjectxy 11, 8, 2
+	setobjectxy 2, 6, 2
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
+	turnobject 11, DIR_SOUTH
+	turnobject 2, DIR_SOUTH
+	turnobject 1, DIR_SOUTH
+	turnobject 4, DIR_WEST
+	turnobject 3, DIR_NORTH
+	return
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup_2:
+	setflag FLAG_TEMP_1
+	clearflag FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN
+	addobject 11
+	goto MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup_1
+
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace::
+	lockall
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_0, MSGBOX_DEFAULT
+	closemessage
+	delay 20
+	applymovement 11, Common_Movement_WalkInPlace
+	waitmovement 0
+	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_2
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_2, MSGBOX_DEFAULT
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_1:
+	closemessage
+	delay 20
+	applymovement 1, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_3, MSGBOX_DEFAULT
+	closemessage
+	delay 16
+	applymovement 2, MossdeepCity_SpaceCenter_1F_Scientist2GivePlayerGift
+	waitmovement 0
+	delay 30
+	giveitem ITEM_BEAST_BALL, 20
+	giveitem ITEM_ABILITY_PATCH, 3
+	giveitem ITEM_LOADED_DICE
+	closemessage
+	delay 20
+	applymovement 2, MossdeepCity_SpaceCenter_1F_Scientist2MoveBackAfterGift
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_4, MSGBOX_DEFAULT
+	closemessage
+	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_6
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_5:
+	goto_if_set FLAG_TEMP_1, MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_9
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_8:
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	waitstate
+	release
+	return
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_2:
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_1, MSGBOX_DEFAULT
+	goto MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_1
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_6:
+	fadeoutbgm 0
+	playse SE_PIN
+	applymovement 4, MossdeepCity_SpaceCenter_1F_OldManTalkOnPhone
+	waitmovement 0
+	delay 90
+	applymovement 4, MossdeepCity_SpaceCenter_1F_OldManMentionsHighEnergy
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_5, MSGBOX_DEFAULT
+	closemessage
+	delay 8
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_EAST
+	turnobject 11, DIR_EAST
+	turnobject 2, DIR_EAST
+	turnobject 1, DIR_EAST
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_6, MSGBOX_DEFAULT
+	closemessage
+	applymovement 2, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_7, MSGBOX_DEFAULT
+	closemessage
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_8, MSGBOX_DEFAULT
+	closemessage
+	applymovement 11, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_9, MSGBOX_DEFAULT
+	closemessage
+	applymovement 4, Common_Movement_WalkInPlace
+	waitmovement 0
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_10, MSGBOX_DEFAULT
+	closemessage
+	applymovement 11, Common_Movement_WalkInPlaceDown
+	waitmovement 0
+	playerfaceobject 11
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_11, MSGBOX_DEFAULT
+	closemessage
+	turnobject 11, DIR_EAST
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_EAST
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_12, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIN
+	applymovement 11, MossdeepCity_SpaceCenter_1F_StevenConfused
+	waitmovement 0
+	playerfaceobject 11
+	msgbox MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_13, MSGBOX_DEFAULT
+	closemessage
+	fadeinbgm 0
+	goto MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_5
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_9:
+	setflag FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN
+	goto MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_8
+
+
+MossdeepCity_SpaceCenter_1F_Scientist2GivePlayerGift:
+	walk_down
+	walk_right
+	walk_in_place_down
+	step_end
+
+MossdeepCity_SpaceCenter_1F_Scientist2MoveBackAfterGift:
+	walk_left
+	walk_up
+	walk_in_place_down
+	step_end
+
+MossdeepCity_SpaceCenter_1F_OldManTalkOnPhone:
+	face_up
+	emote_exclamation_mark
+	step_end
+
+MossdeepCity_SpaceCenter_1F_OldManMentionsHighEnergy:
+	walk_down
+	walk_left
+	step_end
+
+MossdeepCity_SpaceCenter_1F_StevenConfused:
+	face_down
+	emote_question_mark
+	step_end
+
 .set LOCALID_SCIENTIST_1, 1
 .set LOCALID_SCIENTIST_2, 2
 .set LOCALID_SAILOR, 3
 .set LOCALID_OLD_MAN, 4
 .set LOCALID_WOMAN, 5
 .set LOCALID_STAIR_GRUNT, 9
-
-MossdeepCity_SpaceCenter_1F_MapScripts::
-	map_script MAP_SCRIPT_ON_LOAD, MossdeepCity_SpaceCenter_1F_OnLoad
-	map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_SpaceCenter_1F_OnTransition
-	.byte 0
 
 MossdeepCity_SpaceCenter_1F_OnTransition:
 	goto_if_eq VAR_MOSSDEEP_CITY_STATE, 2, MossdeepCity_SpaceCenter_1F_EventScript_MoveObjectsForTeamMagma
@@ -668,3 +859,97 @@ MossdeepCity_SpaceCenter_1F_ReadyForSpace_Text_2:
 	.string "I will go and find one of our guides,\n"
 	.string "they will show you to the launch pad.\l"
 	.string "Please wait here a moment.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_0:
+	.string "Well done {PLAYER} on a successful\n"
+	.string "mission!\p"
+	.string "You played an instrumental role in our\n"
+	.string "research, proving beyond a shadow of a\l"
+	.string "doubt that the Millennium Comet holds\l"
+	.string "amazing secrets.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_1:
+	.string "Take good care of that Jirachi\n"
+	.string "{PLAYER}.\p"
+	.string "I hope your wish comes true.\l"
+	.string "I'm certain it will.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_2:
+	.string "Take good care of that Jirachi\n"
+	.string "{PLAYER}.\p"
+	.string "I could see in the footage, your wish\n"
+	.string "was beautiful.\l"
+	.string "Cherish that moment.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_3:
+	.string "We at the institute have a few gifts\n"
+	.string "for you to commemorate this\l"
+	.string "significant achievement,\l"
+	.string "and of course, as a personal thank-you\l"
+	.string "from us...$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_4:
+	.string "I hope you get some good use out of\n"
+	.string "these.\p"
+	.string "We will get back to our usual business\n"
+	.string "after a well-deserved rest.\p"
+	.string "Thank you again {PLAYER}.\l"
+	.string "We hope to see you around.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_5:
+	.string "Very sorry to interrupt...$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_6:
+	.string "I've just received an urgent message\n"
+	.string "from the weather institute.\p"
+	.string "A few minutes ago, radars started\n"
+	.string "recording unprecedented levels of\l"
+	.string "energy radiating from a landmass to\l"
+	.string "the far east of Hoenn.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_7:
+	.string "Is that so? Is it a powerful weather\n"
+	.string "system?$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_8:
+	.string "No it doesn't appear so. They said it's\n"
+	.string "manifesting as intense fluctuations in\l"
+	.string "heat and magnetism.\p"
+	.string "That's not all.\l"
+	.string "The landmass it originates from\l"
+	.string "consists mainly of a harsh desert.\p"
+	.string "It's restricted by governments as it is\n"
+	.string "completely uninhabitable for humans\l"
+	.string "and most foreign Pokémon.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_9:
+	.string "I'm going to presume that we will be\n"
+	.string "sending out a team of researchers?$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_10:
+	.string "Naturally.\n"
+	.string "We are coordinating with the weather\l"
+	.string "institute and assembling a team to\l"
+	.string "travel there.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_11:
+	.string "This sounds like another opportunity\n"
+	.string "{PLAYER}!\p"
+	.string "You were the good luck charm for the\n"
+	.string "Space Center on their mission, and it\l"
+	.string "was a flawless success.\p"
+	.string "Why not do the same for the Weather\n"
+	.string "Institute?$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_12:
+	.string "They would appreciate your presence on\n"
+	.string "this mission {PLAYER}.\p"
+	.string "Steven could be right you know. Why\n"
+	.string "don't you go and pay the Weather\l"
+	.string "Institute a visit? Do it soon, I'm sure\l"
+	.string "they will be preparing as we speak.$"
+
+MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_13:
+	.string "This can't be just a coincedence...\p"
+	.string "Perhaps this is your wish coming to\n"
+	.string "fruition...?$"

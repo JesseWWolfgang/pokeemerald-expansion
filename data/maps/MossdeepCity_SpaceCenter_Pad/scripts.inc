@@ -561,14 +561,16 @@ MossdeepCity_SpaceCenter_Pad_LandingIn::
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD
 	playse SE_EXIT
 	waitmovement 4
+	setobjectxyperm 4, 0, 0
 	removeobject 4
 	waitmovement 3
+	setobjectxyperm 3, 0, 0
 	removeobject 3
 	delay 60
 	applymovement 14, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter
 	applymovement OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter
 	waitmovement 0
-	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 3
+	warp MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, 7, 4
 	waitstate
 	release
 	return
@@ -667,6 +669,7 @@ MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2ToBoat:
 
 MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard:
 	walk_left
+	walk_left
 	step_end
 
 MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard:
@@ -678,10 +681,14 @@ MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard:
 MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1Board:
 	walk_down
 	walk_left
+	walk_left
+	walk_left
 	step_end
 
 MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2Board:
 	walk_down
+	walk_left
+	walk_left
 	walk_left
 	walk_left
 	step_end
@@ -830,11 +837,19 @@ MossdeepCity_SpaceCenter_Pad_LandingIn_Text_3:
 	.string "trip?$"
 
 MossdeepCity_SpaceCenter_Pad_LandingIn_Text_4:
-	.string "Mr. Stone himself! A pleasure to see you\n"
-	.string "again.$"
+	.string "Aha! Mr. Stone himself! A pleasure to\n"
+	.string "see you again.$"
 
 MossdeepCity_SpaceCenter_Pad_LandingIn_Text_5:
-	.string "Hope you had a safe journey back.\p"
-	.string "Let's not dwardle, and get you back to\n"
-	.string "the space center.\p"
-	.string "All aboard!$"
+	.string "Hope you all had a safe journey back.\p"
+	.string "I've seen the footage that you\n"
+	.string "transmitted.\p"
+	.string "{PLAYER}.\p"
+	.string "You have exceeded all our\n"
+	.string "expectations.\l"
+	.string "That was a once in a millennia\l"
+	.string "encounter, and you pulled it off in\l"
+	.string "style.\p"
+	.string "Anyway, let's get you lot aboard and\n"
+	.string "back to the space center!\p"
+	.string "Shall we?$"

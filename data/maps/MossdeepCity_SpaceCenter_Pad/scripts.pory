@@ -14,8 +14,11 @@ const WARP_BACK_OF_BUILDING_X = 19
 const WARP_BACK_OF_BUILDING_Y = 43
 const WARP_LANDING_IN_X = 28
 const WARP_LANDING_IN_Y = 0
-const WARP_MOSSDEEP_SPACE_CENTER_X = 7
-const WARP_MOSSDEEP_SPACE_CENTER_Y = 3
+const WARP_MOSSDEEP_SPACE_CENTER_CANCEL_X = 7
+const WARP_MOSSDEEP_SPACE_CENTER_CANCEL_Y = 3
+const WARP_MOSSDEEP_SPACE_CENTER_RETURN_X = 7
+const WARP_MOSSDEEP_SPACE_CENTER_RETURN_Y = 4
+
 
 const FLAG_HIDE_BIRCH = FLAG_TEMP_1
 const FLAG_HIDE_BOAT = FLAG_TEMP_2
@@ -62,7 +65,7 @@ script MossdeepCity_SpaceCenter_Pad_GuideLady {
     msgbox(format("Are you not prepared? Would you like to return inside?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         msgbox(format("Okay, but please don't dawdle, you are due to leave imminently."), MSGBOX_DEFAULT)
-        warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_SPACE_CENTER_X, WARP_MOSSDEEP_SPACE_CENTER_Y)
+        warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_SPACE_CENTER_CANCEL_X, WARP_MOSSDEEP_SPACE_CENTER_CANCEL_Y)
 	    waitstate
     }
     release
@@ -485,14 +488,18 @@ script MossdeepCity_SpaceCenter_Pad_LandingIn {
 
     applymovement(OBJECT_SCIENTIST1, Common_Movement_WalkInPlace)
     waitmovement(0)
-    msgbox(format("Mr. Stone himself! A pleasure to see you again."), MSGBOX_DEFAULT)
+    msgbox(format("Aha! Mr. Stone himself! A pleasure to see you again."), MSGBOX_DEFAULT)
     closemessage
 
     applymovement(OBJECT_STEVEN, Common_Movement_WalkInPlace)
     waitmovement(0)
-    msgbox(format("Hope you had a safe journey back.\p"
-    "Let's not dwardle, and get you back to the space center.\p"
-    "All aboard!"), MSGBOX_DEFAULT)
+    msgbox(format("Hope you all had a safe journey back.\p"
+    "I've seen the footage that you transmitted.\p"
+    "{PLAYER}.\p"
+    "You have exceeded all our expectations.\l"
+    "That was a once in a millennia encounter, and you pulled it off in style.\p"
+    "Anyway, let's get you lot aboard and back to the space center!\p"
+    "Shall we?"), MSGBOX_DEFAULT)
     closemessage
 
     applymovement(OBJECT_STEVEN, MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard)
@@ -505,8 +512,10 @@ script MossdeepCity_SpaceCenter_Pad_LandingIn {
     hideobjectat(OBJ_EVENT_ID_PLAYER, MAP_MOSSDEEP_CITY_SPACE_CENTER_PAD)
     playse(SE_EXIT)
     waitmovement(OBJECT_SCIENTIST1)
+    setobjectxyperm(OBJECT_SCIENTIST1, 0, 0) // Hide in corner temporarily to ensure they are not seen
     removeobject(OBJECT_SCIENTIST1)
     waitmovement(OBJECT_SCIENTIST2)
+    setobjectxyperm(OBJECT_SCIENTIST2, 0, 0) // Hide in corner temporarily to ensure they are not seen
     removeobject(OBJECT_SCIENTIST2)
 
     delay(60)
@@ -514,7 +523,7 @@ script MossdeepCity_SpaceCenter_Pad_LandingIn {
     applymovement(OBJ_EVENT_ID_PLAYER, MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter)
     waitmovement(0)
 
-    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_SPACE_CENTER_X, WARP_MOSSDEEP_SPACE_CENTER_Y)
+    warp(MAP_MOSSDEEP_CITY_SPACE_CENTER_1F, WARP_MOSSDEEP_SPACE_CENTER_RETURN_X, WARP_MOSSDEEP_SPACE_CENTER_RETURN_Y)
     waitstate
 
     // Set objects to their final positions.
@@ -578,7 +587,7 @@ movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2ToBoat {
 }
 
 movement MossdeepCity_SpaceCenter_Pad_BoatRide_StevenBoard {
-    walk_left
+    walk_left * 2
 }
 
 movement MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard {
@@ -587,12 +596,12 @@ movement MossdeepCity_SpaceCenter_Pad_BoatRide_PlayerBoard {
 
 movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist1Board {
     walk_down
-    walk_left
+    walk_left * 3
 }
 
 movement MossdeepCity_SpaceCenter_Pad_BoatRide_Scientist2Board {
     walk_down
-    walk_left * 2
+    walk_left * 4
 }
 
 movement MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter {
