@@ -4,11 +4,14 @@
             "name": "GBA",
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/gflib",
-                "${workspaceFolder}/tools/agbcc/include"
+                "${workspaceFolder}/include/",
+                "${workspaceFolder}/gflib/",
+                "${workspaceFolder}/include/gba",
+                "${workspaceFolder}/include/constants",
+                "${workspaceFolder}/tools/agbcc/include/**"
             ],
             "forcedInclude": [
+                "${workspaceFolder}/include/constants/pokedex.h",
                 "${workspaceFolder}/include/constants/opponents.h",
                 "${workspaceFolder}/include/constants/trainers.h",
                 "${workspaceFolder}/include/constants/battle_ai.h",
