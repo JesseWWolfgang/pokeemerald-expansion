@@ -50,13 +50,8 @@ script TEST_Warp_to_Castelia {
     waitstate
 }
 
-script MossdeepCity_SpaceCenter_Pad_Sign { 
-    fadescreen(FADE_TO_BLACK)
-    preventwarpfadeout
-    preventwarpfadein
-    warp(MAP_LUNAR_SUMMIT, 0)
-	waitstate
-    // msgbox(format("Mossdeep Space Center Launch Pad"), MSGBOX_SIGN) 
+script MossdeepCity_SpaceCenter_Pad_Sign {
+    msgbox(format("Mossdeep Space Center Launch Pad"), MSGBOX_SIGN) 
 }
 
 script MossdeepCity_SpaceCenter_Pad_GuideLady {
@@ -138,15 +133,15 @@ script MossdeepCity_SpaceCenter_Pad_Scientist1 {
     applymovement(OBJECT_SCIENTIST2, Common_Movement_WalkInPlace)
     waitmovement(0)
     msgbox(format("Well if it isn't Professor Birch.\p"
-    "Pleasure to see you sir."), MSGBOX_DEFAULT)
+    "Pleasure to see you, sir."), MSGBOX_DEFAULT)
     closemessage
 
     // Mom talks
     applymovement(OBJECT_MOM, Common_Movement_WalkInPlace)
     waitmovement(0)
     playerfaceobject(OBJECT_MOM)
-    msgbox(format("You didn't think you were just gonna go up and leave to space without saying goodbye did you?\p"
-    "I'm so proud of you {PLAYER}! Your father also sends his best wishes too. Go get em!"), MSGBOX_DEFAULT)
+    msgbox(format("You didn't think you were just gonna go up and leave to space without saying goodbye, did you?\p"
+    "I'm so proud of you {PLAYER}! Your father also sends his best wishes too. Go get 'em!"), MSGBOX_DEFAULT)
     closemessage
 
     // Birch talks

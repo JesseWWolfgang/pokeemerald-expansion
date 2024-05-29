@@ -944,12 +944,12 @@ MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_11:
 MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_12:
 	.string "They would appreciate your presence on\n"
 	.string "this mission {PLAYER}.\p"
-	.string "Steven could be right you know. Why\n"
+	.string "Steven could be right, you know. Why\n"
 	.string "don't you go and pay the Weather\l"
-	.string "Institute a visit? Do it soon, I'm sure\l"
+	.string "Institute a visit? Do it soon. I'm sure\l"
 	.string "they will be preparing as we speak.$"
 
 MossdeepCity_SpaceCenter_1F_ReturnedFromSpace_Text_13:
-	.string "This can't be just a coincedence...\p"
+	.string "This can't be just a coincidence...\p"
 	.string "Perhaps this is your wish coming to\n"
 	.string "fruition...?$"

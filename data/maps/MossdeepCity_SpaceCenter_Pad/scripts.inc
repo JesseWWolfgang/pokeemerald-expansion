@@ -49,11 +49,7 @@ TEST_Warp_to_Castelia::
 
 
 MossdeepCity_SpaceCenter_Pad_Sign::
-	fadescreen FADE_TO_BLACK
-	preventwarpfadeout
-	preventwarpfadein
-	warp MAP_LUNAR_SUMMIT, 0
-	waitstate
+	msgbox MossdeepCity_SpaceCenter_Pad_Sign_Text_0, MSGBOX_SIGN
 	return
 
 
@@ -728,6 +724,9 @@ MossdeepCity_SpaceCenter_Pad_BoatRide_BoatToSpaceCenter:
 	walk_slow_down
 	step_end
 
+MossdeepCity_SpaceCenter_Pad_Sign_Text_0:
+	.string "Mossdeep Space Center Launch Pad$"
+
 MossdeepCity_SpaceCenter_Pad_GuideLady_Text_0:
 	.string "Are you not prepared? Would you like to\n"
 	.string "return inside?$"
@@ -775,15 +774,15 @@ MossdeepCity_SpaceCenter_Pad_Scientist1_Text_4:
 
 MossdeepCity_SpaceCenter_Pad_Scientist1_Text_5:
 	.string "Well if it isn't Professor Birch.\p"
-	.string "Pleasure to see you sir.$"
+	.string "Pleasure to see you, sir.$"
 
 MossdeepCity_SpaceCenter_Pad_Scientist1_Text_6:
 	.string "You didn't think you were just gonna go\n"
 	.string "up and leave to space without saying\l"
-	.string "goodbye did you?\p"
+	.string "goodbye, did you?\p"
 	.string "I'm so proud of you {PLAYER}! Your\n"
 	.string "father also sends his best wishes too.\l"
-	.string "Go get em!$"
+	.string "Go get 'em!$"
 
 MossdeepCity_SpaceCenter_Pad_Scientist1_Text_7:
 	.string "I wish I got the chance to come with\n"

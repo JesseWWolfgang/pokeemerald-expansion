@@ -272,15 +272,15 @@ script MossdeepCity_SpaceCenter_1F_ReturnedFromSpace {
 		turnobject(OBJECT_STEVEN, DIR_EAST)
 		turnobject(OBJ_EVENT_ID_PLAYER, DIR_EAST)
 		msgbox(format("They would appreciate your presence on this mission {PLAYER}.\p"
-		"Steven could be right you know. Why don't you go and pay the Weather Institute a visit?"
-		"Do it soon, I'm sure they will be preparing as we speak."), MSGBOX_DEFAULT)
+		"Steven could be right, you know. Why don't you go and pay the Weather Institute a visit?"
+		"Do it soon. I'm sure they will be preparing as we speak."), MSGBOX_DEFAULT)
 		closemessage
 
 		playse(SE_PIN)
 		applymovement(OBJECT_STEVEN, MossdeepCity_SpaceCenter_1F_StevenConfused)
 		waitmovement(0)
 		playerfaceobject(OBJECT_STEVEN)
-		msgbox(format("This can't be just a coincedence...\p"
+		msgbox(format("This can't be just a coincidence...\p"
 		"Perhaps this is your wish coming to fruition...?"), MSGBOX_DEFAULT)
 		closemessage
 
