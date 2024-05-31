@@ -1,7 +1,142 @@
 Route119_WeatherInstitute_2F_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_LOAD
 	map_script MAP_SCRIPT_ON_TRANSITION, Route119_WeatherInstitute_2F_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_LOAD:
+	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_LOAD_2
+	return
+
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_LOAD_1:
+	playbgm MUS_MT_CHIMNEY, TRUE
+	return
+
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_LOAD_2:
+	goto_if_unset FLAG_TRAVELLED_TO_EASTERN_ISLAND, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_LOAD_1
+	return
+
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_TEMP_LOADED, 0, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0
+	.2byte 0
+
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0:
+	setvar VAR_TEMP_LOADED, 1
+	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2
+	return
+
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1:
+	call Route119_WeatherInstitute_2F_BeginEastIslandScene
+	return
+
+Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_2:
+	goto_if_unset FLAG_TRAVELLED_TO_EASTERN_ISLAND, Route119_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE_0_1
+	return
+
+
+Route119_WeatherInstitute_2F_OnTransition::
+	setflag FLAG_TEMP_A
+	switch VAR_WEATHER_INSTITUTE_STATE
+	case 0, Route119_WeatherInstitute_2F_OnTransition_3
+	case 1, Route119_WeatherInstitute_2F_OnTransition_4
+Route119_WeatherInstitute_2F_OnTransition_1:
+	goto_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_OnTransition_6
+Route119_WeatherInstitute_2F_OnTransition_5:
+	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, Route119_WeatherInstitute_2F_OnTransition_9
+	return
+
+Route119_WeatherInstitute_2F_OnTransition_3:
+	call Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
+	goto Route119_WeatherInstitute_2F_OnTransition_1
+
+Route119_WeatherInstitute_2F_OnTransition_4:
+	call Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
+	goto Route119_WeatherInstitute_2F_OnTransition_1
+
+Route119_WeatherInstitute_2F_OnTransition_6:
+	call Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear
+	goto Route119_WeatherInstitute_2F_OnTransition_5
+
+Route119_WeatherInstitute_2F_OnTransition_8:
+	call Route119_WeatherInstitute_2F_SetActorsForIslandExpedition
+	return
+
+Route119_WeatherInstitute_2F_OnTransition_9:
+	goto_if_unset FLAG_TRAVELLED_TO_EASTERN_ISLAND, Route119_WeatherInstitute_2F_OnTransition_8
+	return
+
+
+Route119_WeatherInstitute_2F_SetActorsForIslandExpedition::
+	clearflag FLAG_TEMP_A
+	setobjectxyperm 5, 10, 4
+	setobjectmovementtype 5, MOVEMENT_TYPE_FACE_LEFT
+	return
+
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene::
+	lockall
+	delay 10
+	objectfaceplayer 9
+	playse SE_PIN
+	applymovement 9, Common_Movement_ExclamationMark
+	waitmovement 0
+	waitse
+	delay 30
+	applymovement 9, Common_Movement_WalkRight
+	waitmovement 0
+	playerfaceobject 9
+	msgbox Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_0, MSGBOX_DEFAULT
+	closemessage
+	applymovement 9, Common_Movement_WalkLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Route119_WeatherInstitute_2F_PlayerWalkToEastIslandTable
+	waitmovement OBJ_EVENT_ID_PLAYER
+	objectfaceplayer 5
+	msgbox Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_1, MSGBOX_DEFAULT
+	closemessage
+	applymovement 13, Common_Movement_WalkInPlaceDown
+	waitmovement 0
+	playerfaceobject 13
+	msgbox Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_2, MSGBOX_DEFAULT
+	closemessage
+	applymovement 5, Common_Movement_WalkInPlace
+	waitmovement 0
+	playerfaceobject 5
+	msgbox Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_3, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIN
+	applymovement 10, Common_Movement_ExclamationMark
+	waitmovement 0
+	waitse
+	playerfaceobject 10
+	faceobject 5, 10
+	faceobject 13, 10
+	msgbox Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_4, MSGBOX_DEFAULT
+	closemessage
+	objectfaceplayer 5
+	playerfaceobject 5
+	faceobject 13, 5
+	msgbox Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_5, MSGBOX_DEFAULT
+	closemessage
+	warp MAP_PERFECT_BIDOOF_DESERT, 0
+	waitstate
+	return
+
+
+Route119_WeatherInstitute_2F_PlayerWalkToEastIslandTable:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	face_left
+	step_end
 
 .set LOCALID_GRUNT_1, 1
 .set LOCALID_GRUNT_2, 2
@@ -10,11 +145,11 @@ Route119_WeatherInstitute_2F_MapScripts::
 .set LOCALID_GRUNT_3, 7
 .set LOCALID_GRUNT_4, 8
 
-Route119_WeatherInstitute_2F_OnTransition:
-	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 0, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
-	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 1, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
-	call_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear
-	end
+@ Route119_WeatherInstitute_2F_OnTransition:
+@ 	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 0, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
+@ 	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 1, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
+@ 	call_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear
+@ 	end
 
 Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere::
 	setobjectxyperm LOCALID_SCIENTIST, 1, 6
@@ -331,3 +466,53 @@ Route119_WeatherInstitute_2F_Text_NoAbnormalWeather:
 	.string "no longer being reported.\p"
 	.string "The occasional rainfall is a blessing,\n"
 	.string "really.$"
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_0:
+	.string "Hey, it's {PLAYER}! Welcome.\n"
+	.string "We're in the midst of planning our\l"
+	.string "investigation.\p"
+	.string "Come over and take a look with us.$"
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_1:
+	.string "Thanks for coming {PLAYER}. We are\n"
+	.string "bound for a large island far east of\l"
+	.string "the Hoenn region.\p"
+	.string "It is named the Zenith Isle.\p"
+	.string "The island is completely uninhabited by\n"
+	.string "humans as governments forbid\l"
+	.string "settlement there.\p"
+	.string "This is primarily due to its harsh local\n"
+	.string "climate and weather patterns.\l"
+	.string "About 80% of the landmass is desert\l"
+	.string "shrouded in perpetual sandstorms\l"
+	.string "caused by tropical ocean wind.$"
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_2:
+	.string "There are some rugged species of\n"
+	.string "Pokémon that live there, so be careful.\l"
+	.string "Thankfully, you already have the\l"
+	.string "equipment necessary to traverse the\l"
+	.string "island, so you will be part of the land\l"
+	.string "team.$"
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_3:
+	.string "If we take a seaplane, we can be at the\n"
+	.string "shore within an hour of depature...\l"
+	.string "but we will need to investigate further\l"
+	.string "on foot.\p"
+	.string "That is where you come in.\p"
+	.string "Once there, you should explore into the\n"
+	.string "desert and try to locate the origin of\l"
+	.string "this phenomenon.$"
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_4:
+	.string "Holy...!\p"
+	.string "Guys, I'm detecting another huge spike\n"
+	.string "of magnetism coming from the island\l"
+	.string "again!\l"
+	.string "That's the largest one I have seen yet.$"
+
+Route119_WeatherInstitute_2F_BeginEastIslandScene_Text_5:
+	.string "It's getting stronger...\p"
+	.string "There's no time to lose {PLAYER}.\n"
+	.string "Let's get our move on!$"

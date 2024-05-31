@@ -1,24 +1,125 @@
+const OBJECT_SCIENTIST = 5
+const OBJECT_EAST_ISLAND_WOMAN1 = 9
+const OBJECT_EAST_ISLAND_MAN1 = 13
+const OBJECT_EAST_ISLAND_RESEARCHER = 10
+
+
+const FLAG_TEMP_HIDE_EAST_ISLAND_ACTORS = FLAG_TEMP_A
+
 mapscripts Route119_WeatherInstitute_2F_MapScripts {
+	MAP_SCRIPT_ON_LOAD {
+		if (flag(FLAG_JIRACHI_WISH_PERFECT_BIDOOF) && !flag(FLAG_TRAVELLED_TO_EASTERN_ISLAND)) {
+			playbgm(MUS_MT_CHIMNEY, TRUE)
+		}
+	}
 	MAP_SCRIPT_ON_TRANSITION: Route119_WeatherInstitute_2F_OnTransition
-    // MAP_SCRIPT_ON_LOAD: MossdeepCity_SpaceCenter_1F_OnLoad
-	// MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
-	// 	VAR_TEMP_LOADED, 0 {
-	// 		setvar(VAR_TEMP_LOADED, 1)
-	// 		getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-	// 		if (var(VAR_TEMP_0) == WARP_IN_RETURN_X && var(VAR_TEMP_1) == WARP_IN_RETURN_Y) {
-	// 			call(MossdeepCity_SpaceCenter_1F_ReturnedFromSpaceSetup)
-	// 		}
-	// 	}
-	// ]
-    // MAP_SCRIPT_ON_FRAME_TABLE [
-    //     VAR_TEMP_LOADED, 1 {
-    //         setvar(VAR_TEMP_LOADED, 2)
-    //         getplayerxy(VAR_TEMP_0, VAR_TEMP_1)
-    //         if (var(VAR_TEMP_0) == WARP_IN_RETURN_X && var(VAR_TEMP_1) == WARP_IN_RETURN_Y) {
-    //             call(MossdeepCity_SpaceCenter_1F_ReturnedFromSpace)
-    //         }
-    //     }
-    // ]
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_LOADED, 0 {
+            setvar(VAR_TEMP_LOADED, 1)
+            if (flag(FLAG_JIRACHI_WISH_PERFECT_BIDOOF) && !flag(FLAG_TRAVELLED_TO_EASTERN_ISLAND)) {
+                call(Route119_WeatherInstitute_2F_BeginEastIslandScene)
+            }
+        }
+    ]
+}
+
+script Route119_WeatherInstitute_2F_OnTransition {
+	setflag(FLAG_TEMP_HIDE_EAST_ISLAND_ACTORS)
+
+	switch (var(VAR_WEATHER_INSTITUTE_STATE)) {
+		case 0: call(Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere)
+		case 1: call(Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone)
+	}
+	if (flag(FLAG_SYS_GAME_CLEAR)) {
+		call(Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear)
+	}
+	if (flag(FLAG_JIRACHI_WISH_PERFECT_BIDOOF) && !flag(FLAG_TRAVELLED_TO_EASTERN_ISLAND)) {
+		call(Route119_WeatherInstitute_2F_SetActorsForIslandExpedition)
+	}
+}
+
+script Route119_WeatherInstitute_2F_SetActorsForIslandExpedition {
+	clearflag(FLAG_TEMP_HIDE_EAST_ISLAND_ACTORS)
+
+	setobjectxyperm(OBJECT_SCIENTIST, 10, 4)
+	setobjectmovementtype(OBJECT_SCIENTIST, MOVEMENT_TYPE_FACE_LEFT)
+}
+
+script Route119_WeatherInstitute_2F_BeginEastIslandScene {
+	lockall
+
+	delay(10)
+	objectfaceplayer(OBJECT_EAST_ISLAND_WOMAN1)
+	playse(SE_PIN)
+	applymovement(OBJECT_EAST_ISLAND_WOMAN1, Common_Movement_ExclamationMark)
+	waitmovement(0)
+	waitse
+	delay(30)
+	applymovement(OBJECT_EAST_ISLAND_WOMAN1, Common_Movement_WalkRight)
+	waitmovement(0)
+	playerfaceobject(OBJECT_EAST_ISLAND_WOMAN1)
+	msgbox(format("Hey, it's {PLAYER}! Welcome.\n"
+	"We're in the midst of planning our investigation.\p"
+	"Come over and take a look with us."), MSGBOX_DEFAULT)
+	closemessage
+
+	applymovement(OBJECT_EAST_ISLAND_WOMAN1, Common_Movement_WalkLeft)
+	applymovement(OBJ_EVENT_ID_PLAYER, Route119_WeatherInstitute_2F_PlayerWalkToEastIslandTable)
+	waitmovement(OBJ_EVENT_ID_PLAYER)
+
+	objectfaceplayer(OBJECT_SCIENTIST)
+	msgbox(format("Thanks for coming {PLAYER}. We are bound for a large island far east of the Hoenn region.\p"
+	"It is named the Zenith Isle.\p"
+	"The island is completely uninhabited by humans as governments forbid settlement there.\p"
+	"This is primarily due to its harsh local climate and weather patterns.\l"
+	"About 80% of the landmass is desert shrouded in perpetual sandstorms caused by tropical ocean wind."), MSGBOX_DEFAULT)
+	closemessage
+
+	applymovement(OBJECT_EAST_ISLAND_MAN1, Common_Movement_WalkInPlaceDown)
+	waitmovement(0)
+	playerfaceobject(OBJECT_EAST_ISLAND_MAN1)
+	msgbox(format("There are some rugged species of Pokémon that live there, so be careful."
+	"Thankfully, you already have the equipment necessary to traverse the island, so you will be part of the land team."), MSGBOX_DEFAULT)
+	closemessage
+
+	applymovement(OBJECT_SCIENTIST, Common_Movement_WalkInPlace)
+	waitmovement(0)
+	playerfaceobject(OBJECT_SCIENTIST)
+	msgbox(format("If we take a seaplane, we can be at the shore within an hour of depature...\l"
+	"but we will need to investigate further on foot.\p"
+	"That is where you come in.\p"
+	"Once there, you should explore into the desert and try to locate the origin of this phenomenon."), MSGBOX_DEFAULT)
+	closemessage
+
+	playse(SE_PIN)
+	applymovement(OBJECT_EAST_ISLAND_RESEARCHER, Common_Movement_ExclamationMark)
+	waitmovement(0)
+	waitse
+	playerfaceobject(OBJECT_EAST_ISLAND_RESEARCHER)
+	faceobject(OBJECT_SCIENTIST, OBJECT_EAST_ISLAND_RESEARCHER)
+	faceobject(OBJECT_EAST_ISLAND_MAN1, OBJECT_EAST_ISLAND_RESEARCHER)
+	msgbox(format("Holy...!\p"
+	"Guys, I'm detecting another huge spike of magnetism coming from the island again!\l"
+	"That's the largest one I have seen yet."), MSGBOX_DEFAULT)
+	closemessage
+
+	objectfaceplayer(OBJECT_SCIENTIST)
+	playerfaceobject(OBJECT_SCIENTIST)
+	faceobject(OBJECT_EAST_ISLAND_MAN1, OBJECT_SCIENTIST)
+	msgbox(format("It's getting stronger...\p"
+	"There's no time to lose {PLAYER}.\n"
+	"Let's get our move on!"), MSGBOX_DEFAULT)
+	closemessage
+
+	warp(MAP_PERFECT_BIDOOF_DESERT, 0)
+	waitstate
+}
+
+movement Route119_WeatherInstitute_2F_PlayerWalkToEastIslandTable {
+	walk_down * 4
+	walk_left * 6
+	walk_up * 2
+	face_left
 }
 
 raw `
@@ -29,11 +130,11 @@ raw `
 .set LOCALID_GRUNT_3, 7
 .set LOCALID_GRUNT_4, 8
 
-Route119_WeatherInstitute_2F_OnTransition:
-	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 0, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
-	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 1, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
-	call_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear
-	end
+@ Route119_WeatherInstitute_2F_OnTransition:
+@ 	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 0, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
+@ 	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 1, Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
+@ 	call_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear
+@ 	end
 
 Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere::
 	setobjectxyperm LOCALID_SCIENTIST, 1, 6

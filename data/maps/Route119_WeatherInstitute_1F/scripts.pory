@@ -1,73 +1,65 @@
-Route119_WeatherInstitute_1F_MapScripts::
-	map_script MAP_SCRIPT_ON_LOAD, Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD
-	map_script MAP_SCRIPT_ON_TRANSITION, Route119_WeatherInstitute_1F_OnTransition
-	.byte 0
+const OBJECT_EAST_ISLAND_MAN = 6
 
-Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD:
-	goto_if_set FLAG_HIDE_WEATHER_INSTITUTE_1F_WORKERS, Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_2
-	clearflag FLAG_TEMP_A
-Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_1:
-	goto_if_set FLAG_JIRACHI_WISH_PERFECT_BIDOOF, Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_7
-Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_6:
-	setflag FLAG_TEMP_B
-	return
+const FLAG_TEMP_HIDE_WEATHER_INSTITUTE_1F_WORKERS = FLAG_TEMP_A
+const FLAG_TEMP_HIDE_EAST_ISLAND_MAN = FLAG_TEMP_B
 
-Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_2:
-	setflag FLAG_TEMP_A
-	goto Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_1
+mapscripts Route119_WeatherInstitute_1F_MapScripts {
+	MAP_SCRIPT_ON_LOAD {
+		if (flag(FLAG_HIDE_WEATHER_INSTITUTE_1F_WORKERS)) { 
+			setflag(FLAG_TEMP_HIDE_WEATHER_INSTITUTE_1F_WORKERS) 
+		}
+		else { 
+			clearflag(FLAG_TEMP_HIDE_WEATHER_INSTITUTE_1F_WORKERS) 
+		}
 
-Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_5:
-	playbgm MUS_MT_CHIMNEY, TRUE
-	clearflag FLAG_TEMP_B
-	return
+		if (flag(FLAG_JIRACHI_WISH_PERFECT_BIDOOF) && !flag(FLAG_TRAVELLED_TO_EASTERN_ISLAND)) {
+			playbgm(MUS_MT_CHIMNEY, TRUE)
+			clearflag(FLAG_TEMP_HIDE_EAST_ISLAND_MAN)
+		}
+		else {
+			setflag(FLAG_TEMP_HIDE_EAST_ISLAND_MAN)
+		}
+	}
 
-Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_7:
-	goto_if_unset FLAG_TRAVELLED_TO_EASTERN_ISLAND, Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_5
-	goto Route119_WeatherInstitute_1F_MapScripts_MAP_SCRIPT_ON_LOAD_6
+	MAP_SCRIPT_ON_TRANSITION: Route119_WeatherInstitute_1F_OnTransition
+}
 
+script Route119_WeatherInstitute_1F_OnTransition {
+	if (var(VAR_WEATHER_INSTITUTE_STATE) == 0) {
+		call(Route119_WeatherInstitute_1F_EventScript_SetLittleBoyPos)
+	}
+}
 
-Route119_WeatherInstitute_1F_OnTransition::
-	compare VAR_WEATHER_INSTITUTE_STATE, 0
-	goto_if_eq Route119_WeatherInstitute_1F_OnTransition_1
-	return
-
-Route119_WeatherInstitute_1F_OnTransition_1:
-	call Route119_WeatherInstitute_1F_EventScript_SetLittleBoyPos
-	return
-
-
-Route119_WeatherInstitute_1F_EastIslandMan::
+script Route119_WeatherInstitute_1F_EastIslandMan {
 	lock
 	faceplayer
-	msgbox Route119_WeatherInstitute_1F_EastIslandMan_Text_0, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq Route119_WeatherInstitute_1F_EastIslandMan_2
-Route119_WeatherInstitute_1F_EastIslandMan_1:
+	msgbox(format("Good to see you.\p"
+	"Everyone is upstairs preparing for their investigation into the massive energy fluctuations.\p"
+	"Are you ready to head up and join them?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		msgbox(format("Good luck!"), MSGBOX_NPC)
+		closemessage
+		applymovementplayerfacing(OBJECT_EAST_ISLAND_MAN, 
+			Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left, 
+			Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left, 
+			Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Right,
+			Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left)
+		waitmovement(0)
+		applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkForward)
+		waitmovement(0)
+		applymovement(OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp)
+		waitmovement(0)
+		warp(MAP_ROUTE119_WEATHER_INSTITUTE_2F, 0)
+		waitstate
+	}
 	release
-	return
+}
 
-Route119_WeatherInstitute_1F_EastIslandMan_2:
-	msgbox Route119_WeatherInstitute_1F_EastIslandMan_Text_1, MSGBOX_NPC
-	closemessage
-	applymovementplayerfacing 6, Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left, Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left, Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Right, Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkForward
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
-	waitmovement 0
-	goto Route119_WeatherInstitute_1F_EastIslandMan_1
+movement Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left { walk_left face_right }
+movement Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Right { walk_right face_left }
 
 
-Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Left:
-	walk_left
-	face_right
-	step_end
-
-Route119_WeatherInstitute_1F_EastIslandMan_MoveForPlayer_Right:
-	walk_right
-	face_left
-	step_end
-
+raw `
 .set LOCALID_LITTLE_BOY, 5
 
 @ Route119_WeatherInstitute_1F_MapScripts::
@@ -203,12 +195,4 @@ Route119_WeatherInstitute_1F_Text_TakeRestInBed:
 	.string "There's a bed…\n"
 	.string "Let's take a rest.$"
 
-Route119_WeatherInstitute_1F_EastIslandMan_Text_0:
-	.string "Good to see you.\p"
-	.string "Everyone is upstairs preparing for\n"
-	.string "their investigation into the massive\l"
-	.string "energy fluctuations.\p"
-	.string "Are you ready to head up and join them?$"
-
-Route119_WeatherInstitute_1F_EastIslandMan_Text_1:
-	.string "Good luck!$"
+`
