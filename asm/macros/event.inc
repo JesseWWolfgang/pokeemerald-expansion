@@ -2178,6 +2178,18 @@
 	.2byte \slot
 	.endm
 
+	@ Sets VAR_RESULT to the Pokémon in \slot's Tera Type
+	.macro checkteratype slot:req
+	callnative CheckTeraType
+	.2byte \slot
+	.endm
+
+	@ Sets the Pokémon in \slot's Tera Type
+	.macro setteratype type:req, slot:req
+	callnative SetTeraType
+	.byte \type
+	.2byte \slot
+
 	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
 	.macro callfunc func:req var1, var2, var3, var4
 	.byte 0xe6

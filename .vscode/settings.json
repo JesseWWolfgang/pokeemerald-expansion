@@ -36,6 +36,11 @@
             "file": "data/specials.inc"
         },
         {
+            "expression": "^\\s*#define\\s+(SPECIES_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/species.h"
+        },
+        {
             "expression": "^\\s*(\\w+):", // Match newline then any num of spaces(eg. tabs), then capture any number of letters before the colon
             "type": "define",
             "file": "data/scripts/movement.inc"
@@ -88,7 +93,7 @@
         {
             "expression": "^\\s*#define\\s+(FANFARE_\\w+)\\s+(.+)",
             "type": "define",
-            "file": "include/constants/songs.h"
+            "file": "include/constants/sound.h"
         },
         {
             "expression": "^\\s*#define\\s+(MAP_SCRIPT_\\w+)\\s+(.+)",
@@ -101,14 +106,49 @@
             "file": "include/constants/script_menu.h"
         },
         {
+            "expression": "^\\s*#define\\s+(MULTI_B_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/script_menu.h"
+        },
+        {
             "expression": "^\\s*#define\\s+(SPECIES_\\w+)\\s+(.+)",
             "type": "define",
             "file": "include/constants/species.h"
         },
         {
+            "expression": "^\\s*#define\\s+(B_OUTCOME_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/battle.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(WEATHER_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/weather.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(FADE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/field_weather.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(MOVEMENT_TYPE_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/event_object_movement.h"
+        },
+        {
+            "expression": "^\\s*(B_TRANSITION_\\w+),",
+            "type": "define",
+            "file": "include/battle_transition.h"
+        },
+        {
             "expression": "^\\s*#define\\s+(TRAINER_\\w+)\\s+(.+)",
             "type": "define",
             "file": "include/constants/opponents.h"
+        },
+        {
+            "expression": "^\\s*void\\s+(ScrFunc_\\w+)\\(.*\\).*",
+            "type": "special",
+            "file": "src/scrcmd.h"
         },
         {
             "expression": "^\\s*#define\\s+(M_MON_DATA_\\w+)\\s+(.+)",
@@ -139,6 +179,11 @@
             "expression": "^\\s*#define\\s+(ABILITY_\\w+)\\s+(.+)",
             "type": "define",
             "file": "include/constants/abilities.h"
+        },
+        {
+            "expression": "^\\s*#define\\s+(PLAYER_AVATAR_FLAG_\\w+)\\s+(.+)",
+            "type": "define",
+            "file": "include/constants/fieldmap.h"
         },
         {
             "expression": "^\\s*(STR_VAR_\\w+).*",
