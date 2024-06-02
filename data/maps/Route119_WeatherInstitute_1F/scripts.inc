@@ -55,6 +55,8 @@ Route119_WeatherInstitute_1F_EastIslandMan_2:
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
 	waitmovement 0
+	warp MAP_ROUTE119_WEATHER_INSTITUTE_2F, 0
+	waitstate
 	goto Route119_WeatherInstitute_1F_EastIslandMan_1
 
 
