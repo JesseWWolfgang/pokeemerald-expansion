@@ -2518,7 +2518,7 @@ void ScrNative_BufferNatureName(struct ScriptContext *ctx)
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 nature = VarGet(ScriptReadHalfword(ctx));
     
-    StringCopy(sScriptStringVars[stringVarIndex], gNatureNamePointers[nature]);
+    StringCopy(sScriptStringVars[stringVarIndex], gNaturesInfo[nature].name);
 }
 
 void ScrFunc_SetPartyMonStat(u16 partyIndex, u16 statType, u16 value, bool8 isIV)
