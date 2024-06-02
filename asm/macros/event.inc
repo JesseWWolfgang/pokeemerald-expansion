@@ -2189,6 +2189,7 @@
 	callnative SetTeraType
 	.byte \type
 	.2byte \slot
+	.endm
 
 	@ Calls a function with 0-4 arguments and stores a u16 result in VAR_RESULT.
 	.macro callfunc func:req var1, var2, var3, var4
