@@ -85,6 +85,7 @@ gBattleAnims_General::
 	.4byte General_Fog                      @ B_ANIM_FOG_CONTINUES
 	.4byte General_TeraCharge               @ B_ANIM_TERA_CHARGE
 	.4byte General_TeraActivate             @ B_ANIM_TERA_ACTIVATE
+	.4byte General_BallCaughtAndReturned	@ B_ANIM_BALL_CAUGHT_AND_RETURNED
 
 	.align 2
 gBattleAnims_Special::
@@ -27793,6 +27794,11 @@ Special_BallThrow:
 	delay 0
 	playsewithpan SE_BALL_THROW, 0
 	createvisualtask AnimTask_ThrowBall, 2
+
+	@ Custom ball animation
+	createvisualtask AnimTask_IsBallCaughtAndReturned, 2
+	jumpreteq -1, BallThrowMonCatchAndReturn
+
 	createvisualtask AnimTask_IsBallBlockedByTrainer, 2
 	jumpreteq -1, BallThrowTrainerBlock
 BallThrowEnd:
@@ -27811,6 +27817,49 @@ BallThrowTrainerBlock:
 	clearmonbg ANIM_DEF_PARTNER
 	blendoff
 	goto BallThrowEnd
+
+General_BallCaughtAndReturned:
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+		
+	createvisualtask AnimTask_AllBattlersInvisibleExceptTarget, 0xA
+	waitforvisualfinish
+
+	@ SetBg
+	fadetobg BG_IN_AIR
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 0x5, 0x0, 0x1000, 0x0, 0xffff	@+0x1000
+	@ createvisualtask AnimTask_StartSlidingBg, 0x5, 0xf700, 0x0, TRUE, 0xffff @ Scroll right/left
+	waitbgfadein
+
+	delay 60
+
+	@ UnsetBg	
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+
+	createvisualtask AnimTask_AllBattlersVisible, 0xA
+	waitforvisualfinish
+
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+	
+
+BallThrowMonCatchAndReturn:
+	loadspritegfx ANIM_TAG_IMPACT
+	delay 25
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	delay 0
+	playsewithpan SE_M_DOUBLE_SLAP, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 2, -4, -20, ANIM_TARGET, 2
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	goto BallThrowEnd
+	
 
 Special_BallThrowWithTrainer:
 	createvisualtask AnimTask_LoadBallGfx, 2
@@ -27833,6 +27882,10 @@ Special_CriticalCaptureBallThrow:
 	delay 0
 	playsewithpan SE_FALL, 0
 	createvisualtask AnimTask_ThrowBall, 2
+
+	createvisualtask AnimTask_IsBallCaughtAndReturned, 2
+	jumpreteq -1, BallThrowMonCatchAndReturn
+
 	createvisualtask AnimTask_IsBallBlockedByTrainer, 2
 	jumpreteq -1, BallThrowTrainerBlock
 	goto BallThrowEnd

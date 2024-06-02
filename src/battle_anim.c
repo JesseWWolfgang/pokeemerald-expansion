@@ -267,6 +267,7 @@ void LaunchBattleAnimation(u32 animType, u32 animId)
         case B_ANIM_SEA_OF_FIRE:
         case B_ANIM_SWAMP:
         case B_ANIM_TERA_CHARGE:
+        case B_ANIM_BALL_CAUGHT_AND_RETURNED:
             sAnimHideHpBoxes = TRUE;
             break;
         default:

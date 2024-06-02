@@ -211,6 +211,13 @@ BattleScript_TrainerBallBlock::
 	waitmessage B_WAIT_TIME_LONG
 	finishaction
 
+BattleScript_MonCatchAndReturnBall::
+	printstring STRINGID_THEBALLWASCAUGHT
+	playanimation BS_ATTACKER, B_ANIM_BALL_CAUGHT_AND_RETURNED
+	printstring STRINGID_THEBALLWASHANDEDBACK
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
+
 BattleScript_RunByUsingItem::
 	playse SE_FLEE
 	setbyte gBattleOutcome, B_OUTCOME_RAN

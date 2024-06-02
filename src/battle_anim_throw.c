@@ -57,6 +57,7 @@ static void AnimTask_ThrowBall_StandingTrainer_Step(u8);
 static void Task_PlayerThrow_Wait(u8);
 static void SpriteCB_Ball_Arc(struct Sprite *);
 static void SpriteCB_Ball_Block(struct Sprite *);
+static void SpriteCB_Ball_CatchAndReturn(struct Sprite *);
 static void SpriteCB_Ball_MonShrink(struct Sprite *);
 static void SpriteCB_Ball_MonShrink_Step(struct Sprite *);
 static void SpriteCB_Ball_Bounce(struct Sprite *);
@@ -74,6 +75,7 @@ static void LoadBallParticleGfx(u8);
 static void SpriteCB_CaptureStar_Flicker(struct Sprite *);
 static void SpriteCB_Ball_Release_Wait(struct Sprite *);
 static void SpriteCB_Ball_Block_Step(struct Sprite *);
+static void SpriteCB_Ball_CatchAndReturn_Step(struct Sprite *);
 static void PokeBallOpenParticleAnimation_Step1(struct Sprite *);
 static void PokeBallOpenParticleAnimation_Step2(struct Sprite *);
 static void DestroyBallOpenAnimationParticle(struct Sprite *);
@@ -943,6 +945,16 @@ void AnimTask_IsBallBlockedByTrainer(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
+void AnimTask_IsBallCaughtAndReturned(u8 taskId)
+{
+    if (gBattleSpritesDataPtr->animationData->ballThrowCaseId == BALL_MON_CATCH_AND_RETURN)
+        gBattleAnimArgs[ARG_RET_ID] = -1;
+    else
+        gBattleAnimArgs[ARG_RET_ID] = 0;
+
+    DestroyAnimVisualTask(taskId);
+}
+
 u8 ItemIdToBallId(u16 ballItem)
 {
     switch (ballItem)
@@ -1136,6 +1148,10 @@ static void SpriteCB_Ball_Arc(struct Sprite *sprite)
         if (gBattleSpritesDataPtr->animationData->ballThrowCaseId == BALL_TRAINER_BLOCK)
         {
             sprite->callback = SpriteCB_Ball_Block;
+        }
+        else if (gBattleSpritesDataPtr->animationData->ballThrowCaseId == BALL_MON_CATCH_AND_RETURN)
+        {
+            sprite->callback = SpriteCB_Ball_CatchAndReturn;
         }
         else
         {
@@ -1788,6 +1804,20 @@ static void SpriteCB_Ball_Block(struct Sprite *sprite)
     sprite->callback = SpriteCB_Ball_Block_Step;
 }
 
+static void SpriteCB_Ball_CatchAndReturn(struct Sprite *sprite)
+{
+    s32 i;
+
+    sprite->x += sprite->x2;
+    sprite->y += sprite->y2;
+    sprite->y2 = 0;
+    sprite->x2 = 0;
+    for (i = 0; i < 6; i++)
+        sprite->data[i] = 0;
+
+    sprite->callback = SpriteCB_Ball_CatchAndReturn_Step;
+}
+
 #define sDy    data[0]
 #define sDx    data[1]
 
@@ -1815,6 +1845,22 @@ static void SpriteCB_Ball_Block_Step(struct Sprite *sprite)
 
 #undef sDy
 #undef sDx
+
+#define sTimer  data[1]
+
+// Poké Ball stays in place for 2 seconds after being caught.
+static void SpriteCB_Ball_CatchAndReturn_Step(struct Sprite *sprite)
+{
+    sprite->sTimer++;
+
+    if (sprite->sTimer >= 120)
+    {
+        sprite->sFrame = 0;
+        sprite->callback = DestroySpriteAfterOneFrame;
+        // gDoingBattleAnim = 0;
+        UpdateOamPriorityInAllHealthboxes(0, TRUE); // Hide health boxes. (0 makes func believe this is start of anim so will try to hide.)
+    }
+}
 
 #undef sFrame
 

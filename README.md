@@ -1,7 +1,11 @@
-# feature/move-improvements
+# feature/custom-catch-behaviour
 
-Feature branch with improvements to move effects and animation code.
+Feature branch that implements additional catching behaviour.
 
-## Features
+Based on feature/move-improvements for improved animation code.
 
-- Improved `AnimTask_InvertScreenColor` with named flags for specific palette selection.
+## Wild Mon Catches Thrown Ball
+
+Adds new `BALL_MON_CATCH_AND_RETURN` enum.
+When used, the mon will block the thrown ball and hand it back to the player.
+This meant to be kind of humourous lol.

@@ -14988,6 +14988,12 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_WallyBallThrow;
     }
+    else if (TRUE)
+    {
+        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_MON_CATCH_AND_RETURN);
+        MarkBattlerForControllerExec(gBattlerAttacker);
+        gBattlescriptCurrInstr = BattleScript_MonCatchAndReturnBall;
+    }
     else
     {
         u32 odds, i;

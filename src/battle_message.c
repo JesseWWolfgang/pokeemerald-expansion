@@ -152,6 +152,8 @@ static const u8 sText_PkmnTookSunlight[] = _("{B_ATK_NAME_WITH_PREFIX} took\nin 
 static const u8 sText_PkmnLoweredHead[] = _("{B_ATK_NAME_WITH_PREFIX} lowered\nits head!");
 static const u8 sText_PkmnIsGlowing[] = _("{B_ATK_NAME_WITH_PREFIX} is glowing!");
 static const u8 sText_PkmnIsCloakedInAHarshLight[] = _("{B_ATK_NAME_WITH_PREFIX} became\ncloaked in a harsh light!");
+static const u8 sText_TheBallWasCaught[] = _("{B_DEF_NAME_WITH_PREFIX} caught the ball!");
+static const u8 sText_TheBallWasHandedBack[] = _("The {B_LAST_ITEM} was\nhanded back to you...");
 static const u8 sText_PkmnFlewHigh[] = _("{B_ATK_NAME_WITH_PREFIX} flew\nup high!");
 static const u8 sText_PkmnDugHole[] = _("{B_ATK_NAME_WITH_PREFIX} dug a hole!");
 static const u8 sText_PkmnHidUnderwater[] = _("{B_ATK_NAME_WITH_PREFIX} hid\nunderwater!");
@@ -1555,6 +1557,8 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_ITEMWASUSEDUP - BATTLESTRINGS_TABLE_START] = sText_ItemWasUsedUp,
     [STRINGID_ATTACKERLOSTITSTYPE - BATTLESTRINGS_TABLE_START] = sText_AttackerLostItsType,
     [STRINGID_CLOAKEDINAHARSHLIGHT - BATTLESTRINGS_TABLE_START] = sText_PkmnIsCloakedInAHarshLight,
+    [STRINGID_THEBALLWASCAUGHT - BATTLESTRINGS_TABLE_START] = sText_TheBallWasCaught,
+    [STRINGID_THEBALLWASHANDEDBACK - BATTLESTRINGS_TABLE_START] = sText_TheBallWasHandedBack,
 };
 
 const u16 gTrainerUsedItemStringIds[] =
