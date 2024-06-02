@@ -203,7 +203,7 @@ SINGLE_BATTLE_TEST("Embargo doesn't stop an item flung at an affected target fro
     }
 }
 
-SINGLE_BATTLE_TEST("Embargo is passed via Baton Pass")
+SINGLE_BATTLE_TEST("Baton Pass passes Embargo's effect")
 {
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
@@ -352,7 +352,7 @@ SINGLE_BATTLE_TEST("Embargo doesn't prevent Mega Evolution")
         ANIMATION(ANIM_TYPE_MOVE, MOVE_BATON_PASS, opponent);
         MESSAGE("2 sent out Charizard!");
         // Turn 3
-        MESSAGE("Foe Charizard's CharizarditeY is reacting to 2's Mega Ring!");
+        MESSAGE("Foe Charizard's Charizardite Y is reacting to 2's Mega Ring!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_MEGA_EVOLUTION, opponent);
         MESSAGE("Foe Charizard has Mega Evolved into Mega Charizard!");
     }

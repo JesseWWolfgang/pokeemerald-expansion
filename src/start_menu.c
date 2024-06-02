@@ -49,9 +49,6 @@
 #include "constants/songs.h"
 
 #define SKIP_SAVE_CONFIRMATION  TRUE
-#if (DECAP_ENABLED) && (DECAP_MIRRORING) && !(DECAP_START_MENU)
-#define AddTextPrinterParameterized (AddTextPrinterFixedCaseParameterized)
-#endif
 
 // Menu actions
 enum
@@ -82,17 +79,17 @@ enum
 };
 
 // IWRAM common
-bool8 (*gMenuCallback)(void);
+bool8(*gMenuCallback)(void);
 
 // EWRAM
 EWRAM_DATA static u8 sSafariBallsWindowId = 0;
 EWRAM_DATA static u8 sBattlePyramidFloorWindowId = 0;
 EWRAM_DATA static u8 sStartMenuCursorPos = 0;
 EWRAM_DATA static u8 sNumStartMenuActions = 0;
-EWRAM_DATA static u8 sCurrentStartMenuActions[9] = {0};
-EWRAM_DATA static s8 sInitStartMenuData[2] = {0};
+EWRAM_DATA static u8 sCurrentStartMenuActions[9] = { 0 };
+EWRAM_DATA static s8 sInitStartMenuData[2] = { 0 };
 
-EWRAM_DATA static u8 (*sSaveDialogCallback)(void) = NULL;
+EWRAM_DATA static u8(*sSaveDialogCallback)(void) = NULL;
 EWRAM_DATA static u8 sSaveDialogTimer = 0;
 EWRAM_DATA static bool8 sSavingComplete = FALSE;
 EWRAM_DATA static u8 sSaveInfoWindowId = 0;
@@ -155,7 +152,7 @@ static const struct WindowTemplate sWindowTemplate_SafariBalls = {
     .baseBlock = 0x8
 };
 
-static const u8 *const sPyramidFloorNames[FRONTIER_STAGES_PER_CHALLENGE + 1] =
+static const u8* const sPyramidFloorNames[FRONTIER_STAGES_PER_CHALLENGE + 1] =
 {
     gText_Floor1,
     gText_Floor2,
@@ -191,20 +188,20 @@ static const u8 sText_MenuDebug[] = _("DEBUG");
 
 static const struct MenuAction sStartMenuItems[] =
 {
-    [MENU_ACTION_POKEDEX]         = {gText_MenuPokedex, {.u8_void = StartMenuPokedexCallback}},
-    [MENU_ACTION_POKEMON]         = {gText_MenuPokemon, {.u8_void = StartMenuPokemonCallback}},
-    [MENU_ACTION_BAG]             = {gText_MenuBag,     {.u8_void = StartMenuBagCallback}},
-    [MENU_ACTION_POKENAV]         = {gText_MenuPokenav, {.u8_void = StartMenuPokeNavCallback}},
-    [MENU_ACTION_PLAYER]          = {gText_MenuPlayer,  {.u8_void = StartMenuPlayerNameCallback}},
-    [MENU_ACTION_SAVE]            = {gText_MenuSave,    {.u8_void = StartMenuSaveCallback}},
-    [MENU_ACTION_OPTION]          = {gText_MenuOption,  {.u8_void = StartMenuOptionCallback}},
-    [MENU_ACTION_EXIT]            = {gText_MenuExit,    {.u8_void = StartMenuExitCallback}},
-    [MENU_ACTION_RETIRE_SAFARI]   = {gText_MenuRetire,  {.u8_void = StartMenuSafariZoneRetireCallback}},
-    [MENU_ACTION_PLAYER_LINK]     = {gText_MenuPlayer,  {.u8_void = StartMenuLinkModePlayerNameCallback}},
-    [MENU_ACTION_REST_FRONTIER]   = {gText_MenuRest,    {.u8_void = StartMenuSaveCallback}},
+    [MENU_ACTION_POKEDEX] = {gText_MenuPokedex, {.u8_void = StartMenuPokedexCallback}},
+    [MENU_ACTION_POKEMON] = {gText_MenuPokemon, {.u8_void = StartMenuPokemonCallback}},
+    [MENU_ACTION_BAG] = {gText_MenuBag,     {.u8_void = StartMenuBagCallback}},
+    [MENU_ACTION_POKENAV] = {gText_MenuPokenav, {.u8_void = StartMenuPokeNavCallback}},
+    [MENU_ACTION_PLAYER] = {gText_MenuPlayer,  {.u8_void = StartMenuPlayerNameCallback}},
+    [MENU_ACTION_SAVE] = {gText_MenuSave,    {.u8_void = StartMenuSaveCallback}},
+    [MENU_ACTION_OPTION] = {gText_MenuOption,  {.u8_void = StartMenuOptionCallback}},
+    [MENU_ACTION_EXIT] = {gText_MenuExit,    {.u8_void = StartMenuExitCallback}},
+    [MENU_ACTION_RETIRE_SAFARI] = {gText_MenuRetire,  {.u8_void = StartMenuSafariZoneRetireCallback}},
+    [MENU_ACTION_PLAYER_LINK] = {gText_MenuPlayer,  {.u8_void = StartMenuLinkModePlayerNameCallback}},
+    [MENU_ACTION_REST_FRONTIER] = {gText_MenuRest,    {.u8_void = StartMenuSaveCallback}},
     [MENU_ACTION_RETIRE_FRONTIER] = {gText_MenuRetire,  {.u8_void = StartMenuBattlePyramidRetireCallback}},
-    [MENU_ACTION_PYRAMID_BAG]     = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}},
-    [MENU_ACTION_DEBUG]           = {sText_MenuDebug,   {.u8_void = StartMenuDebugCallback}},
+    [MENU_ACTION_PYRAMID_BAG] = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}},
+    [MENU_ACTION_DEBUG] = {sText_MenuDebug,   {.u8_void = StartMenuDebugCallback}},
 };
 
 static const struct BgTemplate sBgTemplates_LinkBattleSave[] =
@@ -258,13 +255,13 @@ static void BuildMultiPartnerRoomStartMenu(void);
 static void ShowSafariBallsWindow(void);
 static void ShowPyramidFloorWindow(void);
 static void RemoveExtraStartMenuWindows(void);
-static bool32 PrintStartMenuActions(s8 *pIndex, u32 count);
+static bool32 PrintStartMenuActions(s8* pIndex, u32 count);
 static bool32 InitStartMenuStep(void);
 static void InitStartMenu(void);
 static void CreateStartMenuTask(TaskFunc followupFunc);
 static void InitSave(void);
 static u8 RunSaveCallback(void);
-static void ShowSaveMessage(const u8 *message, u8 (*saveCallback)(void));
+static void ShowSaveMessage(const u8* message, u8(*saveCallback)(void));
 static void HideSaveMessageWindow(void);
 static void HideSaveInfoWindow(void);
 static void SaveStartTimer(void);
@@ -272,7 +269,7 @@ static bool8 SaveSuccesTimer(void);
 static bool8 SaveErrorTimer(void);
 static void InitBattlePyramidRetire(void);
 static void VBlankCB_LinkBattleSave(void);
-static bool32 InitSaveWindowAfterLinkBattle(u8 *par1);
+static bool32 InitSaveWindowAfterLinkBattle(u8* par1);
 static void CB2_SaveAfterLinkBattle(void);
 static void ShowSaveInfoWindow(void);
 static void RemoveSaveInfoWindow(void);
@@ -477,7 +474,7 @@ static void RemoveExtraStartMenuWindows(void)
     }
 }
 
-static bool32 PrintStartMenuActions(s8 *pIndex, u32 count)
+static bool32 PrintStartMenuActions(s8* pIndex, u32 count)
 {
     s8 index = *pIndex;
 
@@ -514,34 +511,34 @@ static bool32 InitStartMenuStep(void)
 
     switch (state)
     {
-    case 0:
-        sInitStartMenuData[0]++;
-        break;
-    case 1:
-        BuildStartMenuActions();
-        sInitStartMenuData[0]++;
-        break;
-    case 2:
-        LoadMessageBoxAndBorderGfx();
-        DrawStdWindowFrame(AddStartMenuWindow(sNumStartMenuActions), FALSE);
-        sInitStartMenuData[1] = 0;
-        sInitStartMenuData[0]++;
-        break;
-    case 3:
-        if (GetSafariZoneFlag())
-            ShowSafariBallsWindow();
-        if (InBattlePyramid())
-            ShowPyramidFloorWindow();
-        sInitStartMenuData[0]++;
-        break;
-    case 4:
-        if (PrintStartMenuActions(&sInitStartMenuData[1], 2))
+        case 0:
             sInitStartMenuData[0]++;
-        break;
-    case 5:
-        sStartMenuCursorPos = InitMenuNormal(GetStartMenuWindowId(), FONT_NORMAL, 0, 9, 16, sNumStartMenuActions, sStartMenuCursorPos);
-        CopyWindowToVram(GetStartMenuWindowId(), COPYWIN_MAP);
-        return TRUE;
+            break;
+        case 1:
+            BuildStartMenuActions();
+            sInitStartMenuData[0]++;
+            break;
+        case 2:
+            LoadMessageBoxAndBorderGfx();
+            DrawStdWindowFrame(AddStartMenuWindow(sNumStartMenuActions), FALSE);
+            sInitStartMenuData[1] = 0;
+            sInitStartMenuData[0]++;
+            break;
+        case 3:
+            if (GetSafariZoneFlag())
+                ShowSafariBallsWindow();
+            if (InBattlePyramid())
+                ShowPyramidFloorWindow();
+            sInitStartMenuData[0]++;
+            break;
+        case 4:
+            if (PrintStartMenuActions(&sInitStartMenuData[1], 2))
+                sInitStartMenuData[0]++;
+            break;
+        case 5:
+            sStartMenuCursorPos = InitMenuNormal(GetStartMenuWindowId(), FONT_NORMAL, 0, 9, 16, sNumStartMenuActions, sStartMenuCursorPos);
+            CopyWindowToVram(GetStartMenuWindowId(), COPYWIN_MAP);
+            return TRUE;
     }
 
     return FALSE;
@@ -591,21 +588,21 @@ void ShowReturnToFieldStartMenu(void)
 
 void Task_ShowStartMenu(u8 taskId)
 {
-    struct Task *task = &gTasks[taskId];
+    struct Task* task = &gTasks[taskId];
 
-    switch(task->data[0])
+    switch (task->data[0])
     {
-    case 0:
-        if (InUnionRoom() == TRUE)
-            SetUsingUnionRoomStartMenu();
+        case 0:
+            if (InUnionRoom() == TRUE)
+                SetUsingUnionRoomStartMenu();
 
-        gMenuCallback = HandleStartMenuInput;
-        task->data[0]++;
-        break;
-    case 1:
-        if (gMenuCallback() == TRUE)
-            DestroyTask(taskId);
-        break;
+            gMenuCallback = HandleStartMenuInput;
+            task->data[0]++;
+            break;
+        case 1:
+            if (gMenuCallback() == TRUE)
+                DestroyTask(taskId);
+            break;
     }
 }
 
@@ -652,7 +649,7 @@ static bool8 HandleStartMenuInput(void)
             && gMenuCallback != StartMenuSafariZoneRetireCallback
             && gMenuCallback != StartMenuBattlePyramidRetireCallback)
         {
-           FadeScreen(FADE_TO_BLACK, 0);
+            FadeScreen(FADE_TO_BLACK, 0);
         }
 
         return FALSE;
@@ -794,7 +791,7 @@ static bool8 StartMenuDebugCallback(void)
     Debug_ShowMainMenu();
 #endif
 
-return TRUE;
+    return TRUE;
 }
 
 static bool8 StartMenuSafariZoneRetireCallback(void)
@@ -870,20 +867,20 @@ static bool8 SaveCallback(void)
 {
     switch (RunSaveCallback())
     {
-    case SAVE_IN_PROGRESS:
-        return FALSE;
-    case SAVE_CANCELED: // Back to start menu
-        ClearDialogWindowAndFrameToTransparent(0, FALSE);
-        InitStartMenu();
-        gMenuCallback = HandleStartMenuInput;
-        return FALSE;
-    case SAVE_SUCCESS:
-    case SAVE_ERROR:    // Close start menu
-        ClearDialogWindowAndFrameToTransparent(0, TRUE);
-        ScriptUnfreezeObjectEvents();
-        UnlockPlayerFieldControls();
-        SoftResetInBattlePyramid();
-        return TRUE;
+        case SAVE_IN_PROGRESS:
+            return FALSE;
+        case SAVE_CANCELED: // Back to start menu
+            ClearDialogWindowAndFrameToTransparent(0, FALSE);
+            InitStartMenu();
+            gMenuCallback = HandleStartMenuInput;
+            return FALSE;
+        case SAVE_SUCCESS:
+        case SAVE_ERROR:    // Close start menu
+            ClearDialogWindowAndFrameToTransparent(0, TRUE);
+            ScriptUnfreezeObjectEvents();
+            UnlockPlayerFieldControls();
+            SoftResetInBattlePyramid();
+            return TRUE;
     }
 
     return FALSE;
@@ -909,18 +906,18 @@ static bool8 BattlePyramidRetireCallback(void)
 {
     switch (RunSaveCallback())
     {
-    case SAVE_SUCCESS: // No (Stay in battle pyramid)
-        RemoveExtraStartMenuWindows();
-        gMenuCallback = BattlePyramidRetireReturnCallback;
-        return FALSE;
-    case SAVE_IN_PROGRESS:
-        return FALSE;
-    case SAVE_CANCELED: // Yes (Retire from battle pyramid)
-        ClearDialogWindowAndFrameToTransparent(0, TRUE);
-        ScriptUnfreezeObjectEvents();
-        UnlockPlayerFieldControls();
-        ScriptContext_SetupScript(BattlePyramid_Retire);
-        return TRUE;
+        case SAVE_SUCCESS: // No (Stay in battle pyramid)
+            RemoveExtraStartMenuWindows();
+            gMenuCallback = BattlePyramidRetireReturnCallback;
+            return FALSE;
+        case SAVE_IN_PROGRESS:
+            return FALSE;
+        case SAVE_CANCELED: // Yes (Retire from battle pyramid)
+            ClearDialogWindowAndFrameToTransparent(0, TRUE);
+            ScriptUnfreezeObjectEvents();
+            UnlockPlayerFieldControls();
+            ScriptContext_SetupScript(BattlePyramid_Retire);
+            return TRUE;
     }
 
     return FALSE;
@@ -951,7 +948,7 @@ void SaveGame(void)
     CreateTask(SaveGameTask, 0x50);
 }
 
-static void ShowSaveMessage(const u8 *message, u8 (*saveCallback)(void))
+static void ShowSaveMessage(const u8* message, u8(*saveCallback)(void))
 {
     StringExpandPlaceholders(gStringVar4, message);
     LoadMessageBoxAndFrameGfx(0, TRUE);
@@ -966,15 +963,15 @@ static void SaveGameTask(u8 taskId)
 
     switch (status)
     {
-    case SAVE_CANCELED:
-    case SAVE_ERROR:
-        gSpecialVar_Result = 0;
-        break;
-    case SAVE_SUCCESS:
-        gSpecialVar_Result = status;
-        break;
-    case SAVE_IN_PROGRESS:
-        return;
+        case SAVE_CANCELED:
+        case SAVE_ERROR:
+            gSpecialVar_Result = 0;
+            break;
+        case SAVE_SUCCESS:
+            gSpecialVar_Result = status;
+            break;
+        case SAVE_IN_PROGRESS:
+            return;
     }
 
     DestroyTask(taskId);
@@ -1056,28 +1053,28 @@ static u8 SaveConfirmInputCallback(void)
 {
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
-    case 0: // Yes
-        switch (gSaveFileStatus)
-        {
-        case SAVE_STATUS_EMPTY:
-        case SAVE_STATUS_CORRUPT:
-            if (gDifferentSaveFile == FALSE)
+        case 0: // Yes
+            switch (gSaveFileStatus)
             {
-                sSaveDialogCallback = SaveFileExistsCallback;
-                return SAVE_IN_PROGRESS;
-            }
+                case SAVE_STATUS_EMPTY:
+                case SAVE_STATUS_CORRUPT:
+                    if (gDifferentSaveFile == FALSE)
+                    {
+                        sSaveDialogCallback = SaveFileExistsCallback;
+                        return SAVE_IN_PROGRESS;
+                    }
 
-            sSaveDialogCallback = SaveSavingMessageCallback;
-            return SAVE_IN_PROGRESS;
-        default:
-            sSaveDialogCallback = SaveFileExistsCallback;
-            return SAVE_IN_PROGRESS;
-        }
-    case MENU_B_PRESSED:
-    case 1: // No
-        HideSaveInfoWindow();
-        HideSaveMessageWindow();
-        return SAVE_CANCELED;
+                    sSaveDialogCallback = SaveSavingMessageCallback;
+                    return SAVE_IN_PROGRESS;
+                default:
+                    sSaveDialogCallback = SaveFileExistsCallback;
+                    return SAVE_IN_PROGRESS;
+            }
+        case MENU_B_PRESSED:
+        case 1: // No
+            HideSaveInfoWindow();
+            HideSaveMessageWindow();
+            return SAVE_CANCELED;
     }
 
     return SAVE_IN_PROGRESS;
@@ -1092,11 +1089,11 @@ static u8 SaveFileExistsCallback(void)
     }
     else
     {
-        #if SKIP_SAVE_CONFIRMATION
-            sSaveDialogCallback = SaveSavingMessageCallback;
-        #else
-            ShowSaveMessage(gText_AlreadySavedFile, SaveConfirmOverwriteCallback);
-        #endif
+#if SKIP_SAVE_CONFIRMATION
+        sSaveDialogCallback = SaveSavingMessageCallback;
+#else
+        ShowSaveMessage(gText_AlreadySavedFile, SaveConfirmOverwriteCallback);
+#endif
     }
 
     return SAVE_IN_PROGRESS;
@@ -1120,14 +1117,14 @@ static u8 SaveOverwriteInputCallback(void)
 {
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
-    case 0: // Yes
-        sSaveDialogCallback = SaveSavingMessageCallback;
-        return SAVE_IN_PROGRESS;
-    case MENU_B_PRESSED:
-    case 1: // No
-        HideSaveInfoWindow();
-        HideSaveMessageWindow();
-        return SAVE_CANCELED;
+        case 0: // Yes
+            sSaveDialogCallback = SaveSavingMessageCallback;
+            return SAVE_IN_PROGRESS;
+        case MENU_B_PRESSED:
+        case 1: // No
+            HideSaveInfoWindow();
+            HideSaveMessageWindow();
+            return SAVE_CANCELED;
     }
 
     return SAVE_IN_PROGRESS;
@@ -1240,12 +1237,12 @@ static u8 BattlePyramidRetireInputCallback(void)
 {
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
-    case 0: // Yes
-        return SAVE_CANCELED;
-    case MENU_B_PRESSED:
-    case 1: // No
-        HideSaveMessageWindow();
-        return SAVE_SUCCESS;
+        case 0: // Yes
+            return SAVE_CANCELED;
+        case MENU_B_PRESSED:
+        case 1: // No
+            HideSaveMessageWindow();
+            return SAVE_SUCCESS;
     }
 
     return SAVE_IN_PROGRESS;
@@ -1256,38 +1253,38 @@ static void VBlankCB_LinkBattleSave(void)
     TransferPlttBuffer();
 }
 
-static bool32 InitSaveWindowAfterLinkBattle(u8 *state)
+static bool32 InitSaveWindowAfterLinkBattle(u8* state)
 {
     switch (*state)
     {
-    case 0:
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0);
-        SetVBlankCallback(NULL);
-        ScanlineEffect_Stop();
-        DmaClear16(3, PLTT, PLTT_SIZE);
-        DmaFillLarge16(3, 0, (void *)VRAM, VRAM_SIZE, 0x1000);
-        break;
-    case 1:
-        ResetSpriteData();
-        ResetTasks();
-        ResetPaletteFade();
-        ScanlineEffect_Clear();
-        break;
-    case 2:
-        ResetBgsAndClearDma3BusyFlags(0);
-        InitBgsFromTemplates(0, sBgTemplates_LinkBattleSave, ARRAY_COUNT(sBgTemplates_LinkBattleSave));
-        InitWindows(sWindowTemplates_LinkBattleSave);
-        LoadUserWindowBorderGfx_(0, 8, BG_PLTT_ID(14));
-        Menu_LoadStdPalAt(BG_PLTT_ID(15));
-        break;
-    case 3:
-        ShowBg(0);
-        BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
-        SetVBlankCallback(VBlankCB_LinkBattleSave);
-        EnableInterrupts(1);
-        break;
-    case 4:
-        return TRUE;
+        case 0:
+            SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0);
+            SetVBlankCallback(NULL);
+            ScanlineEffect_Stop();
+            DmaClear16(3, PLTT, PLTT_SIZE);
+            DmaFillLarge16(3, 0, (void*)VRAM, VRAM_SIZE, 0x1000);
+            break;
+        case 1:
+            ResetSpriteData();
+            ResetTasks();
+            ResetPaletteFade();
+            ScanlineEffect_Clear();
+            break;
+        case 2:
+            ResetBgsAndClearDma3BusyFlags(0);
+            InitBgsFromTemplates(0, sBgTemplates_LinkBattleSave, ARRAY_COUNT(sBgTemplates_LinkBattleSave));
+            InitWindows(sWindowTemplates_LinkBattleSave);
+            LoadUserWindowBorderGfx_(0, 8, BG_PLTT_ID(14));
+            Menu_LoadStdPalAt(BG_PLTT_ID(15));
+            break;
+        case 3:
+            ShowBg(0);
+            BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
+            SetVBlankCallback(VBlankCB_LinkBattleSave);
+            EnableInterrupts(1);
+            break;
+        case 4:
+            return TRUE;
     }
 
     (*state)++;
@@ -1311,76 +1308,76 @@ static void CB2_SaveAfterLinkBattle(void)
 
 static void Task_SaveAfterLinkBattle(u8 taskId)
 {
-    s16 *state = gTasks[taskId].data;
+    s16* state = gTasks[taskId].data;
 
     if (!gPaletteFade.active)
     {
         switch (*state)
         {
-        case 0:
-            FillWindowPixelBuffer(0, PIXEL_FILL(1));
-            AddTextPrinterParameterized2(0,
-                                        FONT_NORMAL,
-                                        gText_SavingDontTurnOffPower,
-                                        TEXT_SKIP_DRAW,
-                                        NULL,
-                                        TEXT_COLOR_DARK_GRAY,
-                                        TEXT_COLOR_WHITE,
-                                        TEXT_COLOR_LIGHT_GRAY);
-            DrawTextBorderOuter(0, 8, 14);
-            PutWindowTilemap(0);
-            CopyWindowToVram(0, COPYWIN_FULL);
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+            case 0:
+                FillWindowPixelBuffer(0, PIXEL_FILL(1));
+                AddTextPrinterParameterized2(0,
+                                            FONT_NORMAL,
+                                            gText_SavingDontTurnOffPower,
+                                            TEXT_SKIP_DRAW,
+                                            NULL,
+                                            TEXT_COLOR_DARK_GRAY,
+                                            TEXT_COLOR_WHITE,
+                                            TEXT_COLOR_LIGHT_GRAY);
+                DrawTextBorderOuter(0, 8, 14);
+                PutWindowTilemap(0);
+                CopyWindowToVram(0, COPYWIN_FULL);
+                BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
 
-            if (gWirelessCommType != 0 && InUnionRoom())
-            {
-                if (Link_AnyPartnersPlayingFRLG_JP())
+                if (gWirelessCommType != 0 && InUnionRoom())
                 {
-                    *state = 1;
+                    if (Link_AnyPartnersPlayingFRLG_JP())
+                    {
+                        *state = 1;
+                    }
+                    else
+                    {
+                        *state = 5;
+                    }
                 }
                 else
                 {
-                    *state = 5;
+                    gSoftResetDisabled = TRUE;
+                    *state = 1;
                 }
-            }
-            else
-            {
-                gSoftResetDisabled = TRUE;
-                *state = 1;
-            }
-            break;
-        case 1:
-            SetContinueGameWarpStatusToDynamicWarp();
-            WriteSaveBlock2();
-            *state = 2;
-            break;
-        case 2:
-            if (WriteSaveBlock1Sector())
-            {
-                ClearContinueGameWarpStatus2();
-                *state = 3;
-                gSoftResetDisabled = FALSE;
-            }
-            break;
-        case 3:
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-            *state = 4;
-            break;
-        case 4:
-            FreeAllWindowBuffers();
-            SetMainCallback2(gMain.savedCallback);
-            DestroyTask(taskId);
-            break;
-        case 5:
-            CreateTask(Task_LinkFullSave, 5);
-            *state = 6;
-            break;
-        case 6:
-            if (!FuncIsActiveTask(Task_LinkFullSave))
-            {
-                *state = 3;
-            }
-            break;
+                break;
+            case 1:
+                SetContinueGameWarpStatusToDynamicWarp();
+                WriteSaveBlock2();
+                *state = 2;
+                break;
+            case 2:
+                if (WriteSaveBlock1Sector())
+                {
+                    ClearContinueGameWarpStatus2();
+                    *state = 3;
+                    gSoftResetDisabled = FALSE;
+                }
+                break;
+            case 3:
+                BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+                *state = 4;
+                break;
+            case 4:
+                FreeAllWindowBuffers();
+                SetMainCallback2(gMain.savedCallback);
+                DestroyTask(taskId);
+                break;
+            case 5:
+                CreateTask(Task_LinkFullSave, 5);
+                *state = 6;
+                break;
+            case 6:
+                if (!FuncIsActiveTask(Task_LinkFullSave))
+                {
+                    *state = 3;
+                }
+                break;
         }
     }
 }
@@ -1488,7 +1485,7 @@ void HideStartMenu(void)
     HideStartMenuWindow();
 }
 
-void AppendToList(u8 *list, u8 *pos, u8 newEntry)
+void AppendToList(u8* list, u8* pos, u8 newEntry)
 {
     list[*pos] = newEntry;
     (*pos)++;
