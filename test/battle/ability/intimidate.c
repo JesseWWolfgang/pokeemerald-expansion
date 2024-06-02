@@ -107,9 +107,9 @@ SINGLE_BATTLE_TEST("Intimidate and Eject Button force the opponent to Attack")
         OPPONENT(SPECIES_HITMONTOP) { Moves(MOVE_TACKLE); }
     } WHEN {
         TURN {
-               MOVE(player, MOVE_QUICK_ATTACK);
-               MOVE(opponent, MOVE_TACKLE);
-               SEND_OUT(opponent, 1);
+           MOVE(player, MOVE_QUICK_ATTACK);
+           MOVE(opponent, MOVE_TACKLE);
+           SEND_OUT(opponent, 1);
         }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_QUICK_ATTACK, player);
@@ -182,5 +182,49 @@ DOUBLE_BATTLE_TEST("Intimidate activates immediately after the mon was switched 
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, playerLeft);
     } THEN {
         EXPECT_EQ(playerLeft->statStages[STAT_DEF], DEFAULT_STAT_STAGE + 1);
+    }
+}
+
+SINGLE_BATTLE_TEST("Intimidate can not further lower opponents Atk stat if it is at minimum stages")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); }
+    } WHEN {
+        TURN { MOVE(opponent, MOVE_CHARM); }
+        TURN { MOVE(opponent, MOVE_CHARM); }
+        TURN { MOVE(opponent, MOVE_CHARM); }
+        TURN { SWITCH(opponent, 1); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CHARM, opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CHARM, opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CHARM, opponent);
+        ABILITY_POPUP(opponent, ABILITY_INTIMIDATE);
+        NONE_OF {
+            ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, player);
+            MESSAGE("Foe Arbok's Intimidate cuts Wobbuffet's attack!");
+        }
+        MESSAGE("Wobbuffet's Attack won't go lower!");
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], MIN_STAT_STAGE);
+    }
+}
+
+SINGLE_BATTLE_TEST("Intimidate activates when it's no longer effected by Neutralizing Gas")
+{
+    GIVEN {
+        PLAYER(SPECIES_WEEZING) { Ability(ABILITY_NEUTRALIZING_GAS); }
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_ARBOK) { Ability(ABILITY_INTIMIDATE); }
+    } WHEN {
+        TURN { SWITCH(player, 1); }
+    } SCENE {
+        ABILITY_POPUP(player, ABILITY_NEUTRALIZING_GAS);
+        MESSAGE("Neutralizing Gas filled the area!");
+        MESSAGE("Weezing, that's enough! Come back!");
+        MESSAGE("The effects of Neutralizing Gas wore off!");
+        ABILITY_POPUP(opponent, ABILITY_INTIMIDATE);
+        MESSAGE("Go! Wobbuffet!");
     }
 }

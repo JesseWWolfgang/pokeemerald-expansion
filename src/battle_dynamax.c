@@ -24,29 +24,6 @@
 
 static u8 GetMaxPowerTier(u16 move);
 
-// Constant Data
-static const u16 sMaxMoveTable[NUMBER_OF_MON_TYPES] =
-{
-    [TYPE_NORMAL] = MOVE_MAX_STRIKE,
-    [TYPE_FIGHTING] = MOVE_MAX_KNUCKLE,
-    [TYPE_FLYING] = MOVE_MAX_AIRSTREAM,
-    [TYPE_POISON] = MOVE_MAX_OOZE,
-    [TYPE_GROUND] = MOVE_MAX_QUAKE,
-    [TYPE_ROCK] = MOVE_MAX_ROCKFALL,
-    [TYPE_BUG] = MOVE_MAX_FLUTTERBY,
-    [TYPE_GHOST] = MOVE_MAX_PHANTASM,
-    [TYPE_STEEL] = MOVE_MAX_STEELSPIKE,
-    [TYPE_FIRE] = MOVE_MAX_FLARE,
-    [TYPE_WATER] = MOVE_MAX_GEYSER,
-    [TYPE_GRASS] = MOVE_MAX_OVERGROWTH,
-    [TYPE_ELECTRIC] = MOVE_MAX_LIGHTNING,
-    [TYPE_PSYCHIC] = MOVE_MAX_MINDSTORM,
-    [TYPE_ICE] = MOVE_MAX_HAILSTORM,
-    [TYPE_DRAGON] = MOVE_MAX_WYRMWIND,
-    [TYPE_DARK] = MOVE_MAX_DARKNESS,
-    [TYPE_FAIRY] = MOVE_MAX_STARFALL,
-};
-
 struct GMaxMove
 {
     u16 species;
@@ -230,6 +207,7 @@ void UndoDynamax(u16 battlerId)
         u16 mult = UQ_4_12(1.0/1.5); // placeholder
         gBattleMons[battlerId].hp = UQ_4_12_TO_INT((GetMonData(mon, MON_DATA_HP) * mult + 1) + UQ_4_12_ROUND); // round up
         SetMonData(mon, MON_DATA_HP, &gBattleMons[battlerId].hp);
+        CalculateMonStats(mon);
     }
 
     // Makes sure there are no Dynamax flags set, including on switch / faint.
@@ -305,9 +283,9 @@ static u16 GetTypeBasedMaxMove(u16 battlerId, u16 type)
     }
 
     // Regular Max Move
-    if (sMaxMoveTable[type] == MOVE_NONE) // failsafe
-        return sMaxMoveTable[0];
-    return sMaxMoveTable[type];
+    if (gTypesInfo[type].maxMove == MOVE_NONE) // failsafe
+        return gTypesInfo[0].maxMove;
+    return gTypesInfo[type].maxMove;
 }
 
 // Returns the appropriate Max Move or G-Max Move for a battler to use.
@@ -542,21 +520,6 @@ static u32 GetMaxMoveStatusEffect(u16 move)
     }
 }
 
-// CALLNATIVE FUNCTIONS
-#define CMD_ARGS(...) const struct __attribute__((packed)) { u8 opcode; MEMBERS(__VA_ARGS__) const u8 nextInstr[0]; } *const cmd  = (const void *)gBattlescriptCurrInstr
-#define NATIVE_ARGS(...) CMD_ARGS(void (*func)(void), ##__VA_ARGS__)
-
-#define MEMBERS(...) VARARG_8(MEMBERS_, __VA_ARGS__)
-#define MEMBERS_0()
-#define MEMBERS_1(a) a;
-#define MEMBERS_2(a, b) a; b;
-#define MEMBERS_3(a, b, c) a; b; c;
-#define MEMBERS_4(a, b, c, d) a; b; c; d;
-#define MEMBERS_5(a, b, c, d, e) a; b; c; d; e;
-#define MEMBERS_6(a, b, c, d, e, f) a; b; c; d; e; f;
-#define MEMBERS_7(a, b, c, d, e, f, g) a; b; c; d; e; f; g;
-#define MEMBERS_8(a, b, c, d, e, f, g, h) a; b; c; d; e; f; g; h;
-
 // Updates Dynamax HP multipliers and healthboxes.
 void BS_UpdateDynamax(void)
 {
@@ -637,7 +600,7 @@ void BS_SetMaxMoveEffect(void)
         case MAX_EFFECT_SANDSTORM:
         case MAX_EFFECT_HAIL:
         {
-            u8 weather, msg;
+            u8 weather = 0, msg = 0;
             switch (maxEffect)
             {
                 case MAX_EFFECT_SUN:

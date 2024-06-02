@@ -28,6 +28,7 @@ enum {
     MON_DATA_HP_LOST,
     MON_DATA_ENCRYPT_SEPARATOR,
     MON_DATA_NICKNAME,
+    MON_DATA_NICKNAME10,
     MON_DATA_SPECIES,
     MON_DATA_HELD_ITEM,
     MON_DATA_MOVE1,
@@ -392,9 +393,9 @@ struct SpeciesInfo /*0x8C*/
  /* 0x38 */ u16 trainerScale;
  /* 0x3A */ u16 trainerOffset;
  /* 0x3C */ const u8 *description;
- /* 0x40 */ u8 bodyColor : 7;
+ /* 0x40 */ u8 bodyColor:7;
             // Graphical Data
-            u8 noFlip : 1;
+            u8 noFlip:1;
  /* 0x41 */ u8 frontAnimDelay;
  /* 0x42 */ u8 frontAnimId;
  /* 0x43 */ u8 backAnimId;
@@ -427,7 +428,8 @@ struct SpeciesInfo /*0x8C*/
  /* 0x7A */ u32 isLegendary:1;
             u32 isMythical:1;
             u32 isUltraBeast:1;
-            u32 isParadoxForm:1;
+            u32 isParadox:1;
+            u32 isTotem:1;
             u32 isMegaEvolution:1;
             u32 isPrimalReversion:1;
             u32 isUltraBurst:1;
@@ -439,11 +441,13 @@ struct SpeciesInfo /*0x8C*/
             u32 cannotBeTraded:1;
             u32 allPerfectIVs:1;
             u32 dexForceRequired:1; // This species will be taken into account for Pokédex ratings even if they have the "isMythical" flag set.
-            u32 tmIlliterate:1; // This species will be unable to learn the universal moves.
-            u32 padding4:16;
+            u32 tmIlliterate:1;     // This species will be unable to learn the universal moves.
+            u32 isFrontierBanned:1; // This species is not allowed to participate in Battle Frontier facilities.
+            u32 padding4:14;
             // Move Data
  /* 0x80 */ const struct LevelUpMove *levelUpLearnset;
  /* 0x84 */ const u16 *teachableLearnset;
+            const u16 *eggMoveLearnset;
  /* 0x88 */ const struct Evolution *evolutions;
  /* 0x84 */ const u16 *formSpeciesIdTable;
  /* 0x84 */ const struct FormChange *formChangeTable;
@@ -470,7 +474,8 @@ struct MoveInfo
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
     u32 criticalHitStage:2;
     u32 alwaysCriticalHit:1;
-    // 14 bits left to complete this word - continues into flags
+    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
+    // 12 bits left to complete this word - continues into flags
 
     // Flags
     u32 makesContact:1;
@@ -515,26 +520,23 @@ struct MoveInfo
     u32 parentalBondBanned:1;
     u32 skyBattleBanned:1;
     u32 sketchBanned:1;
+    u32 padding:5; // end of word
 
     u32 argument;
 
     // primary/secondary effects
-    uintptr_t additionalEffects;
+    const struct AdditionalEffect *additionalEffects;
 
     // contest parameters
     u8 contestEffect;
     u8 contestCategory:3;
     u8 contestComboStarterId;
     u8 contestComboMoves[MAX_COMBO_MOVES];
+    const u8 *battleAnimScript;
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
-#define ADDITIONAL_EFFECTS(...) ((min(ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ )), 15)) << 28) + (uintptr_t)(EFFECTS_ARR( __VA_ARGS__ ))
-
-// Retrieve a move's additional effects and the count thereof
-#define GET_ADDITIONAL_EFFECTS(move) (void *)(gMovesInfo[move].additionalEffects & 0x8FFFFFF)
-#define GET_ADDITIONAL_EFFECT_COUNT(move) (gMovesInfo[move].additionalEffects >> 28)
-#define GET_ADDITIONAL_EFFECTS_AND_COUNT(move, _count, _effects) u32 _count = GET_ADDITIONAL_EFFECT_COUNT(move); const struct AdditionalEffect *_effects = GET_ADDITIONAL_EFFECTS(move)
+#define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
 
 // Just a hack to make a move boosted by Sheer Force despite having no secondary effects affected
 #define SHEER_FORCE_HACK { .moveEffect = 0, .chance = 100, }
@@ -560,6 +562,66 @@ struct Ability
     u8 cantBeOverwritten:1; // cannot be overwritten by Entrainment, Worry Seed or Simple Beam (but can be by Mummy) - same as cantBeSuppressed except for Truant
     u8 breakable:1; // can be bypassed by Mold Breaker and clones
     u8 failsOnImposter:1; // doesn't work on an Imposter mon; when can we actually use this?
+};
+
+enum {
+    AFFINE_NONE,
+    AFFINE_TURN_UP,
+    AFFINE_TURN_UP_AND_DOWN,
+    AFFINE_TURN_DOWN,
+    AFFINE_TURN_DOWN_SLOW,
+    AFFINE_TURN_DOWN_SLIGHT,
+    AFFINE_TURN_UP_HIGH,
+    AFFINE_UNUSED_1,
+    AFFINE_UNUSED_2,
+    AFFINE_UNUSED_3,
+    NUM_MON_AFFINES,
+};
+
+// The animation the Pokémon does during the feeding scene depends on their nature.
+// The below values are offsets into sMonPokeblockAnims of the animation data for that nature.
+#define ANIM_HARDY   0
+#define ANIM_LONELY  (ANIM_HARDY + 3)
+#define ANIM_BRAVE   (ANIM_LONELY + 1)
+#define ANIM_ADAMANT (ANIM_BRAVE + 1)
+#define ANIM_NAUGHTY (ANIM_ADAMANT + 5)
+#define ANIM_BOLD    (ANIM_NAUGHTY + 3)
+#define ANIM_DOCILE  (ANIM_BOLD + 2)
+#define ANIM_RELAXED (ANIM_DOCILE + 1)
+#define ANIM_IMPISH  (ANIM_RELAXED + 2)
+#define ANIM_LAX     (ANIM_IMPISH + 1)
+#define ANIM_TIMID   (ANIM_LAX + 1)
+#define ANIM_HASTY   (ANIM_TIMID + 5)
+#define ANIM_SERIOUS (ANIM_HASTY + 2)
+#define ANIM_JOLLY   (ANIM_SERIOUS + 1)
+#define ANIM_NAIVE   (ANIM_JOLLY + 1)
+#define ANIM_MODEST  (ANIM_NAIVE + 4)
+#define ANIM_MILD    (ANIM_MODEST + 3)
+#define ANIM_QUIET   (ANIM_MILD + 1)
+#define ANIM_BASHFUL (ANIM_QUIET + 2)
+#define ANIM_RASH    (ANIM_BASHFUL + 3)
+#define ANIM_CALM    (ANIM_RASH + 3)
+#define ANIM_GENTLE  (ANIM_CALM + 1)
+#define ANIM_SASSY   (ANIM_GENTLE + 1)
+#define ANIM_CAREFUL (ANIM_SASSY + 1)
+#define ANIM_QUIRKY  (ANIM_CAREFUL + 5)
+
+// In palace double battles, Pokémon have a target preference depending on nature
+#define PALACE_TARGET_STRONGER 0
+#define PALACE_TARGET_WEAKER   1
+#define PALACE_TARGET_RANDOM   2
+
+struct NatureInfo
+{
+    const u8 *name;
+    u8 statUp;
+    u8 statDown;
+    u8 backAnim;
+    u8 pokeBlockAnim[2];
+    u8 battlePalacePercents[4];
+    u8 battlePalaceFlavorText;
+    u8 battlePalaceSmokescreen;
+    const u8 *natureGirlMessage;
 };
 
 #define SPINDA_SPOT_WIDTH 16
@@ -627,9 +689,9 @@ extern const u8 gPPUpAddValues[];
 extern const u8 gStatStageRatios[MAX_STAT_STAGE + 1][2];
 extern const u16 gUnionRoomFacilityClasses[];
 extern const struct SpriteTemplate gBattlerSpriteTemplates[];
-extern const s8 gNatureStatTable[][5];
 extern const u32 sExpCandyExperienceTable[];
 extern const struct Ability gAbilitiesInfo[];
+extern const struct NatureInfo gNaturesInfo[];
 
 void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
@@ -663,8 +725,6 @@ void SetMonMoveSlot(struct Pokemon *mon, u16 move, u8 slot);
 void SetBattleMonMoveSlot(struct BattlePokemon *mon, u16 move, u8 slot);
 void GiveMonInitialMoveset(struct Pokemon *mon);
 void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);
-void GiveMonInitialMoveset_Fast(struct Pokemon *mon);
-void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon);
 u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove);
 void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move);
 void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
@@ -714,6 +774,7 @@ u16 GetSpeciesHeight(u16 species);
 u16 GetSpeciesWeight(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
 const u16 *GetSpeciesTeachableLearnset(u16 species);
+const u16 *GetSpeciesEggMoves(u16 species);
 const struct Evolution *GetSpeciesEvolutions(u16 species);
 const u16 *GetSpeciesFormTable(u16 species);
 const struct FormChange *GetSpeciesFormChanges(u16 species);
@@ -809,5 +870,6 @@ u16 GetSpeciesPreEvolution(u16 species);
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
 const u8 *GetMoveName(u16 moveId);
+const u8 *GetMoveAnimationScript(u16 moveId);
 
 #endif // GUARD_POKEMON_H
