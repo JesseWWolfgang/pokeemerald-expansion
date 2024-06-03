@@ -213,7 +213,7 @@ BattleScript_TrainerBallBlock::
 
 BattleScript_MonCatchAndReturnBall::
 	printstring STRINGID_THEBALLWASCAUGHT
-	playanimation BS_ATTACKER, B_ANIM_BALL_CAUGHT_AND_RETURNED
+	playanimation BS_TARGET, B_ANIM_BALL_CAUGHT_AND_RETURNED
 	printstring STRINGID_THEBALLWASHANDEDBACK
 	waitmessage B_WAIT_TIME_LONG
 	finishaction
